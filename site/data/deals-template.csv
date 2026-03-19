@@ -1,0 +1,13 @@
+property_name,city,state,lat,lng,price,price_display,units,type,year,notes
+Columbine Village Apartments,Arvada,CO,39.8028,-105.0875,44750000,$44.75M,232,affordable,2023,Senior LIHTC
+Fox Meadows Apartments,Fort Collins,CO,40.5853,-105.0844,36800000,$36.8M,138,affordable,2023,Partial LIHTC
+Platte River Commons,Denver,CO,39.7515,-104.9962,28400000,$28.4M,142,market-rate,2023,Core-Plus
+Elevate Apartment Homes,Colorado Springs,CO,38.8339,-104.8214,29000000,$29.0M,192,market-rate,2021,Value-Add
+The Palmer Park,Colorado Springs,CO,38.8714,-104.7526,26100000,$26.1M,200,market-rate,2021,Value-Add
+RiNo Flats,Denver,CO,39.7651,-104.9747,18900000,$18.9M,64,market-rate,2024,Core-Plus
+Willowbrook Apartments,Westminster,CO,39.8367,-105.0372,16550000,$16.55M,95,market-rate,2021,Value-Add
+Prairie Wind Flats,Cheyenne,WY,41.1400,-104.8202,11200000,$11.2M,78,market-rate,2024,Market-Rate
+Pikes Peak Village,Colorado Springs,CO,38.8590,-104.8614,12800000,$12.8M,104,affordable,2023,Affordable
+RS Apartments,Rock Springs,WY,41.5875,-109.2029,0,Confidential,306,market-rate,2022,Market-Rate
+Courtyard at Weston Ridge,Littleton,CO,39.6133,-105.0166,5200000,$5.2M,30,market-rate,2020,Value-Add
+University Flats Phase I,Greeley,CO,40.4233,-104.7091,0,Confidential,93,student,2025,Student Housing

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorado & Wyoming Multifamily Markets | Denver Apartment Investment Sales | Stack Morkes Group</title>
+<meta name="description" content="Stack Morkes Group covers multifamily investment sales across all major Colorado markets — Denver, Colorado Springs, Fort Collins, Boulder — plus Wyoming markets including Cheyenne and Casper.">
+<link rel="canonical" href="https://www.comultifamily.com/markets/">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.markets-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--border-soft);
+  margin-top: 56px;
+}
+.market-card {
+  background: var(--bg-card);
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+  text-decoration: none;
+  display: block;
+}
+.market-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+}
+.market-card:hover { background: rgba(201,168,76,0.03); }
+.market-card:hover::before { transform: scaleY(1); }
+
+.market-card-state {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.market-card-city {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+.market-card-desc {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.market-card-stats {
+  display: flex;
+  gap: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-soft);
+  margin-bottom: 20px;
+}
+.mcs-val {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.mcs-lbl {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+.market-card-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s;
+}
+.market-card:hover .market-card-link { gap: 10px; }
+
+.wyoming-banner {
+  background: linear-gradient(120deg, var(--bg-alt) 0%, #0d2040 100%);
+  border: 1px solid var(--border);
+  padding: 48px 56px;
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+.wyoming-banner h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.wyoming-banner p {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+@media(max-width:1024px){
+  .markets-layout{ grid-template-columns:1fr; }
+  .wyoming-banner{ grid-template-columns:1fr; padding:36px; }
+}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="page-hero page-hero--inner">
+  <div class="page-hero-bg" style="background-image:url('../images/Denver_Skyline_iStock.jpg');background-position:center 60%;"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Geographic Coverage</span></div>
+    <h1>Colorado &amp; Wyoming<br>Multifamily Markets</h1>
+    <p class="page-hero-sub">We cover fifteen markets across two states — and we've transacted in all of them. Whether you own apartments in Denver or Gillette, we know who's buying, what they'll pay, and how to run a process that gets you there.</p>
+  </div>
+</div>
+
+<section class="section section--light">
+  <div class="section-inner">
+    <div class="section-tag reveal">Colorado Markets</div>
+    <h2 class="section-h2 reveal">Where We Work</h2>
+    <div class="markets-layout">
+
+      <a href="denver.html" class="market-card reveal">
+        <div class="market-card-state">Colorado — Primary Market</div>
+        <div class="market-card-city">Denver Metro</div>
+        <div class="market-card-desc">Colorado's largest and most liquid multifamily investment market. From RiNo to Aurora to the Tech Center — we've closed in every submarket. Denver consistently attracts national institutional buyers, creating competitive tension that drives strong outcomes for sellers.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">750K+</div><div class="mcs-lbl">Metro Population</div></div>
+          <div><div class="mcs-val">3M+</div><div class="mcs-lbl">MSA Population</div></div>
+          <div><div class="mcs-val">#1</div><div class="mcs-lbl">CO Market</div></div>
+        </div>
+        <span class="market-card-link">Denver Market Report →</span>
+      </a>
+
+      <a href="boulder.html" class="market-card reveal reveal-delay-1">
+        <div class="market-card-state">Colorado — Boulder County</div>
+        <div class="market-card-city">Boulder</div>
+        <div class="market-card-desc">One of the most supply-constrained rental markets in the nation. Growth boundaries and strict land use policy severely limit new development, creating persistent undersupply. Institutional quality assets with exceptional long-term rent growth fundamentals.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">105K+</div><div class="mcs-lbl">City Population</div></div>
+          <div><div class="mcs-val">CU</div><div class="mcs-lbl">University of CO</div></div>
+          <div><div class="mcs-val">Low</div><div class="mcs-lbl">Supply Pipeline</div></div>
+        </div>
+        <span class="market-card-link">Boulder Market Report →</span>
+      </a>
+
+      <a href="fort-collins.html" class="market-card reveal reveal-delay-2">
+        <div class="market-card-state">Colorado — Northern Front Range</div>
+        <div class="market-card-city">Fort Collins</div>
+        <div class="market-card-desc">Northern Colorado's largest city benefits from Colorado State University, a growing craft beverage and tech sector, and strong household formation. One of Colorado's most desirable mid-size rental markets with consistent demand and limited new supply.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">170K+</div><div class="mcs-lbl">City Population</div></div>
+          <div><div class="mcs-val">CSU</div><div class="mcs-lbl">University Anchor</div></div>
+          <div><div class="mcs-val">35K+</div><div class="mcs-lbl">Students</div></div>
+        </div>
+        <span class="market-card-link">Fort Collins Report →</span>
+      </a>
+
+      <a href="greeley.html" class="market-card reveal">
+        <div class="market-card-state">Colorado — Weld County</div>
+        <div class="market-card-city">Greeley</div>
+        <div class="market-card-desc">Weld County's largest city offers some of the strongest yield on the Front Range, driven by energy, agriculture, UNC enrollment, and consistent demand spillover from pricier northern Colorado markets. A compelling value-add opportunity often overlooked by institutional capital.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">330K+</div><div class="mcs-lbl">Metro Population</div></div>
+          <div><div class="mcs-val">UNC</div><div class="mcs-lbl">University Anchor</div></div>
+          <div><div class="mcs-val">High</div><div class="mcs-lbl">Relative Yield</div></div>
+        </div>
+        <span class="market-card-link">Greeley Market Report →</span>
+      </a>
+
+      <a href="colorado-springs.html" class="market-card reveal reveal-delay-1">
+        <div class="market-card-state">Colorado — Front Range</div>
+        <div class="market-card-city">Colorado Springs</div>
+        <div class="market-card-desc">Colorado's second-largest city benefits from strong military presence, a growing tech sector, and steady in-migration from Denver. Historically attractive yields relative to Denver make it a compelling value-add market for middle-market buyers.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">470K+</div><div class="mcs-lbl">City Population</div></div>
+          <div><div class="mcs-val">5</div><div class="mcs-lbl">Military Bases</div></div>
+          <div><div class="mcs-val">#2</div><div class="mcs-lbl">CO Market</div></div>
+        </div>
+        <span class="market-card-link">Colorado Springs Report →</span>
+      </a>
+
+      <a href="western-slope.html" class="market-card reveal reveal-delay-2">
+        <div class="market-card-state">Colorado — Western Slope</div>
+        <div class="market-card-city">Western Slope</div>
+        <div class="market-card-desc">Grand Junction, Montrose, Durango and beyond. Western Colorado's markets operate independently of Front Range competition — offering above-average yields, constrained supply, and demand driven by energy, agriculture, outdoor recreation, and in-migration.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">170K+</div><div class="mcs-lbl">GJ Metro Pop.</div></div>
+          <div><div class="mcs-val">CMU</div><div class="mcs-lbl">University Anchor</div></div>
+          <div><div class="mcs-val">Above</div><div class="mcs-lbl">Front Range Yield</div></div>
+        </div>
+        <span class="market-card-link">Western Slope Report →</span>
+      </a>
+
+      <a href="mountain-towns.html" class="market-card reveal">
+        <div class="market-card-state">Colorado &amp; Wyoming — Resort Markets</div>
+        <div class="market-card-city">Mountain Towns</div>
+        <div class="market-card-desc">Jackson Hole, Steamboat Springs, Vail, Edwards, Aspen, Durango and beyond. Constrained supply, persistent workforce housing demand, and a buyer pool that looks nothing like Denver or Cheyenne.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">12+</div><div class="mcs-lbl">Markets Covered</div></div>
+          <div><div class="mcs-val">CO · WY</div><div class="mcs-lbl">States</div></div>
+          <div><div class="mcs-val">Active</div><div class="mcs-lbl">Listings Now</div></div>
+        </div>
+        <span class="market-card-link">Mountain Market Report →</span>
+      </a>
+
+    
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="section-tag reveal">Wyoming Markets</div>
+    <h2 class="section-h2 reveal">The Market Others<br>Won't Cover</h2>
+    <p class="section-lead reveal">Most Colorado-based multifamily brokers stop at the state line. We don't. Wyoming's no-income-tax environment, landlord-friendly legal framework, and cap rates 150–300 basis points above Denver attract a specific profile of cash-flow-focused investor — and we know exactly who those buyers are.</p>
+
+    <div class="markets-layout" style="margin-top:40px;">
+
+      <a href="cheyenne.html" class="market-card reveal">
+        <div class="market-card-state">Wyoming — Primary Market</div>
+        <div class="market-card-city">Cheyenne</div>
+        <div class="market-card-desc">Wyoming's capital city offers government employment stability, favorable landlord-tenant dynamics, and strong cash-on-cash returns. Assets typically trade at yields that are difficult to find in Colorado's major markets.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">65K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">State</div><div class="mcs-lbl">Capital City</div></div>
+          <div><div class="mcs-val">No</div><div class="mcs-lbl">State Income Tax</div></div>
+        </div>
+        <span class="market-card-link">Cheyenne Market Report →</span>
+      </a>
+
+      <a href="laramie.html" class="market-card reveal reveal-delay-1">
+        <div class="market-card-state">Wyoming — Albany County</div>
+        <div class="market-card-city">Laramie</div>
+        <div class="market-card-desc">Home to the University of Wyoming — the state's only four-year research university. Laramie's rental market is anchored by 12,000+ students and delivers stable occupancy, above-market yields, and a supply pipeline so constrained that existing owners face virtually no new competition.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">32K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">UW</div><div class="mcs-lbl">University Anchor</div></div>
+          <div><div class="mcs-val">Limited</div><div class="mcs-lbl">Supply Pipeline</div></div>
+        </div>
+        <span class="market-card-link">Laramie Market Report →</span>
+      </a>
+
+      <a href="casper.html" class="market-card reveal reveal-delay-2">
+        <div class="market-card-state">Wyoming — Central Wyoming</div>
+        <div class="market-card-city">Casper</div>
+        <div class="market-card-desc">Wyoming's second-largest city with an economy anchored by energy, healthcare, and retail. Casper offers strong cash-on-cash returns, a diversified employment base, and a buyer pool of experienced Wyoming operators seeking yield above Colorado markets.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">57K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">Energy</div><div class="mcs-lbl">Economic Driver</div></div>
+          <div><div class="mcs-val">High</div><div class="mcs-lbl">Relative Yield</div></div>
+        </div>
+        <span class="market-card-link">Casper Market Report →</span>
+      </a>
+
+      <a href="rock-springs.html" class="market-card reveal">
+        <div class="market-card-state">Wyoming — Sweetwater County</div>
+        <div class="market-card-city">Rock Springs</div>
+        <div class="market-card-desc">Southwest Wyoming's energy hub, driven by Jonah Field gas production and trona mining. Rock Springs delivers some of the highest cap rates in our coverage area for buyers who understand energy market dynamics and Wyoming's cost-efficient operating environment.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">23K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">Energy</div><div class="mcs-lbl">Economic Driver</div></div>
+          <div><div class="mcs-val">High</div><div class="mcs-lbl">Cap Rate</div></div>
+        </div>
+        <span class="market-card-link">Rock Springs Report →</span>
+      </a>
+
+      <a href="gillette.html" class="market-card reveal reveal-delay-1">
+        <div class="market-card-state">Wyoming — Campbell County</div>
+        <div class="market-card-city">Gillette</div>
+        <div class="market-card-desc">Wyoming's energy capital — the largest coal-producing county in the U.S. Persistent workforce housing demand, high yields, and Wyoming's landlord-friendly legal framework make Gillette a compelling market for experienced energy-market operators.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">32K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">Coal / Oil</div><div class="mcs-lbl">Economic Driver</div></div>
+          <div><div class="mcs-val">High</div><div class="mcs-lbl">Cap Rate</div></div>
+        </div>
+        <span class="market-card-link">Gillette Market Report →</span>
+      </a>
+
+      <a href="sheridan.html" class="market-card reveal reveal-delay-2">
+        <div class="market-card-state">Wyoming — Sheridan County</div>
+        <div class="market-card-city">Sheridan</div>
+        <div class="market-card-desc">Consistently ranked among the most livable small cities in the West, Sheridan is attracting remote workers, retirees, and entrepreneurs — creating demand dynamics that differ meaningfully from traditional Wyoming energy markets. Limited supply and improving fundamentals.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">18K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">Growing</div><div class="mcs-lbl">In-Migration</div></div>
+          <div><div class="mcs-val">Limited</div><div class="mcs-lbl">Supply Pipeline</div></div>
+        </div>
+        <span class="market-card-link">Sheridan Market Report →</span>
+      </a>
+
+      <a href="jackson.html" class="market-card reveal">
+        <div class="market-card-state">Wyoming — Teton County</div>
+        <div class="market-card-city">Jackson</div>
+        <div class="market-card-desc">The most supply-constrained rental market in Wyoming. Grand Teton National Park and strict land use policy have permanently capped developable land in a valley with world-class amenities and a severe workforce housing shortage. Assets trade at a premium — and rarely.</div>
+        <div class="market-card-stats">
+          <div><div class="mcs-val">10K+</div><div class="mcs-lbl">Population</div></div>
+          <div><div class="mcs-val">Severe</div><div class="mcs-lbl">Supply Constraint</div></div>
+          <div><div class="mcs-val">Premium</div><div class="mcs-lbl">Asset Pricing</div></div>
+        </div>
+        <span class="market-card-link">Jackson Market Report →</span>
+      </a>
+
+    
+    </div>
+
+    <div class="wyoming-banner reveal">
+      <div>
+        <h3>Why Wyoming?</h3>
+        <p>No state income tax. Favorable landlord-tenant law. Yields that are increasingly rare in Colorado. Wyoming multifamily doesn't attract many institutional brokers — which means less competition for your listing and more value for you at close.</p>
+      </div>
+      <a href="../contact.html" class="btn btn-gold">Discuss Your WY Asset →</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script>
+// Fix paths for subdirectory
+document.addEventListener('DOMContentLoaded', () => {});
+</script>
+<script src="../js/shared.js"></script>
+<script>
+// Override footer/nav paths for markets subdirectory
+</script>
+</body>
+</html>

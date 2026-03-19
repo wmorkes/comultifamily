@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multifamily Market Reports & Resources | Stack Morkes Group | Colliers Colorado</title>
+<meta name="description" content="Colorado and Wyoming multifamily market reports, sales comps, rent comps, and investment analysis from Stack Morkes Group at Colliers. Denver and Colorado Springs quarterly reports available.">
+<link rel="canonical" href="https://www.comultifamily.com/resources.html">
+<link rel="stylesheet" href="css/style.css">
+<style>
+
+/* ── QUARTERLY REPORTS ─────────────────────────────────── */
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--border-soft);
+  margin-top: 48px;
+}
+.report-card {
+  background: var(--bg-card);
+  padding: 40px 36px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.report-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+}
+.report-icon {
+  width: 48px; height: 60px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+.report-market {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.report-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.report-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  flex: 1;
+}
+.report-covers {
+  margin-bottom: 24px;
+}
+.report-covers-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+.report-covers-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.report-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+}
+.report-meta {
+  font-size: 11px;
+  color: var(--text-soft);
+  border-top: 1px solid var(--border-soft);
+  padding-top: 14px;
+  margin-bottom: 16px;
+}
+
+/* ── ON-REQUEST GRID ───────────────────────────────────── */
+.request-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--border-soft);
+  margin-top: 48px;
+}
+.request-card {
+  background: var(--bg-card);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.request-icon-wrap {
+  width: 44px;
+  height: 44px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201,168,76,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  color: var(--gold);
+}
+.request-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.request-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-soft);
+  line-height: 1.8;
+  flex: 1;
+  margin-bottom: 20px;
+}
+.request-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s;
+}
+.request-link:hover { gap: 10px; }
+
+/* ── SUBSCRIBE ─────────────────────────────────────────── */
+.subscribe-block {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  padding: 56px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.subscribe-block h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.subscribe-block p {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+}
+.subscribe-reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.subscribe-report-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.subscribe-report-item::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.subscribe-form input {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.subscribe-form input::placeholder { color: rgba(255,255,255,0.3); }
+.subscribe-form input:focus { border-color: var(--gold); }
+.subscribe-form button {
+  padding: 14px 22px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.subscribe-form button:hover { background: var(--gold-light); }
+.subscribe-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 4px;
+}
+
+@media(max-width:1024px){
+  .reports-grid { grid-template-columns: 1fr; }
+  .request-grid { grid-template-columns: 1fr; }
+  .subscribe-block { grid-template-columns: 1fr; padding: 40px; gap: 40px; }
+}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<div class="page-hero page-hero--inner">
+  <div class="page-hero-bg" style="background-image:url('images/Hero__Interior_2.jpg');background-position:center 50%;"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Market Intelligence</span></div>
+    <h1>Reports &amp;<br>Resources</h1>
+    <p class="page-hero-sub">Quarterly market reports for Denver and Colorado Springs — plus on-request research, comp reports, and investment analysis across our full Colorado and Wyoming coverage area.</p>
+  </div>
+</div>
+
+<!-- QUARTERLY REPORTS -->
+<section class="section section--light">
+  <div class="section-inner">
+    <div class="section-tag reveal">Quarterly Reports</div>
+    <h2 class="section-h2 reveal">What We Publish</h2>
+    <p class="section-lead reveal">Twice a year we publish dedicated market reports for Denver and Colorado Springs — the two markets where our transaction volume and data access are deepest. Subscribe below to receive them directly.</p>
+
+    <div class="reports-grid">
+
+      <div class="report-card reveal">
+        <div class="report-icon">PDF</div>
+        <div class="report-market">Colorado — Denver Metro</div>
+        <div class="report-title">Denver Multifamily<br>Market Report</div>
+        <p class="report-desc">Cap rates by submarket, vacancy trends, rent growth, new supply pipeline, and recent transaction activity across the Denver metro area. Published quarterly — the data we use to counsel our own clients.</p>
+        <div class="report-covers">
+          <div class="report-covers-label">Covers</div>
+          <div class="report-covers-list">
+            <span class="report-tag">Cap Rates</span>
+            <span class="report-tag">Vacancy</span>
+            <span class="report-tag">Rent Growth</span>
+            <span class="report-tag">Supply Pipeline</span>
+            <span class="report-tag">Transaction Activity</span>
+          </div>
+        </div>
+        <div class="report-meta">Published Quarterly · Denver Metro</div>
+        <a href="#subscribe" class="btn btn-gold" style="font-size:11px;padding:10px 22px;align-self:flex-start;">Subscribe to Receive →</a>
+      </div>
+
+      <div class="report-card reveal reveal-delay-1">
+        <div class="report-icon">PDF</div>
+        <div class="report-market">Colorado — Front Range</div>
+        <div class="report-title">Colorado Springs<br>Market Report</div>
+        <p class="report-desc">Military market fundamentals, cap rate trends, vacancy by submarket, and transaction data in the Pikes Peak region. One of Colorado's most active value-add markets — tracked in detail every quarter.</p>
+        <div class="report-covers">
+          <div class="report-covers-label">Covers</div>
+          <div class="report-covers-list">
+            <span class="report-tag">Cap Rates</span>
+            <span class="report-tag">Vacancy</span>
+            <span class="report-tag">Rent Growth</span>
+            <span class="report-tag">Military Impact</span>
+            <span class="report-tag">Transaction Activity</span>
+          </div>
+        </div>
+        <div class="report-meta">Published Quarterly · Pikes Peak Region</div>
+        <a href="#subscribe" class="btn btn-gold" style="font-size:11px;padding:10px 22px;align-self:flex-start;">Subscribe to Receive →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ON REQUEST -->
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="section-tag reveal">On Request</div>
+    <h2 class="section-h2 reveal">What We Can<br><em>Pull for You</em></h2>
+    <p class="section-lead reveal">Beyond our quarterly reports, we have access to institutional-grade research and data across our full coverage area. If you need something specific — ask. These are tools we use in our own advisory work and make available to clients and prospects at no cost.</p>
+
+    <div class="request-grid">
+
+      <div class="request-card reveal">
+        <div class="request-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="request-title">National &amp; Regional Research</div>
+        <p class="request-desc">Colliers publishes institutional-grade multifamily research at the national and regional level — capital markets outlooks, interest rate analysis, sector forecasts, and comparative market data across major metros. We can share the reports most relevant to your market and investment profile.</p>
+        <a href="contact.html#resource" class="request-link">Request Research →</a>
+      </div>
+
+      <div class="request-card reveal reveal-delay-1">
+        <div class="request-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="request-title">Sales Comp Reports</div>
+        <p class="request-desc">Actual closed transaction data for your submarket — price per unit, cap rate, GRM, buyer profile, and financing terms. Whether you're preparing to sell, underwriting an acquisition, or benchmarking your current hold, we can pull recent comps tailored to your asset type, vintage, and geography.</p>
+        <a href="contact.html#resource" class="request-link">Request Sales Comps →</a>
+      </div>
+
+      <div class="request-card reveal">
+        <div class="request-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="request-title">Rent Comp Reports</div>
+        <p class="request-desc">Current asking and effective rent data by unit type for comparable properties in your submarket. Useful for owners evaluating renovation ROI, investors underwriting a value-add acquisition, and developers stress-testing pro formas against real market rents.</p>
+        <a href="contact.html#resource" class="request-link">Request Rent Comps →</a>
+      </div>
+
+      <div class="request-card reveal reveal-delay-1">
+        <div class="request-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="request-title">Buy / Sell / Refi Analysis</div>
+        <p class="request-desc">Not sure whether to sell, hold and refinance, or deploy capital into a new acquisition? We'll build a straightforward analysis that models each path — current equity position, projected sale proceeds, refinance economics, and acquisition alternatives — so you can make an informed decision with real numbers.</p>
+        <a href="contact.html#resource" class="request-link">Request an Analysis →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<div id="site-footer"></div>
+<script src="js/shared.js"></script>
+</body>
+</html>

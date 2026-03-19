@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorado Multifamily Broker | Denver Apartment Investment Sales | Stack Morkes Group · Colliers</title>
+<meta name="description" content="Colorado and Wyoming's leading multifamily investment sales team. $3B+ in closed transactions. Stack Morkes Group at Colliers specializes in market-rate, affordable, and student housing investment sales across the Rocky Mountain region.">
+<meta name="keywords" content="Colorado multifamily broker, Denver multifamily investment sales, apartment broker Colorado, multifamily advisor Colorado, Wyoming multifamily broker">
+<link rel="canonical" href="https://www.comultifamily.com/">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ─── HERO ──────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 130px 48px 80px;
+}
+
+.hero-bg {
+  position: absolute; inset:0;
+  /* Photo layer — shows when hero-bg.jpg is present */
+  background-image: url('images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center 40%;
+  background-color: var(--navy);
+}
+/* Dark overlay on top of photo */
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(8,17,31,0.72) 0%, rgba(8,17,31,0.45) 60%, rgba(8,17,31,0.20) 100%);
+}
+
+.hero-grid {
+  position: absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 75% 75% at 65% 45%, black 20%, transparent 100%);
+  display: none;
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 72px;
+  align-items: center;
+}
+
+/* ─── HERO RIGHT — Team panel ────────────────── */
+.hero-right {
+  opacity:0; animation: fadeUp 0.9s 0.6s ease forwards;
+}
+.hero-team-panel {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  backdrop-filter: blur(12px);
+  padding: 36px 40px;
+}
+.hero-team-panel-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-team-panel-label::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold); flex-shrink: 0;
+}
+.hero-partner-row {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.hero-partner-row:last-of-type { border-bottom: none; }
+.hero-partner-photo {
+  width: 62px; height: 76px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  flex-shrink: 0; overflow: hidden; position: relative;
+}
+.hero-partner-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top; display: block;
+}
+.hero-partner-initials {
+  position: absolute; inset: 0;
+  display: none;
+  align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px; font-weight: 700; color: var(--gold);
+}
+.hero-partner-photo img.error + .hero-partner-initials { display: flex; }
+.hero-partner-info { flex: 1; min-width: 0; }
+.hero-partner-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 19px; font-weight: 700;
+  color: #fff; line-height: 1.1; margin-bottom: 3px;
+}
+.hero-partner-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,0.45); margin-bottom: 8px;
+}
+.hero-partner-stats { display: flex; gap: 14px; }
+.hero-partner-kv {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--gold);
+}
+.hero-partner-kv span {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px; font-weight: 300;
+  color: rgba(255,255,255,0.38); margin-left: 2px;
+}
+.hero-panel-total {
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid rgba(201,168,76,0.2);
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.hero-panel-total-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4);
+}
+.hero-panel-total-num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px; font-weight: 700; color: var(--gold-light);
+}
+@media (max-width: 1100px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+}
+@media (max-width: 768px) {
+  .hero { padding: 110px 20px 64px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+}
+
+.hero-eyebrow {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom: 28px;
+  opacity:0; animation: fadeUp 0.8s 0.2s ease forwards;
+}
+
+.hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(28px, 3.2vw, 46px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  max-width: 620px;
+  margin-bottom: 28px;
+  opacity:0; animation: fadeUp 0.8s 0.35s ease forwards;
+}
+.hero h1 em { font-style:italic; color: var(--gold-light); }
+
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  opacity:0; animation: fadeUp 0.8s 0.5s ease forwards;
+}
+
+.hero-actions {
+  display:flex; gap:16px; align-items:center;
+  opacity:0; animation: fadeUp 0.8s 0.65s ease forwards;
+  flex-wrap: wrap;
+}
+
+.hero-trust {
+  display:flex; align-items:center; gap:24px;
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  opacity:0; animation: fadeUp 0.8s 0.8s ease forwards;
+}
+.hero-trust-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+}
+.hero-trust-logos {
+  display:flex; gap:16px; align-items:center; flex-wrap:nowrap;
+}
+.trust-item {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ─── EXPERTISE ──────────────────────────── */
+.expertise-layout {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.expertise-sticky { position:sticky; top:100px; }
+.expertise-sticky p {
+  font-size:16px; font-weight:300;
+  color:var(--text-soft); line-height:1.8;
+  margin-bottom:36px;
+}
+
+.exp-cards { display:flex; flex-direction:column; gap:2px; }
+
+.exp-card {
+  background: var(--bg-card);
+  padding: 26px 30px;
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  transition: border-color 0.25s, background 0.25s;
+}
+.exp-card:hover {
+  border-left-color: var(--gold);
+  border-color: var(--border);
+  background: rgba(201,168,76,0.03);
+}
+.exp-card-head {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:10px;
+}
+.exp-card-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:17px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.06em;
+  color:var(--text);
+}
+.exp-badge {
+  font-size:10px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.1em;
+  padding:3px 10px;
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.exp-card p {
+  font-size:15px; font-weight:300;
+  color:var(--text-soft); line-height:1.75;
+}
+
+/* ─── MARKETS ────────────────────────────── */
+.markets-grid {
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  margin-top: 56px;
+  background: var(--border);
+  box-shadow: 0 0 0 1px var(--navy);
+}
+.market-tile {
+  background: var(--bg-alt);
+  padding: 36px 32px;
+  position:relative; overflow:hidden;
+  transition: background 0.25s;
+}
+.market-tile::after {
+  content:'';
+  position:absolute; bottom:0; left:0; right:0;
+  height:2px; background:var(--gold);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 0.3s ease;
+}
+.market-tile:hover { background: rgba(201,168,76,0.03); }
+.market-tile:hover::after { transform:scaleX(1); }
+.market-state {
+  font-family:'Montserrat',sans-serif;
+  font-size:13px; font-weight:700;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px;
+}
+.market-city {
+  font-family:'Playfair Display',serif;
+  font-size:24px; font-weight:600;
+  color:var(--text); margin-bottom:12px; line-height:1.1;
+}
+.market-desc {
+  font-size:13px; font-weight:300;
+  color:var(--text-soft); line-height:1.7; margin-bottom:18px;
+}
+.market-link {
+  font-family:'Montserrat',sans-serif;
+  font-size:12px; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--gold); display:inline-flex;
+  align-items:center; gap:6px;
+  transition:gap 0.2s;
+}
+.market-link:hover { gap:10px; }
+.markets-state-header {
+  grid-column: 1 / -1;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 10px 32px;
+}
+.market-tile--state {
+  background: var(--navy);
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 28px 28px 28px;
+  position: relative; overflow: hidden;
+  grid-column: span 2;
+}
+.market-tile--state:hover { background: var(--navy); }
+.market-tile--state:hover::after { transform: scaleX(0); }
+.market-tile--state .state-flag {
+  width: 72px; height: auto;
+  margin-bottom: 16px;
+  opacity: 0.92;
+}
+.market-tile--state .state-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: #fff; margin-bottom: 4px;
+}
+.market-tile--state .state-count {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.market-tile--state .state-tagline {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,0.6); line-height: 1.6;
+}
+
+.deal-loading {
+  justify-content: center; gap: 12px;
+  color: var(--text-soft); border-left: none;
+  padding: 24px 0;
+}
+.deal-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── TRACK RECORD TEASER ────────────────── */
+.track-layout {
+  display:grid; grid-template-columns:1fr 1.4fr;
+  gap:80px; align-items:center;
+}
+.track-intro p {
+  font-size:16px; font-weight:300;
+  color:var(--text-soft); line-height:1.8;
+  margin-bottom:36px;
+}
+.deal-list { display:flex; flex-direction:column; gap:2px; }
+.deal-row {
+  background:var(--bg-card);
+  padding:18px 22px;
+  display:grid; grid-template-columns:1fr auto;
+  gap:16px; align-items:center;
+  border-left:2px solid transparent;
+  transition:border-color 0.2s, background 0.2s;
+}
+.deal-row:hover { border-left-color:var(--gold); background:rgba(201,168,76,0.03); }
+.type-market-rate { color:#c9a84c; font-weight:600; }
+.type-affordable  { color:#7eb8c9; font-weight:600; }
+.type-student     { color:#b87ec9; font-weight:600; }
+.type-land        { color:#7ec994; font-weight:600; }
+.deal-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:15px; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.04em;
+  color:var(--text); margin-bottom:3px;
+}
+.deal-meta { font-size:14px; color:var(--text-soft); }
+.deal-price {
+  font-family:'Montserrat',sans-serif;
+  font-size:19px; font-weight:700;
+  color:var(--gold); text-align:right; white-space:nowrap;
+}
+.deal-units { font-size:11px; color:var(--text-soft); text-align:right; }
+
+/* ─── TESTIMONIALS ───────────────────────── */
+.testimonials-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:24px; margin-top:56px;
+}
+.testimonial-card {
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  padding:38px 34px;
+  transition:border-color 0.25s, background 0.25s;
+  display:flex; flex-direction:column;
+  position:relative; overflow:hidden;
+}
+.testimonial-card::after {
+  content:'';
+  position:absolute; bottom:0; left:0; right:0;
+  height:2px; background:var(--gold);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 0.3s ease;
+}
+.testimonial-card:hover { border-color:rgba(201,168,76,0.35); background:rgba(201,168,76,0.03); }
+.testimonial-card:hover::after { transform:scaleX(1); }
+.quote-mark {
+  font-family:'Playfair Display',serif;
+  font-size:64px; line-height:0.8;
+  color:var(--gold-dim); margin-bottom:18px; display:block;
+}
+.testimonial-card blockquote {
+  font-size:15px; font-weight:300;
+  color:var(--text-soft); line-height:1.8;
+  font-style:italic; margin-bottom:28px; flex:1;
+}
+.t-attribution {
+  display:flex; align-items:center; gap:14px;
+  margin-top:auto;
+}
+.t-photo {
+  width:52px; height:52px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid rgba(201,168,76,0.25);
+  flex-shrink:0;
+  background:var(--navy-light);
+}
+.t-photo img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center top;
+  display:block;
+}
+.t-author {
+  font-family:'Montserrat',sans-serif;
+  font-size:14px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.06em;
+  color:var(--text); margin-bottom:3px;
+}
+.t-title { font-size:14px; color:var(--gold); }
+
+/* ─── TEAM PREVIEW ───────────────────────── */
+.team-header {
+  display:flex; justify-content:space-between;
+  align-items:flex-end; margin-bottom:48px;
+}
+.team-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+}
+.team-card {
+  background:var(--bg-card);
+  padding:38px 34px;
+  border-top:2px solid transparent;
+  transition:border-color 0.25s, background 0.25s;
+}
+.team-card:hover { border-top-color:var(--gold); background:rgba(201,168,76,0.03); }
+
+/* Photo container — circular, supports real img or initials fallback */
+.team-photo {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: var(--navy-light);
+  border: 2px solid var(--border);
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+.team-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+/* Initials shown when no photo */
+.team-photo-initials {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--gold);
+}
+/* Hide initials when img loads successfully */
+.team-photo img + .team-photo-initials { display: none; }
+.team-role {
+  font-family:'Montserrat',sans-serif;
+  font-size:13px; font-weight:700;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px;
+}
+.team-name {
+  font-family:'Playfair Display',serif;
+  font-size:24px; font-weight:600;
+  color:var(--text); margin-bottom:12px;
+}
+.team-stat {
+  font-family:'Montserrat',sans-serif;
+  font-size:26px; font-weight:700;
+  color:var(--gold-light); line-height:1; margin-bottom:3px;
+}
+.team-stat-lbl {
+  font-size:11px; color:var(--text-soft);
+  text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;
+}
+.team-card p {
+  font-size:13px; font-weight:300;
+  color:var(--text-soft); line-height:1.75;
+}
+
+/* ─── EMAIL CTA ──────────────────────────── */
+.email-cta-block {
+  background:linear-gradient(120deg, var(--bg-alt) 0%, #0d2040 100%);
+  border:1px solid var(--border);
+  padding:60px 68px;
+  display:grid; grid-template-columns:1fr auto;
+  gap:48px; align-items:center;
+}
+.email-cta-block h3 {
+  font-family:'Playfair Display',serif;
+  font-size:30px; color:var(--text); margin-bottom:12px;
+}
+.email-cta-block p {
+  font-size:15px; font-weight:300;
+  color:var(--text-soft); line-height:1.7; max-width:460px;
+}
+.email-form { display:flex; min-width:360px; }
+.email-form input {
+  flex:1; padding:15px 18px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  border-right:none; color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:14px;
+  outline:none; transition:border-color 0.2s;
+}
+.email-form input::placeholder { color:var(--text-soft); }
+.email-form input:focus { border-color:var(--gold); }
+.email-form button {
+  padding:15px 24px;
+  background:var(--gold); color:var(--navy);
+  font-family:'Montserrat',sans-serif;
+  font-size:12px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.1em;
+  border:none; cursor:pointer; transition:background 0.2s;
+  white-space:nowrap;
+}
+.email-form button:hover { background:var(--gold-light); }
+.email-note {
+  font-size:11px; color:var(--text-soft); margin-top:8px;
+}
+
+@media(max-width:1024px){
+  .expertise-layout,.track-layout{ grid-template-columns:1fr; gap:48px; }
+  .expertise-sticky{ position:static; }
+  .markets-grid,.testimonials-grid,.team-grid{ grid-template-columns:1fr 1fr; }
+  .email-cta-block{ grid-template-columns:1fr; padding:40px; }
+  .email-form{ min-width:auto; }
+}
+@media(max-width:768px){
+  .hero{ padding:120px 20px 64px; }
+  .markets-grid,.testimonials-grid,.team-grid{ grid-template-columns:1fr; }
+  .hero-trust{ display:none; }
+  .team-header{ flex-direction:column; align-items:flex-start; gap:16px; }
+}
+
+/* ── PARTNERS STRIP ───────────────────────────────────── */
+.partners-strip {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.partners-strip-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.partners-strip-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.partners-strip-team { flex: 1; }
+.partners-strip-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.partners-strip-partner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.partners-strip-partner img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+.partners-strip-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+.partners-strip-stats {
+  font-size: 11px;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+.partners-strip-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.partners-strip-sep {
+  width: 1px;
+  height: 60px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.partners-strip-trust { flex-shrink: 0; }
+.partners-strip-trust-items {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+.partners-strip-trust-items .dot { color: var(--gold); }
+@media(max-width:1024px) {
+  .partners-strip-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .partners-strip-sep { display: none; }
+}
+@media(max-width:640px) {
+  .partners-strip-inner { padding: 24px 20px; }
+  .partners-strip-row { flex-wrap: wrap; gap: 16px; }
+  .partners-strip-divider { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-left" style="max-width:680px;">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Colorado &amp; Wyoming Multifamily Investment Sales</span>
+      </div>
+      <h1>The Rocky Mountain<br>Region's Most Trusted<br>Multifamily Team</h1>
+      <p class="hero-sub">Over $3 billion in closed apartment transactions. Three partners. One focus. Unmatched knowledge of every market from Denver to Cheyenne.</p>
+      <div class="hero-actions">
+        <a href="listings.html" class="btn btn-gold">View Active Listings →</a>
+        <a href="track-record.html" class="btn btn-outline-dark">See Track Record</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PARTNERS STRIP -->
+<div class="partners-strip">
+  <div class="partners-strip-inner">
+    <div class="partners-strip-team">
+      <div class="partners-strip-label">The Partners</div>
+      <div class="partners-strip-row">
+        <div class="partners-strip-partner">
+          <img src="images/team-craig.jpg" alt="Craig Stack" onerror="this.style.display='none'">
+          <div class="partners-strip-info">
+            <div class="partners-strip-name">Craig Stack</div>
+            <div class="partners-strip-stats">$1.89B+ · 15,500+ units</div>
+          </div>
+        </div>
+        <div class="partners-strip-divider"></div>
+        <div class="partners-strip-partner">
+          <img src="images/team-bill.jpg" alt="Bill Morkes" onerror="this.style.display='none'">
+          <div class="partners-strip-info">
+            <div class="partners-strip-name">Bill Morkes</div>
+            <div class="partners-strip-stats">$1.27B+ · 8,400+ units</div>
+          </div>
+        </div>
+        <div class="partners-strip-divider"></div>
+        <div class="partners-strip-partner">
+          <img src="images/team-nate.jpg" alt="Nate Moyer" onerror="this.style.display='none'">
+          <div class="partners-strip-info">
+            <div class="partners-strip-name">Nate Moyer</div>
+            <div class="partners-strip-stats">$1.12B+ · 4,000+ units</div>
+          </div>
+        </div>
+      </div>
+      <div class="partners-strip-trust" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+        <div class="partners-strip-label">Trusted by</div>
+        <div class="partners-strip-trust-items">
+          <span>Institutional Investors</span>
+          <span class="dot">·</span>
+          <span>National Developers</span>
+          <span class="dot">·</span>
+          <span>Fund Managers</span>
+          <span class="dot">·</span>
+          <span>Capital Syndicators</span>
+          <span class="dot">·</span>
+          <span>Family Offices</span>
+          <span class="dot">·</span>
+          <span>Private Clients</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat-cell"><div class="stat-num" data-count="3" data-suffix="B+">$3B+</div><div class="stat-lbl">Transaction Volume</div></div>
+    <div class="stat-cell"><div class="stat-num" data-count="19800" data-suffix="+">19,800+</div><div class="stat-lbl">Units Sold</div></div>
+    <div class="stat-cell"><div class="stat-num" data-count="160" data-suffix="+">160+</div><div class="stat-lbl">Transactions Closed</div></div>
+    <div class="stat-cell"><div class="stat-num" data-count="49" data-suffix="+">49+</div><div class="stat-lbl">Combined Years</div></div>
+    <div class="stat-cell"><div class="stat-num">CO · WY</div><div class="stat-lbl">Market Coverage</div></div>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="expertise-layout">
+      <div class="expertise-sticky reveal">
+        <div class="section-tag">Specialized Expertise</div>
+        <h2 class="section-h2">Every Asset Class.<br>Every Market Cycle.</h2>
+        <p>Stack Morkes Group is multifamily only. We don't split our time across asset classes — which means when you engage us, you're getting a team whose entire buyer network, market data, and transactional experience is directly applicable to your asset. That focus is why Colorado and Wyoming's most discerning owners bring their most important dispositions to us.</p>
+        <a href="services.html" class="btn btn-gold">Explore Our Services →</a>
+      </div>
+      <div class="exp-cards">
+        <div class="exp-card reveal reveal-delay-1">
+          <div class="exp-card-head">
+            <span class="exp-card-title">Market-Rate</span>
+          </div>
+          <p>Opportunistic, value-add, core-plus, and newly constructed mixed-use assets in lease-up. From urban infill to suburban garden-style — we know how to position and price every subtype.</p>
+        </div>
+        <div class="exp-card reveal reveal-delay-2">
+          <div class="exp-card-head">
+            <span class="exp-card-title">Affordable Housing</span>
+          </div>
+          <p>Section 42 LIHTC, Section 8 Project-Based HAP, and Age-Restricted assets. Complex regulatory structures require specialized expertise — we have it.</p>
+        </div>
+        <div class="exp-card reveal reveal-delay-3">
+          <div class="exp-card-head">
+            <span class="exp-card-title">Student Housing</span>
+          </div>
+          <p>Partial to exclusive student communities, rent-by-the-bed and rent-by-the-unit structures. Deep relationships with university market buyers across the region.</p>
+        </div>
+        <div class="exp-card reveal">
+          <div class="exp-card-head">
+            <span class="exp-card-title">Multifamily Land</span>
+          </div>
+          <p>Entitled urban infill parcels to suburban development tracts. We understand what developers underwrite and how to maximize land value.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="section section--light">
+  <div class="section-inner">
+    <div class="section-tag reveal">Geographic Coverage</div>
+    <h2 class="section-h2 reveal">Deep Roots in Every<br>Market We Cover</h2>
+    <div class="markets-grid">
+      <div class="market-tile market-tile--state reveal">
+        <img class="state-flag" src="images/flag-co.png" alt="Colorado state flag">
+        <div class="state-name">Colorado</div>
+                <div class="state-tagline">Active across all markets and asset types in Colorado — the Front Range to the Western Slope.</div>
+      </div>
+      <div class="market-tile reveal">
+        <div class="market-city">Denver Metro</div>
+        <div class="market-desc">The region's largest and most liquid multifamily market. We've closed transactions across every Denver submarket.</div>
+        <a href="markets/denver.html" class="market-link">Denver Market Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-1">
+        <div class="market-city">Boulder</div>
+        <div class="market-desc">One of the nation's most supply-constrained markets with exceptional long-term fundamentals.</div>
+        <a href="markets/boulder.html" class="market-link">Boulder Market Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-2">
+        <div class="market-city">Fort Collins</div>
+        <div class="market-desc">CSU anchor drives consistent rental demand with strong employment across Larimer County.</div>
+        <a href="markets/fort-collins.html" class="market-link">Fort Collins Market Data →</a>
+      </div>
+      <div class="market-tile reveal">
+        <div class="market-city">Greeley</div>
+        <div class="market-desc">UNC-anchored market with some of Colorado's best yield opportunities and a deep value-add inventory.</div>
+        <a href="markets/greeley.html" class="market-link">Greeley Market Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-1">
+        <div class="market-city">Colorado Springs</div>
+        <div class="market-desc">Colorado's second-largest city with strong military-driven demand and a growing institutional investor base.</div>
+        <a href="markets/colorado-springs.html" class="market-link">Colorado Springs Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-2">
+        <div class="market-city">Western Slope</div>
+        <div class="market-desc">Grand Junction, Montrose, and Durango — diversified economies and strong cash-on-cash returns away from Front Range competition.</div>
+        <a href="markets/western-slope.html" class="market-link">Western Slope Data →</a>
+      </div>
+      <div class="market-tile reveal">
+        <div class="market-city">Mountain Towns</div>
+        <div class="market-desc">Steamboat, Vail, Aspen, and beyond. Constrained supply, workforce housing demand, and a buyer pool unlike any Front Range market.</div>
+        <a href="markets/mountain-towns.html" class="market-link">Mountain Market Data →</a>
+      </div>
+    </div>
+    <div class="markets-grid" style="margin-top:24px;">
+      <div class="market-tile market-tile--state reveal">
+        <img class="state-flag" src="images/flag-wy.png" alt="Wyoming state flag">
+        <div class="state-name">Wyoming</div>
+                <div class="state-tagline">The most active multifamily investment sales team in the state of Wyoming — from Cheyenne to Jackson Hole.</div>
+      </div>
+      <div class="market-tile reveal">
+        <div class="market-city">Cheyenne</div>
+        <div class="market-desc">Compelling value-add opportunities and favorable landlord dynamics with limited institutional competition.</div>
+        <a href="markets/cheyenne.html" class="market-link">Cheyenne Market Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-1">
+        <div class="market-city">Laramie</div>
+        <div class="market-desc">University of Wyoming anchor provides stable, recession-resistant demand with attractive entry-level pricing.</div>
+        <a href="markets/laramie.html" class="market-link">Laramie Market Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-2">
+        <div class="market-city">Casper</div>
+        <div class="market-desc">Wyoming's second-largest city with strong cash-on-cash returns and limited institutional competition.</div>
+        <a href="markets/casper.html" class="market-link">Casper Market Data →</a>
+      </div>
+      <div class="market-tile reveal">
+        <div class="market-city">Rock Springs</div>
+        <div class="market-desc">Sweetwater County's energy-driven workforce market with high occupancy and durable rental demand.</div>
+        <a href="markets/rock-springs.html" class="market-link">Rock Springs Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-1">
+        <div class="market-city">Gillette</div>
+        <div class="market-desc">The energy capital of Wyoming — strong workforce housing demand and compelling yields for the patient investor.</div>
+        <a href="markets/gillette.html" class="market-link">Gillette Market Data →</a>
+      </div>
+      <div class="market-tile reveal reveal-delay-2">
+        <div class="market-city">Sheridan</div>
+        <div class="market-desc">An emerging in-migration destination with lifestyle appeal, low vacancy, and a growing professional tenant base.</div>
+        <a href="markets/sheridan.html" class="market-link">Sheridan Market Data →</a>
+      </div>
+      <div class="market-tile reveal">
+        <div class="market-city">Jackson</div>
+        <div class="market-desc">Extreme supply constraints and world-class demand drivers create one of the most unique multifamily markets in the West.</div>
+        <a href="markets/jackson.html" class="market-link">Jackson Market Data →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD TEASER -->
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="track-layout">
+      <div class="track-intro reveal">
+        <div class="section-tag">Track Record</div>
+        <h2 class="section-h2">Results That<br>Speak for Themselves</h2>
+        <p>Over $3 billion in closed multifamily transactions since 2000 — across every market cycle, every product type, and every price point. We don't ask you to take our word for it. The transactions below tell the story.</p>
+        <a href="track-record.html" class="btn btn-gold">View All Transactions →</a>
+      </div>
+      <div class="deal-list" id="featured-deals">
+        <div class="deal-row reveal"><div><div class="deal-name">Lake Creek Village</div><div class="deal-meta">Edwards, CO · <span class="type-affordable">Affordable</span> · Mountain Markets</div></div><div style="text-align:right"><div class="deal-price">$81.85M</div><div class="deal-units">270 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">The Grove at City Center</div><div class="deal-meta">Aurora, CO · <span class="type-market-rate">Market-Rate</span> · Denver Metro</div></div><div style="text-align:right"><div class="deal-price">$80.5M</div><div class="deal-units">420 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">Enchanted Springs</div><div class="deal-meta">Colorado Springs, CO · <span class="type-market-rate">Market-Rate</span> · Colorado Springs</div></div><div style="text-align:right"><div class="deal-price">$65M</div><div class="deal-units">200 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">Social Fort Collins</div><div class="deal-meta">Fort Collins, CO · <span class="type-student">Student</span> · Fort Collins</div></div><div style="text-align:right"><div class="deal-price">$25.5M</div><div class="deal-units">68 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">South Fork</div><div class="deal-meta">Gillette, WY · <span class="type-market-rate">Market-Rate</span> · Gillette</div></div><div style="text-align:right"><div class="deal-price">Confidential</div><div class="deal-units">336 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">Potter's House ReDev</div><div class="deal-meta">Denver, CO · <span class="type-land">Land</span> · Denver Metro</div></div><div style="text-align:right"><div class="deal-price">$18.1M</div><div class="deal-units"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section--light">
+  <div class="section-inner">
+    <div class="section-tag reveal">Client Testimonials</div>
+    <h2 class="section-h2 reveal">What Our Clients Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <span class="quote-mark">"</span>
+        <blockquote>Bill and Craig are excellent, thorough brokers. They do what they say they are going to do and that is the most important quality in a broker partner.</blockquote>
+        <div class="t-attribution">
+          <div class="t-photo"><img src="images/testimonial-eddie.jpg" alt="Eddie Lorin" onerror="this.classList.add('error');this.style.display='none';this.nextElementSibling.style.display='flex';"></div>
+          <div><div class="t-author">Eddie Lorin</div><div class="t-title">CEO, Strategic Realty Holdings LLC</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <span class="quote-mark">"</span>
+        <blockquote>Craig and Bill delivered a seamless process. Their deep industry network and robust marketing efforts generated fantastic buyer interest and a result that exceeded our expectations.</blockquote>
+        <div class="t-attribution">
+          <div class="t-photo"><img src="images/testimonial-casey.jpg" alt="Casey Lynch" onerror="this.classList.add('error');this.style.display='none';this.nextElementSibling.style.display='flex';"></div>
+          <div><div class="t-author">Casey Lynch</div><div class="t-title">CEO, Roundhouse</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <span class="quote-mark">"</span>
+        <blockquote>They are tenacious and knowledgeable regarding the assets and markets for which they are focused. On top of that, they are good people to work with.</blockquote>
+        <div class="t-attribution">
+          <div class="t-photo"><img src="images/testimonial-chris.jpg" alt="Chris Brennan" onerror="this.classList.add('error');this.style.display='none';this.nextElementSibling.style.display='flex';"></div>
+          <div><div class="t-author">Chris Brennan</div><div class="t-title">Principal, Skyline Real Estate Investments</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM PREVIEW -->
+<section class="section section--white">
+  <div class="section-inner">
+    <div class="team-header">
+      <div>
+        <div class="section-tag reveal">Our Team</div>
+        <h2 class="section-h2 reveal">Three Partners.<br>One Focus. No Handoffs.</h2>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <img src="images/team-craig.jpg" alt="Craig Stack — Senior Vice President, Stack Morkes Group" onerror="this.classList.add('error');this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="team-photo-initials">CS</div>
+        </div>
+        <div class="team-role">Senior Vice President · Partner</div>
+        <div class="team-name">Craig Stack</div>
+        <div class="team-stat">25+</div>
+        <div class="team-stat-lbl">Years of Experience</div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-photo">
+          <img src="images/team-bill.jpg" alt="Bill Morkes — Senior Vice President, Stack Morkes Group" onerror="this.classList.add('error');this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="team-photo-initials">BM</div>
+        </div>
+        <div class="team-role">Senior Vice President · Partner</div>
+        <div class="team-name">Bill Morkes</div>
+        <div class="team-stat">15+</div>
+        <div class="team-stat-lbl">Years of Experience</div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-photo">
+          <img src="images/team-nate.jpg" alt="Nate Moyer — Senior Vice President, Stack Morkes Group" onerror="this.classList.add('error');this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="team-photo-initials">NM</div>
+        </div>
+        <div class="team-role">Senior Vice President · Partner</div>
+        <div class="team-name">Nate Moyer</div>
+        <div class="team-stat">9+</div>
+        <div class="team-stat-lbl">Years of Experience</div>
+      </div>
+    </div>
+    <div style="margin-top:40px;">
+      <a href="team.html" class="btn btn-gold reveal">Meet the Full Team →</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script src="js/shared.js"></script>
+<script>
+/* ── Featured deals — static fallback (dynamic fetch to be re-enabled later) ── */
+function animateCounters() {
+  document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const isDecimal = String(target).includes('.');
+    const duration = 1800;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - elapsed, 3); // cubic ease-out
+      const val = target * ease;
+      if (target >= 1000) {
+        el.textContent = (el.dataset.prefix || '') + Math.round(val).toLocaleString() + suffix;
+      } else if (isDecimal) {
+        el.textContent = (el.dataset.prefix || '') + val.toFixed(1) + suffix;
+      } else {
+        el.textContent = (el.dataset.prefix || '') + Math.round(val) + suffix;
+      }
+      if (elapsed < 1) requestAnimationFrame(update);
+    }
+
+    // Prefix ($ for billions)
+    if (el.textContent.startsWith('$')) el.dataset.prefix = '$';
+    requestAnimationFrame(update);
+  });
+}
+
+// Trigger when stats strip scrolls into view
+const statsStrip = document.querySelector('.stats-strip');
+if (statsStrip) {
+  const statsObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCounters();
+      statsObserver.disconnect();
+    }
+  }, { threshold: 0.3 });
+  statsObserver.observe(statsStrip);
+}
+</script>
+</body>
+</html>

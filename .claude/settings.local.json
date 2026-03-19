@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"partners-strip\\\\|stat-num\\\\|stat-band\\\\|$3B\\\\|19,800\\\\|49+\\\\|Combined\\\\|combined\" /c/Users/wmm4/Documents/comultifamily/site/index.html)",
+      "Bash(python -m http.server 8080)",
+      "Bash(grep -rn \"page-hero--inner\\\\|page-hero page\" /c/Users/wmm4/Documents/comultifamily/site/*.html)"
+    ]
+  }
+}
