@@ -1,5 +1,19 @@
 /* shared.js — injects nav + footer + scroll reveal + SEO on every page */
 
+/* ─── FONT PRELOAD (non-blocking) ───────────────────────── */
+(function() {
+  const FONT_URL = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap';
+  const preconn1 = document.createElement('link');
+  preconn1.rel = 'preconnect'; preconn1.href = 'https://fonts.googleapis.com';
+  document.head.appendChild(preconn1);
+  const preconn2 = document.createElement('link');
+  preconn2.rel = 'preconnect'; preconn2.href = 'https://fonts.gstatic.com'; preconn2.crossOrigin = 'anonymous';
+  document.head.appendChild(preconn2);
+  const link = document.createElement('link');
+  link.rel = 'stylesheet'; link.href = FONT_URL;
+  document.head.appendChild(link);
+})();
+
 /* ─── SCHEMA MARKUP (injected into <head>) ──────────────── */
 const SCHEMA_ORG = {
   "@context": "https://schema.org",
@@ -192,12 +206,12 @@ const FOOTER_HTML = `
         <h4>Wyoming</h4>
         <ul>
           <li><a href="/markets/cheyenne.html">Cheyenne</a></li>
-          <li><a href="/markets/cheyenne.html">Laramie</a></li>
+          <li><a href="/markets/laramie.html">Laramie</a></li>
           <li><a href="/markets/casper.html">Casper</a></li>
-          <li><a href="/markets/casper.html">Rock Springs</a></li>
-          <li><a href="/markets/casper.html">Gillette</a></li>
-          <li><a href="/markets/casper.html">Sheridan</a></li>
-          <li><a href="/markets/mountain-towns.html">Jackson</a></li>
+          <li><a href="/markets/rock-springs.html">Rock Springs</a></li>
+          <li><a href="/markets/gillette.html">Gillette</a></li>
+          <li><a href="/markets/sheridan.html">Sheridan</a></li>
+          <li><a href="/markets/jackson.html">Jackson</a></li>
         </ul>
       </div>
     </div>

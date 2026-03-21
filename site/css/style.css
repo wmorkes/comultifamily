@@ -3,7 +3,6 @@
    comultifamily.com · Light Theme (B3)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 
 /* ─── VARIABLES ──────────────────────────────────────────── */
 :root {
@@ -27,6 +26,7 @@
 /* ─── RESET ──────────────────────────────────────────────── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
+html { overflow-x: hidden; }
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--bg);
@@ -639,5 +639,5 @@ a { text-decoration:none; color:inherit; }
   display: block;
   padding: 14px 0;
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  font-size: 13px;
+  font-size: 13px !important;
 }

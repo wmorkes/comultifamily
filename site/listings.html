@@ -6,6 +6,18 @@
 <title>Active Listings & Recent Closings | Stack Morkes Group | Colliers Multifamily Colorado</title>
 <meta name="description" content="Current multifamily listings and recent closed transactions by Stack Morkes Group at Colliers. Colorado and Wyoming apartment investment sales.">
 <link rel="canonical" href="https://www.comultifamily.com/listings.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Stack Morkes Group | Colliers">
+<meta property="og:title" content="Active Listings & Recent Closings | Stack Morkes Group | Colliers Multifamily Colorado">
+<meta property="og:description" content="Current multifamily listings and recent closed transactions by Stack Morkes Group at Colliers. Colorado and Wyoming apartment investment sales.">
+<meta property="og:url" content="https://www.comultifamily.com/listings.html">
+<meta property="og:image" content="https://www.comultifamily.com/images/og-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Active Listings & Recent Closings | Stack Morkes Group | Colliers Multifamily Colorado">
+<meta name="twitter:description" content="Current multifamily listings and recent closed transactions by Stack Morkes Group at Colliers. Colorado and Wyoming apartment investment sales.">
+<meta name="twitter:image" content="https://www.comultifamily.com/images/og-share.jpg">
 <link rel="stylesheet" href="css/style.css">
 <style>
 .listings-notice {
@@ -77,7 +89,7 @@
 .property-card:hover { background: rgba(201,168,76,0.03); }
 
 .prop-image {
-  height: 280px;
+  height: 336px;
   background: linear-gradient(135deg, var(--navy-light) 0%, #0d2040 100%);
   position: relative;
   overflow: hidden;
@@ -124,7 +136,7 @@
 .prop-overlay-btn:hover { background: var(--gold-light); }
 .prop-status {
   position: absolute;
-  top: 16px; left: 16px;
+  top: 16px; right: 16px;
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -132,10 +144,11 @@
   letter-spacing: 0.1em;
   padding: 4px 12px;
 }
-.status-closed { background: var(--bg); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
-.status-active { background: var(--gold); color: var(--navy); }
+.status-closed  { background: var(--bg); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+.status-active  { background: var(--navy); color: var(--gold); }
+.status-pending { background: var(--gold); color: var(--navy); }
 
-.prop-body { padding: 24px 26px; }
+.prop-body { padding: 22px 26px; }
 .prop-type {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -143,31 +156,35 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
+.prop-type--market-rate { color: #c9a84c; }
+.prop-type--affordable  { color: #7eb8c9; }
+.prop-type--student     { color: #b87ec9; }
+.prop-type--land        { color: #7ec994; }
 .prop-name {
   font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   line-height: 1.2;
 }
 .prop-location {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--text-soft);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 .prop-details {
   display: flex;
-  gap: 20px;
-  padding-top: 16px;
+  gap: 18px;
+  padding-top: 14px;
   border-top: 1px solid var(--border-soft);
 }
 .prop-detail-item { }
 .prop-detail-val {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text);
   line-height: 1;
@@ -238,10 +255,11 @@
 
     </div>
 
-    <div class="listing-cta reveal">
-      <h3>Looking for Something Specific?</h3>
-      <p>We maintain an active buyer registry and often have off-market opportunities. Tell us your acquisition criteria and we'll reach out when the right deal comes along.</p>
-      <a href="contact.html" class="btn btn-gold">Submit Your Criteria →</a>
+    <div style="margin-top:64px;">
+      <div class="section-tag reveal">Buyer Registry</div>
+      <h2 class="section-h2 reveal">Looking for Something<br>Specific?</h2>
+      <p class="section-lead reveal">We maintain an active buyer registry and often have off-market opportunities. Tell us your acquisition criteria and we'll reach out when the right deal comes along.</p>
+      <a href="contact.html" class="btn btn-gold reveal">Submit Your Criteria →</a>
     </div>
 
   </div>
@@ -250,21 +268,32 @@
 <div id="site-footer"></div>
 <script src="js/shared.js"></script>
 <script>
-/* ── Listings from Google Sheet (JSONP) ──────────────────────────
-   Sheet: CO Multifamily Experience v3
-   Tab:   Listings  (gid=REPLACE_WITH_LISTINGS_TAB_GID)
-   
-   To find your gid:
-   1. Click the "Listings" tab in your Google Sheet
-   2. Look at the URL — it ends with #gid=XXXXXXXXX
-   3. Replace REPLACE_WITH_LISTINGS_TAB_GID below with that number
-──────────────────────────────────────────────────────────────── */
-/* ── Static listings data (dynamic fetch to be re-enabled later) ── */
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1XodqdnLEKNVOUQvkOmyoklY_CNZM02UmNl2q6Ut2Uns/export?format=csv&gid=1516487704';
+
+/* ── Fallback static data if sheet is unreachable ── */
 const STATIC_LISTINGS = [
-  { Status:'Active', Property:'Marquette Heights', Type:'Market-Rate | Value-Add', City:'Colorado Springs', Price:'', Units:'108', Year:'1971', Image:'', URL:'contact.html', Filter:'market-rate' },
-  { Status:'Active', Property:'Fairway Valley',    Type:'Market-Rate | Value-Add', City:'Colorado Springs', Price:'', Units:'93',  Year:'1967', Image:'', URL:'contact.html', Filter:'market-rate' },
-  { Status:'Active', Property:'The Centre',        Type:'Market-Rate | Value-Add', City:'Colorado Springs', Price:'', Units:'168', Year:'1952', Image:'', URL:'contact.html', Filter:'market-rate' },
+  { Status:'Active', Property:'Marquette Heights', Type:'Market-Rate', 'Type 2':'Value-Add', City:'Colorado Springs', State:'CO', Price:'', Units:'108', Year:'1971', Image:'', URL:'contact.html' },
+  { Status:'Active', Property:'Fairway Valley',    Type:'Market-Rate', 'Type 2':'Value-Add', City:'Colorado Springs', State:'CO', Price:'', Units:'93',  Year:'1967', Image:'', URL:'contact.html' },
+  { Status:'Active', Property:'The Centre',        Type:'Market-Rate', 'Type 2':'Value-Add', City:'Colorado Springs', State:'CO', Price:'', Units:'168', Year:'1952', Image:'', URL:'contact.html' },
 ];
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    const cols = [];
+    let cur = '', inQ = false;
+    for (const ch of line) {
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    cols.push(cur);
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (cols[i] || '').trim().replace(/^"|"$/g, ''));
+    return obj;
+  }).filter(row => Object.values(row).join('').trim());
+}
 
 function formatListingPrice(n) {
   if (!n) return 'TBD by Market';
@@ -278,17 +307,37 @@ function formatListingPrice(n) {
 function buildListingCard(r) {
   const status   = (r['Status'] || 'Active').trim();
   const name     = r['Property'] || '';
-  const type     = r['Type'] || '';
+  const type     = (r['Type'] || '').trim();
+  const type2    = (r['Type 2'] || r['Type2'] || '').trim();
+  const typeDisplay = type2
+    ? `${type} <span style="color:var(--navy);font-weight:500;">| ${type2}</span>`
+    : type;
   const city     = r['City'] || '';
+  const state    = (r['State'] || r['STATE'] || '').trim();
   const price    = formatListingPrice(r['Price']);
   const units    = r['Units'] || '—';
   const year     = r['Year'] || '—';
   const image    = r['Image'] || '';
-  const url      = r['URL'] || 'contact.html';
-  const filter   = (r['Filter'] || 'market-rate').toLowerCase().trim();
+  const rawUrl   = (r['URL'] || '').trim();
+  const url      = rawUrl && !rawUrl.startsWith('http') && !rawUrl.startsWith('/') && rawUrl.includes('.')
+                   ? 'https://' + rawUrl
+                   : (rawUrl || 'contact.html');
+
+  // Derive filter tag from Type column — no manual Filter column needed
+  function typeToFilter(t) {
+    const s = t.toLowerCase();
+    if (s.includes('affordable')) return 'affordable';
+    if (s.includes('student'))    return 'student';
+    if (s.includes('land'))       return 'land';
+    return 'market-rate';
+  }
+  const isWY      = /^(wy|wyoming)$/i.test(state);
+  const filterBase = typeToFilter(type);
+  const filter     = isWY ? filterBase + ' wyoming' : filterBase;
   const isActive = status.toLowerCase() === 'active';
-  const statusClass = isActive ? 'status-active' : 'status-closed';
-  const statusLabel = isActive ? 'Active Listing' : 'Recently Closed';
+  const statusClass = status.toLowerCase() === 'pending' ? 'status-pending'
+                    : isActive ? 'status-active' : 'status-closed';
+  const statusLabel = status;
   const priceLbl    = isActive ? 'Asking Price' : 'Sale Price';
   const yearLbl     = isActive ? 'Year Built' : 'Closed';
   const imgSrc      = image ? `images/listings/${image}` : '';
@@ -309,9 +358,9 @@ function buildListingCard(r) {
           </div>
         </div>
         <div class="prop-body">
-          <div class="prop-type">${type}</div>
+          <div class="prop-type prop-type--${filterBase}">${typeDisplay}</div>
           <div class="prop-name">${name}</div>
-          <div class="prop-location">${city}</div>
+          <div class="prop-location">${city}${state ? ', ' + state : ''}</div>
           <div class="prop-details">
             <div class="prop-detail-item"><div class="prop-detail-val">${price}</div><div class="prop-detail-lbl">${priceLbl}</div></div>
             <div class="prop-detail-item"><div class="prop-detail-val">${units}</div><div class="prop-detail-lbl">Units</div></div>
@@ -339,7 +388,22 @@ function renderListings(cards) {
   if (activeBtn) filterProps(activeBtn, activeBtn.getAttribute('data-filter') || 'all');
 }
 
-renderListings(STATIC_LISTINGS.map(buildListingCard));
+// Show loading state
+document.getElementById('propertyGrid').innerHTML =
+  '<div style="grid-column:1/-1;padding:48px;text-align:center;color:var(--text-soft);font-style:italic;">Loading listings…</div>';
+
+fetch(SHEET_URL)
+  .then(r => { if (!r.ok) throw new Error('Sheet not accessible'); return r.text(); })
+  .then(text => {
+    const rows = parseCSV(text);
+    const cards = rows.map(buildListingCard).filter(Boolean);
+    console.log(`Loaded ${cards.length} listings from Google Sheet`);
+    renderListings(cards);
+  })
+  .catch(err => {
+    console.warn('Sheet fetch failed, using static data:', err.message);
+    renderListings(STATIC_LISTINGS.map(buildListingCard));
+  });
 
 // Filter function
 function filterProps(btn, type) {

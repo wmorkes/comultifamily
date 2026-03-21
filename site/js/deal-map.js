@@ -261,6 +261,9 @@ function updateTable(deals) {
       <td>${d.date || '—'}</td>
     </tr>`;
   }).join('');
+  // Ensure the table is visible regardless of scroll-reveal timing
+  const tbl = tbody.closest('table');
+  if (tbl) tbl.classList.add('visible');
 }
 
 // ─── Filter (called by buttons in HTML) ──────────────────
