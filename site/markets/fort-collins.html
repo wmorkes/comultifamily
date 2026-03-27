@@ -32,14 +32,72 @@
 .market-body h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.2}
 .market-body h2:first-child{margin-top:0}
 .market-body p{font-size:16px;font-weight:300;color:var(--text-soft);line-height:1.85;margin-bottom:14px}
-.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:28px;margin-top:32px}
+.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:20px 24px;margin-top:2px}
 .deal-list-mini h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:16px}
-.deal-mini{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
+.deal-mini{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
 .deal-mini:last-child{border-bottom:none}
 .deal-mini-name{color:var(--text)}
 .deal-mini-price{color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700}
+.deal-mini-meta{font-size:11px;color:var(--text-soft);margin-top:3px;}
 @media(max-width:1024px){.market-detail-layout{grid-template-columns:1fr}.market-sidebar{position:static}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Stack Morkes Group",
+  "url": "https://www.comultifamily.com",
+  "description": "Colorado and Wyoming multifamily investment sales specialists. Stack Morkes Group at Colliers serves Fort Collins, Colorado and surrounding communities.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4643 South Ulster Street, Suite 1000",
+    "addressLocality": "Denver",
+    "addressRegion": "CO",
+    "postalCode": "80237",
+    "addressCountry": "US"
+  },
+  "telephone": "+17208334602",
+  "email": "craig.stack@colliers.com",
+  "areaServed": {
+    "@type": "City",
+    "name": "Fort Collins",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Colorado"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Colliers International",
+    "url": "https://www.colliers.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What drives multifamily demand in Fort Collins?","acceptedAnswer":{"@type":"Answer","text":"Colorado State University — with 35,000+ students — is the primary demand driver, creating consistent household formation. Fort Collins also benefits from a growing technology sector, strong quality of life metrics, and net in-migration from Colorado's Front Range."}},
+    {"@type":"Question","name":"What are typical cap rates for Fort Collins apartment buildings?","acceptedAnswer":{"@type":"Answer","text":"Fort Collins cap rates generally range from 5.0% to 7.0% depending on proximity to CSU, vintage, and asset quality. Student-adjacent product trades tighter; suburban workforce housing further from the university trends toward the higher end."}},
+    {"@type":"Question","name":"How does Fort Collins compare to Denver as an investment market?","acceptedAnswer":{"@type":"Answer","text":"Fort Collins offers a yield premium over Denver — typically 75–150 basis points — with lower entry prices per unit. The trade-off is less liquidity and a shallower buyer pool. A well-run marketing process reaching Denver and national capital is essential to maximizing competitive tension."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.comultifamily.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.comultifamily.com/markets/index.html"},{"@type":"ListItem","position":3,"name":"Fort Collins","item":"https://www.comultifamily.com/markets/fort-collins.html"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Stack Morkes Group — Fort Collins Closed Transactions","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"ApartmentComplex","name":"Fox Meadows","address":{"@type":"PostalAddress","addressLocality":"Fort Collins","addressRegion":"CO","addressCountry":"US"},"offers":{"@type":"Offer","price":36800000,"priceCurrency":"USD"}}},{"@type":"ListItem","position":2,"item":{"@type":"ApartmentComplex","name":"Social Fort Collins","address":{"@type":"PostalAddress","addressLocality":"Fort Collins","addressRegion":"CO","addressCountry":"US"},"numberOfRooms":68,"offers":{"@type":"Offer","price":25500000,"priceCurrency":"USD"}}},{"@type":"ListItem","position":3,"item":{"@type":"ApartmentComplex","name":"Eleven 13","address":{"@type":"PostalAddress","addressLocality":"Fort Collins","addressRegion":"CO","addressCountry":"US"},"offers":{"@type":"Offer","price":24700000,"priceCurrency":"USD"}}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -65,7 +123,6 @@
         <p>Institutional buyer interest in Northern Colorado has grown meaningfully over the past five years as competition for Denver product has intensified and yield compression has pushed investors up the risk-return spectrum. Fort Collins in particular has attracted both national REIT interest and regional private equity buyers. The market's supply pipeline is more measured than Denver's, providing better near-term occupancy fundamentals for sellers.</p>
         <p>Affordable housing represents a growing opportunity in this market. LIHTC transactions in Northern Colorado require specialized expertise given the complexity of tax credit compliance, HAP contract transfers, and the targeted buyer pool these assets attract. We've closed multiple affordable transactions in this corridor and maintain relationships with the national and regional buyers most active in this product type.</p>
         <p>Student housing adjacent to CSU is among the most consistently occupied multifamily product in Colorado. Purpose-built student communities and conventional assets within walking distance of campus attract a specialized buyer set that underwrites on a per-bed basis and targets assets with strong lease-up velocity. We have the relationships with these buyers to maximize competitive tension on student-proximate assets.</p>
-        <div class="deal-list-mini"><h3>Recent Closings</h3><div class="deal-mini"><span class="deal-mini-name">Fox Meadows Apartments, Fort Collins (138 units · LIHTC)</span><span class="deal-mini-price">$36.8M</span></div></div>
       </div>
       <div class="market-sidebar reveal reveal-delay-1">
         <div class="sidebar-card">
@@ -74,7 +131,70 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">CSU Enrollment</span><span class="sidebar-stat-val">35,000+</span></div>
           <div class="sidebar-stat"><span class="sidebar-stat-label">Cap Rate Range</span><span class="sidebar-stat-val">5.5–7.5%</span></div>
         </div>
+        <div class="deal-list-mini">
+  <h3>Featured Fort Collins Sales</h3>
+  <div class="deal-mini">
+    <div><div class="deal-mini-name">Fox Meadows</div><div class="deal-mini-meta">138 units · <span style="color:#7eb8c9;">Affordable</span></div></div>
+    <span class="deal-mini-price">$36.8M</span>
+  </div>
+  <div class="deal-mini">
+    <div><div class="deal-mini-name">Social Fort Collins</div><div class="deal-mini-meta">68 units · <span style="color:#b87ec9;">Student</span></div></div>
+    <span class="deal-mini-price">$25.5M</span>
+  </div>
+  <div class="deal-mini">
+    <div><div class="deal-mini-name">Eleven 13</div><div class="deal-mini-meta">107 units · <span style="color:#b87ec9;">Student</span></div></div>
+    <span class="deal-mini-price">$24.7M</span>
+  </div>
+  <div class="deal-mini" style="padding-top:10px;"><a href="../track-record.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">View Track Record →</a></div>
+</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section related-markets-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Our Coverage</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 0;">Explore Other Markets</h2>
+    <div class="related-markets-grid">
+          <a href="greeley.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Greeley</div>
+          </a>
+          <a href="boulder.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Boulder</div>
+          </a>
+          <a href="denver.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Denver</div>
+          </a>
+          <a href="colorado-springs.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Colorado Springs</div>
+          </a>
+    </div>
+    <div class="related-markets-all"><a href="index.html">View All Markets &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Common Questions</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 32px;">Fort Collins Multifamily &mdash; Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What drives multifamily demand in Fort Collins?</div>
+          <div class="faq-answer">Colorado State University — with 35,000+ students — is the primary demand driver, creating consistent household formation. Fort Collins also benefits from a growing technology sector, strong quality of life metrics, and net in-migration from Colorado's Front Range.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What are typical cap rates for Fort Collins apartment buildings?</div>
+          <div class="faq-answer">Fort Collins cap rates generally range from 5.0% to 7.0% depending on proximity to CSU, vintage, and asset quality. Student-adjacent product trades tighter; suburban workforce housing further from the university trends toward the higher end.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How does Fort Collins compare to Denver as an investment market?</div>
+          <div class="faq-answer">Fort Collins offers a yield premium over Denver — typically 75–150 basis points — with lower entry prices per unit. The trade-off is less liquidity and a shallower buyer pool. A well-run marketing process reaching Denver and national capital is essential to maximizing competitive tension.</div>
+        </div>
     </div>
   </div>
 </section>

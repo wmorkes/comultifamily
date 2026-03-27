@@ -32,14 +32,72 @@
 .market-body h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.2}
 .market-body h2:first-child{margin-top:0}
 .market-body p{font-size:16px;font-weight:300;color:var(--text-soft);line-height:1.85;margin-bottom:14px}
-.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:28px;margin-top:32px}
+.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:20px 24px;margin-top:2px}
 .deal-list-mini h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:16px}
-.deal-mini{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
+.deal-mini{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
 .deal-mini:last-child{border-bottom:none}
 .deal-mini-name{color:var(--text)}
 .deal-mini-price{color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700}
+.deal-mini-meta{font-size:11px;color:var(--text-soft);margin-top:3px;}
 @media(max-width:1024px){.market-detail-layout{grid-template-columns:1fr}.market-sidebar{position:static}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Stack Morkes Group",
+  "url": "https://www.comultifamily.com",
+  "description": "Colorado and Wyoming multifamily investment sales specialists. Stack Morkes Group at Colliers serves Rock Springs, Wyoming and surrounding communities.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4643 South Ulster Street, Suite 1000",
+    "addressLocality": "Denver",
+    "addressRegion": "CO",
+    "postalCode": "80237",
+    "addressCountry": "US"
+  },
+  "telephone": "+17208334602",
+  "email": "craig.stack@colliers.com",
+  "areaServed": {
+    "@type": "City",
+    "name": "Rock Springs",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Wyoming"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Colliers International",
+    "url": "https://www.colliers.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the Rock Springs multifamily investment thesis?","acceptedAnswer":{"@type":"Answer","text":"Rock Springs is home to Sweetwater County's significant trona mining and natural gas production industries. This creates consistent workforce housing demand from well-compensated extraction industry employees. Western Wyoming Community College also contributes to the renter base."}},
+    {"@type":"Question","name":"What cap rates do Rock Springs apartments trade at?","acceptedAnswer":{"@type":"Answer","text":"Rock Springs multifamily cap rates typically range from 7.5% to 10.0% — among the highest in the Rocky Mountain region for stabilized housing. Our RS Apartments transaction (306 units) demonstrates our ability to close large-scale transactions in secondary Wyoming markets."}},
+    {"@type":"Question","name":"How does Stack Morkes Group approach Rock Springs sales?","acceptedAnswer":{"@type":"Answer","text":"Rock Springs requires a national marketing approach. We connect sellers with Colorado and national investors actively seeking yield in energy-market housing and equipped to underwrite Wyoming market dynamics — creating competitive offers where local buyer depth is limited."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.comultifamily.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.comultifamily.com/markets/index.html"},{"@type":"ListItem","position":3,"name":"Rock Springs","item":"https://www.comultifamily.com/markets/rock-springs.html"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Stack Morkes Group — Rock Springs Closed Transactions","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"ApartmentComplex","name":"RS Apartments","address":{"@type":"PostalAddress","addressLocality":"Rock Springs","addressRegion":"WY","addressCountry":"US"},"numberOfRooms":306}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -64,7 +122,6 @@
         <h2>Investment Characteristics and Buyer Profile</h2>
         <p>Rock Springs appeals to experienced operators and private capital groups comfortable with energy market dynamics. Cap rates are among the highest we cover anywhere in our Wyoming and Colorado footprint, reflecting market size and cyclical risk rather than any structural weakness in the underlying asset class. For the right buyer — one with Wyoming operating experience and a long-term hold perspective — Rock Springs assets can generate cash-on-cash returns that bear no resemblance to what is achievable in Denver or the Front Range.</p>
         <p>We maintain relationships with the Wyoming-focused buyers who actively seek Rock Springs opportunities and understand how to price, finance, and operate in this market. If you own a Rock Springs multifamily asset and are considering a sale, our buyer relationships and Wyoming-specific market knowledge put us in a different category from brokers who treat Wyoming as an afterthought.</p>
-        <div class="deal-list-mini"><h3>Rock Springs Market Notes</h3><div class="deal-mini"><span class="deal-mini-name">Contact us for current Rock Springs transaction data and pricing</span></div><div class="deal-mini" style="padding-top:10px;"><a href="../contact.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Request Consultation →</a></div></div>
       </div>
       <div class="market-sidebar reveal reveal-delay-1">
         <div class="sidebar-card">
@@ -74,7 +131,62 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">Market Type</span><span class="sidebar-stat-val">Energy / Workforce</span></div>
           <div class="sidebar-stat"><span class="sidebar-stat-label">Avg Cap Rate</span><span class="sidebar-stat-val">High Yield</span></div>
         </div>
+        <div class="deal-list-mini">
+  <h3>Featured Rock Springs Sales</h3>
+  <div class="deal-mini">
+    <div><div class="deal-mini-name">RS Apartments</div><div class="deal-mini-meta">306 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
+    <span class="deal-mini-price">Confidential</span>
+  </div>
+  <div class="deal-mini" style="padding-top:10px;"><a href="../track-record.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">View Track Record →</a></div>
+</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section related-markets-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Our Coverage</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 0;">Explore Other Markets</h2>
+    <div class="related-markets-grid">
+          <a href="casper.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Casper</div>
+          </a>
+          <a href="cheyenne.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Cheyenne</div>
+          </a>
+          <a href="gillette.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Gillette</div>
+          </a>
+          <a href="western-slope.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Western Slope</div>
+          </a>
+    </div>
+    <div class="related-markets-all"><a href="index.html">View All Markets &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Common Questions</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 32px;">Rock Springs Multifamily &mdash; Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What is the Rock Springs multifamily investment thesis?</div>
+          <div class="faq-answer">Rock Springs is home to Sweetwater County's significant trona mining and natural gas production industries. This creates consistent workforce housing demand from well-compensated extraction industry employees. Western Wyoming Community College also contributes to the renter base.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What cap rates do Rock Springs apartments trade at?</div>
+          <div class="faq-answer">Rock Springs multifamily cap rates typically range from 7.5% to 10.0% — among the highest in the Rocky Mountain region for stabilized housing. Our RS Apartments transaction (306 units) demonstrates our ability to close large-scale transactions in secondary Wyoming markets.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How does Stack Morkes Group approach Rock Springs sales?</div>
+          <div class="faq-answer">Rock Springs requires a national marketing approach. We connect sellers with Colorado and national investors actively seeking yield in energy-market housing and equipped to underwrite Wyoming market dynamics — creating competitive offers where local buyer depth is limited.</div>
+        </div>
     </div>
   </div>
 </section>

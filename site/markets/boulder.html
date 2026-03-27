@@ -32,14 +32,69 @@
 .market-body h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.2}
 .market-body h2:first-child{margin-top:0}
 .market-body p{font-size:16px;font-weight:300;color:var(--text-soft);line-height:1.85;margin-bottom:14px}
-.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:28px;margin-top:32px}
+.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:20px 24px;margin-top:2px}
 .deal-list-mini h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:16px}
-.deal-mini{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
+.deal-mini{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
 .deal-mini:last-child{border-bottom:none}
 .deal-mini-name{color:var(--text)}
 .deal-mini-price{color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700}
+.deal-mini-meta{font-size:11px;color:var(--text-soft);margin-top:3px;}
 @media(max-width:1024px){.market-detail-layout{grid-template-columns:1fr}.market-sidebar{position:static}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Stack Morkes Group",
+  "url": "https://www.comultifamily.com",
+  "description": "Colorado and Wyoming multifamily investment sales specialists. Stack Morkes Group at Colliers serves Boulder, Colorado and surrounding communities.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4643 South Ulster Street, Suite 1000",
+    "addressLocality": "Denver",
+    "addressRegion": "CO",
+    "postalCode": "80237",
+    "addressCountry": "US"
+  },
+  "telephone": "+17208334602",
+  "email": "craig.stack@colliers.com",
+  "areaServed": {
+    "@type": "City",
+    "name": "Boulder",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Colorado"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Colliers International",
+    "url": "https://www.colliers.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Why do Boulder multifamily assets trade at premium cap rates?","acceptedAnswer":{"@type":"Answer","text":"Boulder's Blue Line growth boundary and aggressive open space acquisition have permanently capped developable land supply. Persistent demand from CU Boulder and a dense tech sector commands a supply-constraint premium — cap rates are typically 50–100 basis points tighter than comparable Denver product."}},
+    {"@type":"Question","name":"What types of buyers purchase Boulder apartment buildings?","acceptedAnswer":{"@type":"Answer","text":"Boulder attracts institutional buyers, family offices, and high-net-worth individuals who prioritize capital preservation and long-term rent growth over current yield. The limited transaction volume means buyer relationships matter significantly."}},
+    {"@type":"Question","name":"Does vintage matter when selling in Boulder?","acceptedAnswer":{"@type":"Answer","text":"Less than in most markets. Because new supply is so constrained, renters have fewer alternatives. A well-maintained 1970s garden-style community in Boulder can command strong relative pricing versus comparable vintage assets in markets with more competitive supply."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.comultifamily.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.comultifamily.com/markets/index.html"},{"@type":"ListItem","position":3,"name":"Boulder","item":"https://www.comultifamily.com/markets/boulder.html"}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -64,7 +119,6 @@
         <h2>Investment Characteristics and Buyer Profile</h2>
         <p>Boulder multifamily assets trade at cap rates below most Colorado markets — a reflection of the supply-constraint premium investors assign to the market's long-term rent growth trajectory. Institutional buyers, family offices, and high-net-worth individuals who prioritize capital preservation and long-term appreciation over current yield are the dominant buyer types. For sellers, Boulder assets typically generate the strongest per-unit pricing among Colorado's non-Denver markets.</p>
         <p>Vintage is less of a discount factor in Boulder than in other markets. Because new supply is so limited, renters have fewer alternatives and are less able to trade up to newer product — which supports occupancy and rent growth even in older vintage assets. A well-maintained 1970s garden-style community in Boulder may command stronger relative pricing than a comparable asset in Denver simply because the competitive supply environment is so different.</p>
-        <div class="deal-list-mini"><h3>Boulder Market Notes</h3><div class="deal-mini"><span class="deal-mini-name">Contact us for current Boulder transaction data and pricing</span><span class="deal-mini-price" style="color:var(--gold)"></span></div><div class="deal-mini" style="padding-top:10px;"><a href="../contact.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Request Consultation →</a></div></div>
       </div>
       <div class="market-sidebar reveal reveal-delay-1">
         <div class="sidebar-card">
@@ -73,7 +127,58 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">CU Enrollment</span><span class="sidebar-stat-val">37,000+</span></div>
           <div class="sidebar-stat"><span class="sidebar-stat-label">Supply Pipeline</span><span class="sidebar-stat-val">Very Limited</span></div>
         </div>
+        <div class="deal-list-mini">
+          <h3>Boulder Market Notes</h3>
+          <div class="deal-mini" style="padding-top:4px;"><a href="../contact.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Request Consultation →</a></div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section related-markets-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Our Coverage</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 0;">Explore Other Markets</h2>
+    <div class="related-markets-grid">
+          <a href="denver.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Denver</div>
+          </a>
+          <a href="fort-collins.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Fort Collins</div>
+          </a>
+          <a href="greeley.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Greeley</div>
+          </a>
+          <a href="mountain-towns.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Mountain Towns</div>
+          </a>
+    </div>
+    <div class="related-markets-all"><a href="index.html">View All Markets &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Common Questions</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 32px;">Boulder Multifamily &mdash; Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">Why do Boulder multifamily assets trade at premium cap rates?</div>
+          <div class="faq-answer">Boulder's Blue Line growth boundary and aggressive open space acquisition have permanently capped developable land supply. Persistent demand from CU Boulder and a dense tech sector commands a supply-constraint premium — cap rates are typically 50–100 basis points tighter than comparable Denver product.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What types of buyers purchase Boulder apartment buildings?</div>
+          <div class="faq-answer">Boulder attracts institutional buyers, family offices, and high-net-worth individuals who prioritize capital preservation and long-term rent growth over current yield. The limited transaction volume means buyer relationships matter significantly.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Does vintage matter when selling in Boulder?</div>
+          <div class="faq-answer">Less than in most markets. Because new supply is so constrained, renters have fewer alternatives. A well-maintained 1970s garden-style community in Boulder can command strong relative pricing versus comparable vintage assets in markets with more competitive supply.</div>
+        </div>
     </div>
   </div>
 </section>

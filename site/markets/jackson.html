@@ -32,14 +32,69 @@
 .market-body h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.2}
 .market-body h2:first-child{margin-top:0}
 .market-body p{font-size:16px;font-weight:300;color:var(--text-soft);line-height:1.85;margin-bottom:14px}
-.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:28px;margin-top:32px}
+.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:20px 24px;margin-top:2px}
 .deal-list-mini h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:16px}
-.deal-mini{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
+.deal-mini{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
 .deal-mini:last-child{border-bottom:none}
 .deal-mini-name{color:var(--text)}
 .deal-mini-price{color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700}
+.deal-mini-meta{font-size:11px;color:var(--text-soft);margin-top:3px;}
 @media(max-width:1024px){.market-detail-layout{grid-template-columns:1fr}.market-sidebar{position:static}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Stack Morkes Group",
+  "url": "https://www.comultifamily.com",
+  "description": "Colorado and Wyoming multifamily investment sales specialists. Stack Morkes Group at Colliers serves Jackson, Wyoming and surrounding communities.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4643 South Ulster Street, Suite 1000",
+    "addressLocality": "Denver",
+    "addressRegion": "CO",
+    "postalCode": "80237",
+    "addressCountry": "US"
+  },
+  "telephone": "+17208334602",
+  "email": "craig.stack@colliers.com",
+  "areaServed": {
+    "@type": "City",
+    "name": "Jackson",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Wyoming"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Colliers International",
+    "url": "https://www.colliers.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What makes Jackson, Wyoming multifamily unique?","acceptedAnswer":{"@type":"Answer","text":"Jackson Hole is among the most supply-constrained resort communities in the nation. Grand Teton National Park and Bridger-Teton National Forest effectively encircle the valley, making new development extraordinarily difficult. The result is acute workforce housing scarcity, consistently strong occupancy, and rent levels that rival major urban markets."}},
+    {"@type":"Question","name":"Who buys apartment buildings in Jackson, Wyoming?","acceptedAnswer":{"@type":"Answer","text":"Jackson multifamily assets attract ultra-high-net-worth individuals, family offices, and resort-market specialists. No-state-income-tax Wyoming ownership combined with Jackson's exceptional lifestyle profile creates a compelling long-term hold case for investors who prioritize capital preservation."}},
+    {"@type":"Question","name":"Is Jackson multifamily affected by short-term rental competition?","acceptedAnswer":{"@type":"Answer","text":"Short-term rental activity has significantly reduced available long-term rental stock in Jackson — which paradoxically supports occupancy and rents for traditional apartment operators. The workforce housing shortage is severe enough that there is sustained demand from hospitality, healthcare, and service sector employees year-round."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.comultifamily.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.comultifamily.com/markets/index.html"},{"@type":"ListItem","position":3,"name":"Jackson","item":"https://www.comultifamily.com/markets/jackson.html"}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -64,7 +119,6 @@
         <h2>Investment Characteristics and Buyer Profile</h2>
         <p>Jackson multifamily assets are among the rarest in our coverage area — they trade infrequently, command premium pricing, and attract a buyer pool that includes family offices, high-net-worth individuals, and institutional capital seeking trophy-quality assets with virtually no new supply competition on the horizon. Cap rates reflect the supply-constraint premium and the market's appreciation trajectory, which has been among the strongest in Wyoming over the past decade.</p>
         <p>For sellers, Jackson Hole assets require a broker with the national buyer relationships to reach the capital sources that will pay appropriately for this market. Our Colliers platform provides access to the institutional and private wealth buyers who actively seek irreplaceable assets in constrained resort markets. If you own Jackson Hole multifamily and are considering your options, we would welcome the conversation.</p>
-        <div class="deal-list-mini"><h3>Jackson Market Notes</h3><div class="deal-mini"><span class="deal-mini-name">Contact us for current Jackson transaction data and pricing</span></div><div class="deal-mini" style="padding-top:10px;"><a href="../contact.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Request Consultation →</a></div></div>
       </div>
       <div class="market-sidebar reveal reveal-delay-1">
         <div class="sidebar-card">
@@ -74,7 +128,62 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">Supply Pipeline</span><span class="sidebar-stat-val">Severely Limited</span></div>
           <div class="sidebar-stat"><span class="sidebar-stat-label">Market Type</span><span class="sidebar-stat-val">Resort / Workforce</span></div>
         </div>
+        <div class="deal-list-mini">
+          <h3>Active Listing</h3>
+          <div class="deal-mini">
+            <div><div class="deal-mini-name">Aspen Meadows</div><div class="deal-mini-meta">115 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
+            <span class="deal-mini-price">For Sale</span>
+          </div>
+          <div class="deal-mini" style="padding-top:10px;"><a href="../listings.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">View All Listings →</a></div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section related-markets-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Our Coverage</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 0;">Explore Other Markets</h2>
+    <div class="related-markets-grid">
+          <a href="casper.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Casper</div>
+          </a>
+          <a href="sheridan.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Sheridan</div>
+          </a>
+          <a href="mountain-towns.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Mountain Towns</div>
+          </a>
+          <a href="boulder.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Boulder</div>
+          </a>
+    </div>
+    <div class="related-markets-all"><a href="index.html">View All Markets &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Common Questions</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 32px;">Jackson Multifamily &mdash; Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What makes Jackson, Wyoming multifamily unique?</div>
+          <div class="faq-answer">Jackson Hole is among the most supply-constrained resort communities in the nation. Grand Teton National Park and Bridger-Teton National Forest effectively encircle the valley, making new development extraordinarily difficult. The result is acute workforce housing scarcity, consistently strong occupancy, and rent levels that rival major urban markets.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Who buys apartment buildings in Jackson, Wyoming?</div>
+          <div class="faq-answer">Jackson multifamily assets attract ultra-high-net-worth individuals, family offices, and resort-market specialists. No-state-income-tax Wyoming ownership combined with Jackson's exceptional lifestyle profile creates a compelling long-term hold case for investors who prioritize capital preservation.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is Jackson multifamily affected by short-term rental competition?</div>
+          <div class="faq-answer">Short-term rental activity has significantly reduced available long-term rental stock in Jackson — which paradoxically supports occupancy and rents for traditional apartment operators. The workforce housing shortage is severe enough that there is sustained demand from hospitality, healthcare, and service sector employees year-round.</div>
+        </div>
     </div>
   </div>
 </section>

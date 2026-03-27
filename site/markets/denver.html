@@ -120,6 +120,7 @@
 .deal-mini {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   padding: 10px 0;
   border-bottom: 1px solid var(--border-soft);
   font-size: 16px;
@@ -127,6 +128,9 @@
 .deal-mini:last-child { border-bottom: none; }
 .deal-mini-name { color: var(--text); font-weight: 400; }
 .deal-mini-price { color: var(--gold); font-family: 'Montserrat', sans-serif; font-weight: 700; }
+.deal-mini-meta { font-size: 11px; color: var(--text-soft); margin-top: 3px; }
+.deal-list-mini { background: var(--bg-alt); border: 1px solid var(--border); padding: 20px 24px; margin-top: 2px; }
+.deal-list-mini h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; }
 
 @media(max-width:1024px){
   .market-detail-layout{ grid-template-columns:1fr; }
@@ -137,6 +141,64 @@
   .submarket-grid{ grid-template-columns:1fr; }
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Stack Morkes Group",
+  "url": "https://www.comultifamily.com",
+  "description": "Colorado and Wyoming multifamily investment sales specialists. Stack Morkes Group at Colliers serves Denver, Colorado and surrounding communities.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4643 South Ulster Street, Suite 1000",
+    "addressLocality": "Denver",
+    "addressRegion": "CO",
+    "postalCode": "80237",
+    "addressCountry": "US"
+  },
+  "telephone": "+17208334602",
+  "email": "craig.stack@colliers.com",
+  "areaServed": {
+    "@type": "City",
+    "name": "Denver",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Colorado"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Colliers International",
+    "url": "https://www.colliers.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What are current cap rates for Denver multifamily?","acceptedAnswer":{"@type":"Answer","text":"Denver multifamily cap rates currently range from approximately 4.5% to 6.5% depending on asset class, vintage, and submarket. Core urban assets in RiNo and LoDo trade at the tighter end; suburban value-add product in Aurora and Westminster typically falls in the 5.5–6.5% range."}},
+    {"@type":"Question","name":"How long does it take to sell a Denver apartment building?","acceptedAnswer":{"@type":"Answer","text":"A well-run Denver multifamily marketing process typically takes 90 to 120 days from launch to close — including a 3–4 week marketing period, offer evaluation, a 30–45 day due diligence window, and a 30-day closing. Off-market transactions can close faster depending on buyer readiness."}},
+    {"@type":"Question","name":"What size apartment buildings does Stack Morkes Group sell in Denver?","acceptedAnswer":{"@type":"Answer","text":"We transact across the full spectrum — from 20-unit garden-style assets for private capital buyers to $100M+ institutional portfolios. Our Denver transaction history includes assets ranging from 30 units to 232 units as individual assignments."}},
+    {"@type":"Question","name":"Is now a good time to sell a Denver apartment building?","acceptedAnswer":{"@type":"Answer","text":"The supply wave that pressured Denver rents between 2022 and 2024 is substantially behind us. The development pipeline has thinned, absorption is improving, and concessions are burning off. Sellers who waited out the supply cycle are entering a favorable window for 2025–2026 dispositions."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.comultifamily.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.comultifamily.com/markets/index.html"},{"@type":"ListItem","position":3,"name":"Denver","item":"https://www.comultifamily.com/markets/denver.html"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Stack Morkes Group — Denver Metro Closed Transactions","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"ApartmentComplex","name":"Lowry North","address":{"@type":"PostalAddress","addressLocality":"Denver","addressRegion":"CO","addressCountry":"US"},"numberOfRooms":192,"offers":{"@type":"Offer","price":51050000,"priceCurrency":"USD"}}},{"@type":"ListItem","position":2,"item":{"@type":"ApartmentComplex","name":"Amber Creek","address":{"@type":"PostalAddress","addressLocality":"Thornton","addressRegion":"CO","addressCountry":"US"},"numberOfRooms":102,"offers":{"@type":"Offer","price":48600000,"priceCurrency":"USD"}}},{"@type":"ListItem","position":3,"item":{"@type":"ApartmentComplex","name":"Columbine Village","address":{"@type":"PostalAddress","addressLocality":"Arvada","addressRegion":"CO","addressCountry":"US"},"numberOfRooms":232,"offers":{"@type":"Offer","price":44750000,"priceCurrency":"USD"}}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -186,16 +248,9 @@
 
         <h2>Asset Types We Transact in Denver</h2>
         <p>Our Denver transactions span the full product spectrum. Value-add garden-style assets in Aurora, Westminster, and Lakewood represent our highest transaction volume — these assets attract a wide buyer pool ranging from high-net-worth individuals to institutional value-add funds. Urban infill product in RiNo, Cap Hill, and Uptown typically requires a more targeted buyer approach given the complexity of urban operating dynamics and the premium underwriting assumptions required to support pricing.</p>
-        <p>Affordable housing transactions in the Denver metro have become an increasingly significant part of our practice. LIHTC and Section 8 assets in suburban Denver submarkets attract mission-driven buyers, non-profit organizations, and specialized affordable housing funds — a distinct buyer pool that requires specialized relationships. Our Columbine Village sale in Arvada — a 232-unit senior LIHTC community that closed at $44.75M — is one example of this expertise applied in the Denver metro.</p>
+        <p><a href="../services.html" style="color:var(--text);text-decoration:underline;text-decoration-color:var(--gold);">Affordable housing transactions</a> in the Denver metro have become an increasingly significant part of our practice. LIHTC and Section 8 assets in suburban Denver submarkets attract mission-driven buyers, non-profit organizations, and specialized affordable housing funds — a distinct buyer pool that requires specialized relationships. Our <a href="../track-record.html" style="color:var(--text);text-decoration:underline;text-decoration-color:var(--gold);">Columbine Village sale in Arvada</a> — a 232-unit senior LIHTC community that closed at $44.75M — is one example of this expertise applied in the Denver metro.</p>
         <p>New construction lease-up assets require brokers with deep capital markets knowledge and strong institutional relationships. We've worked with developers disposing of newly stabilized product and understand how to position lease-up assets to the buyers best equipped to underwrite them. Below is a selection of recent Denver-area closings.</p>
 
-        <div class="deals-teaser">
-          <h3>Recent Denver-Area Closings</h3>
-          <div class="deal-mini"><span class="deal-mini-name">Columbine Village — Arvada (232 units · Senior LIHTC)</span><span class="deal-mini-price">$44.75M</span></div>
-          <div class="deal-mini"><span class="deal-mini-name">Willowbrook Apartments — Westminster (95 units)</span><span class="deal-mini-price">$16.55M</span></div>
-          <div class="deal-mini"><span class="deal-mini-name">Courtyard at Weston Ridge — Littleton (30 units)</span><span class="deal-mini-price">$5.2M</span></div>
-          <div class="deal-mini" style="padding-top:14px; border-top:1px solid var(--border);"><span style="color:var(--text-soft); font-size:12px;">+ many more across all Denver submarkets</span><a href="../track-record.html" style="color:var(--gold); font-size:12px; font-family:'Montserrat',sans-serif; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;">View All →</a></div>
-        </div>
       </div>
 
       <div class="market-sidebar reveal reveal-delay-1">
@@ -207,11 +262,78 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">YOY Rent Growth</span><span class="sidebar-stat-val">See Report</span></div>
           <div class="sidebar-stat"><span class="sidebar-stat-label">Cap Rate Range</span><span class="sidebar-stat-val">4.5–6.5%</span></div>
         </div>
+        <div class="deal-list-mini">
+          <h3>Featured Denver Sales</h3>
+          <div class="deal-mini">
+            <div><div class="deal-mini-name">Lowry North — Denver</div><div class="deal-mini-meta">192 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
+            <span class="deal-mini-price">$51.05M</span>
+          </div>
+          <div class="deal-mini">
+            <div><div class="deal-mini-name">Amber Creek — Thornton</div><div class="deal-mini-meta">102 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
+            <span class="deal-mini-price">$48.6M</span>
+          </div>
+          <div class="deal-mini">
+            <div><div class="deal-mini-name">Columbine Village — Arvada</div><div class="deal-mini-meta">232 units · <span style="color:#7eb8c9;">Affordable</span></div></div>
+            <span class="deal-mini-price">$44.75M</span>
+          </div>
+          <div class="deal-mini" style="padding-top:10px;"><span style="color:var(--text-soft); font-size:11px;">+ many more across all submarkets</span><a href="../track-record.html" style="color:var(--gold); font-size:12px; font-family:'Montserrat',sans-serif; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:4px;">View All →</a></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+
+<section class="section related-markets-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Our Coverage</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 0;">Explore Other Markets</h2>
+    <div class="related-markets-grid">
+          <a href="boulder.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Boulder</div>
+          </a>
+          <a href="fort-collins.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Fort Collins</div>
+          </a>
+          <a href="colorado-springs.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Colorado Springs</div>
+          </a>
+          <a href="greeley.html" class="related-market-link">
+            <div class="related-market-state">CO</div>
+            <div class="related-market-name">Greeley</div>
+          </a>
+    </div>
+    <div class="related-markets-all"><a href="index.html">View All Markets &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Common Questions</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 32px;">Denver Multifamily &mdash; Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What are current cap rates for Denver multifamily?</div>
+          <div class="faq-answer">Denver multifamily cap rates currently range from approximately 4.5% to 6.5% depending on asset class, vintage, and submarket. Core urban assets in RiNo and LoDo trade at the tighter end; suburban value-add product in Aurora and Westminster typically falls in the 5.5–6.5% range.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How long does it take to sell a Denver apartment building?</div>
+          <div class="faq-answer">A well-run Denver multifamily marketing process typically takes 90 to 120 days from launch to close — including a 3–4 week marketing period, offer evaluation, a 30–45 day due diligence window, and a 30-day closing. Off-market transactions can close faster depending on buyer readiness.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What size apartment buildings does Stack Morkes Group sell in Denver?</div>
+          <div class="faq-answer">We transact across the full spectrum — from 20-unit garden-style assets for private capital buyers to $100M+ institutional portfolios. Our Denver transaction history includes assets ranging from 30 units to 232 units as individual assignments.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is now a good time to sell a Denver apartment building?</div>
+          <div class="faq-answer">The supply wave that pressured Denver rents between 2022 and 2024 is substantially behind us. The development pipeline has thinned, absorption is improving, and concessions are burning off. Sellers who waited out the supply cycle are entering a favorable window for 2025–2026 dispositions.</div>
+        </div>
+    </div>
+  </div>
+</section>
 <div id="site-footer"></div>
 <script src="../js/shared.js"></script>
 </body>

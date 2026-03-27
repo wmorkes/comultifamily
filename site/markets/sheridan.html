@@ -32,14 +32,72 @@
 .market-body h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.2}
 .market-body h2:first-child{margin-top:0}
 .market-body p{font-size:16px;font-weight:300;color:var(--text-soft);line-height:1.85;margin-bottom:14px}
-.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:28px;margin-top:32px}
+.deal-list-mini{background:var(--bg-alt);border:1px solid var(--border);padding:20px 24px;margin-top:2px}
 .deal-list-mini h3{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:16px}
-.deal-mini{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
+.deal-mini{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
 .deal-mini:last-child{border-bottom:none}
 .deal-mini-name{color:var(--text)}
 .deal-mini-price{color:var(--gold);font-family:'Montserrat',sans-serif;font-weight:700}
+.deal-mini-meta{font-size:11px;color:var(--text-soft);margin-top:3px;}
 @media(max-width:1024px){.market-detail-layout{grid-template-columns:1fr}.market-sidebar{position:static}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Stack Morkes Group",
+  "url": "https://www.comultifamily.com",
+  "description": "Colorado and Wyoming multifamily investment sales specialists. Stack Morkes Group at Colliers serves Sheridan, Wyoming and surrounding communities.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4643 South Ulster Street, Suite 1000",
+    "addressLocality": "Denver",
+    "addressRegion": "CO",
+    "postalCode": "80237",
+    "addressCountry": "US"
+  },
+  "telephone": "+17208334602",
+  "email": "craig.stack@colliers.com",
+  "areaServed": {
+    "@type": "City",
+    "name": "Sheridan",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Wyoming"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Colliers International",
+    "url": "https://www.colliers.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What makes Sheridan, Wyoming an interesting multifamily market?","acceptedAnswer":{"@type":"Answer","text":"Sheridan is one of Wyoming's most livable communities — consistently ranked among the best small cities in the Mountain West. This has attracted remote workers, retirees, and relocating families, creating rental demand that goes beyond the traditional energy-sector workforce profile and supports more stable occupancy through energy cycles."}},
+    {"@type":"Question","name":"What do Sheridan apartment buildings trade for?","acceptedAnswer":{"@type":"Answer","text":"Sheridan multifamily assets typically trade at cap rates in the 6.5% to 8.5% range. The market's quality-of-life premium and diversifying tenant base support tighter yields than Gillette or Rock Springs, while still offering a meaningful spread over Colorado's primary markets."}},
+    {"@type":"Question","name":"Is there buyer demand for Sheridan apartments?","acceptedAnswer":{"@type":"Answer","text":"Sheridan's small market size means transaction volume is limited. However, Sheridan's quality-of-life story resonates with a specific buyer type — often individuals and family offices with Wyoming lifestyle ties. Reaching those buyers requires the right platform and relationships."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.comultifamily.com/"},{"@type":"ListItem","position":2,"name":"Markets","item":"https://www.comultifamily.com/markets/index.html"},{"@type":"ListItem","position":3,"name":"Sheridan","item":"https://www.comultifamily.com/markets/sheridan.html"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Stack Morkes Group — Sheridan Closed Transactions","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"ApartmentComplex","name":"Sheridan Square","address":{"@type":"PostalAddress","addressLocality":"Sheridan","addressRegion":"WY","addressCountry":"US"},"numberOfRooms":75}}]}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -64,7 +122,6 @@
         <h2>Investment Characteristics and Buyer Profile</h2>
         <p>Sheridan multifamily attracts a broader buyer profile than other Wyoming markets. In addition to experienced Wyoming operators, the market is drawing interest from Front Range private capital groups, family offices, and investors seeking Wyoming's tax advantages combined with a demand profile more similar to quality-of-life driven Colorado markets than traditional energy towns. Cap rates offer a meaningful premium over comparable Colorado assets while the underlying demand dynamics have become increasingly favorable.</p>
         <p>Supply is limited — Sheridan's size and construction cost environment constrain new development in ways that protect existing asset owners. For sellers, this supply constraint and the improving demand story create a favorable marketing narrative that resonates with a wide range of buyers. We know which buyers are actively pursuing Sheridan opportunities and how to position your asset to maximize competitive tension.</p>
-        <div class="deal-list-mini"><h3>Sheridan Market Notes</h3><div class="deal-mini"><span class="deal-mini-name">Contact us for current Sheridan transaction data and pricing</span></div><div class="deal-mini" style="padding-top:10px;"><a href="../contact.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Request Consultation →</a></div></div>
       </div>
       <div class="market-sidebar reveal reveal-delay-1">
         <div class="sidebar-card">
@@ -74,7 +131,62 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">Market Type</span><span class="sidebar-stat-val">Growth / In-Migration</span></div>
           <div class="sidebar-stat"><span class="sidebar-stat-label">Supply Pipeline</span><span class="sidebar-stat-val">Limited</span></div>
         </div>
+        <div class="deal-list-mini">
+          <h3>Featured Sheridan Sales</h3>
+          <div class="deal-mini">
+            <div><div class="deal-mini-name">Sheridan Square</div><div class="deal-mini-meta">75 units · <span style="color:#7eb8c9;">Affordable</span></div></div>
+            <span class="deal-mini-price">Confidential</span>
+          </div>
+          <div class="deal-mini" style="padding-top:10px;"><a href="../track-record.html" style="color:var(--gold);font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">View Track Record →</a></div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section related-markets-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Our Coverage</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 0;">Explore Other Markets</h2>
+    <div class="related-markets-grid">
+          <a href="casper.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Casper</div>
+          </a>
+          <a href="gillette.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Gillette</div>
+          </a>
+          <a href="laramie.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Laramie</div>
+          </a>
+          <a href="cheyenne.html" class="related-market-link">
+            <div class="related-market-state">WY</div>
+            <div class="related-market-name">Cheyenne</div>
+          </a>
+    </div>
+    <div class="related-markets-all"><a href="index.html">View All Markets &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section faq-section">
+  <div class="section-inner">
+    <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Common Questions</span></div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin:12px 0 32px;">Sheridan Multifamily &mdash; Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">What makes Sheridan, Wyoming an interesting multifamily market?</div>
+          <div class="faq-answer">Sheridan is one of Wyoming's most livable communities — consistently ranked among the best small cities in the Mountain West. This has attracted remote workers, retirees, and relocating families, creating rental demand that goes beyond the traditional energy-sector workforce profile and supports more stable occupancy through energy cycles.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What do Sheridan apartment buildings trade for?</div>
+          <div class="faq-answer">Sheridan multifamily assets typically trade at cap rates in the 6.5% to 8.5% range. The market's quality-of-life premium and diversifying tenant base support tighter yields than Gillette or Rock Springs, while still offering a meaningful spread over Colorado's primary markets.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is there buyer demand for Sheridan apartments?</div>
+          <div class="faq-answer">Sheridan's small market size means transaction volume is limited. However, Sheridan's quality-of-life story resonates with a specific buyer type — often individuals and family offices with Wyoming lifestyle ties. Reaching those buyers requires the right platform and relationships.</div>
+        </div>
     </div>
   </div>
 </section>

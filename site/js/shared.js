@@ -83,6 +83,7 @@ const SCHEMA_ORG = {
 };
 
 function injectSchema() {
+  if (document.querySelector('script[type="application/ld+json"]')) return;
   const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify(SCHEMA_ORG);
