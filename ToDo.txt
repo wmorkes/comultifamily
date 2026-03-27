@@ -1,0 +1,53 @@
+SEO AUDIT — comultifamily.com — 2026-03-27
+COMPLETED: Full SEO pass on all 22 pages (2026-03-27)
+==========================================
+
+
+COMPLETED FIXES
+----------------
+[x] Titles — all 22 pages trimmed to 49–64 chars (was 68–94)
+[x] Descriptions — all 22 pages within 146–165 chars
+[x] Canonical URLs — updated from .html to trailing-slash format (e.g., /markets/denver/)
+[x] og:url — updated to match canonicals on all pages
+[x] og:title, og:description, twitter:title, twitter:description — synced to match on all pages
+[x] JSON-LD added — contact.html, listings.html, resources.html, markets/index.html
+[x] Netlify redirects — .html → trailing-slash and rewrite rules added to netlify.toml
+
+
+REMAINING SEO WORK
+-------------------
+
+[D1] Market pages missing areaServed in JSON-LD schema
+  Each market page has JSON-LD but doesn't specify areaServed for the local market.
+  Fix: Add areaServed to JSON-LD on all 14 market pages (do after content cleanup)
+
+[D2] FAQ schema opportunity
+  Top market pages (Denver, Boulder, Colorado Springs) could win featured snippets.
+  Add FAQ schema after content cleanup so questions reflect final copy.
+
+[E1] No internal links between market pages
+  Google can't crawl from Denver → Boulder → Fort Collins, etc.
+  Fix: Add "Explore Other Markets" section at the bottom of each market page.
+
+[E2] "YOY Rent Growth" sidebar stat on Denver page says "See Report" — dead end
+  Fix: Replace with a real number or link to an actual report.
+
+[E3] Update hero/property photos with past sales imagery
+
+
+DEPLOY CHECKLIST (when Netlify credits renew ~2026-04-01)
+-----------------------------------------------------------
+[ ] Push main → triggers auto-deploy
+[ ] Confirm Netlify redirect rules are active (test /markets/denver/ and /contact/)
+[ ] Go to Google Search Console → click Verify
+    (GSC verification meta tag already in index.html)
+[ ] Submit sitemap.xml in Search Console → Sitemaps
+[ ] Confirm GA4 is receiving data (analytics.google.com → Realtime)
+    (GA4 ID G-53BCG1FL5M already added to all 22 pages)
+
+
+CONTENT CLEANUP (next session)
+--------------------------------
+Work through pages and update/refine body copy as needed.
+Use /seo-check after editing any page.
+Use /meta-audit before final deploy to confirm all 22 pages still clean.

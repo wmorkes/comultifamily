@@ -18,7 +18,7 @@ Static marketing website for **Stack Morkes Group**, a multifamily investment sa
 - **Vanilla HTML5 / CSS3 / JavaScript** — no framework, no build tool, no npm
 - **Netlify** for hosting — publish directory is `site/`
 - **Deployment:** push to `main` branch → Netlify auto-deploys
-- Do NOT introduce npm packages, build steps, or JavaScript frameworks
+- **Netlify CLI** — installed globally (`netlify-cli` via npm). Use for deploy status and management. Do NOT introduce npm packages, build steps, or JS frameworks into the site itself.
 
 ---
 
@@ -145,6 +145,24 @@ Each market has its own file under `site/markets/`. They share `css/style.css` a
 
 ### Deploying
 Push to `main` → Netlify deploys automatically. No build step needed.
+
+Check deploy status anytime: `netlify status` or `netlify open`
+
+### Creating a new market page
+Use `/new-market-page` — it asks for city, state, slug, and keywords, then scaffolds the full file from the denver.html template with all SEO fields pre-filled and data TODOs marked.
+
+### Planning content for a market page
+Use `/content-brief [city]` — researches the market via web search and returns target keywords, recommended H2 structure, key stats to verify, and a competitor positioning angle.
+
+### SEO QA before committing
+- Single page: `/seo-check [file path]` — checks title, description, canonical, OG tags, JSON-LD, h1
+- All pages: `/meta-audit` — scans every HTML file site-wide, returns a table of issues
+- Schema only: `/schema-validate [file path]` — validates JSON-LD against the RealEstateAgent pattern
+
+### Automated SEO checks
+Two automations run without manual intervention:
+1. **Write hook** — after any HTML file is written in `site/`, Claude automatically runs `/seo-check` on it
+2. **Pre-commit hook** — `git commit` is blocked if any staged HTML file is missing title, description, canonical, OG tags, or JSON-LD
 
 ---
 

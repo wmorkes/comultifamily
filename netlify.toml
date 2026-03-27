@@ -1,2 +1,204 @@
 [build]
   publish = "site"
+
+# Serve clean trailing-slash URLs from .html files (rewrites, URL stays clean)
+[[redirects]]
+  from = "/contact/"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/listings/"
+  to = "/listings.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources/"
+  to = "/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/"
+  to = "/services.html"
+  status = 200
+
+[[redirects]]
+  from = "/team/"
+  to = "/team.html"
+  status = 200
+
+[[redirects]]
+  from = "/track-record/"
+  to = "/track-record.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/boulder/"
+  to = "/markets/boulder.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/casper/"
+  to = "/markets/casper.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/cheyenne/"
+  to = "/markets/cheyenne.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/colorado-springs/"
+  to = "/markets/colorado-springs.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/denver/"
+  to = "/markets/denver.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/fort-collins/"
+  to = "/markets/fort-collins.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/gillette/"
+  to = "/markets/gillette.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/greeley/"
+  to = "/markets/greeley.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/jackson/"
+  to = "/markets/jackson.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/laramie/"
+  to = "/markets/laramie.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/mountain-towns/"
+  to = "/markets/mountain-towns.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/rock-springs/"
+  to = "/markets/rock-springs.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/sheridan/"
+  to = "/markets/sheridan.html"
+  status = 200
+
+[[redirects]]
+  from = "/markets/western-slope/"
+  to = "/markets/western-slope.html"
+  status = 200
+
+# 301 redirects from old .html URLs to clean trailing-slash URLs
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact/"
+  status = 301
+
+[[redirects]]
+  from = "/listings.html"
+  to = "/listings/"
+  status = 301
+
+[[redirects]]
+  from = "/resources.html"
+  to = "/resources/"
+  status = 301
+
+[[redirects]]
+  from = "/services.html"
+  to = "/services/"
+  status = 301
+
+[[redirects]]
+  from = "/team.html"
+  to = "/team/"
+  status = 301
+
+[[redirects]]
+  from = "/track-record.html"
+  to = "/track-record/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/boulder.html"
+  to = "/markets/boulder/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/casper.html"
+  to = "/markets/casper/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/cheyenne.html"
+  to = "/markets/cheyenne/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/colorado-springs.html"
+  to = "/markets/colorado-springs/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/denver.html"
+  to = "/markets/denver/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/fort-collins.html"
+  to = "/markets/fort-collins/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/gillette.html"
+  to = "/markets/gillette/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/greeley.html"
+  to = "/markets/greeley/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/jackson.html"
+  to = "/markets/jackson/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/laramie.html"
+  to = "/markets/laramie/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/mountain-towns.html"
+  to = "/markets/mountain-towns/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/rock-springs.html"
+  to = "/markets/rock-springs/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/sheridan.html"
+  to = "/markets/sheridan/"
+  status = 301
+
+[[redirects]]
+  from = "/markets/western-slope.html"
+  to = "/markets/western-slope/"
+  status = 301
