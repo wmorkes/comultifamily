@@ -117,20 +117,6 @@
   color: var(--gold);
   margin-bottom: 18px;
 }
-.deal-mini {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 16px;
-}
-.deal-mini:last-child { border-bottom: none; }
-.deal-mini-name { color: var(--text); font-weight: 400; }
-.deal-mini-price { color: var(--gold); font-family: 'Montserrat', sans-serif; font-weight: 700; }
-.deal-mini-meta { font-size: 11px; color: var(--text-soft); margin-top: 3px; }
-.deal-list-mini { background: var(--bg-alt); border: 1px solid var(--border); padding: 20px 24px; margin-top: 2px; }
-.deal-list-mini h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; }
 
 @media(max-width:1024px){
   .market-detail-layout{ grid-template-columns:1fr; }
@@ -263,20 +249,20 @@
           <div class="sidebar-stat"><span class="sidebar-stat-label">Cap Rate Range</span><span class="sidebar-stat-val">4.5–6.5%</span></div>
         </div>
         <div class="deal-list-mini">
-          <h3>Featured Denver Sales</h3>
+          <h3>Featured Transactions</h3>
           <div class="deal-mini">
-            <div><div class="deal-mini-name">Lowry North — Denver</div><div class="deal-mini-meta">192 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
-            <span class="deal-mini-price">$51.05M</span>
+            <div><div class="deal-mini-name">The Grove at City Center</div><div class="deal-mini-meta">420 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
+            <span class="deal-mini-price">$80.5M</span>
           </div>
           <div class="deal-mini">
-            <div><div class="deal-mini-name">Amber Creek — Thornton</div><div class="deal-mini-meta">102 units · <span style="color:#c9a84c;">Market-Rate</span></div></div>
-            <span class="deal-mini-price">$48.6M</span>
-          </div>
-          <div class="deal-mini">
-            <div><div class="deal-mini-name">Columbine Village — Arvada</div><div class="deal-mini-meta">232 units · <span style="color:#7eb8c9;">Affordable</span></div></div>
+            <div><div class="deal-mini-name">Columbine Village</div><div class="deal-mini-meta">232 units · <span style="color:#7eb8c9;">Affordable</span></div></div>
             <span class="deal-mini-price">$44.75M</span>
           </div>
-          <div class="deal-mini" style="padding-top:10px;"><span style="color:var(--text-soft); font-size:11px;">+ many more across all submarkets</span><a href="../track-record.html" style="color:var(--gold); font-size:12px; font-family:'Montserrat',sans-serif; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:4px;">View All →</a></div>
+          <div class="deal-mini">
+            <div><div class="deal-mini-name">Potter's House ReDev</div><div class="deal-mini-meta"><span style="color:#7ec994;">Land</span></div></div>
+            <span class="deal-mini-price">$18.1M</span>
+          </div>
+          <div class="deal-list-footer"><a href="../track-record.html">View Track Record →</a></div>
         </div>
       </div>
     </div>

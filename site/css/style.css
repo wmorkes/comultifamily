@@ -679,6 +679,30 @@ a { text-decoration:none; color:inherit; }
 @media(max-width:768px){ .related-markets-grid { grid-template-columns: 1fr 1fr; } }
 @media(max-width:480px){ .related-markets-grid { grid-template-columns: 1fr; } }
 
+/* ─── MARKET PAGE LAYOUT ─── */
+.market-detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start; }
+.market-sidebar { position: sticky; top: 96px; }
+.sidebar-card { background: var(--bg-card); border: 1px solid var(--border); padding: 28px 24px; margin-bottom: 2px; }
+.sidebar-card h4 { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); margin-bottom: 14px; }
+.sidebar-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--border-soft); font-size: 13px; }
+.sidebar-stat:last-child { border-bottom: none; }
+.sidebar-stat-label { color: var(--text-soft); }
+.sidebar-stat-val { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); font-size: 14px; }
+.market-body h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: var(--text); margin: 32px 0 12px; line-height: 1.2; }
+.market-body h2:first-child { margin-top: 0; }
+.market-body p { font-size: 16px; font-weight: 300; color: var(--text-soft); line-height: 1.85; margin-bottom: 14px; }
+.deal-list-mini { background: var(--bg-alt); border: 1px solid var(--border); padding: 20px 24px; margin-top: 2px; }
+.deal-list-mini h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; }
+.deal-mini { display: flex; justify-content: space-between; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--border-soft); font-size: 13px; }
+.deal-mini:last-child { border-bottom: none; }
+.deal-mini-name { color: var(--text); }
+.deal-mini-price { color: var(--gold); font-family: 'Montserrat', sans-serif; font-weight: 700; }
+.deal-mini-meta { font-size: 11px; color: var(--text-soft); margin-top: 3px; }
+.deal-list-footer { padding: 10px 0 2px; }
+.deal-list-footer a { color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; display: block; }
+.deal-list-footer a:hover { color: var(--gold-light, #d4af5a); }
+@media(max-width:1024px) { .market-detail-layout { grid-template-columns: 1fr; } .market-sidebar { position: static; } }
+
 /* ─── MARKET SIDEBAR — Featured Sales / Active Listing card ── */
 .market-sidebar .deal-list-mini { background: var(--navy); border-color: var(--navy); }
 .market-sidebar .deal-list-mini .deal-mini { border-bottom-color: rgba(255,255,255,0.1); }
