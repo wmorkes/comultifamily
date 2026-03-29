@@ -1,4 +1,4 @@
-# Stack Morkes Group — Image Asset Guide
+# CO Multifamily Advisors — Image Asset Guide
 
 Drop your files into this folder structure. The site references them by exact filename.
 No code changes needed — just replace the file and redeploy to Netlify.

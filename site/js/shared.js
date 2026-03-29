@@ -21,8 +21,8 @@ const SCHEMA_ORG = {
     {
       "@type": "RealEstateAgent",
       "@id": "https://www.comultifamily.com/#organization",
-      "name": "Stack Morkes Group",
-      "alternateName": "Stack Morkes Multifamily Investments",
+      "name": "CO Multifamily Advisors",
+      "alternateName": "CO Multifamily Advisors",
       "url": "https://www.comultifamily.com",
       "logo": "https://www.comultifamily.com/images/logo.png",
       "description": "Colorado and Wyoming's leading multifamily investment sales team. $3B+ in closed apartment transactions. Specializing in market-rate, affordable, student, and land sales.",
@@ -98,7 +98,7 @@ function injectOpenGraph() {
 
   const ogTags = [
     { property: 'og:type',        content: 'website' },
-    { property: 'og:site_name',   content: 'Stack Morkes Group | Colliers' },
+    { property: 'og:site_name',   content: 'CO Multifamily Advisors | Colliers' },
     { property: 'og:title',       content: title },
     { property: 'og:description', content: desc },
     { property: 'og:url',         content: url },
@@ -124,9 +124,12 @@ function injectOpenGraph() {
 const NAV_HTML = `
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
-    <a href="/index.html" class="site-logo">
-      <span class="logo-main">Stack <span class="logo-sep">|</span> Morkes <span style="color:rgba(255,255,255,0.45);font-weight:400;font-size:18px;">Group</span></span>
-      <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
+    <a href="/index.html" class="site-logo" style="flex-direction:row;align-items:center;gap:14px;">
+      <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
+        <span class="logo-sub" style="color:#c9a84c;">Colorado &amp; Wyoming Multifamily Brokerage</span>
+      </div>
     </a>
     <nav class="site-nav" id="siteNav">
       <ul>
@@ -150,9 +153,12 @@ const FOOTER_HTML = `
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="/index.html" class="site-logo">
-          <span class="logo-main">Stack <span class="logo-sep">|</span> Morkes <span style="color:rgba(255,255,255,0.35);font-weight:400;font-size:17px;">Group</span></span>
-          <span class="logo-sub" style="margin-top:3px;display:block;">Colorado &amp; Wyoming Multifamily Brokerage</span>
+        <a href="/index.html" class="site-logo" style="flex-direction:row;align-items:center;gap:14px;">
+          <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
+            <span class="logo-sub" style="color:#c9a84c;margin-top:0;display:block;">Colorado &amp; Wyoming Multifamily Brokerage</span>
+          </div>
         </a>
         <p style="margin-top:8px;">Colorado and Wyoming's dedicated multifamily investment sales team.<br><br>Colliers | Denver<br>4643 South Ulster Street, Suite 1000, Denver, CO 80237.</p>
         <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
@@ -217,7 +223,7 @@ const FOOTER_HTML = `
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Colliers | Stack Morkes Group. All rights reserved.</span>
+      <span class="footer-copy">&copy; 2026 Colliers | CO Multifamily Advisors. All rights reserved.</span>
     </div>
   </div>
 </footer>`;

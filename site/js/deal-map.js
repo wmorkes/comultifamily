@@ -1,7 +1,7 @@
 /**
- * deal-map.js — Stack Morkes Group Transaction Map
+ * deal-map.js — CO Multifamily Advisors Transaction Map
  *
- * Reads from the Stack Morkes Group Google Sheet (published as CSV).
+ * Reads from the CO Multifamily Advisors Google Sheet (published as CSV).
  * Geocodes addresses via Google Maps Geocoding API.
  * Caches geocoded coordinates in sessionStorage to avoid re-geocoding.
  *
