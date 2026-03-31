@@ -165,6 +165,11 @@
 }
 .bio-contact-item a { color: var(--gold); transition: color 0.2s; }
 .bio-contact-item a:hover { color: var(--gold-light); }
+/* Phone (1st) and LinkedIn (3rd) in navy; email (2nd) stays gold */
+.bio-contact-item:nth-child(1) a,
+.bio-contact-item:nth-child(3) a { color: var(--navy); }
+.bio-contact-item:nth-child(1) a:hover,
+.bio-contact-item:nth-child(3) a:hover { color: var(--text-soft); }
 
 /* Colliers section */
 .colliers-bar {
@@ -196,6 +201,7 @@
   .bio-card:nth-child(even) .bio-content{ order:0; }
   .photo-frame{ width:100%; max-width:280px; margin:0 auto; }
   .colliers-bar{ grid-template-columns:1fr; }
+  .bio-contact{ flex-direction:column; gap:10px; }
 }
 </style>
 <script type="application/ld+json">

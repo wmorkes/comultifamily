@@ -133,7 +133,7 @@
   align-items: center;
   gap: 8px;
 }
-.broker-card-contact-item svg { color: var(--gold); flex-shrink: 0; }
+.broker-card-contact-item svg { color: var(--navy); flex-shrink: 0; }
 .broker-card-contact-item a { color: var(--text-soft); transition: color 0.2s; }
 .broker-card-contact-item a:hover { color: var(--gold); }
 
@@ -160,7 +160,6 @@
 
 @media(max-width:1024px){
   .contact-layout{ grid-template-columns:1fr; }
-  .contact-sidebar{ order:-1; }
   .form-row{ grid-template-columns:1fr; }
 }
 </style>
@@ -227,7 +226,7 @@
               <option>I'm considering selling my property — request a BOV</option>
               <option>I want to discuss an off-market opportunity</option>
               <option>I'm a buyer — submit acquisition criteria</option>
-              <option>I'd like to subscribe to your market reports</option>
+              <option value="subscribe">I'd like to subscribe to your market reports</option>
               <option value="resource">Request a resource (comps, research, analysis)</option>
               <option>Other inquiry</option>
             </select>
