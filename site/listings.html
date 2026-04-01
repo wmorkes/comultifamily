@@ -186,7 +186,7 @@
 .status-active  { background: var(--navy); color: var(--gold); }
 .status-pending { background: var(--gold); color: var(--navy); }
 
-.prop-body { padding: 22px 26px; }
+.prop-body { padding: 18px 22px; }
 .prop-type {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -194,30 +194,36 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 7px;
+  margin-bottom: 5px;
 }
 .prop-type--market-rate { color: #c9a84c; }
 .prop-type--affordable  { color: #7eb8c9; }
 .prop-type--student     { color: #b87ec9; }
 .prop-type--land        { color: #7ec994; }
+.prop-name-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
 .prop-name {
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 5px;
   line-height: 1.2;
+  flex-shrink: 0;
 }
 .prop-location {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-soft);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .prop-details {
   display: flex;
   gap: 18px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-soft);
+  padding-top: 12px;
 }
 .prop-detail-item { }
 .prop-detail-val {
