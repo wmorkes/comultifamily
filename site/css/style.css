@@ -704,6 +704,30 @@ a { text-decoration:none; color:inherit; }
 .deal-list-footer a:hover { color: var(--gold-light, #d4af5a); }
 @media(max-width:1024px) { .market-detail-layout { grid-template-columns: 1fr; } .market-sidebar { position: static; } }
 
+/* ─── SUBMARKET LIST ─── */
+.submarket-list { margin: 24px 0; }
+.submarket-entry { padding: 18px 0; border-bottom: 1px solid var(--border-soft); }
+.submarket-entry:last-child { border-bottom: none; }
+.submarket-entry-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); margin-bottom: 4px; }
+.submarket-entry-areas { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 8px; font-family: 'Montserrat', sans-serif; }
+.submarket-entry p { font-size: 15px; color: var(--text-soft); line-height: 1.75; margin: 0; }
+
+/* ─── TRANSACTIONS TABLE ─── */
+.deals-table { width: 100%; border-top: 2px solid var(--navy); margin-top: 8px; }
+.deals-table-header { display: grid; grid-template-columns: 2fr 1.2fr 0.6fr 0.6fr 1fr 1fr; padding: 10px 0; border-bottom: 1px solid var(--border); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-soft); }
+.deals-table-row { display: grid; grid-template-columns: 2fr 1.2fr 0.6fr 0.6fr 1fr 1fr; padding: 13px 0; border-bottom: 1px solid var(--border-soft); align-items: center; font-size: 15px; }
+.deals-table-row:last-child { border-bottom: none; }
+.deals-table-name { font-weight: 600; color: var(--text); }
+.deals-table-city { color: var(--text-soft); font-size: 14px; }
+.deals-table-units { color: var(--text-soft); font-size: 14px; }
+.deals-table-type { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; }
+.deals-table-price { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); text-align: right; }
+@media(max-width:768px) {
+  .deals-table-header { display: none; }
+  .deals-table-row { grid-template-columns: 1fr auto; }
+  .deals-table-city, .deals-table-units, .deals-table-yoc, .deals-table-type { display: none; }
+}
+
 /* ─── MARKET SIDEBAR — Featured Sales / Active Listing card ── */
 .market-sidebar .deal-list-mini { background: var(--navy); border-color: var(--navy); }
 .market-sidebar .deal-list-mini .deal-mini { border-bottom-color: rgba(255,255,255,0.1); }
