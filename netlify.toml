@@ -1,6 +1,13 @@
 [build]
   publish = "site"
 
+# Force non-www to www (matches canonical URLs on all 22 pages)
+[[redirects]]
+  from = "https://comultifamily.com/*"
+  to = "https://www.comultifamily.com/:splat"
+  status = 301
+  force = true
+
 # Serve clean trailing-slash URLs from .html files (rewrites, URL stays clean)
 [[redirects]]
   from = "/contact/"
