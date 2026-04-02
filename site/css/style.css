@@ -171,9 +171,9 @@ a { text-decoration:none; color:inherit; }
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(12,26,46,0.82) 0%,
-    rgba(12,26,46,0.60) 50%,
-    rgba(12,26,46,0.30) 100%
+    rgba(12,26,46,0.62) 0%,
+    rgba(12,26,46,0.38) 50%,
+    rgba(12,26,46,0.12) 100%
   );
 }
 
@@ -182,7 +182,7 @@ a { text-decoration:none; color:inherit; }
 }
 
 .page-hero--inner {
-  min-height: 480px;
+  min-height: 650px;
 }
 .page-hero--inner .page-hero-bg {
   background-image: url('images/hero-bg.jpg');
@@ -471,15 +471,15 @@ a { text-decoration:none; color:inherit; }
   align-items: center;
   gap: 8px;
   font-size: 10px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.25);
   margin-bottom: 20px;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.breadcrumb a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
-.breadcrumb a:hover { color: rgba(255,255,255,0.8); }
-.breadcrumb-sep { color: rgba(255,255,255,0.2); }
+.breadcrumb a { color: rgba(255,255,255,0.25); transition: color 0.2s; }
+.breadcrumb a:hover { color: rgba(255,255,255,0.65); }
+.breadcrumb-sep { color: rgba(255,255,255,0.12); }
 
 /* ─── FORM ELEMENTS ──────────────────────────────────────── */
 .form-input {
@@ -681,17 +681,17 @@ a { text-decoration:none; color:inherit; }
 @media(max-width:480px){ .related-markets-grid { grid-template-columns: 1fr; } }
 
 /* ─── MARKET PAGE LAYOUT ─── */
-.market-detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start; }
+.market-detail-layout { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
 .market-sidebar { position: sticky; top: 96px; }
-.sidebar-card { background: var(--bg-card); border: 1px solid var(--border); padding: 28px 24px; margin-bottom: 2px; }
-.sidebar-card h4 { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); margin-bottom: 14px; }
-.sidebar-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--border-soft); font-size: 13px; }
+.sidebar-card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px 28px; margin-bottom: 2px; }
+.sidebar-card h4 { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); margin-bottom: 16px; }
+.sidebar-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border-soft); font-size: 14px; }
 .sidebar-stat:last-child { border-bottom: none; }
 .sidebar-stat-label { color: var(--text-soft); }
-.sidebar-stat-val { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); font-size: 14px; }
-.market-body h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: var(--text); margin: 32px 0 12px; line-height: 1.2; }
+.sidebar-stat-val { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); font-size: 14px; white-space: nowrap; }
+.market-body h2 { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 600; color: var(--text); margin: 36px 0 14px; line-height: 1.2; }
 .market-body h2:first-child { margin-top: 0; }
-.market-body p { font-size: 16px; font-weight: 300; color: var(--text-soft); line-height: 1.85; margin-bottom: 14px; }
+.market-body p { font-size: 17px; font-weight: 300; color: var(--text-soft); line-height: 1.85; margin-bottom: 16px; }
 .deal-list-mini { background: var(--bg-alt); border: 1px solid var(--border); padding: 20px 24px; margin-top: 2px; }
 .deal-list-mini h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; }
 .deal-mini { display: flex; justify-content: space-between; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--border-soft); font-size: 13px; }
