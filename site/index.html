@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Colorado Multifamily Broker | CO Multifamily Advisors | Colliers</title>
+<title>Colorado Multifamily Broker | CO Multifamily Advisors</title>
 <meta name="description" content="Colorado and Wyoming's leading multifamily investment sales team at Colliers. $3B+ in transactions across market-rate, affordable, and student housing.">
 <meta name="keywords" content="Colorado multifamily broker, Denver multifamily investment sales, apartment broker Colorado, multifamily advisor Colorado, Wyoming multifamily broker">
 <link rel="canonical" href="https://www.comultifamily.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CO Multifamily Advisors | Colliers">
-<meta property="og:title" content="Colorado Multifamily Broker | CO Multifamily Advisors | Colliers">
+<meta property="og:title" content="Colorado Multifamily Broker | CO Multifamily Advisors">
 <meta property="og:description" content="Colorado and Wyoming's leading multifamily investment sales team at Colliers. $3B+ in transactions across market-rate, affordable, and student housing.">
 <meta property="og:url" content="https://www.comultifamily.com/">
 <meta property="og:image" content="https://www.comultifamily.com/images/og-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Colorado Multifamily Broker | CO Multifamily Advisors | Colliers">
+<meta name="twitter:title" content="Colorado Multifamily Broker | CO Multifamily Advisors">
 <meta name="twitter:description" content="Colorado and Wyoming's leading multifamily investment sales team at Colliers. $3B+ in transactions across market-rate, affordable, and student housing.">
 <meta name="twitter:image" content="https://www.comultifamily.com/images/og-share.jpg">
 <meta name="google-site-verification" content="JyQUL2g7poG-n20iFvzYwZ1_zDaLkNZ3iuoeMDyiIYQ" />
@@ -989,12 +990,12 @@
         <a href="track-record.html" class="btn btn-gold">View All Transactions →</a>
       </div>
       <div class="deal-list" id="featured-deals">
-        <div class="deal-row reveal"><div><div class="deal-name">Lake Creek Village</div><div class="deal-meta">Edwards, CO · <span class="type-affordable">Affordable</span> · Mountain Markets</div></div><div style="text-align:right"><div class="deal-price">$81.85M</div><div class="deal-units">270 Units</div></div></div>
-        <div class="deal-row reveal"><div><div class="deal-name">The Grove at City Center</div><div class="deal-meta">Aurora, CO · <span class="type-market-rate">Market-Rate</span> · Denver Metro</div></div><div style="text-align:right"><div class="deal-price">$80.5M</div><div class="deal-units">420 Units</div></div></div>
-        <div class="deal-row reveal"><div><div class="deal-name">Enchanted Springs</div><div class="deal-meta">Colorado Springs, CO · <span class="type-market-rate">Market-Rate</span> · Colorado Springs</div></div><div style="text-align:right"><div class="deal-price">$65M</div><div class="deal-units">200 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">Springs at Foothill Farms</div><div class="deal-meta">Colorado Springs, CO · <span class="type-market-rate">Market-Rate</span> · Colorado Springs</div></div><div style="text-align:right"><div class="deal-price">$110.88M</div><div class="deal-units">264 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">Lake Creek Village</div><div class="deal-meta">Edwards, CO · <span class="type-affordable">Affordable</span> · Mountain</div></div><div style="text-align:right"><div class="deal-price">$81.85M</div><div class="deal-units">270 Units</div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">The Grove at City Center</div><div class="deal-meta">Aurora, CO · <span class="type-market-rate">Market-Rate</span> · Denver</div></div><div style="text-align:right"><div class="deal-price">$80.5M</div><div class="deal-units">420 Units</div></div></div>
         <div class="deal-row reveal"><div><div class="deal-name">Social Fort Collins</div><div class="deal-meta">Fort Collins, CO · <span class="type-student">Student</span> · Fort Collins</div></div><div style="text-align:right"><div class="deal-price">$25.5M</div><div class="deal-units">68 Units</div></div></div>
-        <div class="deal-row reveal"><div><div class="deal-name">South Fork</div><div class="deal-meta">Gillette, WY · <span class="type-market-rate">Market-Rate</span> · Gillette</div></div><div style="text-align:right"><div class="deal-price">Confidential</div><div class="deal-units">336 Units</div></div></div>
-        <div class="deal-row reveal"><div><div class="deal-name">Potter's House ReDev</div><div class="deal-meta">Denver, CO · <span class="type-land">Land</span> · Denver Metro</div></div><div style="text-align:right"><div class="deal-price">$18.1M</div><div class="deal-units"></div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">Potter's House ReDev</div><div class="deal-meta">Denver, CO · <span class="type-land">Land</span> · Denver</div></div><div style="text-align:right"><div class="deal-price">$18.1M</div><div class="deal-units"></div></div></div>
+        <div class="deal-row reveal"><div><div class="deal-name">South Fork</div><div class="deal-meta">Gillette, WY · <span class="type-market-rate">Market-Rate</span> · Wyoming</div></div><div style="text-align:right"><div class="deal-price">Confidential</div><div class="deal-units">336 Units</div></div></div>
       </div>
     </div>
   </div>
@@ -1084,104 +1085,6 @@
 <div id="site-footer"></div>
 <script src="js/shared.js"></script>
 <script>
-/* ── Featured deals — fetched live from Sales sheet ── */
-(function () {
-  const SALES_CSV = 'https://docs.google.com/spreadsheets/d/1XodqdnLEKNVOUQvkOmyoklY_CNZM02UmNl2q6Ut2Uns/export?format=csv&gid=0';
-
-  const TYPE_MAP = {
-    'market-rate': { cls: 'type-market-rate', label: 'Market-Rate' },
-    'affordable':  { cls: 'type-affordable',  label: 'Affordable'  },
-    'student':     { cls: 'type-student',     label: 'Student'     },
-    'land':        { cls: 'type-land',        label: 'Land'        },
-  };
-
-  function normalizeType(raw) {
-    if (!raw) return 'market-rate';
-    const s = raw.toLowerCase();
-    if (s.includes('student')) return 'student';
-    if (s.includes('land') || s.includes('site') || s.includes('develop') || s.includes('ground')) return 'land';
-    if (s.includes('afford') || s.includes('lihtc') || s.includes('section') || s.includes('hap') ||
-        s.includes('tax credit') || s.includes('age') || s.includes('senior') || s.includes('housing assistance')) return 'affordable';
-    return 'market-rate';
-  }
-
-  function formatPrice(raw) {
-    if (!raw || raw === '' || String(raw).trim() === '0') return 'Confidential';
-    const n = parseFloat(String(raw).replace(/[^0-9.]/g, ''));
-    if (isNaN(n) || n === 0) return 'Confidential';
-    if (n >= 1000000) return '$' + (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
-    if (n >= 1000)    return '$' + (n / 1000).toFixed(0) + 'K';
-    return '$' + n.toLocaleString();
-  }
-
-  function parseRow(line) {
-    const cols = []; let cur = '', inQ = false;
-    for (const ch of line) {
-      if (ch === '"') { inQ = !inQ; }
-      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
-      else cur += ch;
-    }
-    cols.push(cur);
-    return cols.map(c => c.trim().replace(/^"|"$/g, ''));
-  }
-
-  function parseCSV(text) {
-    const lines = text.trim().split('\n');
-    const headers = parseRow(lines[0]);
-    return lines.slice(1).map(line => {
-      const cols = parseRow(line);
-      const obj = {};
-      headers.forEach((h, i) => obj[h.trim()] = (cols[i] || '').trim());
-      return obj;
-    }).filter(row => Object.values(row).join('').trim().length > 0);
-  }
-
-  function toDeal(row) {
-    const g = (...keys) => { for (const k of keys) { if (row[k] != null && row[k] !== '') return row[k]; } return ''; };
-    const name = g('PROPERTY', 'Property', 'PROPERTY NAME');
-    if (!name) return null;
-    const featuredRaw = g('Featured', 'FEATURED', 'featured');
-    const featured = parseInt(featuredRaw, 10);
-    return {
-      name,
-      city:     g('CITY', 'City'),
-      state:    (g('STATE', 'State') || 'CO').trim().toUpperCase().slice(0, 2),
-      msa:      g('MSA', 'Msa'),
-      price:    g('PRICE', 'Price', 'SALE PRICE'),
-      units:    g('UNITS', 'Units', '# UNITS'),
-      type:     normalizeType(g('PROPERTY TYPE', 'Property Type', 'TYPE', 'ASSET TYPE')),
-      featured: isNaN(featured) ? null : featured,
-    };
-  }
-
-  function buildRow(d) {
-    const t = TYPE_MAP[d.type] || TYPE_MAP['market-rate'];
-    const loc  = [d.city, d.state].filter(Boolean).join(', ');
-    const meta = [loc, `<span class="${t.cls}">${t.label}</span>`, d.msa].filter(Boolean).join(' · ');
-    return `<div class="deal-row reveal visible">
-      <div>
-        <div class="deal-name">${d.name}</div>
-        <div class="deal-meta">${meta}</div>
-      </div>
-      <div style="text-align:right">
-        <div class="deal-price">${formatPrice(d.price)}</div>
-        <div class="deal-units">${d.units ? d.units + ' Units' : ''}</div>
-      </div>
-    </div>`;
-  }
-
-  fetch(SALES_CSV)
-    .then(r => r.text())
-    .then(text => {
-      const deals = parseCSV(text).map(toDeal).filter(d => d && d.featured !== null)
-                      .sort((a, b) => a.featured - b.featured);
-      if (!deals.length) return;
-      const el = document.getElementById('featured-deals');
-      if (el) el.innerHTML = deals.map(buildRow).join('');
-    })
-    .catch(() => { /* keep hardcoded rows on error */ });
-})();
-
 /* ── Counter animation ── */
 function animateCounters() {
   document.querySelectorAll('.stat-num[data-count]').forEach(el => {

@@ -1,8 +1,8 @@
-# Stack Morkes Group — comultifamily.com
+# CO Multifamily Advisors — comultifamily.com
 
 ## Project Overview
 
-Static marketing website for **Stack Morkes Group**, a multifamily investment sales team at Colliers International, serving Colorado and Wyoming. Live at `https://www.comultifamily.com`.
+Static marketing website for **CO Multifamily Advisors**, a multifamily investment sales team at Colliers International, serving Colorado and Wyoming. Live at `https://www.comultifamily.com`.
 
 **Purpose:** Lead generation and portfolio showcase. Primary audiences are apartment owners considering a sale and institutional investors seeking deals.
 
@@ -70,7 +70,7 @@ site/                   ← Netlify publish root
 ## SEO Conventions
 
 Every page must have:
-- `<title>` — format: `[Page Topic] | Stack Morkes Group | Colliers`
+- `<title>` — format: `[Page Topic] | CO Multifamily Advisors`
 - `<meta name="description">` — 150–160 characters
 - `<link rel="canonical" href="https://www.comultifamily.com/[path]/">`
 - Open Graph tags: `og:type`, `og:title`, `og:description`, `og:url`, `og:image`
@@ -127,6 +127,18 @@ The Google Sheets export redirects (307) to a `googleusercontent.com` URL — fo
 - Affordable: `#7eb8c9` (teal)
 - Student: `#b87ec9` (purple)
 - Land: `#7ec994` (green)
+
+---
+
+## Local Preview Server
+
+Always spin up a local preview server at the start of any session where UI changes are being made, so Bill can review in the browser by refreshing. Run in the background:
+
+```
+npx serve site -p 3000
+```
+
+Tell Bill the localhost URL after starting it. If port 3000 is taken, `npx serve` will pick another port — report whichever URL it outputs. Keep it running for the entire session; do not stop it between changes.
 
 ---
 

@@ -704,6 +704,12 @@ a { text-decoration:none; color:inherit; }
 .deal-list-footer a:hover { color: var(--gold-light, #d4af5a); }
 @media(max-width:1024px) { .market-detail-layout { grid-template-columns: 1fr; } .market-sidebar { position: static; } }
 
+/* ─── WYOMING LICENSE BADGE ── */
+.wy-license-badge { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: none; padding: 16px 18px; margin-top: 2px; }
+.wy-license-icon { color: var(--navy); font-size: 20px; font-weight: 700; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+.wy-license-text { font-size: 12px; line-height: 1.6; color: var(--text-soft); }
+.wy-license-text strong { display: block; color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+
 /* ─── SUBMARKET LIST ─── */
 .submarket-list { margin: 24px 0; }
 .submarket-entry { padding: 18px 0; border-bottom: 1px solid var(--border-soft); }
