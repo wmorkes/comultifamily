@@ -191,6 +191,26 @@ Two automations run without manual intervention:
 
 ---
 
+## URL Conventions & Sitemap Rules
+
+This site uses **trailing-slash URLs** as the canonical form for all pages. This is enforced via `netlify.toml` and must be maintained consistently.
+
+### Rules
+- All internal links must use trailing-slash URLs (e.g., `/listings/`, `/markets/denver/`)
+- `netlify.toml` must have a 200 rewrite from each `/slug/` → `/slug.html` AND a 301 redirect from `/slug.html` → `/slug/`
+- `site/sitemap.xml` must always list the trailing-slash URLs — never `.html` URLs
+- `<link rel="canonical">` tags in every HTML file must use trailing-slash URLs
+
+### When adding a new page
+1. Add both the 200 rewrite and 301 redirect to `netlify.toml`
+2. Add the trailing-slash URL to `site/sitemap.xml`
+3. Set the canonical tag in the HTML to the trailing-slash URL
+
+### GA4 Measurement ID
+The correct GA4 Measurement ID is **`G-53BCG1FL5M`** — this belongs to the **COMultifamily** GA4 account (388645192), property 529693317. Do not change this ID without explicit instruction.
+
+---
+
 ## What NOT to Do
 
 - Do not add npm, webpack, Vite, React, or any framework
