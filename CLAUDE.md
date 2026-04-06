@@ -132,13 +132,26 @@ The Google Sheets export redirects (307) to a `googleusercontent.com` URL — fo
 
 ## Local Preview Server
 
-Always spin up a local preview server at the start of any session where UI changes are being made, so Bill can review in the browser by refreshing. Run in the background:
+Always spin up a local preview server at the start of any session where UI changes are being made, so Bill can review in the browser by refreshing.
+
+Run as a persistent background process (this form keeps the server alive):
 
 ```
-npx serve site -p 3000
+npx serve site -p 3000 > /tmp/serve.log 2>&1 &
 ```
 
-Tell Bill the localhost URL after starting it. If port 3000 is taken, `npx serve` will pick another port — report whichever URL it outputs. Keep it running for the entire session; do not stop it between changes.
+After starting, check the log to confirm the port, then get the local network IP:
+
+```
+cat /tmp/serve.log
+ipconfig | grep "IPv4"
+```
+
+Report **both** URLs to Bill in a single chat line, formatted exactly like this:
+
+**Local:** http://localhost:[PORT] | **Mobile:** http://[LOCAL_IP]:[PORT]
+
+`serve` binds to all interfaces by default, so the mobile URL works as-is on the same network. If port 3000 is taken, `serve` will pick another — use whichever port appears in the log. Keep it running for the entire session; do not stop it between changes.
 
 ---
 
