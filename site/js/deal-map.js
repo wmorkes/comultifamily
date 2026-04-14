@@ -148,10 +148,16 @@ function rowToDeal(row) {
 
   if (!name) return null;
 
+  // Use pre-stored coordinates from sheet if available; fall back to geocoding
+  const latRaw = parseFloat(g('LAT', 'Lat', 'LATITUDE', 'Latitude'));
+  const lngRaw = parseFloat(g('LNG', 'Lng', 'LON', 'LONGITUDE', 'Longitude'));
+  const lat = isNaN(latRaw) ? null : latRaw;
+  const lng = isNaN(lngRaw) ? null : lngRaw;
+
   const geocodeQuery = [address, city, state].filter(Boolean).join(', ');
 
   return { name, address, city, state, price, units, type: normalizeType(typeRaw),
-           date, perUnit, saleCondition, seller, buyer, geocodeQuery };
+           date, perUnit, saleCondition, seller, buyer, geocodeQuery, lat, lng };
 }
 
 // ─── Geocode cache (sessionStorage) ──────────────────────
@@ -164,6 +170,9 @@ function saveCache(c) {
 
 function geocodeDeal(deal, cache) {
   return new Promise(resolve => {
+    // Use coordinates from sheet if already present
+    if (deal.lat && deal.lng) return resolve(deal);
+
     const key = deal.geocodeQuery.toLowerCase();
     if (cache[key]) {
       deal.lat = cache[key].lat;
