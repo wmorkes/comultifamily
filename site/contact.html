@@ -182,7 +182,7 @@
   <div class="page-hero-inner">
     <div class="page-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Get in Touch</span></div>
     <h1>Let's Talk About<br>Your Property</h1>
-    <p class="page-hero-sub">Whether you're actively considering a sale or just want to understand what your asset is worth today — we're happy to have the conversation.</p>
+    <p class="page-hero-sub">Whether you're actively considering a sale or just want to understand what your asset is worth today, we're happy to have the conversation.</p>
   </div>
 </div>
 
@@ -224,9 +224,9 @@
             <label class="form-label">How Can We Help?</label>
             <select name="reason" class="form-select" id="cf-reason">
               <option value="">Select a reason for reaching out...</option>
-              <option>I'm considering selling my property — request a BOV</option>
+              <option>I'm considering selling my property, request a BOV</option>
               <option>I want to discuss an off-market opportunity</option>
-              <option>I'm a buyer — submit acquisition criteria</option>
+              <option>I'm a buyer, submit acquisition criteria</option>
               <option value="subscribe">I'd like to subscribe to your market reports</option>
               <option value="resource">Request a resource (comps, research, analysis)</option>
               <option>Other inquiry</option>
@@ -235,7 +235,7 @@
 
           <div class="form-group">
             <label class="form-label">Property / Message (Optional)</label>
-            <textarea name="message" class="form-textarea" placeholder="Tell us about your property — address, unit count, asset type, and any relevant details. Or just say hello."></textarea>
+            <textarea name="message" class="form-textarea" placeholder="Tell us about your property: address, unit count, asset type, and any relevant details. Or just say hello."></textarea>
           </div>
 
           <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;padding:16px;">Send Message →</button>
@@ -296,7 +296,7 @@ window.addEventListener('DOMContentLoaded', () => {
 if (window.location.search.includes('submitted=true')) {
   const form = document.querySelector('.contact-form');
   if (form) {
-    form.innerHTML = '<div style="padding:48px 0;text-align:center;"><div style="font-size:32px;margin-bottom:16px;">✓</div><h3 style="font-family:Montserrat,sans-serif;margin-bottom:12px;">Message Received</h3><p style="color:var(--text-soft);">Thank you — we\'ll be in touch within one business day.</p></div>';
+    form.innerHTML = '<div style="padding:48px 0;text-align:center;"><div style="font-size:32px;margin-bottom:16px;">✓</div><h3 style="font-family:Montserrat,sans-serif;margin-bottom:12px;">Message Received</h3><p style="color:var(--text-soft);">Thank you, we\'ll be in touch within one business day.</p></div>';
   }
 }
 // Pre-select dropdown from URL hash (e.g. contact.html#resource)
