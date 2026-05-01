@@ -1,8 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48">
-  <rect width="64" height="48" rx="5" fill="#0c1a2e"/>
-  <rect x="2" y="2" width="60" height="44" rx="4" fill="none" stroke="white" stroke-width="1.5"/>
-  <text x="32" y="24" font-family="Georgia, serif" font-weight="bold" font-size="14" fill="white" text-anchor="middle" dominant-baseline="middle">Colliers</text>
-  <line x1="2" y1="36" x2="62" y2="36" stroke="white" stroke-width="1"/>
-  <line x1="2" y1="39" x2="62" y2="39" stroke="white" stroke-width="1"/>
-  <line x1="2" y1="42" x2="62" y2="42" stroke="white" stroke-width="1"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#0c1a2e"/>
+  <text x="32" y="38" font-family="Georgia, serif" font-weight="bold" font-size="30" fill="#c9a84c" text-anchor="middle" dominant-baseline="middle">CO</text>
 </svg>

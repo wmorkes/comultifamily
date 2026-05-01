@@ -132,62 +132,22 @@ The Google Sheets export redirects (307) to a `googleusercontent.com` URL — fo
 
 ## Local Preview Server
 
-Always spin up a local preview server at the start of any session where UI changes are being made, so Bill can review in the browser by refreshing.
-
-Run as a persistent background process (this form keeps the server alive):
-
-```
-npx serve site -p 3000 > /tmp/serve.log 2>&1 &
-```
-
-After starting, check the log to confirm the port, then get the local network IP:
-
-```
-cat /tmp/serve.log
-ipconfig | grep "IPv4"
-```
-
-Report **both** URLs to Bill in a single chat line, formatted exactly like this:
-
-**Local:** http://localhost:[PORT] | **Mobile:** http://[LOCAL_IP]:[PORT]
-
-`serve` binds to all interfaces by default, so the mobile URL works as-is on the same network. If port 3000 is taken, `serve` will pick another — use whichever port appears in the log. Keep it running for the entire session; do not stop it between changes.
+Use `/launch` to start a local preview server. Reports both local and mobile URLs. Keep it running for the entire session.
 
 ---
 
 ## Common Tasks
 
-### Adding a new listing
-Edit `site/listings.html`. Add a card in the appropriate section (Active Listings or Recent Closings). Follow the existing card HTML pattern.
-
-### Updating a market page
-Each market has its own file under `site/markets/`. They share `css/style.css` and `js/shared.js`.
-
-### Updating team info or transaction volume
-- `site/index.html` — homepage stats and schema.org JSON-LD
-- `site/team.html` — bios and contact info
-- Also update schema.org `Person` entries if contact info changes
-
-### Deploying
-Push to `main` → Netlify deploys automatically. No build step needed.
-
-Check deploy status anytime: `netlify status` or `netlify open`
-
-### Creating a new market page
-Use `/new-market-page` — it asks for city, state, slug, and keywords, then scaffolds the full file from the denver.html template with all SEO fields pre-filled and data TODOs marked.
-
-### Planning content for a market page
-Use `/content-brief [city]` — researches the market via web search and returns target keywords, recommended H2 structure, key stats to verify, and a competitor positioning angle.
-
-### SEO QA before committing
-- Single page: `/seo-check [file path]` — checks title, description, canonical, OG tags, JSON-LD, h1
-- All pages: `/meta-audit` — scans every HTML file site-wide, returns a table of issues
-- Schema only: `/schema-validate [file path]` — validates JSON-LD against the RealEstateAgent pattern
-
-### Automated SEO checks
-Two automations run without manual intervention:
-1. **Write hook** — after any HTML file is written in `site/`, Claude automatically runs `/seo-check` on it
-2. **Pre-commit hook** — `git commit` is blocked if any staged HTML file is missing title, description, canonical, OG tags, or JSON-LD
+- **New listing:** edit `site/listings.html`, follow existing card pattern
+- **Market page:** files in `site/markets/`, share `css/style.css` and `js/shared.js`
+- **Team/stats:** `site/index.html` (stats + JSON-LD), `site/team.html` (bios)
+- **Deploy:** push to `main` → auto-deploys. Check: `netlify status`
+- **New market page:** `/new-market-page`
+- **Market content research:** `/content-brief [city]`
+- **SEO check (single page):** `/seo-check [file]`
+- **SEO check (all pages):** `/meta-audit`
+- **Schema check:** `/schema-validate [file]`
+- **Pre-commit hook** blocks commits missing title, description, canonical, OG tags, or JSON-LD
 
 ---
 
