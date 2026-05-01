@@ -419,7 +419,7 @@ function buildListingCard(r) {
           <div class="prop-location">${city}${state ? ', ' + state : ''}</div>
           <div class="prop-details">
             <div class="prop-detail-item"><div class="prop-detail-val">${price}</div><div class="prop-detail-lbl">${priceLbl}</div></div>
-            <div class="prop-detail-item"><div class="prop-detail-val">${units}</div><div class="prop-detail-lbl">Units</div></div>
+            <div class="prop-detail-item"><div class="prop-detail-val">${units}</div><div class="prop-detail-lbl">${filterBase === 'land' ? 'Acres' : 'Units'}</div></div>
             <div class="prop-detail-item"><div class="prop-detail-val">${year}</div><div class="prop-detail-lbl">${yearLbl}</div></div>
           </div>
         </div>
