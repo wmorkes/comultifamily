@@ -136,6 +136,12 @@ Use `/launch` to start a local preview server. Reports both local and mobile URL
 
 ---
 
+## Design Tests
+
+A saved design test already exists at `site/_tests/design-test-colorado-springs.html`. Before starting any new visual/font/layout experiments, check this file first — it documents the current test state with notes on what's being tested and how to apply changes site-wide. Use it as a starting point rather than modifying a live market page from scratch.
+
+---
+
 ## Common Tasks
 
 - **New listing:** edit `site/listings.html`, follow existing card pattern

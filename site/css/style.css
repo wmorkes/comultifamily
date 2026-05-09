@@ -691,6 +691,9 @@ a { text-decoration:none; color:inherit; }
 .sidebar-stat-val { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); font-size: 14px; white-space: nowrap; }
 .market-body h2 { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 600; color: var(--text); margin: 36px 0 14px; line-height: 1.2; }
 .market-body h2:first-child { margin-top: 0; }
+.related-markets-section h2,
+.faq-section h2 { font-family:'Montserrat',sans-serif; font-size:28px; font-weight:700; color:var(--text); margin:12px 0 0; }
+.faq-section h2 { margin-bottom:32px; }
 .market-body p { font-size: 17px; font-weight: 300; color: var(--text-soft); line-height: 1.85; margin-bottom: 16px; }
 .deal-list-mini { background: var(--bg-alt); border: 1px solid var(--border); padding: 20px 24px; margin-top: 2px; }
 .deal-list-mini h3 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; }
@@ -726,8 +729,18 @@ a { text-decoration:none; color:inherit; }
 .deals-table-name { font-weight: 600; color: var(--text); }
 .deals-table-city { color: var(--text-soft); font-size: 14px; }
 .deals-table-units { color: var(--text-soft); font-size: 14px; }
+.deals-table-yoc  { color: var(--text-soft); font-size: 14px; }
 .deals-table-type { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; }
 .deals-table-price { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); text-align: right; }
+.type-market-rate { color:#c9a84c; font-weight:600; }
+.type-affordable  { color:#7eb8c9; font-weight:600; }
+.type-student     { color:#b87ec9; font-weight:600; }
+.type-land        { color:#7ec994; font-weight:600; }
+.type-badge { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; padding:2px 8px; border:1px solid var(--border); color:var(--text-soft); white-space:nowrap; }
+.type-badge.type-market-rate { color:#c9a84c; border-color:#c9a84c44; }
+.type-badge.type-affordable  { color:#7eb8c9; border-color:#7eb8c944; }
+.type-badge.type-student     { color:#b87ec9; border-color:#b87ec944; }
+.type-badge.type-land        { color:#7ec994; border-color:#7ec99444; }
 @media(max-width:768px) {
   .deals-table-header { display: none; }
   .deals-table-row { grid-template-columns: 1fr auto; }
