@@ -2,7 +2,7 @@
 
 /* ─── FONT PRELOAD (non-blocking) ───────────────────────── */
 (function() {
-  const FONT_URL = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap';
+  const FONT_URL = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap';
   const preconn1 = document.createElement('link');
   preconn1.rel = 'preconnect'; preconn1.href = 'https://fonts.googleapis.com';
   document.head.appendChild(preconn1);
