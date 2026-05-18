@@ -39,8 +39,8 @@ const SCHEMA_ORG = {
         "latitude": 39.6461,
         "longitude": -104.8997
       },
-      "telephone": "+17208334602",
-      "email": "craig.stack@colliers.com",
+      "telephone": "+13033511371",
+      "email": "bill.morkes@colliers.com",
       "areaServed": [
         { "@type": "State", "name": "Colorado" },
         { "@type": "State", "name": "Wyoming" }

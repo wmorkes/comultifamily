@@ -799,6 +799,12 @@ a { text-decoration:none; color:inherit; }
 .sidebar-card--cta h4 { color: var(--gold); }
 .sidebar-card--cta p { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.65; margin: 0 0 20px; }
 .sidebar-card--cta .btn-gold { display: block; text-align: center; justify-content: center; }
+.sidebar-data-note { font-size: 11px; color: var(--text-soft); margin: 12px 0 0; line-height: 1.5; }
+.sidebar-data-note a { color: var(--gold); text-decoration: none; }
+.sidebar-data-note a:hover { text-decoration: underline; }
+.sidebar-card--nds p { font-size: 14px; color: var(--text-soft); line-height: 1.65; margin: 0 0 16px; }
+.sidebar-card--nds .btn-text { font-size: 13px; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: 0.02em; }
+.sidebar-card--nds .btn-text:hover { text-decoration: underline; }
 
 /* ═══════════════════════════════════════════════════════════════
    HOMEPAGE — index.html

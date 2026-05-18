@@ -1,0 +1,699 @@
+{
+  "generated": "2026-05-18",
+  "year_range": "2011\u20132025",
+  "note": "2026 YTD excluded. Contact team for current market data.",
+  "markets": {
+    "denver": {
+      "label": "Denver Metro",
+      "cities_note": "Denver MSA excluding Boulder-group cities",
+      "transaction_count": 3022,
+      "dollar_per_unit": {
+        "count": 2762,
+        "median": 165386,
+        "p25": 114679,
+        "p75": 231612
+      },
+      "property_type_mix": {
+        "Affordable": 0.051,
+        "Market Rate": 0.934,
+        "Senior": 0.011,
+        "Student": 0.004
+      },
+      "by_year": {
+        "2011": {
+          "count": 102,
+          "median_ppu": 70455
+        },
+        "2012": {
+          "count": 172,
+          "median_ppu": 77885
+        },
+        "2013": {
+          "count": 147,
+          "median_ppu": 94843
+        },
+        "2014": {
+          "count": 230,
+          "median_ppu": 108240
+        },
+        "2015": {
+          "count": 271,
+          "median_ppu": 124009
+        },
+        "2016": {
+          "count": 245,
+          "median_ppu": 148740
+        },
+        "2017": {
+          "count": 240,
+          "median_ppu": 165162
+        },
+        "2018": {
+          "count": 230,
+          "median_ppu": 162860
+        },
+        "2019": {
+          "count": 219,
+          "median_ppu": 176218
+        },
+        "2020": {
+          "count": 189,
+          "median_ppu": 193854
+        },
+        "2021": {
+          "count": 346,
+          "median_ppu": 210417
+        },
+        "2022": {
+          "count": 251,
+          "median_ppu": 230417
+        },
+        "2023": {
+          "count": 114,
+          "median_ppu": 218182
+        },
+        "2024": {
+          "count": 151,
+          "median_ppu": 215000
+        },
+        "2025": {
+          "count": 115,
+          "median_ppu": 203571
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 2022,
+          "median": 145000,
+          "p25": 100658,
+          "p75": 190698
+        },
+        "1990_to_2010": {
+          "count": 335,
+          "median": 213232,
+          "p25": 145000,
+          "p75": 270833
+        },
+        "post_2010": {
+          "count": 405,
+          "median": 332831,
+          "p25": 278037,
+          "p75": 405833
+        }
+      }
+    },
+    "boulder": {
+      "label": "Boulder",
+      "cities_note": "Boulder, Longmont, Lafayette, Louisville, Superior, Erie, Lyons",
+      "transaction_count": 206,
+      "dollar_per_unit": {
+        "count": 166,
+        "median": 238315,
+        "p25": 153750,
+        "p75": 354167
+      },
+      "property_type_mix": {
+        "Affordable": 0.141,
+        "Market Rate": 0.752,
+        "Senior": 0.015,
+        "Student": 0.092
+      },
+      "by_year": {
+        "2011": {
+          "count": 5,
+          "median_ppu": 146538
+        },
+        "2012": {
+          "count": 14,
+          "median_ppu": 113636
+        },
+        "2013": {
+          "count": 1,
+          "median_ppu": null
+        },
+        "2014": {
+          "count": 26,
+          "median_ppu": 185000
+        },
+        "2015": {
+          "count": 17,
+          "median_ppu": 211028
+        },
+        "2016": {
+          "count": 11,
+          "median_ppu": 314160
+        },
+        "2017": {
+          "count": 15,
+          "median_ppu": 248649
+        },
+        "2018": {
+          "count": 22,
+          "median_ppu": 256977
+        },
+        "2019": {
+          "count": 13,
+          "median_ppu": 286333
+        },
+        "2020": {
+          "count": 12,
+          "median_ppu": 207639
+        },
+        "2021": {
+          "count": 11,
+          "median_ppu": 297814
+        },
+        "2022": {
+          "count": 15,
+          "median_ppu": 354854
+        },
+        "2023": {
+          "count": 5,
+          "median_ppu": 269231
+        },
+        "2024": {
+          "count": 26,
+          "median_ppu": 247738
+        },
+        "2025": {
+          "count": 13,
+          "median_ppu": 366265
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 97,
+          "median": 200476,
+          "p25": 133333,
+          "p75": 295000
+        },
+        "1990_to_2010": {
+          "count": 32,
+          "median": 221462,
+          "p25": 183562,
+          "p75": 354167
+        },
+        "post_2010": {
+          "count": 35,
+          "median": 360577,
+          "p25": 293860,
+          "p75": 498433
+        }
+      }
+    },
+    "colorado-springs": {
+      "label": "Colorado Springs",
+      "cities_note": "Colorado Springs MSA + Manitou Springs",
+      "transaction_count": 547,
+      "dollar_per_unit": {
+        "count": 522,
+        "median": 93554,
+        "p25": 59500,
+        "p75": 146667
+      },
+      "property_type_mix": {
+        "Affordable": 0.049,
+        "Market Rate": 0.927,
+        "Senior": 0.007,
+        "Student": 0.016
+      },
+      "by_year": {
+        "2011": {
+          "count": 21,
+          "median_ppu": 40000
+        },
+        "2012": {
+          "count": 33,
+          "median_ppu": 39080
+        },
+        "2013": {
+          "count": 26,
+          "median_ppu": 45590
+        },
+        "2014": {
+          "count": 47,
+          "median_ppu": 48000
+        },
+        "2015": {
+          "count": 46,
+          "median_ppu": 58657
+        },
+        "2016": {
+          "count": 45,
+          "median_ppu": 77088
+        },
+        "2017": {
+          "count": 45,
+          "median_ppu": 75870
+        },
+        "2018": {
+          "count": 40,
+          "median_ppu": 93590
+        },
+        "2019": {
+          "count": 28,
+          "median_ppu": 103578
+        },
+        "2020": {
+          "count": 46,
+          "median_ppu": 118750
+        },
+        "2021": {
+          "count": 71,
+          "median_ppu": 128750
+        },
+        "2022": {
+          "count": 40,
+          "median_ppu": 195455
+        },
+        "2023": {
+          "count": 18,
+          "median_ppu": 145856
+        },
+        "2024": {
+          "count": 23,
+          "median_ppu": 128750
+        },
+        "2025": {
+          "count": 18,
+          "median_ppu": 101142
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 434,
+          "median": 87500,
+          "p25": 52500,
+          "p75": 125225
+        },
+        "1990_to_2010": {
+          "count": 51,
+          "median": 155255,
+          "p25": 92208,
+          "p75": 195055
+        },
+        "post_2010": {
+          "count": 37,
+          "median": 263000,
+          "p25": 230769,
+          "p75": 300000
+        }
+      }
+    },
+    "fort-collins": {
+      "label": "Fort Collins",
+      "cities_note": "Fort Collins, Loveland, Windsor, Johnstown, Wellington, Eaton, Ault",
+      "transaction_count": 173,
+      "dollar_per_unit": {
+        "count": 139,
+        "median": 220000,
+        "p25": 140657,
+        "p75": 266674
+      },
+      "property_type_mix": {
+        "Affordable": 0.122,
+        "Market Rate": 0.622,
+        "Senior": 0.047,
+        "Student": 0.209
+      },
+      "by_year": {
+        "2011": {
+          "count": 5,
+          "median_ppu": 109009
+        },
+        "2012": {
+          "count": 9,
+          "median_ppu": 80753
+        },
+        "2013": {
+          "count": 5,
+          "median_ppu": 98454
+        },
+        "2014": {
+          "count": 10,
+          "median_ppu": 164375
+        },
+        "2015": {
+          "count": 10,
+          "median_ppu": 198624
+        },
+        "2016": {
+          "count": 19,
+          "median_ppu": 209091
+        },
+        "2017": {
+          "count": 17,
+          "median_ppu": 220858
+        },
+        "2018": {
+          "count": 8,
+          "median_ppu": 150000
+        },
+        "2019": {
+          "count": 16,
+          "median_ppu": 199421
+        },
+        "2020": {
+          "count": 5,
+          "median_ppu": 233677
+        },
+        "2021": {
+          "count": 28,
+          "median_ppu": 230805
+        },
+        "2022": {
+          "count": 17,
+          "median_ppu": 253063
+        },
+        "2023": {
+          "count": 8,
+          "median_ppu": 282444
+        },
+        "2024": {
+          "count": 9,
+          "median_ppu": 263528
+        },
+        "2025": {
+          "count": 7,
+          "median_ppu": 295635
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 54,
+          "median": 173021,
+          "p25": 104412,
+          "p75": 221667
+        },
+        "1990_to_2010": {
+          "count": 37,
+          "median": 204762,
+          "p25": 140179,
+          "p75": 263565
+        },
+        "post_2010": {
+          "count": 48,
+          "median": 276743,
+          "p25": 230769,
+          "p75": 310759
+        }
+      }
+    },
+    "greeley": {
+      "label": "Greeley",
+      "cities_note": "Greeley, Evans",
+      "transaction_count": 87,
+      "dollar_per_unit": {
+        "count": 80,
+        "median": 113978,
+        "p25": 72449,
+        "p75": 142593
+      },
+      "property_type_mix": {
+        "Affordable": 0.069,
+        "Market Rate": 0.885,
+        "Senior": 0.011,
+        "Student": 0.034
+      },
+      "by_year": {
+        "2011": {
+          "count": 2,
+          "median_ppu": 25606
+        },
+        "2012": {
+          "count": 5,
+          "median_ppu": 51233
+        },
+        "2013": {
+          "count": 2,
+          "median_ppu": 49714
+        },
+        "2014": {
+          "count": 3,
+          "median_ppu": 77444
+        },
+        "2015": {
+          "count": 6,
+          "median_ppu": 91551
+        },
+        "2016": {
+          "count": 3,
+          "median_ppu": 68907
+        },
+        "2017": {
+          "count": 5,
+          "median_ppu": 72449
+        },
+        "2018": {
+          "count": 11,
+          "median_ppu": 98868
+        },
+        "2019": {
+          "count": 7,
+          "median_ppu": 122656
+        },
+        "2020": {
+          "count": 15,
+          "median_ppu": 113978
+        },
+        "2021": {
+          "count": 8,
+          "median_ppu": 134405
+        },
+        "2022": {
+          "count": 11,
+          "median_ppu": 164844
+        },
+        "2023": {
+          "count": 2,
+          "median_ppu": 119826
+        },
+        "2024": {
+          "count": 3,
+          "median_ppu": 119688
+        },
+        "2025": {
+          "count": 4,
+          "median_ppu": 175384
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 61,
+          "median": 109375,
+          "p25": 68885,
+          "p75": 136364
+        },
+        "1990_to_2010": {
+          "count": 16,
+          "median": 127500,
+          "p25": 109375,
+          "p75": 179911
+        },
+        "post_2010": {
+          "count": 3,
+          "median": 227946,
+          "p25": 193149,
+          "p75": 303030
+        }
+      }
+    },
+    "western-slope": {
+      "label": "Western Slope",
+      "cities_note": "Grand Junction, Montrose, and surrounding Western Slope cities",
+      "transaction_count": 86,
+      "dollar_per_unit": {
+        "count": 81,
+        "median": 77083,
+        "p25": 41268,
+        "p75": 109310
+      },
+      "property_type_mix": {
+        "Affordable": 0.14,
+        "Market Rate": 0.837,
+        "Senior": 0.023
+      },
+      "by_year": {
+        "2011": {
+          "count": 2,
+          "median_ppu": 127778
+        },
+        "2012": {
+          "count": 2,
+          "median_ppu": 2128
+        },
+        "2013": {
+          "count": 4,
+          "median_ppu": 27890
+        },
+        "2014": {
+          "count": 4,
+          "median_ppu": 37688
+        },
+        "2015": {
+          "count": 4,
+          "median_ppu": 75289
+        },
+        "2016": {
+          "count": 2,
+          "median_ppu": 35302
+        },
+        "2017": {
+          "count": 4,
+          "median_ppu": 42875
+        },
+        "2018": {
+          "count": 6,
+          "median_ppu": 71693
+        },
+        "2019": {
+          "count": 8,
+          "median_ppu": 65834
+        },
+        "2020": {
+          "count": 5,
+          "median_ppu": 75000
+        },
+        "2021": {
+          "count": 13,
+          "median_ppu": 77083
+        },
+        "2022": {
+          "count": 9,
+          "median_ppu": 94340
+        },
+        "2023": {
+          "count": 7,
+          "median_ppu": 70385
+        },
+        "2024": {
+          "count": 11,
+          "median_ppu": 106667
+        },
+        "2025": {
+          "count": 5,
+          "median_ppu": 123214
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 61,
+          "median": 76042,
+          "p25": 39648,
+          "p75": 102500
+        },
+        "1990_to_2010": {
+          "count": 16,
+          "median": 118544,
+          "p25": 67586,
+          "p75": 171667
+        },
+        "post_2010": {
+          "count": 4,
+          "median": 108526,
+          "p25": 70385,
+          "p75": 322917
+        }
+      }
+    },
+    "mountain-towns": {
+      "label": "Mountain Towns",
+      "cities_note": "Steamboat Springs, Aspen, Vail, Breckenridge, Durango, and other resort markets",
+      "transaction_count": 88,
+      "dollar_per_unit": {
+        "count": 81,
+        "median": 166667,
+        "p25": 93333,
+        "p75": 281646
+      },
+      "property_type_mix": {
+        "Affordable": 0.207,
+        "Market Rate": 0.759,
+        "Senior": 0.011,
+        "Student": 0.023
+      },
+      "by_year": {
+        "2011": {
+          "count": 1,
+          "median_ppu": 66139
+        },
+        "2012": {
+          "count": 2,
+          "median_ppu": 109150
+        },
+        "2013": {
+          "count": 1,
+          "median_ppu": null
+        },
+        "2014": {
+          "count": 3,
+          "median_ppu": 111398
+        },
+        "2015": {
+          "count": 3,
+          "median_ppu": 43500
+        },
+        "2016": {
+          "count": 5,
+          "median_ppu": 99375
+        },
+        "2017": {
+          "count": 6,
+          "median_ppu": 72332
+        },
+        "2018": {
+          "count": 6,
+          "median_ppu": 188988
+        },
+        "2019": {
+          "count": 8,
+          "median_ppu": 157759
+        },
+        "2020": {
+          "count": 10,
+          "median_ppu": 185606
+        },
+        "2021": {
+          "count": 15,
+          "median_ppu": 152500
+        },
+        "2022": {
+          "count": 9,
+          "median_ppu": 276667
+        },
+        "2023": {
+          "count": 3,
+          "median_ppu": 173816
+        },
+        "2024": {
+          "count": 10,
+          "median_ppu": 300000
+        },
+        "2025": {
+          "count": 6,
+          "median_ppu": 303297
+        }
+      },
+      "by_vintage": {
+        "pre_1990": {
+          "count": 30,
+          "median": 126728,
+          "p25": 66139,
+          "p75": 162500
+        },
+        "1990_to_2010": {
+          "count": 30,
+          "median": 187070,
+          "p25": 121875,
+          "p75": 264286
+        },
+        "post_2010": {
+          "count": 20,
+          "median": 299653,
+          "p25": 215476,
+          "p75": 409794
+        }
+      }
+    }
+  }
+}

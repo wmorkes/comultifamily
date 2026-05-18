@@ -8,7 +8,7 @@ Static marketing website for **CO Multifamily Advisors**, a multifamily investme
 
 **Team:**
 - Craig Stack — Senior VP, craig.stack@colliers.com, +1 720-833-4602
-- Bill Morkes — Senior VP, bill.morkes@colliers.com, +1 303-283-4583
+- Bill Morkes — Senior VP, bill.morkes@colliers.com, +1 303-351-1371 (cell, primary schema contact)
 - Nate Moyer — Senior VP, nate.moyer@colliers.com, +1 303-283-4568
 
 ---
