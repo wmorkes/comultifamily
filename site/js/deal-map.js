@@ -1,4 +1,4 @@
-/**
+﻿/**
  * deal-map.js — CO Multifamily Advisors Transaction Map
  *
  * Reads deal data from the #deal-data JSON block embedded in the page.
@@ -58,21 +58,21 @@ function makePinIcon(type, priceRaw) {
 function buildInfoWindow(deal) {
   const cfg = TYPE_CONFIG[deal.type] || TYPE_CONFIG['market-rate'];
   return `
-    <div style="font-family:'Plus Jakarta Sans',sans-serif;background:#ffffff;color:#08111f;padding:16px 18px;min-width:220px;max-width:280px;border-left:3px solid ${cfg.color};box-shadow:0 4px 16px rgba(0,0,0,0.12);">
-      <div style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:${cfg.color};margin-bottom:6px;">${cfg.label} · ${deal.state}</div>
+    <div style="font-family:'Inter',sans-serif;background:#ffffff;color:#08111f;padding:16px 18px;min-width:220px;max-width:280px;border-left:3px solid ${cfg.color};box-shadow:0 4px 16px rgba(0,0,0,0.12);">
+      <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:${cfg.color};margin-bottom:6px;">${cfg.label} · ${deal.state}</div>
       <div style="font-size:15px;font-weight:600;color:#08111f;margin-bottom:4px;line-height:1.3;">${deal.name}</div>
       <div style="font-size:12px;color:#7a8fa8;margin-bottom:12px;">${deal.city}, ${deal.state}</div>
       <div style="display:flex;gap:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
         <div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:${cfg.color};line-height:1;">${formatPrice(deal.price)}</div>
+          <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:${cfg.color};line-height:1;">${formatPrice(deal.price)}</div>
           <div style="font-size:10px;color:#9aa5b4;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Sale Price</div>
         </div>
         ${deal.units ? `<div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:#08111f;line-height:1;">${deal.type === 'land' ? deal.units + ' ac' : deal.units}</div>
+          <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#08111f;line-height:1;">${deal.type === 'land' ? deal.units + ' ac' : deal.units}</div>
           <div style="font-size:10px;color:#9aa5b4;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">${deal.type === 'land' ? 'Acres' : 'Units'}</div>
         </div>` : ''}
         ${deal.date ? `<div>
-          <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:#08111f;line-height:1;">${deal.date}</div>
+          <div style="font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#08111f;line-height:1;">${deal.date}</div>
           <div style="font-size:10px;color:#9aa5b4;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Year</div>
         </div>` : ''}
       </div>

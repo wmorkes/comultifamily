@@ -2,7 +2,7 @@
 
 /* ─── FONT PRELOAD (non-blocking) ───────────────────────── */
 (function() {
-  const FONT_URL = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap';
+  const FONT_URL = 'https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap';
   const preconn1 = document.createElement('link');
   preconn1.rel = 'preconnect'; preconn1.href = 'https://fonts.googleapis.com';
   document.head.appendChild(preconn1);
@@ -124,11 +124,11 @@ function injectOpenGraph() {
 const NAV_HTML = `
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
-    <a href="/index.html" class="site-logo" style="flex-direction:row;align-items:center;gap:14px;">
+    <a href="/index.html" class="site-logo">
       <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
-      <div style="display:flex;flex-direction:column;gap:4px;">
+      <div class="site-logo-text">
         <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
-        <span class="logo-sub" style="color:#c9a84c;">Colorado &amp; Wyoming Multifamily Brokerage</span>
+        <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
       </div>
     </a>
     <nav class="site-nav" id="siteNav">
@@ -153,33 +153,33 @@ const FOOTER_HTML = `
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="/index.html" class="site-logo" style="flex-direction:row;align-items:center;gap:14px;">
+        <a href="/index.html" class="site-logo">
           <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
-          <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="site-logo-text">
             <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
-            <span class="logo-sub" style="color:#c9a84c;margin-top:0;display:block;">Colorado &amp; Wyoming Multifamily Brokerage</span>
+            <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
           </div>
         </a>
         <p style="margin-top:8px;">Colorado and Wyoming's dedicated multifamily investment sales team.<br><br>Colliers | Denver<br>4643 South Ulster Street, Suite 1000, Denver, CO 80237.</p>
         <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
           <div style="font-size:12px;color:rgba(255,255,255,0.45);">
-            <span style="color:rgba(255,255,255,0.6);font-family:'Montserrat',sans-serif;font-weight:600;">Craig Stack</span>
+            <span style="color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-weight:600;">Craig Stack</span>
             &nbsp;·&nbsp;<a href="tel:7208334602" style="color:rgba(255,255,255,0.4);">720.833.4602</a>
             &nbsp;·&nbsp;<a href="mailto:craig.stack@colliers.com" style="color:rgba(255,255,255,0.4);">craig.stack@colliers.com</a>
           </div>
           <div style="font-size:12px;color:rgba(255,255,255,0.45);">
-            <span style="color:rgba(255,255,255,0.6);font-family:'Montserrat',sans-serif;font-weight:600;">Bill Morkes</span>
+            <span style="color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-weight:600;">Bill Morkes</span>
             &nbsp;·&nbsp;<a href="tel:3032834583" style="color:rgba(255,255,255,0.4);">303.283.4583</a>
             &nbsp;·&nbsp;<a href="mailto:bill.morkes@colliers.com" style="color:rgba(255,255,255,0.4);">bill.morkes@colliers.com</a>
           </div>
           <div style="font-size:12px;color:rgba(255,255,255,0.45);">
-            <span style="color:rgba(255,255,255,0.6);font-family:'Montserrat',sans-serif;font-weight:600;">Nate Moyer</span>
+            <span style="color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;font-weight:600;">Nate Moyer</span>
             &nbsp;·&nbsp;<a href="tel:3032834568" style="color:rgba(255,255,255,0.4);">303.283.4568</a>
             &nbsp;·&nbsp;<a href="mailto:nate.moyer@colliers.com" style="color:rgba(255,255,255,0.4);">nate.moyer@colliers.com</a>
           </div>
         </div>
         <div style="margin-top:10px;">
-          <a href="https://www.linkedin.com/company/27232414" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+          <a href="https://www.linkedin.com/company/27232414" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             LinkedIn
           </a>
