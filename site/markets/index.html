@@ -59,124 +59,6 @@
   ]
 }
 </script>
-<style>
-.markets-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--border-soft);
-  margin-top: 56px;
-}
-.market-card {
-  background: var(--bg-card);
-  padding: 48px 44px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.25s;
-  text-decoration: none;
-  display: block;
-}
-.market-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 3px;
-  background: var(--gold);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.3s ease;
-}
-.market-card:hover { background: rgba(201,168,76,0.03); }
-.market-card:hover::before { transform: scaleY(1); }
-
-.market-card-state {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--navy-mid);
-  margin-bottom: 10px;
-}
-.market-card-city {
-  font-family: 'Raleway', sans-serif;
-  font-size: 32px;
-  font-weight: 300;
-  color: var(--text);
-  margin-bottom: 14px;
-  line-height: 1.1;
-}
-.market-card-desc {
-  font-size: 16px;
-  font-weight: 300;
-  color: var(--text-soft);
-  line-height: 1.8;
-  margin-bottom: 24px;
-}
-.market-card-stats {
-  display: flex;
-  gap: 28px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border-soft);
-  margin-bottom: 20px;
-}
-.mcs-val {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1;
-}
-.mcs-lbl {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-soft);
-  margin-top: 4px;
-}
-.market-card-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: gap 0.2s;
-}
-.market-card:hover .market-card-link { gap: 10px; }
-
-.wyoming-banner {
-  background: linear-gradient(120deg, var(--bg-alt) 0%, #0d2040 100%);
-  border: 1px solid var(--border);
-  padding: 48px 56px;
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 32px;
-  align-items: center;
-}
-.wyoming-banner h3 {
-  font-family: 'Inter', sans-serif;
-  font-size: 26px;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.wyoming-banner p {
-  font-size: 17px;
-  font-weight: 300;
-  color: var(--text-soft);
-  line-height: 1.75;
-  max-width: 560px;
-}
-
-@media(max-width:1024px){
-  .markets-layout{ grid-template-columns:1fr; }
-  .wyoming-banner{ grid-template-columns:1fr; padding:36px; }
-}
-</style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
@@ -303,7 +185,7 @@
   <div class="section-inner">
     <div class="section-tag reveal">Wyoming Markets</div>
     <h2 class="section-h2 reveal">Wyoming Markets<br>Worth Knowing</h2>
-    <div class="markets-layout" style="margin-top:40px;">
+    <div class="markets-layout">
 
       <a href="cheyenne.html" class="market-card reveal">
         <div class="market-card-state">Wyoming — Laramie County</div>

@@ -60,112 +60,6 @@
   ]
 }
 </script>
-<style>
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 64px;
-  align-items: start;
-}
-
-/* Contact form */
-.contact-form { display: flex; flex-direction: column; gap: 20px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group { display: flex; flex-direction: column; gap: 8px; }
-.form-textarea {
-  width: 100%;
-  padding: 14px 18px;
-  background: #ffffff;
-  border: 1px solid #c4c8d0;
-  color: var(--text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 17px;
-  font-weight: 300;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  resize: vertical;
-  min-height: 120px;
-  line-height: 1.6;
-}
-.form-textarea::placeholder { color: #a0a8b8; }
-.form-textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(12,26,46,0.06); }
-.form-select {
-  width: 100%;
-  padding: 14px 18px;
-  background: #ffffff;
-  border: 1px solid #c4c8d0;
-  color: var(--text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8fa8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-}
-.form-select:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(12,26,46,0.06); }
-.form-select option { background: #ffffff; color: var(--text); }
-
-/* Sidebar contact cards */
-.contact-sidebar { display: flex; flex-direction: column; gap: 2px; }
-
-.broker-contact-card {
-  background: var(--bg-card);
-  padding: 22px 24px;
-  border-left: 3px solid transparent;
-  transition: border-color 0.25s, background 0.25s;
-}
-.broker-contact-card:hover {
-  border-left-color: var(--gold);
-  background: rgba(201,168,76,0.03);
-}
-.broker-card-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.broker-card-contacts { display: flex; flex-direction: column; gap: 6px; }
-.broker-card-contact-item {
-  font-size: 14px;
-  color: var(--text-soft);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.broker-card-contact-item svg { color: var(--navy); flex-shrink: 0; }
-.broker-card-contact-item a { color: var(--text-soft); transition: color 0.2s; }
-.broker-card-contact-item a:hover { color: var(--gold); }
-
-.office-card {
-  background: var(--bg-card);
-  padding: 28px 24px;
-  margin-top: 2px;
-}
-.office-card h4 {
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
-  text-transform: none;
-  letter-spacing: 0;
-}
-.office-card p {
-  font-size: 17px;
-  font-weight: 300;
-  color: var(--text-soft);
-  line-height: 1.75;
-}
-
-@media(max-width:1024px){
-  .contact-layout{ grid-template-columns:1fr; }
-  .form-row{ grid-template-columns:1fr; }
-}
-</style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
@@ -178,7 +72,7 @@
 <body>
 <div id="site-header"></div>
 
-<div class="page-hero page-hero--inner" style="min-height:650px;">
+<div class="page-hero page-hero--inner">
   <div class="page-hero-bg" style="background-image:url('images/hero_at_lewis_interior.jpg');background-position:center 50%;"></div>
   
   <div class="page-hero-inner">
