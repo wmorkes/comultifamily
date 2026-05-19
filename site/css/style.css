@@ -250,7 +250,7 @@ a { text-decoration:none; color:inherit; }
 .section--light { background: var(--bg); }
 .section--white { background: var(--bg-card); }
 .section--alt   { background: var(--bg-alt); }
-.section--alt .section-inner { max-width: 760px; margin: 0; }
+.section--alt .section-inner { max-width: 760px; margin: 0 auto; }
 .section--alt .section-inner p { font-size: 16px; font-weight: 300; color: var(--text-soft); line-height: 1.8; margin-bottom: 40px; }
 
 /* Dark section text overrides */
