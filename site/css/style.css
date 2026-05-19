@@ -789,6 +789,13 @@ a { text-decoration:none; color:inherit; }
 .hero-text-pill .page-eyebrow { margin-bottom: 12px; }
 .hero-text-pill .page-hero-sub { max-width: none; flex: 1; }
 
+@media (max-width: 1200px) {
+  .hero-text-pill { padding: 28px 32px; margin-left: -32px; margin-right: -32px; }
+}
+@media (max-width: 768px) {
+  .hero-text-pill { padding: 28px 20px; margin-left: -20px; margin-right: -20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
 /* ─── STAT CALLOUT ────────────────────────────────────────── */
 .stat-callout { display: flex; align-items: baseline; gap: 16px; margin: 32px 0; padding: 24px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
 .stat-callout-number { font-family: 'Raleway', sans-serif; font-weight: 200; font-size: 56px; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
