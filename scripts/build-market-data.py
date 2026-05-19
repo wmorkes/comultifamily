@@ -17,6 +17,8 @@ OUT_PATH = Path(__file__).parent.parent / "site" / "data" / "market-data.json"
 
 YEAR_MIN = 2011
 YEAR_MAX = 2025
+SIDEBAR_YEAR_MIN = 2019
+SIDEBAR_YEAR_MAX = 2024
 
 # Property type normalization
 TYPE_MAP = {
@@ -179,6 +181,51 @@ def compute_stats(values: list[float]) -> dict:
     }
 
 
+def compute_sidebar(rows: list[dict]) -> dict:
+    year_buckets: dict[int, dict] = {
+        yr: {"count": 0, "ppus": [], "volume": 0} for yr in range(SIDEBAR_YEAR_MIN, SIDEBAR_YEAR_MAX + 1)
+    }
+    for r in rows:
+        if SIDEBAR_YEAR_MIN <= r["year"] <= SIDEBAR_YEAR_MAX:
+            year_buckets[r["year"]]["count"] += 1
+            if r["ppu"] and r["ppu"] > 0:
+                year_buckets[r["year"]]["ppus"].append(r["ppu"])
+            if r["price"] and r["price"] > 0:
+                year_buckets[r["year"]]["volume"] += r["price"]
+
+    by_year = {}
+    for yr in range(SIDEBAR_YEAR_MIN, SIDEBAR_YEAR_MAX + 1):
+        ppus = year_buckets[yr]["ppus"]
+        vol = year_buckets[yr]["volume"]
+        by_year[str(yr)] = {
+            "count": year_buckets[yr]["count"],
+            "median_ppu": round(statistics.median(ppus)) if ppus else None,
+            "total_volume": round(vol) if vol else None,
+        }
+
+    ppu_2019 = by_year["2019"]["median_ppu"]
+    ppu_2024 = by_year["2024"]["median_ppu"]
+    if ppu_2019 and ppu_2024 and ppu_2019 > 0:
+        ppu_pct = (ppu_2024 - ppu_2019) / ppu_2019 * 100
+    else:
+        ppu_pct = None
+
+    count_2019 = by_year["2019"]["count"]
+    count_2024 = by_year["2024"]["count"]
+    count_pct = (count_2024 - count_2019) / count_2019 * 100 if count_2019 > 0 else None
+
+    vol_2019 = by_year["2019"]["total_volume"]
+    vol_2024 = by_year["2024"]["total_volume"]
+    vol_pct = (vol_2024 - vol_2019) / vol_2019 * 100 if vol_2019 and vol_2024 else None
+
+    return {
+        "by_year": by_year,
+        "ppu_pct_change": round(ppu_pct, 1) if ppu_pct is not None else None,
+        "count_pct_change": round(count_pct, 1) if count_pct is not None else None,
+        "volume_pct_change": round(vol_pct, 1) if vol_pct is not None else None,
+    }
+
+
 def build_market_data() -> dict:
     # Buckets: market_key -> list of rows
     market_rows: dict[str, list[dict]] = {k: [] for k in MARKETS}
@@ -201,6 +248,7 @@ def build_market_data() -> dict:
                         "units": raw["UNITS"].strip(),
                         "yoc": raw["YOC"].strip(),
                         "ppu": parse_money(raw["$/UNIT"]),
+                        "price": parse_money(raw["PRICE"]),
                     })
                     break  # each row maps to at most one market
 
@@ -256,6 +304,7 @@ def build_market_data() -> dict:
             "property_type_mix": type_mix,
             "by_year": by_year,
             "by_vintage": by_vintage,
+            "sidebar": compute_sidebar(rows),
         }
 
     return {

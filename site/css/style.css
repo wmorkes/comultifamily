@@ -575,7 +575,7 @@ a { text-decoration:none; color:inherit; }
   .logo-sub { display:none; }
   .section { padding: 56px 20px; }
   .page-hero { padding: 110px 20px 56px; }
-  .hero-text-pill { padding: 28px 20px; margin-left: -20px; margin-right: -20px; }
+  .hero-text-pill { padding: 28px 20px; margin-left: -20px; margin-right: -20px; flex-direction: column; align-items: flex-start; gap: 16px; }
   .stats-strip-inner { grid-template-columns: 1fr 1fr; padding: 0 20px; }
   /* Fix orphaned 5th stat on mobile */
   .stat-cell:nth-child(5) {
@@ -723,6 +723,15 @@ a { text-decoration:none; color:inherit; }
 .sidebar-stat { display: flex; flex-direction: column; align-items: flex-start; padding: 14px 0; gap: 3px; border-bottom: 1px solid var(--border-soft); }
 .sidebar-stat:last-child { border-bottom: none; }
 .sidebar-stat-label { font-size: 10px; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-soft); }
+
+/* ─── SIDEBAR MARKET TABLE ───────────────────────────────── */
+.sidebar-mkt-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0 10px; }
+.sidebar-mkt-table th { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-soft); padding: 0 4px 6px; text-align: right; white-space: nowrap; }
+.sidebar-mkt-table th:first-child { text-align: left; padding-left: 0; }
+.sidebar-mkt-table td { padding: 4px 4px; color: var(--text); font-family: 'Raleway', sans-serif; font-weight: 500; text-align: right; border-bottom: 1px solid var(--border-soft); }
+.sidebar-mkt-table td:first-child { text-align: left; padding-left: 0; font-family: 'Inter', sans-serif; font-weight: 600; color: var(--text-soft); }
+.sidebar-mkt-table tbody tr:last-child td { border-bottom: none; }
+.sidebar-block-summary { font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: 0.04em; color: var(--gold); padding-top: 8px; margin-top: 2px; border-top: 1px solid var(--border-soft); }
 
 /* ─── SUBMARKET ENTRIES ───────────────────────────────────── */
 .submarket-entry { padding: 18px 0 18px 16px; border-left: 3px solid var(--gold); border-bottom: 1px solid var(--border-soft); }

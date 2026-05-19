@@ -100,6 +100,43 @@
           "p25": 278037,
           "p75": 405833
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 219,
+            "median_ppu": 176218,
+            "total_volume": 5309883217
+          },
+          "2020": {
+            "count": 189,
+            "median_ppu": 193854,
+            "total_volume": 5033204359
+          },
+          "2021": {
+            "count": 346,
+            "median_ppu": 210417,
+            "total_volume": 10280954139
+          },
+          "2022": {
+            "count": 251,
+            "median_ppu": 230417,
+            "total_volume": 5901254022
+          },
+          "2023": {
+            "count": 114,
+            "median_ppu": 218182,
+            "total_volume": 2923484914
+          },
+          "2024": {
+            "count": 151,
+            "median_ppu": 215000,
+            "total_volume": 4659874118
+          }
+        },
+        "ppu_pct_change": 22.0,
+        "count_pct_change": -31.1,
+        "volume_pct_change": -12.2
       }
     },
     "boulder": {
@@ -199,6 +236,43 @@
           "p25": 293860,
           "p75": 498433
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 13,
+            "median_ppu": 286333,
+            "total_volume": 271705000
+          },
+          "2020": {
+            "count": 12,
+            "median_ppu": 207639,
+            "total_volume": 97997001
+          },
+          "2021": {
+            "count": 11,
+            "median_ppu": 297814,
+            "total_volume": 283828000
+          },
+          "2022": {
+            "count": 15,
+            "median_ppu": 354854,
+            "total_volume": 514002923
+          },
+          "2023": {
+            "count": 5,
+            "median_ppu": 269231,
+            "total_volume": 58508000
+          },
+          "2024": {
+            "count": 26,
+            "median_ppu": 247738,
+            "total_volume": 716658000
+          }
+        },
+        "ppu_pct_change": -13.5,
+        "count_pct_change": 100.0,
+        "volume_pct_change": 163.8
       }
     },
     "colorado-springs": {
@@ -298,6 +372,43 @@
           "p25": 230769,
           "p75": 300000
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 28,
+            "median_ppu": 103578,
+            "total_volume": 517799500
+          },
+          "2020": {
+            "count": 46,
+            "median_ppu": 118750,
+            "total_volume": 700748564
+          },
+          "2021": {
+            "count": 71,
+            "median_ppu": 128750,
+            "total_volume": 958296999
+          },
+          "2022": {
+            "count": 40,
+            "median_ppu": 195455,
+            "total_volume": 1082047600
+          },
+          "2023": {
+            "count": 18,
+            "median_ppu": 145856,
+            "total_volume": 285624400
+          },
+          "2024": {
+            "count": 23,
+            "median_ppu": 128750,
+            "total_volume": 355469100
+          }
+        },
+        "ppu_pct_change": 24.3,
+        "count_pct_change": -17.9,
+        "volume_pct_change": -31.4
       }
     },
     "fort-collins": {
@@ -397,6 +508,43 @@
           "p25": 230769,
           "p75": 310759
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 16,
+            "median_ppu": 199421,
+            "total_volume": 368043000
+          },
+          "2020": {
+            "count": 5,
+            "median_ppu": 233677,
+            "total_volume": 207400000
+          },
+          "2021": {
+            "count": 28,
+            "median_ppu": 230805,
+            "total_volume": 810100000
+          },
+          "2022": {
+            "count": 17,
+            "median_ppu": 253063,
+            "total_volume": 438272000
+          },
+          "2023": {
+            "count": 8,
+            "median_ppu": 282444,
+            "total_volume": 285526000
+          },
+          "2024": {
+            "count": 9,
+            "median_ppu": 263528,
+            "total_volume": 355885919
+          }
+        },
+        "ppu_pct_change": 32.1,
+        "count_pct_change": -43.8,
+        "volume_pct_change": -3.3
       }
     },
     "greeley": {
@@ -496,6 +644,43 @@
           "p25": 193149,
           "p75": 303030
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 7,
+            "median_ppu": 122656,
+            "total_volume": 66950000
+          },
+          "2020": {
+            "count": 15,
+            "median_ppu": 113978,
+            "total_volume": 70935054
+          },
+          "2021": {
+            "count": 8,
+            "median_ppu": 134405,
+            "total_volume": 133915000
+          },
+          "2022": {
+            "count": 11,
+            "median_ppu": 164844,
+            "total_volume": 108753963
+          },
+          "2023": {
+            "count": 2,
+            "median_ppu": 119826,
+            "total_volume": 17350000
+          },
+          "2024": {
+            "count": 3,
+            "median_ppu": 119688,
+            "total_volume": 24120000
+          }
+        },
+        "ppu_pct_change": -2.4,
+        "count_pct_change": -57.1,
+        "volume_pct_change": -64.0
       }
     },
     "western-slope": {
@@ -594,6 +779,43 @@
           "p25": 70385,
           "p75": 322917
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 8,
+            "median_ppu": 65834,
+            "total_volume": 22990300
+          },
+          "2020": {
+            "count": 5,
+            "median_ppu": 75000,
+            "total_volume": 12880000
+          },
+          "2021": {
+            "count": 13,
+            "median_ppu": 77083,
+            "total_volume": 81221000
+          },
+          "2022": {
+            "count": 9,
+            "median_ppu": 94340,
+            "total_volume": 23726000
+          },
+          "2023": {
+            "count": 7,
+            "median_ppu": 70385,
+            "total_volume": 56575000
+          },
+          "2024": {
+            "count": 11,
+            "median_ppu": 106667,
+            "total_volume": 48665000
+          }
+        },
+        "ppu_pct_change": 62.0,
+        "count_pct_change": 37.5,
+        "volume_pct_change": 111.7
       }
     },
     "mountain-towns": {
@@ -693,6 +915,43 @@
           "p25": 215476,
           "p75": 409794
         }
+      },
+      "sidebar": {
+        "by_year": {
+          "2019": {
+            "count": 8,
+            "median_ppu": 157759,
+            "total_volume": 87800000
+          },
+          "2020": {
+            "count": 10,
+            "median_ppu": 185606,
+            "total_volume": 168745000
+          },
+          "2021": {
+            "count": 15,
+            "median_ppu": 152500,
+            "total_volume": 250474000
+          },
+          "2022": {
+            "count": 9,
+            "median_ppu": 276667,
+            "total_volume": 112390000
+          },
+          "2023": {
+            "count": 3,
+            "median_ppu": 173816,
+            "total_volume": 19850000
+          },
+          "2024": {
+            "count": 10,
+            "median_ppu": 300000,
+            "total_volume": 134595000
+          }
+        },
+        "ppu_pct_change": 90.2,
+        "count_pct_change": 25.0,
+        "volume_pct_change": 53.3
       }
     }
   }
