@@ -50,7 +50,7 @@
           '<tbody>' + rows + '</tbody>' +
         '</table>' +
         (summary ? '<div class="sidebar-block-summary">' + summary + '</div>' : '') +
-        '<p class="sidebar-data-note">Market-wide sales data. <a href="/resources/">Full market trends &rarr;</a></p>';
+        '<p class="sidebar-data-note">Market-wide sales data. <a href="/resources/#market-intelligence">Full market trends &rarr;</a></p>';
     })
     .catch(function () {});
 }());

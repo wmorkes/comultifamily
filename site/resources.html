@@ -100,11 +100,11 @@
 {
   "@context": "https://schema.org",
   "@type": "Dataset",
-  "name": "Colorado Multifamily Investment Sales by Market, 2011–2025",
-  "description": "Closed multifamily investment sales transaction counts, median price per unit, and total volume by market across Colorado, 2011–2025. Compiled from third-party databases, public records, and team market knowledge.",
+  "name": "Colorado Multifamily Investment Sales by Market, 2011–2026 YTD",
+  "description": "Closed multifamily investment sales transaction counts, median price per unit, and total volume by market across Colorado, 2011–2026 YTD. Compiled from third-party databases, public records, and team market knowledge.",
   "url": "https://www.comultifamily.com/resources/",
   "creator": { "@id": "https://www.comultifamily.com/#organization" },
-  "temporalCoverage": "2011/2025",
+  "temporalCoverage": "2011/2026",
   "spatialCoverage": { "@type": "Place", "name": "Colorado" },
   "variableMeasured": ["Transaction count", "Median price per unit", "Total transaction volume"]
 }
@@ -190,13 +190,13 @@
 
 
 <!-- MARKET INTELLIGENCE TABLE -->
-<section class="section section--white section--scroll-table">
+<section id="market-intelligence" class="section section--white section--scroll-table">
   <div class="section-inner">
     <div class="section-tag reveal">Transaction Data</div>
     <h2 class="section-h2 reveal">Colorado &amp; Wyoming by Market</h2>
-    <p class="section-lead reveal">Closed multifamily investment sales across two states and 14+ markets, 2011&ndash;2025. Compiled from third-party databases, public records, and our team&rsquo;s market knowledge. Use the market links to explore detailed data for each submarket.</p>
+    <p class="section-lead reveal">Closed multifamily investment sales across two states and 14+ markets, 2011&ndash;2026 YTD. Compiled from third-party databases, public records, and our team&rsquo;s market knowledge. Use the market links to explore detailed data for each submarket.</p>
     <div class="mi-data-callout reveal">
-      <p><strong>This table reflects closed sales through 2024.</strong> We track current-year closings, active listings, and pricing trends ahead of what&rsquo;s publicly available. That intelligence is available to owners and investors we&rsquo;re actively working with. <a href="/contact/">Contact us to discuss your market.</a></p>
+      <p><strong>This table reflects closed sales through 2025.</strong> We track 2026 closings, active listings, and pricing trends ahead of what&rsquo;s publicly available. That intelligence is available to owners and investors we&rsquo;re actively working with. <a href="/contact/">Contact us to discuss your market.</a></p>
     </div>
     <div id="mi-table-container" class="reveal">
       <p style="color:var(--text-soft);font-size:14px;font-family:'Inter',sans-serif;">Loading&hellip;</p>
@@ -272,7 +272,7 @@
           '<table class="mi-table">' +
             '<thead><tr>' +
               '<th>Market</th>' +
-              '<th>Total Sales<span class="th-sub">2011&ndash;2025</span></th>' +
+              '<th>Total Sales<span class="th-sub">2011&ndash;2026 YTD</span></th>' +
               '<th>Median $/Unit<span class="th-sub">All-time</span></th>' +
               '<th>2024 Sales</th>' +
               '<th>2024 Median $/Unit</th>' +
@@ -282,7 +282,7 @@
             '<tbody>' + rows + '</tbody>' +
           '</table>' +
         '</div>' +
-        '<p class="mi-table-note">Compiled from third-party databases, public records, and our team&rsquo;s market knowledge. All closed multifamily investment sales 2011&ndash;2025. Median $/unit excludes transactions without a recorded price.<br><span class="mi-footnote-ref">*</span> Wyoming is a Non-Disclosure state. Sale prices are not publicly recorded, and transaction-level data is confidential. We work these markets actively &mdash; <a href="/contact/">contact us</a> for Wyoming deal intelligence.</p>';
+        '<p class="mi-table-note">Compiled from third-party databases, public records, and our team&rsquo;s market knowledge. All closed multifamily investment sales 2011&ndash;2026 YTD. Median $/unit excludes transactions without a recorded price.<br><span class="mi-footnote-ref">*</span> Wyoming is a Non-Disclosure state. Sale prices are not publicly recorded, and transaction-level data is confidential. We work these markets actively &mdash; <a href="/contact/">contact us</a> for Wyoming deal intelligence.</p>';
     })
     .catch(function () { el.innerHTML = ''; });
 }());
