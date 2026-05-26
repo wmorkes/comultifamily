@@ -68,6 +68,47 @@
   gtag("js", new Date());
   gtag("config", "G-53BCG1FL5M");
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.comultifamily.com/resources/#webpage",
+      "url": "https://www.comultifamily.com/resources/",
+      "name": "Multifamily Market Reports | CO Multifamily Advisors",
+      "description": "Colorado and Wyoming multifamily market reports, sales comps, rent comps, and investment analysis. Download resources from CO Multifamily Advisors at Colliers.",
+      "isPartOf": { "@id": "https://www.comultifamily.com/#organization" },
+      "breadcrumb": { "@id": "https://www.comultifamily.com/resources/#breadcrumb" }
+    },
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://www.comultifamily.com/#organization"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.comultifamily.com/resources/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.comultifamily.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://www.comultifamily.com/resources/" }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Colorado Multifamily Investment Sales by Market, 2011–2025",
+  "description": "Closed multifamily investment sales transaction counts, median price per unit, and total volume by market across Colorado, 2011–2025. Compiled from third-party databases, public records, and team market knowledge.",
+  "url": "https://www.comultifamily.com/resources/",
+  "creator": { "@id": "https://www.comultifamily.com/#organization" },
+  "temporalCoverage": "2011/2025",
+  "spatialCoverage": { "@type": "Place", "name": "Colorado" },
+  "variableMeasured": ["Transaction count", "Median price per unit", "Total transaction volume"]
+}
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -148,7 +189,103 @@
 </section>
 
 
+<!-- MARKET INTELLIGENCE TABLE -->
+<section class="section section--white section--scroll-table">
+  <div class="section-inner">
+    <div class="section-tag reveal">Transaction Data</div>
+    <h2 class="section-h2 reveal">Colorado &amp; Wyoming by Market</h2>
+    <p class="section-lead reveal">Closed multifamily investment sales across two states and 14+ markets, 2011&ndash;2025. Compiled from third-party databases, public records, and our team&rsquo;s market knowledge. Use the market links to explore detailed data for each submarket.</p>
+    <div class="mi-data-callout reveal">
+      <p><strong>This table reflects closed sales through 2024.</strong> We track current-year closings, active listings, and pricing trends ahead of what&rsquo;s publicly available. That intelligence is available to owners and investors we&rsquo;re actively working with. <a href="/contact/">Contact us to discuss your market.</a></p>
+    </div>
+    <div id="mi-table-container" class="reveal">
+      <p style="color:var(--text-soft);font-size:14px;font-family:'Inter',sans-serif;">Loading&hellip;</p>
+    </div>
+  </div>
+</section>
+
 <div id="site-footer"></div>
 <script src="js/shared.js"></script>
+<script>
+(function () {
+  var el = document.getElementById('mi-table-container');
+  if (!el) return;
+
+  fetch('/data/market-data.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var mkt = data.markets;
+      var co = ['denver','boulder','colorado-springs','fort-collins','greeley','western-slope','mountain-towns'];
+      var wy = [
+        {key:'cheyenne',   label:'Cheyenne'},
+        {key:'casper',     label:'Casper'},
+        {key:'gillette',   label:'Gillette'},
+        {key:'jackson',    label:'Jackson Hole'},
+        {key:'laramie',    label:'Laramie'},
+        {key:'rock-springs',label:'Rock Springs'},
+        {key:'sheridan',   label:'Sheridan'}
+      ];
+
+      function fmtN(n)   { return n != null ? n.toLocaleString() : '&mdash;'; }
+      function fmtPpu(n) { return n ? '$' + Math.round(n).toLocaleString() : '&mdash;'; }
+      function fmtVol(n) {
+        if (!n) return '&mdash;';
+        if (n >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
+        return '$' + Math.round(n / 1e6) + 'M';
+      }
+      function fmtPct(n) {
+        if (n == null) return '&mdash;';
+        var cls  = n >= 0 ? 'mi-change-pos' : 'mi-change-neg';
+        var sign = n >= 0 ? '+' : '';
+        return '<span class="' + cls + '">' + sign + Math.round(n) + '%</span>';
+      }
+
+      var rows = '';
+
+      co.forEach(function (key) {
+        var m = mkt[key]; if (!m) return;
+        var yr = (m.sidebar.by_year || {})['2024'] || {};
+        rows +=
+          '<tr>' +
+          '<td class="td-market"><a href="/markets/' + key + '/">' + m.label + '</a>' + (m.cities_note ? '<span class="td-market-cities">' + m.cities_note + '</span>' : '') + '</td>' +
+          '<td>' + fmtN(m.transaction_count) + '</td>' +
+          '<td>' + fmtPpu(m.dollar_per_unit.median) + '</td>' +
+          '<td>' + (yr.count != null ? yr.count : '&mdash;') + '</td>' +
+          '<td>' + fmtPpu(yr.median_ppu) + '</td>' +
+          '<td>' + fmtVol(yr.total_volume) + '</td>' +
+          '<td>' + fmtPct(m.sidebar.ppu_pct_change) + '</td>' +
+          '</tr>';
+      });
+
+      rows += '<tr class="mi-section-label"><td colspan="7">Wyoming Markets <span class="mi-footnote-ref">*</span></td></tr>';
+
+      wy.forEach(function (m) {
+        rows +=
+          '<tr class="mi-row-pending">' +
+          '<td class="td-market"><a href="/markets/' + m.key + '/">' + m.label + '</a></td>' +
+          '<td colspan="6" class="mi-confidential">Confidential &mdash; Non-Disclosure State</td>' +
+          '</tr>';
+      });
+
+      el.innerHTML =
+        '<div class="mi-table-wrap">' +
+          '<table class="mi-table">' +
+            '<thead><tr>' +
+              '<th>Market</th>' +
+              '<th>Total Sales<span class="th-sub">2011&ndash;2025</span></th>' +
+              '<th>Median $/Unit<span class="th-sub">All-time</span></th>' +
+              '<th>2024 Sales</th>' +
+              '<th>2024 Median $/Unit</th>' +
+              '<th>2024 Volume</th>' +
+              '<th>$/Unit Change<span class="th-sub">2019&rarr;2024</span></th>' +
+            '</tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>' +
+        '</div>' +
+        '<p class="mi-table-note">Compiled from third-party databases, public records, and our team&rsquo;s market knowledge. All closed multifamily investment sales 2011&ndash;2025. Median $/unit excludes transactions without a recorded price.<br><span class="mi-footnote-ref">*</span> Wyoming is a Non-Disclosure state. Sale prices are not publicly recorded, and transaction-level data is confidential. We work these markets actively &mdash; <a href="/contact/">contact us</a> for Wyoming deal intelligence.</p>';
+    })
+    .catch(function () { el.innerHTML = ''; });
+}());
+</script>
 </body>
 </html>
