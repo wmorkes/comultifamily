@@ -2268,6 +2268,9 @@ a { text-decoration:none; color:inherit; }
   border-top-color: var(--gold);
   background: rgba(201,168,76,0.03);
 }
+.service-card:last-child {
+  grid-column: 1 / -1;
+}
 .service-num {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
