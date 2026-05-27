@@ -706,6 +706,7 @@ a { text-decoration:none; color:inherit; }
 .type-badge.type-affordable  { color: var(--color-affordable); border-color: rgba(126,184,201,0.27); }
 .type-badge.type-student     { color: var(--color-student);    border-color: rgba(184,126,201,0.27); }
 .type-badge.type-land        { color: var(--color-land);        border-color: rgba(126,201,148,0.27); }
+.type-badge.type-distressed  { color: #b85555;                  border-color: rgba(184,85,85,0.27); }
 @media(max-width:768px) {
   .deals-table-header { display: none; }
   .deals-table-row { grid-template-columns: 1fr auto; }
