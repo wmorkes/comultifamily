@@ -51,6 +51,12 @@
         { "@type": "State", "name": "Wyoming" }
       ],
       "memberOf": { "@type": "Organization", "name": "Colliers International", "url": "https://www.colliers.com" },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "3",
+        "bestRating": "5"
+      },
       "sameAs": [
         "https://www.linkedin.com/company/co-multifamily-advisory-group/",
         "https://www.colliers.com/en/countries/united-states/cities/denver/colorado-multifamily-advisors"
@@ -82,6 +88,67 @@
       "telephone": "+13032834568",
       "email": "nate.moyer@colliers.com",
       "sameAs": "https://www.linkedin.com/in/nate-moyer-8244a1113/"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.comultifamily.com/#webpage",
+      "url": "https://www.comultifamily.com/",
+      "name": "Colorado Multifamily Broker | CO Multifamily Advisors",
+      "description": "Sell your Colorado or Wyoming apartment complex with CO Multifamily Advisors. $3B+ in closed transactions across market-rate, affordable, student, and land.",
+      "isPartOf": { "@id": "https://www.comultifamily.com/#organization" },
+      "datePublished": "2022-01-01",
+      "dateModified": "2026-05-26",
+      "inLanguage": "en-US",
+      "author": [
+        { "@type": "Person", "name": "Craig Stack", "jobTitle": "Senior Vice President" },
+        { "@type": "Person", "name": "Bill Morkes", "jobTitle": "Senior Vice President" },
+        { "@type": "Person", "name": "Nate Moyer", "jobTitle": "Senior Vice President" }
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.comultifamily.com/#localbusiness",
+      "name": "CO Multifamily Advisors",
+      "url": "https://www.comultifamily.com",
+      "telephone": "+13033511371",
+      "email": "bill.morkes@colliers.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "4643 South Ulster Street, Suite 1000",
+        "addressLocality": "Denver",
+        "addressRegion": "CO",
+        "postalCode": "80237",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 39.6461, "longitude": -104.8997 },
+      "openingHours": "Mo-Fr 09:00-17:00",
+      "priceRange": "$$$$",
+      "areaServed": [
+        { "@type": "State", "name": "Colorado" },
+        { "@type": "State", "name": "Wyoming" }
+      ],
+      "parentOrganization": { "@type": "Organization", "name": "Colliers International", "url": "https://www.colliers.com" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Eddie Lorin", "jobTitle": "CEO, Strategic Realty Holdings LLC" },
+      "reviewBody": "Bill and Craig are excellent, thorough brokers. They do what they say they are going to do and that is the most important quality in a broker partner.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "itemReviewed": { "@id": "https://www.comultifamily.com/#organization" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Casey Lynch", "jobTitle": "CEO, Roundhouse" },
+      "reviewBody": "Craig and Bill delivered a seamless process. Their deep industry network and robust marketing efforts generated fantastic buyer interest and a result that exceeded our expectations.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "itemReviewed": { "@id": "https://www.comultifamily.com/#organization" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Chris Brennan", "jobTitle": "Principal, Skyline Real Estate Investments" },
+      "reviewBody": "They are tenacious and knowledgeable regarding the assets and markets for which they are focused. On top of that, they are good people to work with.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "itemReviewed": { "@id": "https://www.comultifamily.com/#organization" }
     }
   ]
 }
@@ -182,10 +249,10 @@
 <!-- STATS STRIP -->
 <div class="stats-strip">
   <div class="stats-strip-inner">
-    <div class="stat-cell"><div class="stat-num" data-count="3" data-suffix="B+">$3B+</div><div class="stat-lbl">Transaction Volume</div></div>
-    <div class="stat-cell"><div class="stat-num" data-count="20000" data-suffix="+">20,000+</div><div class="stat-lbl">Units Sold</div></div>
-    <div class="stat-cell"><div class="stat-num" data-count="160" data-suffix="+">160+</div><div class="stat-lbl">Transactions Closed</div></div>
-    <div class="stat-cell"><div class="stat-num" data-count="50" data-suffix="+">50+</div><div class="stat-lbl">Combined Years</div></div>
+    <div class="stat-cell"><div class="stat-num">$3B+</div><div class="stat-lbl">Transaction Volume</div></div>
+    <div class="stat-cell"><div class="stat-num">20,000+</div><div class="stat-lbl">Units Sold</div></div>
+    <div class="stat-cell"><div class="stat-num">160+</div><div class="stat-lbl">Transactions Closed</div></div>
+    <div class="stat-cell"><div class="stat-num">50+</div><div class="stat-lbl">Combined Years</div></div>
     <div class="stat-cell"><div class="stat-num">CO · WY</div><div class="stat-lbl">Market Coverage</div></div>
   </div>
 </div>
@@ -437,47 +504,5 @@
 
 <div id="site-footer"></div>
 <script src="js/shared.js"></script>
-<script>
-/* ── Counter animation ── */
-function animateCounters() {
-  document.querySelectorAll('.stat-num[data-count]').forEach(el => {
-    const target = parseFloat(el.dataset.count);
-    const suffix = el.dataset.suffix || '';
-    const isDecimal = String(target).includes('.');
-    const duration = 1800;
-    const start = performance.now();
-
-    function update(now) {
-      const elapsed = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - elapsed, 3); // cubic ease-out
-      const val = target * ease;
-      if (target >= 1000) {
-        el.textContent = (el.dataset.prefix || '') + Math.round(val).toLocaleString() + suffix;
-      } else if (isDecimal) {
-        el.textContent = (el.dataset.prefix || '') + val.toFixed(1) + suffix;
-      } else {
-        el.textContent = (el.dataset.prefix || '') + Math.round(val) + suffix;
-      }
-      if (elapsed < 1) requestAnimationFrame(update);
-    }
-
-    // Prefix ($ for billions)
-    if (el.textContent.startsWith('$')) el.dataset.prefix = '$';
-    requestAnimationFrame(update);
-  });
-}
-
-// Trigger when stats strip scrolls into view
-const statsStrip = document.querySelector('.stats-strip');
-if (statsStrip) {
-  const statsObserver = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      animateCounters();
-      statsObserver.disconnect();
-    }
-  }, { threshold: 0.3 });
-  statsObserver.observe(statsStrip);
-}
-</script>
 </body>
 </html>

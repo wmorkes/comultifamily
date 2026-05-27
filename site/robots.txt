@@ -1,4 +1,29 @@
 User-agent: *
 Allow: /
 
+# AI crawlers — welcome to index and cite this site
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
 Sitemap: https://www.comultifamily.com/sitemap.xml
