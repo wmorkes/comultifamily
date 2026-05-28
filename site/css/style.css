@@ -647,7 +647,8 @@ a { text-decoration:none; color:inherit; }
 .market-detail-layout { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
 .market-sidebar { position: sticky; top: 96px; }
 .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px 28px; margin-bottom: 2px; }
-.sidebar-card h4 { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-soft); margin-bottom: 16px; }
+.sidebar-card h4, .sidebar-card h3 { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-soft); margin-bottom: 16px; }
+.section-h3 { font-size: 1.4rem; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; margin: 0 0 20px; }
 .sidebar-stat-val { font-family: 'Raleway', sans-serif; font-weight: 500; color: var(--text); font-size: 18px; white-space: nowrap; }
 .market-body { max-width: 680px; }
 .market-body h2 { font-family: 'Raleway', sans-serif; font-size: 28px; font-weight: 300; color: var(--text); margin: 36px 0 14px; line-height: 1.2; }
@@ -859,7 +860,7 @@ a { text-decoration:none; color:inherit; }
 
 /* ─── SIDEBAR CTA CARD ───────────────────────────────────── */
 .sidebar-card--cta { background: var(--navy); border-color: var(--navy); margin-top: 16px; }
-.sidebar-card--cta h4 { color: var(--gold); }
+.sidebar-card--cta h4, .sidebar-card--cta h3 { color: var(--gold); }
 .sidebar-card--cta p { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.65; margin: 0 0 20px; }
 .sidebar-card--cta .btn-gold { display: block; text-align: center; justify-content: center; }
 .sidebar-data-note { font-size: 11px; color: var(--text-soft); margin: 12px 0 0; line-height: 1.5; }
@@ -1321,10 +1322,10 @@ a { text-decoration:none; color:inherit; }
 .team-card {
   background:var(--bg-card);
   padding:38px 34px;
-  border-top:2px solid transparent;
+  border-left:3px solid transparent;
   transition:border-color 0.25s, background 0.25s;
 }
-.team-card:hover { border-top-color:var(--gold); background:rgba(201,168,76,0.03); }
+.team-card:hover { border-left-color:var(--gold); background:rgba(201,168,76,0.03); }
 
 .team-photo {
   width: 88px; height: 88px;
@@ -2279,12 +2280,12 @@ a { text-decoration:none; color:inherit; }
 .service-card {
   background: var(--bg-card);
   padding: 48px 44px;
-  border-top: 3px solid transparent;
+  border-left: 3px solid transparent;
   transition: border-color 0.3s, background 0.3s;
   min-width: 0;
 }
 .service-card:hover {
-  border-top-color: var(--gold);
+  border-left-color: var(--gold);
   background: rgba(201,168,76,0.03);
 }
 .service-card:nth-child(odd):last-child {
@@ -2396,10 +2397,10 @@ a { text-decoration:none; color:inherit; }
 .why-card {
   padding: 32px 28px;
   background: var(--bg-card);
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.25s;
+  border-left: 3px solid transparent;
+  transition: border-color 0.25s, background 0.25s;
 }
-.why-card:hover { border-bottom-color: var(--gold); }
+.why-card:hover { border-left-color: var(--gold); background: rgba(201,168,76,0.03); }
 .why-icon {
   width: 64px; height: 64px;
   border-radius: 50%;
