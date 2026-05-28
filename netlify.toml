@@ -107,10 +107,20 @@
   to = "/distressed.html"
   status = 200
 
+[[redirects]]
+  from = "/affordable/"
+  to = "/affordable.html"
+  status = 200
+
 # 301 redirects from old .html URLs to clean trailing-slash URLs
 [[redirects]]
   from = "/distressed.html"
   to = "/distressed/"
+  status = 301
+
+[[redirects]]
+  from = "/affordable.html"
+  to = "/affordable/"
   status = 301
 
 [[redirects]]

@@ -713,6 +713,22 @@ a { text-decoration:none; color:inherit; }
   .deals-table-units, .deals-table-yoc, .deals-table-type { display: none; }
 }
 
+/* ─── 6-COLUMN DEALS TABLE (affordable / distressed pages) ─── */
+.deals-table--6col .deals-table-header,
+.deals-table--6col .deals-table-row { grid-template-columns: 2.5fr 0.9fr 1.1fr 0.5fr 0.5fr 0.9fr; }
+.deals-table--6col .deals-table-header span:nth-child(2) { text-align: left; }
+.deals-table--6col .deals-table-header span:nth-child(4),
+.deals-table--6col .deals-table-header span:nth-child(5),
+.deals-table--6col .deals-table-header span:nth-child(6) { text-align: right; }
+.deals-table--6col .deals-table-units { text-align: right; }
+.deals-table-location { color: var(--text-soft); font-size: 14px; }
+.deals-table-closed { font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; font-family: 'Inter', sans-serif; color: var(--text-soft); }
+.deals-table-type.type-distressed { color: #b85555; border: 1px solid rgba(184,85,85,0.5); background: rgba(184,85,85,0.08); }
+@media(max-width:768px) {
+  .deals-table--6col .deals-table-row { grid-template-columns: 1fr auto; }
+  .deals-table-location, .deals-table-closed { display: none; }
+}
+
 /* ─── MARKET SIDEBAR — Featured Sales / Active Listing card ── */
 .market-sidebar .deal-list-mini { background: var(--navy); border-color: var(--navy); }
 .market-sidebar .deal-list-mini .deal-mini { border-bottom-color: rgba(255,255,255,0.1); }
@@ -2269,7 +2285,7 @@ a { text-decoration:none; color:inherit; }
   border-top-color: var(--gold);
   background: rgba(201,168,76,0.03);
 }
-.service-card:last-child {
+.service-card:nth-child(odd):last-child {
   grid-column: 1 / -1;
 }
 .service-num {
@@ -2416,6 +2432,7 @@ a { text-decoration:none; color:inherit; }
   .process-steps { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .jump-nav-label { width: 100%; margin-right: 0; }
+}
 
 /* ─── TRACK RECORD PAGE ───────────────────────────────────── */
 /* 4-stat strip override (scoped so it doesn't affect homepage) */
@@ -2470,32 +2487,43 @@ a { text-decoration:none; color:inherit; }
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--text);
-  padding: 14px 16px;
+  padding: 16px 20px;
   text-align: left;
 }
+.deal-table thead th:nth-child(4),
+.deal-table thead th:nth-child(5),
+.deal-table thead th:nth-child(6) { text-align: right; }
 .deal-table tbody tr {
   border-bottom: 1px solid var(--border-soft);
   transition: background 0.2s;
 }
 .deal-table tbody tr:hover { background: rgba(201,168,76,0.03); }
 .deal-table tbody td {
-  padding: 14px 16px;
-  font-size: 16px;
+  padding: 18px 20px;
+  font-size: 15px;
   color: var(--text-soft);
-  font-weight: 300;
+  font-weight: 400;
+}
+.deal-table tbody td:nth-child(4),
+.deal-table tbody td:nth-child(5) {
+  text-align: right;
+  font-family: 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
 }
 .deal-table .td-name {
   font-weight: 500;
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: 15px;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 .deal-table .td-price {
   font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: var(--gold);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 .map-placeholder { display: none; }
 .map-svg-container {
