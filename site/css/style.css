@@ -752,15 +752,17 @@ a { text-decoration:none; color:inherit; }
 /* ─── MARKET INTELLIGENCE TABLE ──────────────────────────── */
 .section--scroll-table { overflow-x: hidden; }
 .mi-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.mi-table { width: 100%; border-collapse: collapse; min-width: 680px; }
-.mi-table thead tr { border-bottom: 2px solid var(--navy); }
-.mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-soft); padding: 0 20px 14px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
-.mi-table thead th:first-child { text-align: left; padding-left: 0; min-width: 140px; }
+.mi-table { width: 100%; border-collapse: collapse; min-width: 680px; border-top: 2px solid var(--navy); }
+.mi-table thead tr { background: var(--navy); }
+.mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.55); padding: 10px 20px 12px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
+.mi-table thead th:first-child { text-align: left; padding-left: 12px; min-width: 140px; }
 .mi-table thead .th-sub { display: block; font-weight: 400; opacity: 0.65; letter-spacing: 0.04em; font-size: 9px; text-transform: none; }
 .mi-table tbody tr { border-bottom: 1px solid var(--border-soft); transition: background 0.15s; }
-.mi-table tbody tr:hover:not(.mi-section-label) { background: rgba(201,168,76,0.04); }
+.mi-table tbody tr:nth-child(even):not(.mi-section-label) { background: var(--bg); }
+.mi-table tbody tr:nth-child(odd):not(.mi-section-label) { background: #fff; }
+.mi-table tbody tr:hover:not(.mi-section-label) { background: rgba(201,168,76,0.06); }
 .mi-table tbody td { padding: 13px 20px; font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); text-align: right; }
-.mi-table tbody td:first-child { text-align: left; padding-left: 0; }
+.mi-table tbody td:first-child { text-align: left; padding-left: 12px; }
 .mi-table .td-market a { color: var(--text); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
 .mi-table .td-market a:hover { color: var(--gold); }
 .mi-change-pos { color: #2d8c5e; font-weight: 700; }

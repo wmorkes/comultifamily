@@ -124,7 +124,7 @@ function injectOpenGraph() {
 const NAV_HTML = `
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
-    <a href="/index.html" class="site-logo">
+    <a href="/" class="site-logo">
       <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
       <div class="site-logo-text">
         <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
@@ -133,13 +133,13 @@ const NAV_HTML = `
     </a>
     <nav class="site-nav" id="siteNav">
       <ul>
-        <li><a href="/listings.html">Active Listings</a></li>
-        <li><a href="/services.html">Services</a></li>
-        <li><a href="/markets/index.html">Markets</a></li>
-        <li><a href="/track-record.html">Track Record</a></li>
-        <li><a href="/resources.html">Resources</a></li>
-        <li><a href="/team.html">Our Team</a></li>
-        <li><a href="/contact.html" class="nav-cta-btn">Contact Us</a></li>
+        <li><a href="/listings/">Active Listings</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/markets/">Markets</a></li>
+        <li><a href="/track-record/">Track Record</a></li>
+        <li><a href="/resources/">Resources</a></li>
+        <li><a href="/team/">Our Team</a></li>
+        <li><a href="/contact/" class="nav-cta-btn">Contact Us</a></li>
       </ul>
     </nav>
     <div class="nav-toggle" id="navToggle">
@@ -153,7 +153,7 @@ const FOOTER_HTML = `
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="/index.html" class="site-logo">
+        <a href="/" class="site-logo">
           <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
           <div class="site-logo-text">
             <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
@@ -188,37 +188,37 @@ const FOOTER_HTML = `
       <div class="footer-col">
         <h4>Navigate</h4>
         <ul>
-          <li><a href="/listings.html">Active Listings</a></li>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/markets/index.html">Markets</a></li>
-          <li><a href="/track-record.html">Track Record</a></li>
-          <li><a href="/resources.html">Resources</a></li>
-          <li><a href="/team.html">Our Team</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/listings/">Active Listings</a></li>
+          <li><a href="/services/">Services</a></li>
+          <li><a href="/markets/">Markets</a></li>
+          <li><a href="/track-record/">Track Record</a></li>
+          <li><a href="/resources/">Resources</a></li>
+          <li><a href="/team/">Our Team</a></li>
+          <li><a href="/contact/">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Colorado</h4>
         <ul>
-          <li><a href="/markets/denver.html">Denver</a></li>
-          <li><a href="/markets/boulder.html">Boulder</a></li>
-          <li><a href="/markets/fort-collins.html">Fort Collins</a></li>
-          <li><a href="/markets/greeley.html">Greeley</a></li>
-          <li><a href="/markets/colorado-springs.html">Colorado Springs</a></li>
-          <li><a href="/markets/western-slope.html">Western Slope</a></li>
-          <li><a href="/markets/mountain-towns.html">Mountain Towns</a></li>
+          <li><a href="/markets/denver/">Denver</a></li>
+          <li><a href="/markets/boulder/">Boulder</a></li>
+          <li><a href="/markets/fort-collins/">Fort Collins</a></li>
+          <li><a href="/markets/greeley/">Greeley</a></li>
+          <li><a href="/markets/colorado-springs/">Colorado Springs</a></li>
+          <li><a href="/markets/western-slope/">Western Slope</a></li>
+          <li><a href="/markets/mountain-towns/">Mountain Towns</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Wyoming</h4>
         <ul>
-          <li><a href="/markets/cheyenne.html">Cheyenne</a></li>
-          <li><a href="/markets/laramie.html">Laramie</a></li>
-          <li><a href="/markets/casper.html">Casper</a></li>
-          <li><a href="/markets/rock-springs.html">Rock Springs</a></li>
-          <li><a href="/markets/gillette.html">Gillette</a></li>
-          <li><a href="/markets/sheridan.html">Sheridan</a></li>
-          <li><a href="/markets/jackson.html">Jackson</a></li>
+          <li><a href="/markets/cheyenne/">Cheyenne</a></li>
+          <li><a href="/markets/laramie/">Laramie</a></li>
+          <li><a href="/markets/casper/">Casper</a></li>
+          <li><a href="/markets/rock-springs/">Rock Springs</a></li>
+          <li><a href="/markets/gillette/">Gillette</a></li>
+          <li><a href="/markets/sheridan/">Sheridan</a></li>
+          <li><a href="/markets/jackson/">Jackson</a></li>
         </ul>
       </div>
     </div>
