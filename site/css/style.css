@@ -2263,6 +2263,7 @@ a { text-decoration:none; color:inherit; }
   padding: 48px 44px;
   border-top: 3px solid transparent;
   transition: border-color 0.3s, background 0.3s;
+  min-width: 0;
 }
 .service-card:hover {
   border-top-color: var(--gold);
@@ -2414,7 +2415,7 @@ a { text-decoration:none; color:inherit; }
 @media(max-width:640px) {
   .process-steps { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
-}
+  .jump-nav-label { width: 100%; margin-right: 0; }
 
 /* ─── TRACK RECORD PAGE ───────────────────────────────────── */
 /* 4-stat strip override (scoped so it doesn't affect homepage) */
