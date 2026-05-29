@@ -1,8 +1,9 @@
 /* shared.js — injects nav + footer + scroll reveal + SEO on every page */
 
-/* ─── FONT PRELOAD (non-blocking) ───────────────────────── */
+/* ─── FONT PRELOAD (non-blocking, skipped if already in <head>) ─ */
 (function() {
   const FONT_URL = 'https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap';
+  if (document.querySelector('link[href="' + FONT_URL + '"]')) return;
   const preconn1 = document.createElement('link');
   preconn1.rel = 'preconnect'; preconn1.href = 'https://fonts.googleapis.com';
   document.head.appendChild(preconn1);
@@ -125,7 +126,7 @@ const NAV_HTML = `
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
     <a href="/" class="site-logo">
-      <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
+      <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" width="1073" height="657" style="height:32px;width:auto;filter:invert(1);">
       <div class="site-logo-text">
         <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
         <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
@@ -154,7 +155,7 @@ const FOOTER_HTML = `
     <div class="footer-top">
       <div class="footer-brand">
         <a href="/" class="site-logo">
-          <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" style="height:32px;width:auto;filter:invert(1);">
+          <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" width="1073" height="657" style="height:32px;width:auto;filter:invert(1);">
           <div class="site-logo-text">
             <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
             <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
