@@ -168,7 +168,7 @@ a { text-decoration:none; color:inherit; }
 .page-hero-bg {
   position: absolute;
   inset: 0;
-  background-image: var(--hero-img, url('images/hero-bg.jpg'));
+  background-image: var(--hero-img, url('images/hero-bg.webp'));
   background-size: cover;
   background-position: center 60%;
   background-repeat: no-repeat;
@@ -191,7 +191,7 @@ a { text-decoration:none; color:inherit; }
   min-height: 650px;
 }
 .page-hero--inner .page-hero-bg {
-  background-image: url('images/hero-bg.jpg');
+  background-image: url('images/hero-bg.webp');
   background-position: center 40%;
 }
 
@@ -887,7 +887,7 @@ a { text-decoration:none; color:inherit; }
 
 .hero-bg {
   position: absolute; inset:0;
-  background-image: url('../images/hero-bg.jpg');
+  background-image: url('../images/hero-bg.webp');
   background-size: cover;
   background-position: center 40%;
   background-color: var(--navy);

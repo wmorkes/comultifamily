@@ -103,13 +103,13 @@ function injectOpenGraph() {
     { property: 'og:title',       content: title },
     { property: 'og:description', content: desc },
     { property: 'og:url',         content: url },
-    { property: 'og:image',       content: 'https://www.comultifamily.com/images/og-share.jpg' },
+    { property: 'og:image',       content: 'https://www.comultifamily.com/images/og-share.webp' },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height',content: '630' },
     { name: 'twitter:card',       content: 'summary_large_image' },
     { name: 'twitter:title',      content: title },
     { name: 'twitter:description',content: desc },
-    { name: 'twitter:image',      content: 'https://www.comultifamily.com/images/og-share.jpg' },
+    { name: 'twitter:image',      content: 'https://www.comultifamily.com/images/og-share.webp' },
   ];
 
   ogTags.forEach(tag => {
@@ -126,7 +126,7 @@ const NAV_HTML = `
 <header class="site-header" id="siteHeader">
   <div class="nav-inner">
     <a href="/" class="site-logo">
-      <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" width="1073" height="657" style="height:32px;width:auto;filter:invert(1);">
+      <img src="/images/Colliers-Logo-BW.webp" alt="Colliers" width="160" height="98" style="height:32px;width:auto;filter:invert(1);">
       <div class="site-logo-text">
         <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
         <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
@@ -155,7 +155,7 @@ const FOOTER_HTML = `
     <div class="footer-top">
       <div class="footer-brand">
         <a href="/" class="site-logo">
-          <img src="/images/Colliers_CMYK_one_color_logos-black.png" alt="Colliers" width="1073" height="657" style="height:32px;width:auto;filter:invert(1);">
+          <img src="/images/Colliers-Logo-BW.webp" alt="Colliers" width="160" height="98" style="height:32px;width:auto;filter:invert(1);">
           <div class="site-logo-text">
             <span class="logo-main"><span style="font-weight:400;">CO Multifamily</span> <span style="font-weight:800;">Advisors</span></span>
             <span class="logo-sub">Colorado &amp; Wyoming Multifamily Brokerage</span>
