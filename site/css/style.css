@@ -2291,6 +2291,39 @@ a { text-decoration:none; color:inherit; }
 .service-card:nth-child(odd):last-child {
   grid-column: 1 / -1;
 }
+.service-card--featured {
+  background: var(--navy);
+  border-left-color: var(--gold);
+}
+.service-card--featured:hover {
+  background: #112244;
+  border-left-color: var(--gold);
+}
+.service-card--featured .service-num {
+  color: var(--gold);
+}
+.service-card--featured .service-title,
+.service-card--featured .service-title a {
+  color: #ffffff;
+}
+.service-card--featured .service-desc {
+  color: rgba(255,255,255,0.65);
+}
+.service-card--featured .service-desc a {
+  color: var(--gold);
+  text-decoration-color: var(--gold);
+}
+.service-card--featured .service-bullets li {
+  color: rgba(255,255,255,0.65);
+}
+.service-card--featured .btn-ghost {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.service-card--featured .btn-ghost:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
 .service-num {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
