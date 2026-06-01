@@ -111,11 +111,13 @@
   from = "/distressed/"
   to = "/distressed.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/affordable/"
   to = "/affordable.html"
   status = 200
+  force = true
 
 # 301 redirects from old .html URLs to clean trailing-slash URLs
 [[redirects]]
