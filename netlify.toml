@@ -124,113 +124,136 @@
   from = "/markets/index.html"
   to = "/markets/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/distressed.html"
   to = "/distressed/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/affordable.html"
   to = "/affordable/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/contact.html"
   to = "/contact/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/listings.html"
   to = "/listings/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/resources.html"
   to = "/resources/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/services.html"
   to = "/services/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/team.html"
   to = "/team/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/track-record.html"
   to = "/track-record/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/boulder.html"
   to = "/markets/boulder/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/casper.html"
   to = "/markets/casper/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/cheyenne.html"
   to = "/markets/cheyenne/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/colorado-springs.html"
   to = "/markets/colorado-springs/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/denver.html"
   to = "/markets/denver/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/fort-collins.html"
   to = "/markets/fort-collins/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/gillette.html"
   to = "/markets/gillette/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/greeley.html"
   to = "/markets/greeley/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/jackson.html"
   to = "/markets/jackson/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/laramie.html"
   to = "/markets/laramie/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/mountain-towns.html"
   to = "/markets/mountain-towns/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/rock-springs.html"
   to = "/markets/rock-springs/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/sheridan.html"
   to = "/markets/sheridan/"
   status = 301
+  force = true
 
 [[redirects]]
   from = "/markets/western-slope.html"
   to = "/markets/western-slope/"
   status = 301
+  force = true
