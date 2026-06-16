@@ -6,106 +6,127 @@
   from = "/contact/"
   to = "/contact.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/listings/"
   to = "/listings.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/resources/"
   to = "/resources.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/services/"
   to = "/services.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/team/"
   to = "/team.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/track-record/"
   to = "/track-record.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/boulder/"
   to = "/markets/boulder.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/casper/"
   to = "/markets/casper.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/cheyenne/"
   to = "/markets/cheyenne.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/colorado-springs/"
   to = "/markets/colorado-springs.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/denver/"
   to = "/markets/denver.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/fort-collins/"
   to = "/markets/fort-collins.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/gillette/"
   to = "/markets/gillette.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/greeley/"
   to = "/markets/greeley.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/jackson/"
   to = "/markets/jackson.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/laramie/"
   to = "/markets/laramie.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/mountain-towns/"
   to = "/markets/mountain-towns.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/rock-springs/"
   to = "/markets/rock-springs.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/sheridan/"
   to = "/markets/sheridan.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/western-slope/"
   to = "/markets/western-slope.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/markets/"
   to = "/markets/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/distressed/"
