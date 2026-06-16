@@ -140,6 +140,139 @@
   status = 200
   force = true
 
+# 301 redirects from no-trailing-slash slugs to canonical trailing-slash URLs
+[[redirects]]
+  from = "/contact"
+  to = "/contact/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/listings"
+  to = "/listings/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/resources"
+  to = "/resources/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services"
+  to = "/services/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/team"
+  to = "/team/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/track-record"
+  to = "/track-record/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/distressed"
+  to = "/distressed/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/affordable"
+  to = "/affordable/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/boulder"
+  to = "/markets/boulder/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/casper"
+  to = "/markets/casper/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/cheyenne"
+  to = "/markets/cheyenne/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/colorado-springs"
+  to = "/markets/colorado-springs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/denver"
+  to = "/markets/denver/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/fort-collins"
+  to = "/markets/fort-collins/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/gillette"
+  to = "/markets/gillette/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/greeley"
+  to = "/markets/greeley/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/jackson"
+  to = "/markets/jackson/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/laramie"
+  to = "/markets/laramie/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/mountain-towns"
+  to = "/markets/mountain-towns/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/rock-springs"
+  to = "/markets/rock-springs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/sheridan"
+  to = "/markets/sheridan/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/western-slope"
+  to = "/markets/western-slope/"
+  status = 301
+  force = true
+
 # 301 redirects from old .html URLs to clean trailing-slash URLs
 [[redirects]]
   from = "/markets/index.html"
