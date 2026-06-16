@@ -1,6 +1,9 @@
 [build]
   publish = "site"
 
+[build.processing.html]
+  pretty_urls = false
+
 # Serve clean trailing-slash URLs from .html files (rewrites, URL stays clean)
 [[redirects]]
   from = "/contact/"
