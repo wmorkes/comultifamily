@@ -131,7 +131,7 @@
   const result = validateToken(token);
 
   if (result.valid) {
-    gtag('set', { 'client_token': token });
+    gtag('set', { 'client_token': result.email });
     appendTokenToLinks(token);
     document.getElementById('gate-approved').style.display = 'block';
     if (result.isTeam) {
