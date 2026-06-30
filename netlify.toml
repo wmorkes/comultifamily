@@ -140,6 +140,18 @@
   status = 200
   force = true
 
+[[redirects]]
+  from = "/market-intelligence/"
+  to = "/market-intelligence.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dashboards/"
+  to = "/dashboards/index.html"
+  status = 200
+  force = true
+
 # 301 redirects from no-trailing-slash slugs to canonical trailing-slash URLs
 [[redirects]]
   from = "/contact"
@@ -186,6 +198,18 @@
 [[redirects]]
   from = "/affordable"
   to = "/affordable/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/market-intelligence"
+  to = "/market-intelligence/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/dashboards"
+  to = "/dashboards/"
   status = 301
   force = true
 
