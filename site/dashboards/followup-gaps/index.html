@@ -83,16 +83,19 @@
   .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
 </style>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');})();</script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else appendTokenToLinks(t);})();</script>
 </head>
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
 </div>
 <header>
-  <h1>Follow-Up Gap Report</h1>
-  <span class="meta">Run 2026-06-09 &nbsp;·&nbsp; 842 contacts flagged
-    &nbsp;·&nbsp; lookback 730 days &nbsp;·&nbsp; stale threshold 730 days</span>
+  <div>
+    <h1>Follow-Up Gap Report</h1>
+    <span class="meta">Run 2026-06-09 &nbsp;·&nbsp; 842 contacts flagged
+      &nbsp;·&nbsp; lookback 730 days &nbsp;·&nbsp; stale threshold 730 days</span>
+  </div>
+  <a id="hub-link" href="/dashboards/" data-token-link style="font-size:12px;color:#c9a84c;text-decoration:none;opacity:.85;">← Hub</a>
 </header>
 <div class="toolbar"><span class="pill-label">Filter:</span><button class="pill active" onclick="filterBroker('all', this)">All <span>842</span></button><button class="pill" onclick="filterBroker('CS', this)">CS <span>206</span></button><button class="pill" onclick="filterBroker('BM', this)">BM <span>192</span></button><button class="pill" onclick="filterBroker('OS', this)">OS <span>167</span></button><button class="pill" onclick="filterBroker('NM', this)">NM <span>144</span></button><button class="pill" onclick="filterBroker('CE', this)">CE <span>132</span></button><button class="pill" onclick="filterBroker('NJM', this)">NJM <span>1</span></button></div>
 <main><div class="card">
