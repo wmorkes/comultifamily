@@ -19,9 +19,15 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: system-ui, -apple-system, sans-serif; font-size: 13px;
         background: #f0f2f5; color: #1a1a1a; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-header { background: #0c1a2e; color: white; padding: 10px 20px; flex-shrink: 0; }
+header { background: #0c1a2e; color: white; padding: 10px 20px; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 header h1 { font-size: 16px; font-weight: 600; }
 header p  { font-size: 11px; opacity: .7; margin-top: 2px; }
+.header-team { display: flex; gap: 20px; align-items: center; flex-shrink: 0; }
+.header-broker { font-size: 11px; line-height: 1.5; text-align: right; }
+.header-broker strong { display: block; font-size: 12px; }
+.header-broker a { color: rgba(255,255,255,.75); text-decoration: none; }
+.header-broker a:hover { color: white; }
 .stats { background: #142338; color: white; padding: 6px 12px;
           display: flex; gap: 14px; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
 .stat { display: flex; flex-direction: column; }
@@ -92,7 +98,7 @@ td.wrap { white-space: normal; }
 .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
 </style>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else appendTokenToLinks(t);})();</script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
 </head>
 <body>
 <div class="co-topbar">
@@ -100,8 +106,15 @@ td.wrap { white-space: normal; }
   <a id="hub-link" href="/dashboards/" data-token-link style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">← Back to Hub</a>
 </div>
 <header>
-  <h1>CO Multifamily Loan Call List</h1>
-  <p>Generated 06/15/2026 &middot; Data source: Yardi Matrix</p>
+  <div>
+    <h1>CO Multifamily Loan Call List</h1>
+    <p>Generated 06/15/2026 &middot; Data source: Yardi Matrix</p>
+  </div>
+  <div class="header-team">
+    <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
+    <div class="header-broker"><strong>Bill Morkes</strong>Senior Vice President<br><a href="tel:+13033511371">(303) 351-1371</a> &middot; <a href="mailto:bill.morkes@colliers.com">bill.morkes@colliers.com</a></div>
+    <div class="header-broker"><strong>Nate Moyer</strong>Senior Vice President<br><a href="tel:+13032834568">(303) 283-4568</a> &middot; <a href="mailto:nate.moyer@colliers.com">nate.moyer@colliers.com</a></div>
+  </div>
 </header>
 <div class="main">
   <div id="map"></div>

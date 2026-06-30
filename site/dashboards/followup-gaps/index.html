@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -16,10 +16,15 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           font-size: 13px; background: #f2f3f5; color: #0c1a2e; }
-  header { background: #0c1a2e; color: #fff; padding: 18px 28px; display: flex;
-            align-items: baseline; gap: 20px; }
+  header { background: #0c1a2e; color: #fff; padding: 10px 20px; display: flex;
+            align-items: center; justify-content: space-between; gap: 16px; }
   header h1 { font-size: 17px; font-weight: 600; letter-spacing: .02em; }
   header .meta { font-size: 12px; opacity: .6; }
+  .header-team { display: flex; gap: 20px; align-items: center; flex-shrink: 0; }
+  .header-broker { font-size: 11px; line-height: 1.5; text-align: right; }
+  .header-broker strong { display: block; font-size: 12px; }
+  .header-broker a { color: rgba(255,255,255,.75); text-decoration: none; }
+  .header-broker a:hover { color: white; }
   .toolbar { padding: 12px 28px; display: flex; flex-wrap: wrap; align-items: center;
               gap: 8px; background: #fff; border-bottom: 1px solid #e0e0e8; }
   .pill-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase;
@@ -83,7 +88,7 @@
   .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
 </style>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else appendTokenToLinks(t);})();</script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
 </head>
 <body>
 <div class="co-topbar">
