@@ -52,8 +52,10 @@ svg#chart{display:block;width:100%;height:auto}
 .legend-item{display:flex;align-items:center;gap:5px;font-size:11px}
 .legend-dot{width:10px;height:10px;border-radius:50%}
 .legend-dash{width:18px;height:2px;border-top:2px dashed #888}
-.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:6px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
-.co-wordmark{font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
+.divider{border:none;border-top:2px solid #dde;margin:0}
+.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:6px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.co-wordmark{font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
 .co-hub-link{font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;flex-shrink:0}
 .co-hub-link:hover{color:#fff}
 header{background:#0c1a2e;color:#fff;padding:10px 20px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -65,8 +67,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .header-broker strong{display:block;font-size:12px}
 .header-broker a{color:rgba(255,255,255,.75);text-decoration:none}
 .header-broker a:hover{color:#fff}
-.tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
-.divider{border:none;border-top:2px solid #dde;margin:0}
 </style>
 <script src="/js/token-gate.js"></script>
 <script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
@@ -74,7 +74,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" id="hubBackLink" href="/dashboards/" data-token-link>← Back to Hub</a>
+  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
 </div>
 <header>
   <div>
@@ -539,7 +539,7 @@ function fmtPct(v) {
 function renderSummary(series) {
   var el = document.getElementById('chartSummary');
   var ROW = 'display:grid;grid-template-columns:30% 14% 14% 14% 14% 14%;align-items:center;';
-  var h = '<div style="font-weight:700;font-size:12px;color:#00558b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #dde">Avg Y-o-Y Change</div>';
+  var h = '<div style="font-weight:700;font-size:12px;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #dde">Avg Y-o-Y Change</div>';
   if(!series.length) {
     el.innerHTML = h + '<div style="color:#aaa;font-size:13px;margin-top:8px">Select a county or enable CO Average</div>';
     return;
