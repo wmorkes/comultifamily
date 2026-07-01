@@ -148,8 +148,6 @@ td.wrap { white-space: normal; }
     <div class="stat-divider"></div>
     <div class="stat"><span class="stat-val" id="sMkt">—</span><span class="stat-lbl">Market Rate</span></div>
     <div class="stat-divider"></div>
-    <div class="stat"><span class="stat-val" id="sBTR">—</span><span class="stat-lbl">BTR</span></div>
-    <div class="stat-divider"></div>
     <div class="stat"><span class="stat-val" id="sAff">—</span><span class="stat-lbl">Affordable</span></div>
     <div class="stat-divider"></div>
     <div class="stat"><span class="stat-val" id="sSen">—</span><span class="stat-lbl">Senior</span></div>
@@ -1122,20 +1120,18 @@ const markerByIdx = {};
 
 // ── Stats ─────────────────────────────────────────────────────────────────────
 function updateStats(visRows) {
-  let props=0, units=0, mkt=0, btr=0, aff=0, sen=0;
+  let props=0, units=0, mkt=0, aff=0, sen=0;
   visRows.forEach(r => {
     props++;
     units += parseInt(r.dataset.units) || 0;
     const types = r.dataset.types.split(' ');
     if (types.includes('market-rate')) mkt++;
-    if (types.includes('btr'))         btr++;
     if (types.includes('affordable'))  aff++;
     if (types.includes('senior'))      sen++;
   });
   document.getElementById('sProp').textContent  = props.toLocaleString();
   document.getElementById('sUnits').textContent = units.toLocaleString();
   document.getElementById('sMkt').textContent   = mkt.toLocaleString();
-  document.getElementById('sBTR').textContent   = btr.toLocaleString();
   document.getElementById('sAff').textContent   = aff.toLocaleString();
   document.getElementById('sSen').textContent   = sen.toLocaleString();
 }
