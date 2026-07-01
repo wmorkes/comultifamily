@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Address Geocoder | CO Multifamily Advisors</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Internal batch address geocoder for CO Multifamily Advisors. Private tool.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/geocode/">
+<meta property="og:title" content="Address Geocoder | CO Multifamily Advisors">
+<meta property="og:description" content="Internal batch address geocoder for CO Multifamily Advisors. Private tool.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/geocode/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Address Geocoder","url":"https://www.comultifamily.com/dashboards/geocode/"}</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1a2e'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3EGC%3C/text%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Georgia", "Charter", serif;
+    background: #f7f5f0;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+  .co-topbar { background: #0c1a2e; border-bottom: 2px solid #c9a84c; padding: 6px 20px;
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; font-family: "Helvetica Neue", Arial, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+  :root {
+    --bg: #f7f5f0;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #d9d4c7;
+    --accent: #b8543a;
+    --accent-soft: #f0e4df;
+    --ok: #2e6e3f;
+    --err: #a03030;
+    --panel: #ffffff;
+  }
+  header.page-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  h1 {
+    font-size: 34px;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  header.page-header .sub {
+    color: var(--muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  textarea {
+    width: 100%;
+    min-height: 260px;
+    padding: 14px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 4px;
+    resize: vertical;
+    color: var(--ink);
+  }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  button {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-primary:disabled { background: var(--muted); cursor: not-allowed; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--bg); }
+  .status {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 20px;
+    border-radius: 4px;
+  }
+  .results-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 8px;
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+  td {
+    padding: 8px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tr.ok td:first-child { border-left: 3px solid var(--ok); }
+  tr.err td:first-child { border-left: 3px solid var(--err); }
+  tr.err td { color: var(--err); }
+  .mono { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 11px; }
+  footer.page-footer {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .warn {
+    background: #fff8e6;
+    border-left: 3px solid #d4a017;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+</style>
+<script src="/js/token-gate.js"></script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a id="hubBackLink" href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
+</div>
+<div class="wrap">
+
+  <header class="page-header">
+    <h1>Address Geocoder</h1>
+    <div class="sub">Google Maps &middot; batch lookup</div>
+  </header>
+
+  <div class="warn" id="keyWarn" style="display:none;">
+    &#9888; No API key set. Open this file in a text editor and paste your Google Maps API key into the <code>GOOGLE_API_KEY</code> line near the bottom.
+  </div>
+
+  <div class="grid">
+    <div>
+      <label for="input">Addresses (one per line)</label>
+      <textarea id="input" placeholder="2758 Iowa Dr Fort Collins, CO&#10;339 E 10th St Loveland, CO&#10;1020 9th St Greeley, CO"></textarea>
+    </div>
+    <div>
+      <label>How it works</label>
+      <div class="panel" style="min-height: 260px; font-size: 14px;">
+        <p style="margin-top:0;">Paste up to a few dozen addresses, one per line. Click <strong>Geocode</strong>. Results appear below in a table you can copy straight into Excel.</p>
+        <p>Use <strong>Copy for Excel</strong> to grab all rows as tab-separated values &mdash; paste into Excel and each field lands in its own column.</p>
+        <p style="margin-bottom:0; color: var(--muted); font-size: 13px;">Tip: include city and state for best results. Requests are sent one at a time with a brief pause to stay under rate limits.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-primary" id="go">Geocode</button>
+    <button class="btn-secondary" id="copy" disabled>Copy for Excel</button>
+    <button class="btn-secondary" id="clear">Clear</button>
+    <span class="status" id="status"></span>
+  </div>
+
+  <div class="results-wrap">
+    <table id="results" style="display:none;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Input</th>
+          <th>Street #</th>
+          <th>Street</th>
+          <th>City</th>
+          <th>County</th>
+          <th>State</th>
+          <th>ZIP</th>
+          <th>Country</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Location Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <footer class="page-footer">
+    Uses the Google Maps Geocoding API. Billed against the API key embedded in this file.
+    Access is restricted to the internal dashboard hub; the key is referrer-restricted to comultifamily.com.
+  </footer>
+
+</div>
+
+<script>
+  // =========================================================
+  // GOOGLE MAPS API KEY — referrer-restricted to comultifamily.com
+  // Restricted to the Maps JavaScript API (required for browser-key
+  // referrer restrictions — the Geocoding REST endpoint rejects them).
+  // =========================================================
+  const GOOGLE_API_KEY = "AIzaSyB6e_ha0ekgci_nHcjhn8kJDdk_e6R9Vus";
+  // =========================================================
+
+  const $ = id => document.getElementById(id);
+  const input = $("input");
+  const goBtn = $("go");
+  const copyBtn = $("copy");
+  const clearBtn = $("clear");
+  const statusEl = $("status");
+  const table = $("results");
+  const tbody = $("tbody");
+  const keyWarn = $("keyWarn");
+
+  if (!GOOGLE_API_KEY || GOOGLE_API_KEY === "PASTE_YOUR_KEY_HERE") {
+    keyWarn.style.display = "block";
+  }
+
+  let lastRows = [];
+  let geocoder = null;
+
+  function getComponent(components, type, short = false) {
+    if (!components) return "";
+    const c = components.find(c => c.types.includes(type));
+    if (!c) return "";
+    return short ? c.short_name : c.long_name;
+  }
+
+  function geocodeOne(address) {
+    return new Promise(resolve => {
+      geocoder.geocode({ address }, (results, status) => {
+        if (status === "OK" && results.length > 0) {
+          const r = results[0];
+          resolve({
+            ok: true,
+            input: address,
+            formatted: r.formatted_address,
+            lat: r.geometry.location.lat(),
+            lng: r.geometry.location.lng(),
+            streetNum: getComponent(r.address_components, "street_number"),
+            street: getComponent(r.address_components, "route"),
+            city: getComponent(r.address_components, "locality")
+                  || getComponent(r.address_components, "sublocality")
+                  || getComponent(r.address_components, "postal_town"),
+            county: getComponent(r.address_components, "administrative_area_level_2"),
+            state: getComponent(r.address_components, "administrative_area_level_1", true),
+            zip: getComponent(r.address_components, "postal_code"),
+            country: getComponent(r.address_components, "country", true),
+            placeId: r.place_id,
+            locType: r.geometry.location_type,
+            status: "OK"
+          });
+        } else {
+          resolve({
+            ok: false, input: address, status: status || "NO_RESULT",
+            formatted: "", lat: "", lng: "", streetNum: "", street: "",
+            city: "", county: "", state: "", zip: "", country: "",
+            placeId: "", locType: ""
+          });
+        }
+      });
+    });
+  }
+
+  function renderRow(row, i) {
+    const tr = document.createElement("tr");
+    tr.className = row.ok ? "ok" : "err";
+    const cells = [
+      i + 1, row.input,
+      row.streetNum, row.street, row.city, row.county,
+      row.state, row.zip, row.country,
+      row.lat, row.lng, row.locType, row.status
+    ];
+    cells.forEach((c, idx) => {
+      const td = document.createElement("td");
+      if ([9, 10].includes(idx)) td.className = "mono";
+      td.textContent = c == null ? "" : c;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  }
+
+  async function run() {
+    const lines = input.value.split("\n").map(l => l.trim()).filter(Boolean);
+    if (lines.length === 0) {
+      statusEl.textContent = "Enter at least one address.";
+      return;
+    }
+    if (!GOOGLE_API_KEY || GOOGLE_API_KEY === "PASTE_YOUR_KEY_HERE") {
+      statusEl.textContent = "Add your API key first.";
+      return;
+    }
+
+    goBtn.disabled = true;
+    copyBtn.disabled = true;
+    tbody.innerHTML = "";
+    lastRows = [];
+    table.style.display = "table";
+
+    for (let i = 0; i < lines.length; i++) {
+      statusEl.textContent = `Geocoding ${i + 1} of ${lines.length}…`;
+      const row = await geocodeOne(lines[i]);
+      lastRows.push(row);
+      renderRow(row, i);
+      // small delay to be polite to the API
+      if (i < lines.length - 1) await new Promise(r => setTimeout(r, 150));
+    }
+
+    const okCount = lastRows.filter(r => r.ok).length;
+    statusEl.textContent = `Done — ${okCount} of ${lines.length} succeeded.`;
+    goBtn.disabled = false;
+    copyBtn.disabled = lastRows.length === 0;
+  }
+
+  function copyTSV() {
+    if (lastRows.length === 0) return;
+    const headers = [
+      "Input", "Street #", "Street", "City", "County",
+      "State", "ZIP", "Country", "Latitude", "Longitude",
+      "Location Type", "Status"
+    ];
+    const rows = lastRows.map(r => [
+      r.input, r.streetNum, r.street, r.city, r.county,
+      r.state, r.zip, r.country, r.lat, r.lng,
+      r.locType, r.status
+    ]);
+    const tsv = [headers, ...rows]
+      .map(row => row.map(c => String(c ?? "").replace(/\t/g, " ").replace(/\n/g, " ")).join("\t"))
+      .join("\n");
+    navigator.clipboard.writeText(tsv).then(() => {
+      statusEl.textContent = `Copied ${lastRows.length} rows — paste into Excel.`;
+    }).catch(() => {
+      statusEl.textContent = "Copy failed — select the table manually.";
+    });
+  }
+
+  goBtn.addEventListener("click", run);
+  copyBtn.addEventListener("click", copyTSV);
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    tbody.innerHTML = "";
+    table.style.display = "none";
+    lastRows = [];
+    copyBtn.disabled = true;
+    statusEl.textContent = "";
+  });
+
+  goBtn.disabled = true;
+  statusEl.textContent = "Loading Google Maps…";
+  window.initGeocoder = function () {
+    geocoder = new google.maps.Geocoder();
+    goBtn.disabled = false;
+    statusEl.textContent = "";
+  };
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6e_ha0ekgci_nHcjhn8kJDdk_e6R9Vus&loading=async&callback=initGeocoder" async defer></script>
+
+</body>
+</html>
