@@ -10,7 +10,9 @@
 const TEAM_EMAILS = [
   'bill.morkes@colliers.com',
   'craig.stack@colliers.com',
-  'nate.moyer@colliers.com'
+  'nate.moyer@colliers.com',
+  'jason.wolfthal@colliers.com',
+  'nate.morris@colliers.com'
 ];
 
 const TOKEN_DAYS = 7;
