@@ -2,7 +2,7 @@
  * Token gate for CO Multifamily Advisors dashboard portal.
  *
  * Token format: base64("email|YYYY-MM-DD")
- * Team emails bypass expiry. Client tokens are valid for 7 days from the
+ * Team emails bypass expiry. Client tokens are valid for 48 hours from the
  * date encoded in the token, then expire automatically. No allowlist —
  * any well-formed token within the window is accepted.
  */
@@ -15,7 +15,7 @@ const TEAM_EMAILS = [
   'nate.morris@colliers.com'
 ];
 
-const TOKEN_DAYS = 7;
+const TOKEN_HOURS = 48;
 
 function validateToken(token) {
   if (!token) return { valid: false, reason: 'no_token' };
@@ -37,8 +37,8 @@ function validateToken(token) {
   const approvalDate = new Date(dateStr);
   if (isNaN(approvalDate)) return { valid: false, reason: 'invalid' };
 
-  const daysSince = (Date.now() - approvalDate.getTime()) / (1000 * 60 * 60 * 24);
-  if (daysSince > TOKEN_DAYS) return { valid: false, reason: 'expired' };
+  const hoursSince = (Date.now() - approvalDate.getTime()) / (1000 * 60 * 60);
+  if (hoursSince > TOKEN_HOURS) return { valid: false, reason: 'expired' };
 
   return { valid: true, email, isTeam: false };
 }
