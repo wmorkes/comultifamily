@@ -166,7 +166,8 @@ function formatListingPrice(n) {
 }
 
 function buildListingCard(r) {
-  const status   = (r['Status'] || 'Active').trim();
+  const status = (r['Status'] || '').trim();
+  if (!status) return null; // staged row — no Status yet, don't display
   const name     = r['Property'] || '';
   const type     = (r['Type'] || '').trim();
   const type2    = (r['Type 2'] || r['Type2'] || '').trim();
@@ -263,7 +264,7 @@ fetch(SHEET_URL)
   })
   .catch(err => {
     console.warn('Sheet fetch failed, using static data:', err.message);
-    renderListings(STATIC_LISTINGS.map(buildListingCard));
+    renderListings(STATIC_LISTINGS.map(buildListingCard).filter(Boolean));
   });
 
 // Filter function
