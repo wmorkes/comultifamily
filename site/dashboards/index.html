@@ -166,7 +166,7 @@
   }
 
   if (result.valid) {
-    gtag('set', { 'client_token': result.email });
+    gtag('event', 'dashboard_access', { 'client_token': result.email });
     appendTokenToLinks(token);
     document.getElementById('gate-approved').style.display = 'block';
     if (result.isTeam) {
