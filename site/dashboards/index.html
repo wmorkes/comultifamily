@@ -166,7 +166,8 @@
   }
 
   if (result.valid) {
-    gtag('event', 'dashboard_access', { 'client_token': result.email });
+    const clientLabel = result.email.replace('@', '-').replace(/\.com$/, '');
+    gtag('event', 'dashboard_access', { 'client_token': clientLabel });
     appendTokenToLinks(token);
     document.getElementById('gate-approved').style.display = 'block';
     if (result.isTeam) {
