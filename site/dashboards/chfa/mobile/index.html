@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHFA Rent Lookup | CO Multifamily Advisors</title>
+<meta name="description" content="Mobile lookup of current CHFA Colorado rent and income limits by county.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/chfa/mobile/">
+<meta property="og:title" content="CHFA Rent Lookup | CO Multifamily Advisors">
+<meta property="og:description" content="Mobile lookup of current CHFA Colorado rent and income limits by county.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/chfa/mobile/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"CHFA Rent Lookup","url":"https://www.comultifamily.com/dashboards/chfa/mobile/"}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>CH</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%}
+body{font-family:system-ui,sans-serif;background:#f4f6f9;color:#222;-webkit-text-size-adjust:100%}
+.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.co-wordmark{font-size:12px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
+.co-hub-link{font-size:12px;color:rgba(255,255,255,.75);text-decoration:none}
+header{background:#0c1a2e;color:#fff;padding:16px}
+header h1{font-size:18px;font-weight:600}
+header p{font-size:12px;opacity:.7;margin-top:4px;line-height:1.5}
+.page{max-width:560px;margin:0 auto;padding:16px}
+.filter-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.filter-group label{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px}
+select{border:1px solid #ccd;border-radius:8px;padding:14px 12px;font-size:16px;background:#fff;color:#222;width:100%}
+.year-note{font-size:12px;color:#777;margin-bottom:16px}
+.empty-state{text-align:center;color:#888;font-size:14px;padding:40px 16px}
+.ami-card{background:#fff;border:1px solid #dde;border-radius:10px;margin-bottom:14px;overflow:hidden}
+.ami-head{background:#e8edf2;padding:10px 14px;font-weight:700;font-size:15px;color:#0c1a2e;display:flex;justify-content:space-between;align-items:center}
+.ami-head .pct{color:#c9a84c}
+.ami-body{padding:12px 14px}
+.row-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px;margin:10px 0 6px}
+.row-label:first-child{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.cell{background:#f7f8fa;border-radius:6px;padding:8px 4px;text-align:center}
+.cell .k{font-size:10px;color:#888;display:block}
+.cell .v{font-size:13px;font-weight:700;color:#0c1a2e;display:block;margin-top:2px}
+.inc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.toggle-row{display:flex;justify-content:flex-end;margin-bottom:10px}
+.toggle-btn{background:none;border:none;color:#0c1a2e;font-size:13px;font-weight:700;text-decoration:underline;cursor:pointer;padding:4px}
+footer{font-size:10px;color:#999;padding:16px;text-align:center}
+</style>
+<script src="/js/token-gate.js"></script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+</div>
+<header>
+  <h1>CHFA Rent &amp; Income Lookup</h1>
+  <p id="sourceNote">Source: Colorado Housing and Finance Authority &middot; Standard limits (non-HERA)</p>
+</header>
+<div class="page">
+  <div class="filter-group">
+    <label for="fCounty">County</label>
+    <select id="fCounty">
+      <option value="">Select a county&hellip;</option>
+    </select>
+  </div>
+  <div class="toggle-row" id="toggleRow" style="display:none">
+    <button type="button" class="toggle-btn" id="toggleBtn"></button>
+  </div>
+  <div id="results"></div>
+</div>
+<footer>CHFA Colorado Rent &amp; Income Limits &middot; <a href="/dashboards/chfa/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+
+<script>
+const BR_KEYS  = ['rent_0br','rent_1br','rent_2br','rent_3br','rent_4br'];
+const BR_LABEL = ['Studio','1BR','2BR','3BR','4BR'];
+const INC_KEYS  = ['inc_1p','inc_2p','inc_3p','inc_4p','inc_5p','inc_6p','inc_7p','inc_8p'];
+const INC_LABEL = ['1 Person','2 Person','3 Person','4 Person','5 Person','6 Person','7 Person','8 Person'];
+
+const DEFAULT_AMI = 60;
+
+let DATA = [];
+let latestYear = null;
+let currentCounty = '';
+let showAllTiers = false;
+
+function dollar(v) { return '$' + v.toLocaleString(); }
+
+function renderResults() {
+  const el = document.getElementById('results');
+  const toggleRow = document.getElementById('toggleRow');
+  if (!currentCounty) {
+    toggleRow.style.display = 'none';
+    el.innerHTML = '<div class="empty-state">Select a county to see current rent and income limits.</div>';
+    return;
+  }
+  let rows = DATA.filter(r => r.county === currentCounty && r.year === latestYear && r.hera !== 'Y')
+    .sort((a, b) => a.ami_pct - b.ami_pct);
+
+  if (!rows.length) {
+    toggleRow.style.display = 'none';
+    el.innerHTML = '<div class="empty-state">No ' + latestYear + ' data found for ' + currentCounty + ' County.</div>';
+    return;
+  }
+
+  toggleRow.style.display = 'flex';
+  const hasDefault = rows.some(r => r.ami_pct === DEFAULT_AMI);
+  if (!showAllTiers && hasDefault) rows = rows.filter(r => r.ami_pct === DEFAULT_AMI);
+
+  document.getElementById('toggleBtn').textContent = showAllTiers
+    ? 'Show only ' + DEFAULT_AMI + '% AMI'
+    : 'Show all AMI tiers';
+
+  el.innerHTML = rows.map(r => `
+    <div class="ami-card">
+      <div class="ami-head"><span>${currentCounty} County</span><span class="pct">${r.ami_pct}% AMI</span></div>
+      <div class="ami-body">
+        <div class="row-label">Max Rent</div>
+        <div class="grid">
+          ${BR_KEYS.map((k, i) => `<div class="cell"><span class="k">${BR_LABEL[i]}</span><span class="v">${dollar(r[k])}</span></div>`).join('')}
+        </div>
+        <div class="row-label">Max Income</div>
+        <div class="inc-grid">
+          ${INC_KEYS.map((k, i) => `<div class="cell"><span class="k">${INC_LABEL[i]}</span><span class="v">${dollar(r[k])}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+fetch('/dashboards/chfa/data.json')
+  .then(r => r.json())
+  .then(d => {
+    DATA = d;
+    latestYear = Math.max(...DATA.map(r => r.year));
+    document.getElementById('sourceNote').textContent =
+      `Source: Colorado Housing and Finance Authority · ${latestYear} standard limits (non-HERA)`;
+
+    const counties = [...new Set(DATA.map(r => r.county))].sort();
+    const sel = document.getElementById('fCounty');
+    counties.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    });
+
+    sel.addEventListener('change', () => {
+      currentCounty = sel.value;
+      showAllTiers = false;
+      renderResults();
+    });
+    document.getElementById('toggleBtn').addEventListener('click', () => {
+      showAllTiers = !showAllTiers;
+      renderResults();
+    });
+    renderResults();
+  });
+
+(function() {
+  const token = new URLSearchParams(location.search).get('token');
+  if (token) {
+    ['hubBackLink', 'desktopLink'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const url = new URL(el.href, location.origin);
+        url.searchParams.set('token', token);
+        el.href = url.toString();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

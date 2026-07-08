@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loan Call List Search | CO Multifamily Advisors</title>
+<meta name="description" content="Mobile owner search for the loan call list — find upcoming loan maturities by owner.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/loan-market/mobile/">
+<meta property="og:title" content="Loan Call List Search | CO Multifamily Advisors">
+<meta property="og:description" content="Mobile owner search for the loan call list — find upcoming loan maturities by owner.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/loan-market/mobile/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loan Call List Search","url":"https://www.comultifamily.com/dashboards/loan-market/mobile/"}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>LM</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%}
+body{font-family:system-ui,sans-serif;background:#f4f6f9;color:#222;-webkit-text-size-adjust:100%}
+.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.co-wordmark{font-size:12px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
+.co-hub-link{font-size:12px;color:rgba(255,255,255,.75);text-decoration:none}
+header{background:#0c1a2e;color:#fff;padding:16px}
+header h1{font-size:18px;font-weight:600}
+header p{font-size:12px;opacity:.7;margin-top:4px;line-height:1.5}
+.page{max-width:560px;margin:0 auto;padding:16px}
+.filter-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.filter-group label{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px}
+input{border:1px solid #ccd;border-radius:8px;padding:14px 12px;font-size:16px;background:#fff;color:#222;width:100%}
+.result-count{font-size:12px;color:#777;margin-bottom:14px}
+.empty-state{text-align:center;color:#888;font-size:14px;padding:40px 16px}
+.loan-card{background:#fff;border:1px solid #dde;border-radius:10px;margin-bottom:12px;overflow:hidden}
+.loan-head{padding:12px 14px;border-bottom:1px solid #eef}
+.loan-head .prop{font-weight:700;font-size:15px;color:#0c1a2e}
+.loan-head .addr{font-size:12px;color:#777;margin-top:2px}
+.loan-head .meta{font-size:12px;color:#777;margin-top:4px}
+.loan-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.owner-row{font-size:13px;color:#0c1a2e;font-weight:700}
+.maturity-badge{display:inline-block;padding:3px 9px;border-radius:12px;font-size:12px;font-weight:700}
+.mat-soon{background:#fde8e8;color:#c0392b}
+.mat-mid{background:#fef3e2;color:#b7770d}
+.mat-far{background:#d5f5e3;color:#2a9d50}
+.mat-none{background:#eee;color:#888}
+.loan-detail{font-size:13px;color:#444}
+.loan-detail .k{color:#888;font-size:11px;text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:2px}
+.angle{font-size:12px;color:#0c1a2e;background:#f0f5fa;border-radius:6px;padding:6px 8px;margin-top:2px}
+footer{font-size:10px;color:#999;padding:16px;text-align:center}
+</style>
+<script src="/js/token-gate.js"></script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+</div>
+<header>
+  <h1>Loan Call List Search</h1>
+  <p>Search by owner to see their loans and upcoming maturities.</p>
+</header>
+<div class="page">
+  <div class="filter-group">
+    <label for="q">Owner Name</label>
+    <input type="text" id="q" placeholder="e.g. Alliance Residential" autocomplete="off">
+  </div>
+  <div class="result-count" id="resultCount"></div>
+  <div id="results"></div>
+</div>
+<footer>Loan Call List &middot; <a href="/dashboards/loan-market/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+
+<script>
+let GEO = [];
+
+function maturityClass(m) {
+  if (!m || !m.maturity) return 'mat-none';
+  const d = parseInt(m.maturity);
+  if (isNaN(d)) return 'mat-none';
+  if (d <= 90) return 'mat-soon';
+  if (d <= 365) return 'mat-mid';
+  return 'mat-far';
+}
+
+function clean(v) {
+  return (!v || v === 'nan%' || v === 'nan') ? '' : v;
+}
+
+function renderResults(query) {
+  const el = document.getElementById('results');
+  const countEl = document.getElementById('resultCount');
+  const q = query.trim().toLowerCase();
+
+  if (!q) {
+    countEl.textContent = '';
+    el.innerHTML = '<div class="empty-state">Start typing an owner name to search.</div>';
+    return;
+  }
+
+  const rows = GEO.filter(m => (m.company || '').toLowerCase().includes(q))
+    .sort((a, b) => (parseInt(a.maturity) || 999999) - (parseInt(b.maturity) || 999999));
+
+  if (!rows.length) {
+    countEl.textContent = '';
+    el.innerHTML = '<div class="empty-state">No loans found for "' + query + '".</div>';
+    return;
+  }
+
+  countEl.textContent = rows.length + ' loan' + (rows.length === 1 ? '' : 's') + ' found';
+
+  el.innerHTML = rows.map(m => {
+    const rate = clean(m.rate);
+    const lender = clean(m.lender_full || m.lender);
+    const loanAmt = clean(m.loan_amt);
+    const angle = clean(m.angle);
+    const cityMeta = [m.city, m.units ? m.units + ' units' : '', m.yoc ? m.yoc : ''].filter(Boolean).join(' · ');
+    return `
+    <div class="loan-card">
+      <div class="loan-head">
+        <div class="prop">${m.property}</div>
+        <div class="addr">${m.address || ''}</div>
+        <div class="meta">${cityMeta}</div>
+      </div>
+      <div class="loan-body">
+        <div class="owner-row">${m.company || 'Unknown owner'}</div>
+        <div><span class="maturity-badge ${maturityClass(m)}">${m.maturity ? 'Matures ' + m.maturity : 'Maturity unknown'}</span></div>
+        ${lender ? `<div class="loan-detail"><span class="k">Lender</span>${lender}</div>` : ''}
+        ${(loanAmt || rate) ? `<div class="loan-detail"><span class="k">Loan</span>${[loanAmt, rate].filter(Boolean).join(' · ')}</div>` : ''}
+        ${angle ? `<div class="angle">${angle}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+fetch('/dashboards/loan-market/geo.json')
+  .then(r => r.json())
+  .then(d => {
+    GEO = d;
+    const q = document.getElementById('q');
+    q.addEventListener('input', () => renderResults(q.value));
+    renderResults('');
+  });
+
+(function() {
+  const token = new URLSearchParams(location.search).get('token');
+  if (token) {
+    ['hubBackLink', 'desktopLink'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const url = new URL(el.href, location.origin);
+        url.searchParams.set('token', token);
+        el.href = url.toString();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

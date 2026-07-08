@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipeline Proximity Search | CO Multifamily Advisors</title>
+<meta name="description" content="Mobile lookup of new construction pipeline near an address or market.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/pipeline/mobile/">
+<meta property="og:title" content="Pipeline Proximity Search | CO Multifamily Advisors">
+<meta property="og:description" content="Mobile lookup of new construction pipeline near an address or market.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/pipeline/mobile/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Pipeline Proximity Search","url":"https://www.comultifamily.com/dashboards/pipeline/mobile/"}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>PL</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%}
+body{font-family:system-ui,sans-serif;background:#f4f6f9;color:#222;-webkit-text-size-adjust:100%}
+.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.co-wordmark{font-size:12px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
+.co-hub-link{font-size:12px;color:rgba(255,255,255,.75);text-decoration:none}
+header{background:#0c1a2e;color:#fff;padding:16px}
+header h1{font-size:18px;font-weight:600}
+header p{font-size:12px;opacity:.7;margin-top:4px;line-height:1.5}
+.page{max-width:560px;margin:0 auto;padding:16px}
+.search-row{display:flex;gap:8px;margin-bottom:10px}
+.filter-group{flex:1;display:flex;flex-direction:column;gap:6px}
+.filter-group label{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px}
+input{border:1px solid #ccd;border-radius:8px;padding:14px 12px;font-size:16px;background:#fff;color:#222;width:100%}
+.btn{border:none;border-radius:8px;padding:0 18px;font-size:14px;font-weight:700;cursor:pointer;background:#0c1a2e;color:#fff;align-self:flex-end;height:48px}
+.btn:disabled{opacity:.5}
+.radius-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.radius-btn{border:1px solid #ccd;border-radius:20px;padding:6px 14px;font-size:13px;background:#fff;color:#444;cursor:pointer}
+.radius-btn.active{background:#0c1a2e;color:#fff;border-color:#0c1a2e}
+.status{font-size:13px;color:#888;margin-bottom:12px;min-height:18px}
+.status.error{color:#c0392b}
+.result-count{font-size:12px;color:#777;margin-bottom:14px}
+.empty-state{text-align:center;color:#888;font-size:14px;padding:40px 16px}
+.prop-card{background:#fff;border:1px solid #dde;border-radius:10px;margin-bottom:12px;overflow:hidden}
+.prop-head{padding:12px 14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.prop-name{font-weight:700;font-size:15px;color:#0c1a2e}
+.prop-addr{font-size:12px;color:#777;margin-top:2px}
+.dist-badge{flex-shrink:0;background:#f0f5fa;color:#0c1a2e;font-size:12px;font-weight:700;padding:3px 9px;border-radius:12px;white-space:nowrap}
+.prop-body{padding:0 14px 12px;font-size:13px;color:#444}
+.stage-tag{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700;color:#fff;margin-bottom:8px}
+.prop-detail{margin-top:4px}
+.prop-detail .k{color:#888;font-size:11px;text-transform:uppercase;letter-spacing:.3px;margin-right:4px}
+footer{font-size:10px;color:#999;padding:16px;text-align:center}
+</style>
+<script src="/js/token-gate.js"></script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+</div>
+<header>
+  <h1>Pipeline Proximity Search</h1>
+  <p>Enter an address or a city/market to see nearby new construction.</p>
+</header>
+<div class="page">
+  <div class="search-row">
+    <div class="filter-group">
+      <label for="addr">Address or Market</label>
+      <input type="text" id="addr" placeholder="e.g. Fort Collins or 123 Main St" autocomplete="off">
+    </div>
+    <button class="btn" id="searchBtn">Search</button>
+  </div>
+  <div class="radius-row" id="radiusRow">
+    <button class="radius-btn" data-r="1">1 mi</button>
+    <button class="radius-btn active" data-r="3">3 mi</button>
+    <button class="radius-btn" data-r="5">5 mi</button>
+    <button class="radius-btn" data-r="10">10 mi</button>
+  </div>
+  <div class="status" id="status"></div>
+  <div class="result-count" id="resultCount"></div>
+  <div id="results"></div>
+</div>
+<footer>CO/WY Multifamily New Construction Pipeline &middot; <a href="/dashboards/pipeline/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+
+<script>
+const STAGE_COLORS = { under_construction: '#e53e3e', planned: '#dd6b20', prospective: '#3182ce' };
+let GEO = null;
+let radiusMi = 3;
+let target = null;
+
+function haversineMi(lat1, lng1, lat2, lng2) {
+  const R = 3958.8;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function renderResults() {
+  const el = document.getElementById('results');
+  const countEl = document.getElementById('resultCount');
+  if (!target) { countEl.textContent = ''; el.innerHTML = ''; return; }
+
+  const matches = GEO.features
+    .map(f => {
+      const [lng, lat] = f.geometry.coordinates;
+      return { p: f.properties, dist: haversineMi(target.lat, target.lng, lat, lng) };
+    })
+    .filter(m => m.dist <= radiusMi)
+    .sort((a, b) => a.dist - b.dist);
+
+  if (!matches.length) {
+    countEl.textContent = '';
+    el.innerHTML = '<div class="empty-state">No pipeline properties within ' + radiusMi + ' miles.</div>';
+    return;
+  }
+
+  countEl.textContent = matches.length + ' propert' + (matches.length === 1 ? 'y' : 'ies') + ' within ' + radiusMi + ' miles';
+
+  el.innerHTML = matches.map(({p, dist}) => `
+    <div class="prop-card">
+      <div class="prop-head">
+        <div>
+          <div class="prop-name">${p.name}</div>
+          <div class="prop-addr">${[p.address, [p.city, p.state].filter(Boolean).join(', ')].filter(Boolean).join(' · ')}</div>
+        </div>
+        <div class="dist-badge">${dist.toFixed(1)} mi</div>
+      </div>
+      <div class="prop-body">
+        <span class="stage-tag" style="background:${STAGE_COLORS[p.stage] || '#888'}">${p.stage_label || p.stage}</span>
+        <div class="prop-detail"><span class="k">Units</span>${p.units || '—'}</div>
+        <div class="prop-detail"><span class="k">Developer</span>${p.developer || '—'}</div>
+        ${p.delivery ? `<div class="prop-detail"><span class="k">Est. Delivery</span>${p.delivery}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function doSearch() {
+  const addr = document.getElementById('addr').value.trim();
+  const status = document.getElementById('status');
+  const btn = document.getElementById('searchBtn');
+  if (!addr) return;
+  status.className = 'status';
+  status.textContent = 'Searching…';
+  btn.disabled = true;
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=${encodeURIComponent(addr)}`;
+    const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+    const data = await res.json();
+    if (!data.length) {
+      status.className = 'status error';
+      status.textContent = 'Address not found. Try a nearby city or a fuller address.';
+      target = null;
+      renderResults();
+      return;
+    }
+    target = { lat: +data[0].lat, lng: +data[0].lon };
+    status.textContent = 'Showing results near ' + data[0].display_name.split(',').slice(0, 3).join(',');
+    renderResults();
+  } catch (e) {
+    status.className = 'status error';
+    status.textContent = 'Search error. Please try again.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+fetch('/dashboards/pipeline/geo.json')
+  .then(r => r.json())
+  .then(d => { GEO = d; });
+
+document.getElementById('searchBtn').addEventListener('click', doSearch);
+document.getElementById('addr').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+document.getElementById('radiusRow').addEventListener('click', e => {
+  const btn = e.target.closest('.radius-btn');
+  if (!btn) return;
+  document.querySelectorAll('.radius-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  radiusMi = parseInt(btn.dataset.r);
+  renderResults();
+});
+
+(function() {
+  const token = new URLSearchParams(location.search).get('token');
+  if (token) {
+    ['hubBackLink', 'desktopLink'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const url = new URL(el.href, location.origin);
+        url.searchParams.set('token', token);
+        el.href = url.toString();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
