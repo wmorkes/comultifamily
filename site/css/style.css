@@ -586,7 +586,7 @@ a { text-decoration:none; color:inherit; }
   .site-footer { padding: 48px 20px 28px; }
   .section-lead { max-width: 100%; }
   .desktop-only-card { display: none !important; }
-  .internal-reports-grid { grid-template-columns: 1fr !important; }
+  .dashboard-card-grid { grid-template-columns: 1fr !important; }
 }
 
 /* Mobile nav */
