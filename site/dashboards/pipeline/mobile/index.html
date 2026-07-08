@@ -13,6 +13,8 @@
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Pipeline Proximity Search","url":"https://www.comultifamily.com/dashboards/pipeline/mobile/"}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>PL</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:hidden;width:100%}
@@ -46,7 +48,16 @@ input{border:1px solid #ccd;border-radius:8px;padding:14px 12px;font-size:16px;b
 .stage-tag{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700;color:#fff;margin-bottom:8px}
 .prop-detail{margin-top:4px}
 .prop-detail .k{color:#888;font-size:11px;text-transform:uppercase;letter-spacing:.3px;margin-right:4px}
+.prop-card.active{border-color:#0c1a2e;box-shadow:0 0 0 1px #0c1a2e}
 footer{font-size:10px;color:#999;padding:16px;text-align:center}
+body{padding-bottom:33vh}
+#mapWrap{position:fixed;left:0;right:0;bottom:0;height:33vh;z-index:50;border-top:2px solid #c9a84c;box-shadow:0 -2px 10px rgba(0,0,0,.15)}
+#map{width:100%;height:100%}
+.map-toggle{position:absolute;top:-34px;right:10px;background:#0c1a2e;color:#fff;border:none;border-radius:6px 6px 0 0;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;z-index:51}
+#mapWrap.collapsed{height:0;border-top:none;box-shadow:none}
+#mapWrap.collapsed #map{visibility:hidden}
+body.map-collapsed{padding-bottom:40px}
+.leaflet-popup-content{font-size:12px;line-height:1.6}
 </style>
 <script src="/js/token-gate.js"></script>
 <script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
@@ -80,11 +91,26 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
 </div>
 <footer>CO/WY Multifamily New Construction Pipeline &middot; <a href="/dashboards/pipeline/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
 
+<div id="mapWrap">
+  <button class="map-toggle" id="mapToggle">Hide Map</button>
+  <div id="map"></div>
+</div>
+
 <script>
 const STAGE_COLORS = { under_construction: '#e53e3e', planned: '#dd6b20', prospective: '#3182ce' };
 let GEO = null;
 let radiusMi = 3;
 let target = null;
+
+const map = L.map('map', { zoomControl: true, attributionControl: false }).setView([39.5, -105.5], 7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+const markerLayer = L.layerGroup().addTo(map);
+let targetMarker = null;
+const markerByIdx = {};
+const targetIcon = L.divIcon({
+  html: `<div style="font-size:24px;line-height:1;color:#fde047;text-shadow:0 1px 3px rgba(0,0,0,.5);margin-top:-12px;margin-left:-7px">★</div>`,
+  className: '', iconSize: [24, 24], iconAnchor: [12, 24]
+});
 
 function haversineMi(lat1, lng1, lat2, lng2) {
   const R = 3958.8;
@@ -94,10 +120,37 @@ function haversineMi(lat1, lng1, lat2, lng2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
+function updateMap(matches) {
+  markerLayer.clearLayers();
+  Object.keys(markerByIdx).forEach(k => delete markerByIdx[k]);
+  if (targetMarker) { targetMarker.remove(); targetMarker = null; }
+
+  if (!target) return;
+
+  targetMarker = L.marker([target.lat, target.lng], { icon: targetIcon }).addTo(map);
+
+  const bounds = [[target.lat, target.lng]];
+  matches.forEach(({ p, dist }, i) => {
+    const [lng, lat] = GEO.features.find(f => f.properties.idx === p.idx).geometry.coordinates;
+    const color = STAGE_COLORS[p.stage] || '#888';
+    const icon = L.divIcon({
+      html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,.4)"></div>`,
+      className: '', iconSize: [14, 14], iconAnchor: [7, 7]
+    });
+    const marker = L.marker([lat, lng], { icon })
+      .bindPopup(`<strong>${p.name}</strong><br>${p.stage_label || p.stage}<br>${p.units || '—'} units · ${dist.toFixed(1)} mi`)
+      .addTo(markerLayer);
+    markerByIdx[p.idx] = marker;
+    bounds.push([lat, lng]);
+  });
+
+  map.fitBounds(bounds, { padding: [30, 30], maxZoom: 14 });
+}
+
 function renderResults() {
   const el = document.getElementById('results');
   const countEl = document.getElementById('resultCount');
-  if (!target) { countEl.textContent = ''; el.innerHTML = ''; return; }
+  if (!target) { countEl.textContent = ''; el.innerHTML = ''; updateMap([]); return; }
 
   const matches = GEO.features
     .map(f => {
@@ -106,6 +159,8 @@ function renderResults() {
     })
     .filter(m => m.dist <= radiusMi)
     .sort((a, b) => a.dist - b.dist);
+
+  updateMap(matches);
 
   if (!matches.length) {
     countEl.textContent = '';
@@ -116,7 +171,7 @@ function renderResults() {
   countEl.textContent = matches.length + ' propert' + (matches.length === 1 ? 'y' : 'ies') + ' within ' + radiusMi + ' miles';
 
   el.innerHTML = matches.map(({p, dist}) => `
-    <div class="prop-card">
+    <div class="prop-card" data-idx="${p.idx}">
       <div class="prop-head">
         <div>
           <div class="prop-name">${p.name}</div>
@@ -132,6 +187,20 @@ function renderResults() {
       </div>
     </div>
   `).join('');
+
+  el.querySelectorAll('.prop-card').forEach(card => {
+    card.addEventListener('click', () => {
+      el.querySelectorAll('.prop-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const marker = markerByIdx[card.dataset.idx];
+      if (marker) {
+        if (document.getElementById('mapWrap').classList.contains('collapsed')) toggleMap(false);
+        map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), 14), { duration: 0.6 });
+        marker.openPopup();
+        document.getElementById('mapWrap').scrollIntoView({ block: 'end', behavior: 'smooth' });
+      }
+    });
+  });
 }
 
 async function doSearch() {
@@ -167,6 +236,17 @@ async function doSearch() {
 fetch('/dashboards/pipeline/geo.json')
   .then(r => r.json())
   .then(d => { GEO = d; });
+
+function toggleMap(forceState) {
+  const wrap = document.getElementById('mapWrap');
+  const btn = document.getElementById('mapToggle');
+  const collapsed = forceState === undefined ? !wrap.classList.contains('collapsed') : forceState;
+  wrap.classList.toggle('collapsed', collapsed);
+  document.body.classList.toggle('map-collapsed', collapsed);
+  btn.textContent = collapsed ? 'Show Map' : 'Hide Map';
+  if (!collapsed) setTimeout(() => map.invalidateSize(), 350);
+}
+document.getElementById('mapToggle').addEventListener('click', () => toggleMap());
 
 document.getElementById('searchBtn').addEventListener('click', doSearch);
 document.getElementById('addr').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
