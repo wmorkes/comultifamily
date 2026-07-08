@@ -68,8 +68,15 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .header-broker a{color:rgba(255,255,255,.75);text-decoration:none}
 .header-broker a:hover{color:#fff}
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 </head>
 <body>
 <div class="co-topbar">

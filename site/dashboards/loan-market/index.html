@@ -90,8 +90,15 @@ td.wrap { white-space: normal; }
               display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 </head>
 <body>
 <div class="co-topbar">
