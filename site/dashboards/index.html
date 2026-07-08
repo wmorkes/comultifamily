@@ -62,7 +62,7 @@
           <span>Client Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          <a href="/dashboards/pipeline/" data-token-link class="dashboard-card-link" style="display:flex;position:relative;overflow:hidden;background:var(--navy);border-radius:12px;padding:28px 24px;text-decoration:none;transition:opacity .2s,transform .2s;aspect-ratio:1/1;flex-direction:column;justify-content:space-between;">
+          <a href="/dashboards/pipeline/" data-mobile-href="/dashboards/pipeline/mobile/" data-token-link class="dashboard-card-link" style="display:flex;position:relative;overflow:hidden;background:var(--navy);border-radius:12px;padding:28px 24px;text-decoration:none;transition:opacity .2s,transform .2s;aspect-ratio:1/1;flex-direction:column;justify-content:space-between;">
             <div style="color:var(--gold);font-size:36px;font-weight:800;line-height:1;">1</div>
             <svg style="position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);opacity:0.5;" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="9" width="5" height="12"/><rect x="9.5" y="5" width="5" height="16"/><rect x="16" y="12" width="5" height="9"/>
@@ -74,7 +74,7 @@
               <div style="font-size:13px;color:rgba(255,255,255,0.6);">New Construction in CO and WY</div>
             </div>
           </a>
-          <a href="/dashboards/chfa/" data-token-link class="dashboard-card-link" style="display:flex;position:relative;overflow:hidden;background:var(--navy);border-radius:12px;padding:28px 24px;text-decoration:none;transition:opacity .2s,transform .2s;aspect-ratio:1/1;flex-direction:column;justify-content:space-between;">
+          <a href="/dashboards/chfa/" data-mobile-href="/dashboards/chfa/mobile/" data-token-link class="dashboard-card-link" style="display:flex;position:relative;overflow:hidden;background:var(--navy);border-radius:12px;padding:28px 24px;text-decoration:none;transition:opacity .2s,transform .2s;aspect-ratio:1/1;flex-direction:column;justify-content:space-between;">
             <div style="color:var(--gold);font-size:36px;font-weight:800;line-height:1;">2</div>
             <svg style="position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);opacity:0.5;" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -93,7 +93,7 @@
           <span>Internal Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          <a href="/dashboards/loan-market/" data-token-link class="dashboard-card-link" style="display:flex;position:relative;overflow:hidden;background:var(--navy);border-radius:12px;padding:28px 24px;text-decoration:none;transition:opacity .2s,transform .2s;aspect-ratio:1/1;flex-direction:column;justify-content:space-between;">
+          <a href="/dashboards/loan-market/" data-mobile-href="/dashboards/loan-market/mobile/" data-token-link class="dashboard-card-link" style="display:flex;position:relative;overflow:hidden;background:var(--navy);border-radius:12px;padding:28px 24px;text-decoration:none;transition:opacity .2s,transform .2s;aspect-ratio:1/1;flex-direction:column;justify-content:space-between;">
             <div style="color:var(--gold);font-size:36px;font-weight:800;line-height:1;">3</div>
             <svg style="position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);opacity:0.5;" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -156,6 +156,14 @@
 <script>
   const token = getTokenFromURL();
   const result = validateToken(token);
+
+  // On phones, route the CHFA/Pipeline/Loan Call List cards to their lightweight
+  // mobile lookup pages instead of the full desktop dashboards.
+  if (window.innerWidth <= 768) {
+    document.querySelectorAll('[data-mobile-href]').forEach(a => {
+      a.href = a.getAttribute('data-mobile-href');
+    });
+  }
 
   if (result.valid) {
     gtag('set', { 'client_token': result.email });
