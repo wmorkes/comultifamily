@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://www.comultifamily.com/dashboards/pipeline/">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Multifamily Pipeline Report","url":"https://www.comultifamily.com/dashboards/pipeline/"}</script>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1a2e'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3ENC%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1a2e'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3EPR%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -78,15 +78,24 @@ td.wrap { white-space: normal; }
 .co-hub-link { font-size: 11px; color: rgba(255,255,255,.7); text-decoration: none; }
 .co-hub-link:hover { color: #fff; }
 </style>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+  if (!__r.valid) window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
+  var __clientLabel;
+  if (__r.valid) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+  }
   gtag("config", "G-53BCG1FL5M");
+  if (__r.valid) gtag('event', 'dashboard_access', {'client_token': __clientLabel});
 </script>
-<script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});}})();</script>
 </head>
 <body>
 <div class="co-topbar">

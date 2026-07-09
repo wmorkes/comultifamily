@@ -1,18 +1,18 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Origination Call List – 07/08/2026</title>
+<title>Loan Monitor – 07/08/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO multifamily loan maturities and watch list. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://www.comultifamily.com/dashboards/loan-market/">
-<meta property="og:title" content="Loan Call List | CO Multifamily Advisors">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/loan-monitor/">
+<meta property="og:title" content="Loan Monitor | CO Multifamily Advisors">
 <meta property="og:description" content="CO multifamily loan maturities and watch list. Private dashboard.">
-<meta property="og:url" content="https://www.comultifamily.com/dashboards/loan-market/">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/loan-monitor/">
 <meta property="og:type" content="website">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loan Call List","url":"https://www.comultifamily.com/dashboards/loan-market/"}</script>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1a2e'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3ELC%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loan Monitor","url":"https://www.comultifamily.com/dashboards/loan-monitor/"}</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1a2e'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='white' text-anchor='middle'%3ELM%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -90,15 +90,28 @@ td.wrap { white-space: normal; }
               display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
 </style>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+  if (!__r.valid) window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  else if (!__r.isTeam) window.location.replace('/dashboards/');
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
+  var __clientLabel;
+  if (__r.valid && __r.isTeam) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+  }
   gtag("config", "G-53BCG1FL5M");
+  if (__r.valid && __r.isTeam) {
+    gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+    document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
+  }
 </script>
-<script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 </head>
 <body>
 <div class="co-topbar">
@@ -107,7 +120,7 @@ td.wrap { white-space: normal; }
 </div>
 <header>
   <div>
-    <h1>CO Multifamily Loan Call List</h1>
+    <h1>CO Multifamily Loan Monitor</h1>
     <p>Generated 07/08/2026 &middot; Data source: Yardi Matrix</p>
   </div>
 </header>
@@ -1019,7 +1032,7 @@ function copyPhone(btn, num) {
 }
 
 document.querySelectorAll('thead th')[0].className = 'desc';
-fetch('/dashboards/loan-market/geo.json')
+fetch('/dashboards/loan-monitor/geo.json')
   .then(r => r.json())
   .then(d => {
     GEO = d;

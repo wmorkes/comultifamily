@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Loan Call List Search | CO Multifamily Advisors</title>
-<meta name="description" content="Mobile owner search for the loan call list — find upcoming loan maturities by owner.">
+<title>Loan Monitor Search | CO Multifamily Advisors</title>
+<meta name="description" content="Mobile owner search for the loan monitor — find upcoming loan maturities by owner.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://www.comultifamily.com/dashboards/loan-market/mobile/">
-<meta property="og:title" content="Loan Call List Search | CO Multifamily Advisors">
-<meta property="og:description" content="Mobile owner search for the loan call list — find upcoming loan maturities by owner.">
-<meta property="og:url" content="https://www.comultifamily.com/dashboards/loan-market/mobile/">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/loan-monitor/mobile/">
+<meta property="og:title" content="Loan Monitor Search | CO Multifamily Advisors">
+<meta property="og:description" content="Mobile owner search for the loan monitor — find upcoming loan maturities by owner.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/loan-monitor/mobile/">
 <meta property="og:type" content="website">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loan Call List Search","url":"https://www.comultifamily.com/dashboards/loan-market/mobile/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Loan Monitor Search","url":"https://www.comultifamily.com/dashboards/loan-monitor/mobile/"}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>LM</text></svg>">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -47,7 +47,27 @@ input{border:1px solid #ccd;border-radius:8px;padding:14px 12px;font-size:16px;b
 footer{font-size:10px;color:#999;padding:16px;text-align:center}
 </style>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});})();</script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+  if (!__r.valid) window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  else if (!__r.isTeam) window.location.replace('/dashboards/');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  var __clientLabel;
+  if (__r.valid && __r.isTeam) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+  }
+  gtag("config", "G-53BCG1FL5M");
+  if (__r.valid && __r.isTeam) {
+    gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+    document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
+  }
+</script>
 </head>
 <body>
 <div class="co-topbar">
@@ -55,7 +75,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
 </div>
 <header>
-  <h1>Loan Call List Search</h1>
+  <h1>Loan Monitor Search</h1>
   <p>Search by owner to see their loans and upcoming maturities.</p>
 </header>
 <div class="page">
@@ -66,7 +86,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   <div class="result-count" id="resultCount"></div>
   <div id="results"></div>
 </div>
-<footer>Loan Call List &middot; <a href="/dashboards/loan-market/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+<footer>Loan Monitor &middot; <a href="/dashboards/loan-monitor/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
 
 <script>
 let GEO = [];
@@ -130,7 +150,7 @@ function renderResults(query) {
   }).join('');
 }
 
-fetch('/dashboards/loan-market/geo.json')
+fetch('/dashboards/loan-monitor/geo.json')
   .then(r => r.json())
   .then(d => {
     GEO = d;
