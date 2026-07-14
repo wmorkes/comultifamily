@@ -213,7 +213,7 @@ function render() {
       <div class="metric-row"><span>Total Volume</span><span>${dollar(r.volume)}</span></div>
       <div class="metric-row"><span>Avg $/Unit</span><span>${r.pricePerUnit==null?'—':dollar(r.pricePerUnit)}</span></div>
       <div class="metric-row"><span>Avg $/SF</span><span>${r.pricePerSF==null?'—':'$'+Math.round(r.pricePerSF)}</span></div>
-      <div class="metric-row compare"><span>${compareLabel}</span><span>${fmtPct(chg)}</span></div>
+      <div class="metric-row compare"><span>${compareLabel}</span>${fmtPct(chg)}</div>
     </div>`;
   }).join('');
 
