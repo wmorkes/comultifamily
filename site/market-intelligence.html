@@ -28,16 +28,43 @@
 <body>
 <div id="site-header"></div>
 
-<section class="section section--light" style="min-height:calc(100vh - 140px);display:flex;align-items:center;">
-  <div style="width:100%;max-width:480px;margin:0 auto;padding:0 24px;">
+<section class="section section--light" style="padding-top:120px;padding-bottom:96px;">
+  <div class="access-portal-grid" style="max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;">
 
-    <div style="text-align:center;margin-bottom:32px;">
-      <div style="display:inline-block;background:var(--navy);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:20px;">Private Access</div>
-      <h1 style="font-size:26px;margin-bottom:10px;">Market Intelligence Portal</h1>
-      <p style="color:var(--text-soft);font-size:15px;line-height:1.6;">Request access below.</p>
+    <div>
+      <div class="page-eyebrow" style="margin-bottom:16px;">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text" style="color:var(--navy);">Private Access</div>
+      </div>
+      <h1 style="font-size:32px;margin-bottom:28px;">Market Intelligence Portal</h1>
+
+      <ul class="access-feature-list">
+        <li class="access-feature-item">
+          <div class="access-feature-icon">1</div>
+          <div>
+            <div class="access-feature-title">New Construction Pipeline Report</div>
+            <div class="access-feature-desc">Tracked multifamily projects under construction and in planning across Colorado and Wyoming, updated as new supply is identified.</div>
+          </div>
+        </li>
+        <li class="access-feature-item">
+          <div class="access-feature-icon">2</div>
+          <div>
+            <div class="access-feature-title">CHFA Rent &amp; Income Limits</div>
+            <div class="access-feature-desc">Current Colorado Housing and Finance Authority limits by county and unit type, for affordable and mixed-income underwriting.</div>
+          </div>
+        </li>
+        <li class="access-feature-item">
+          <div class="access-feature-icon">3</div>
+          <div>
+            <div class="access-feature-title">Sales by Year</div>
+            <div class="access-feature-desc">Transaction volume and pricing trends drawn from 15 years of closed multifamily sales across our covered markets.</div>
+          </div>
+        </li>
+      </ul>
     </div>
 
     <div style="background:var(--bg-card);border:1px solid #e2e5ea;border-radius:12px;padding:32px;" id="form-wrap">
+      <h2 style="font-size:18px;margin-bottom:20px;">Request Access</h2>
       <form name="dashboard-access" method="POST" data-netlify="true" action="/market-intelligence/?submitted=true">
         <input type="hidden" name="form-name" value="dashboard-access">
 
@@ -59,9 +86,8 @@
 
         <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;padding:14px;margin-top:8px;">Request Access →</button>
       </form>
+      <p style="text-align:center;font-size:12px;color:var(--text-soft);margin-top:20px;"><a href="mailto:bill.morkes@colliers.com" style="color:var(--navy);text-decoration:underline;">Questions?</a></p>
     </div>
-
-    <p style="text-align:center;font-size:12px;color:var(--text-soft);margin-top:20px;"><a href="mailto:bill.morkes@colliers.com" style="color:var(--navy);text-decoration:underline;">Questions?</a></p>
 
   </div>
 </section>

@@ -345,6 +345,28 @@ a { text-decoration:none; color:inherit; }
 }
 .btn-ghost:hover { color: var(--gold-light); gap: 12px; }
 
+/* ─── ACCESS PORTAL FEATURE LIST ─────────────────────────── */
+.access-feature-list { list-style: none; padding: 0; margin: 0 0 32px; }
+.access-feature-item { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.access-feature-item:last-child { border-bottom: none; }
+.access-feature-icon {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.access-feature-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 4px; }
+.access-feature-desc { font-size: 14px; color: var(--text-soft); line-height: 1.6; }
+@media (max-width: 860px) {
+  .access-portal-grid { grid-template-columns: 1fr !important; }
+}
+
 /* ─── CARDS ──────────────────────────────────────────────── */
 .card {
   background: var(--bg-card);
