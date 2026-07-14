@@ -32,6 +32,7 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
 .summary-tile{flex:1;background:#fff;border:1px solid #dde;border-radius:8px;padding:10px;text-align:center}
 .summary-tile b{display:block;font-size:16px;color:#0c1a2e}
 .summary-tile span{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.3px}
+.summary-tile .tile-compare{display:block;font-size:11px;margin-top:3px;text-transform:none;letter-spacing:0}
 .card{background:#fff;border:1px solid #dde;border-radius:8px;padding:12px 14px;margin-bottom:10px}
 .card-title{font-size:14px;font-weight:700;color:#0c1a2e;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eef}
 .metric-row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
@@ -117,6 +118,16 @@ function vintagePPSFMap(year, ytdOnly) {
   return out;
 }
 
+// Volume/Sales totals for a year, optionally cut off through CURRENT_MONTH —
+// same cutoff convention as vintagePPSFMap, for the top summary tiles.
+function totalsThroughMonth(year, ytdOnly) {
+  const rows = DATA.filter(r => r.year === year && (!ytdOnly || r.month <= CURRENT_MONTH));
+  return {
+    volume: rows.reduce((a,r)=>a+r.volume,0),
+    deals: rows.reduce((a,r)=>a+r.deals,0),
+  };
+}
+
 function vintageRows(year) {
   const rows = DATA.filter(r => r.year === year);
   const byVintage = {};
@@ -153,24 +164,31 @@ function render() {
   const isCurrent = year === CURRENT_YEAR;
   const monthName = NOW.toLocaleString('en-US', {month:'long'});
   let compareLabel, compareNote, curMap, baseMap;
+  let curTotals, baseTotals;
   if (isCurrent) {
     curMap = vintagePPSFMap(CURRENT_YEAR, true);
     baseMap = vintagePPSFMap(CURRENT_YEAR - 1, true);
+    curTotals = totalsThroughMonth(CURRENT_YEAR, true);
+    baseTotals = totalsThroughMonth(CURRENT_YEAR - 1, true);
     compareLabel = `vs ${CURRENT_YEAR - 1} YTD (thru ${monthName})`;
     compareNote = null;
   } else {
     curMap = vintagePPSFMap(CURRENT_YEAR, true);
     baseMap = vintagePPSFMap(year, false);
+    curTotals = totalsThroughMonth(CURRENT_YEAR, true);
+    baseTotals = totalsThroughMonth(year, false);
     compareLabel = `${CURRENT_YEAR} YTD vs full ${year}`;
     compareNote = `${CURRENT_YEAR} thru ${monthName} compared to all of ${year}`;
   }
+  const volChg = pctChange(curTotals.volume, baseTotals.volume);
+  const dealsChg = pctChange(curTotals.deals, baseTotals.deals);
 
   const summary = `
     <div class="summary-bar">
-      <div class="summary-tile"><b>${shortDollar(totalVol)}</b><span>Total Volume</span></div>
-      <div class="summary-tile"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span></div>
+      <div class="summary-tile"><b>${shortDollar(totalVol)}</b><span>Total Volume</span><span class="tile-compare">${fmtPct(volChg)}</span></div>
+      <div class="summary-tile"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span><span class="tile-compare">${fmtPct(dealsChg)}</span></div>
     </div>
-    ${compareNote ? `<div class="compare-note">${compareNote} ($/SF)</div>` : ''}`;
+    ${compareNote ? `<div class="compare-note">${compareNote}</div>` : ''}`;
 
   const cards = rows.map(r => {
     const chg = pctChange(curMap[r.vintage], baseMap[r.vintage]);
