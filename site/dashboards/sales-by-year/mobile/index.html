@@ -104,6 +104,16 @@ function fmtPct(v) {
   return span+(r>=0?'+':'')+r+'%</span>';
 }
 
+// Same red/green convention as fmtPct, but wraps the whole "(-59% vs X)"
+// phrase in the color so the comparison reads as one unit next to a total.
+function fmtPctParen(v, label) {
+  if(v==null) return '<span style="color:#bbb">(vs '+label+': —)</span>';
+  const r = Math.round(v);
+  const cls = r<0 ? 'neg' : (r>10 ? 'pos' : '');
+  const span = cls ? '<span class="'+cls+'">' : '<span>';
+  return span+'('+(r>=0?'+':'')+r+'% vs '+label+')</span>';
+}
+
 // $/SF by vintage for a given year, optionally cut off through CURRENT_MONTH
 // (for the current/YTD side of a comparison) or the full year (for a past,
 // already-complete year) — mirrors the desktop dashboard's YTD-cutoff logic.
@@ -165,21 +175,23 @@ function render() {
   // so the label calls out it's a partial-vs-full comparison.
   const isCurrent = year === CURRENT_YEAR;
   const monthName = NOW.toLocaleString('en-US', {month:'long'});
-  let compareLabel, compareNote, curMap, baseMap;
+  let compareLabel, tileVsLabel, compareNote, curMap, baseMap;
   let curTotals, baseTotals;
   if (isCurrent) {
     curMap = vintagePPSFMap(CURRENT_YEAR, true);
     baseMap = vintagePPSFMap(CURRENT_YEAR - 1, true);
     curTotals = totalsThroughMonth(CURRENT_YEAR, true);
     baseTotals = totalsThroughMonth(CURRENT_YEAR - 1, true);
-    compareLabel = `vs ${CURRENT_YEAR - 1} YTD (thru ${monthName})`;
+    compareLabel = `vs ${CURRENT_YEAR - 1} YTD (Avg $/SF)`;
+    tileVsLabel = 'Last Year';
     compareNote = null;
   } else {
     curMap = vintagePPSFMap(CURRENT_YEAR, true);
     baseMap = vintagePPSFMap(year, false);
     curTotals = totalsThroughMonth(CURRENT_YEAR, true);
     baseTotals = totalsThroughMonth(year, false);
-    compareLabel = `${CURRENT_YEAR} YTD vs full ${year}`;
+    compareLabel = `${CURRENT_YEAR} YTD vs full ${year} (Avg $/SF)`;
+    tileVsLabel = `${CURRENT_YEAR} YTD`;
     compareNote = `${CURRENT_YEAR} thru ${monthName} compared to all of ${year}`;
   }
   const volChg = pctChange(curTotals.volume, baseTotals.volume);
@@ -187,8 +199,8 @@ function render() {
 
   const summary = `
     <div class="summary-bar">
-      <div class="summary-tile"><b>${shortDollar(totalVol)}</b><span>Total Volume</span><span class="tile-compare">${fmtPct(volChg)}</span></div>
-      <div class="summary-tile"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span><span class="tile-compare">${fmtPct(dealsChg)}</span></div>
+      <div class="summary-tile"><b>${shortDollar(totalVol)}</b><span>Total Volume</span><span class="tile-compare">${fmtPctParen(volChg, tileVsLabel)}</span></div>
+      <div class="summary-tile"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span><span class="tile-compare">${fmtPctParen(dealsChg, tileVsLabel)}</span></div>
     </div>
     ${compareNote ? `<div class="compare-note">${compareNote}</div>` : ''}`;
 
