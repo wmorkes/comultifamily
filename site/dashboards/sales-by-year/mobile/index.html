@@ -37,6 +37,10 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
 .metric-row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
 .metric-row span:first-child{color:#666}
 .metric-row span:last-child{font-weight:600}
+.metric-row.compare span:first-child{font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+.pos{color:#1a7a3c;font-weight:700}
+.neg{color:#c0392b;font-weight:700}
+.compare-note{font-size:11px;color:#888;margin:-4px 0 12px}
 .loading{text-align:center;padding:30px;color:#888;font-size:13px}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
@@ -73,12 +77,44 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
 <script>
 let DATA = [];
 const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1970s & Older','Unknown'];
+const NOW = new Date();
+const CURRENT_YEAR = NOW.getFullYear();
+const CURRENT_MONTH = NOW.getMonth() + 1;
 
 function dollar(v) { return '$'+Math.round(v).toLocaleString(); }
 function shortDollar(v) {
   if(Math.abs(v) >= 1e9) return '$'+(v/1e9).toFixed(1)+'B';
   if(Math.abs(v) >= 1e6) return '$'+Math.round(v/1e6)+'M';
   return dollar(v);
+}
+
+function pctChange(cur, base) {
+  if(!base) return null;
+  return (cur-base)/base*100;
+}
+
+function fmtPct(v) {
+  if(v==null) return '<span style="color:#bbb">—</span>';
+  const r = Math.round(v);
+  const cls = r<0 ? 'neg' : (r>10 ? 'pos' : '');
+  const span = cls ? '<span class="'+cls+'">' : '<span>';
+  return span+(r>=0?'+':'')+r+'%</span>';
+}
+
+// $/SF by vintage for a given year, optionally cut off through CURRENT_MONTH
+// (for the current/YTD side of a comparison) or the full year (for a past,
+// already-complete year) — mirrors the desktop dashboard's YTD-cutoff logic.
+function vintagePPSFMap(year, ytdOnly) {
+  const rows = DATA.filter(r => r.year === year && (!ytdOnly || r.month <= CURRENT_MONTH));
+  const byV = {};
+  rows.forEach(r => {
+    const b = byV[r.vintage] || (byV[r.vintage] = {sfPriced:0, sfVolume:0});
+    b.sfPriced += r.sfPriced;
+    b.sfVolume += r.sfVolume;
+  });
+  const out = {};
+  Object.keys(byV).forEach(v => { out[v] = byV[v].sfPriced ? byV[v].sfVolume/byV[v].sfPriced : null; });
+  return out;
 }
 
 function vintageRows(year) {
@@ -110,20 +146,44 @@ function render() {
   const totalDeals = rows.reduce((a,r)=>a+r.deals,0);
   const totalVol = rows.reduce((a,r)=>a+r.volume,0);
 
+  // Comparison: on the current year, compare YTD $/SF to last year's YTD
+  // (same cutoff, apples-to-apples). On a past year, compare this year's YTD
+  // $/SF to that year's full-year figure (the past year has no partial data),
+  // so the label calls out it's a partial-vs-full comparison.
+  const isCurrent = year === CURRENT_YEAR;
+  const monthName = NOW.toLocaleString('en-US', {month:'long'});
+  let compareLabel, compareNote, curMap, baseMap;
+  if (isCurrent) {
+    curMap = vintagePPSFMap(CURRENT_YEAR, true);
+    baseMap = vintagePPSFMap(CURRENT_YEAR - 1, true);
+    compareLabel = `vs ${CURRENT_YEAR - 1} YTD (thru ${monthName})`;
+    compareNote = null;
+  } else {
+    curMap = vintagePPSFMap(CURRENT_YEAR, true);
+    baseMap = vintagePPSFMap(year, false);
+    compareLabel = `${CURRENT_YEAR} YTD vs full ${year}`;
+    compareNote = `${CURRENT_YEAR} thru ${monthName} compared to all of ${year}`;
+  }
+
   const summary = `
     <div class="summary-bar">
       <div class="summary-tile"><b>${shortDollar(totalVol)}</b><span>Total Volume</span></div>
       <div class="summary-tile"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span></div>
-    </div>`;
+    </div>
+    ${compareNote ? `<div class="compare-note">${compareNote} ($/SF)</div>` : ''}`;
 
-  const cards = rows.map(r => `
+  const cards = rows.map(r => {
+    const chg = pctChange(curMap[r.vintage], baseMap[r.vintage]);
+    return `
     <div class="card">
       <div class="card-title">${r.vintage}</div>
       <div class="metric-row"><span>Sales</span><span>${r.deals.toLocaleString()}</span></div>
       <div class="metric-row"><span>Total Volume</span><span>${dollar(r.volume)}</span></div>
       <div class="metric-row"><span>Avg $/Unit</span><span>${r.pricePerUnit==null?'—':dollar(r.pricePerUnit)}</span></div>
       <div class="metric-row"><span>Avg $/SF</span><span>${r.pricePerSF==null?'—':'$'+Math.round(r.pricePerSF)}</span></div>
-    </div>`).join('');
+      <div class="metric-row compare"><span>${compareLabel}</span><span>${fmtPct(chg)}</span></div>
+    </div>`;
+  }).join('');
 
   document.getElementById('body').innerHTML = summary + cards;
 }
