@@ -412,15 +412,41 @@ function renderStats() {
 
 function renderChart() {
   renderStats();
-  const years = [...new Set(DATA.map(r=>r.year))].sort((a,b)=>a-b);
-  const unitsByYear = years.map(y => filtered.filter(r=>r.year===y).reduce((a,r)=>a+r.units,0));
-  const propsByYear = years.map(y => filtered.filter(r=>r.year===y).reduce((a,r)=>a+r.properties,0));
+  // Years before OLD_CUTOFF are sparse (often 1-2 properties/yr going back to the
+  // 1870s) and would stretch the x-axis to 140+ bars for little signal, so they're
+  // combined into a single leading "Pre-<cutoff>" bar; everything from the cutoff
+  // forward keeps its own bar.
+  const OLD_CUTOFF = 1980;
+  const allYears = [...new Set(DATA.map(r=>r.year))].sort((a,b)=>a-b);
+  const oldYears = allYears.filter(y => y < OLD_CUTOFF);
+  const recentYears = allYears.filter(y => y >= OLD_CUTOFF);
+
+  const barLabels = [];
+  const unitsByBar = [];
+  const propsByBar = [];
+  const tipsByBar = [];
+  if (oldYears.length) {
+    const oldUnits = filtered.filter(r => r.year < OLD_CUTOFF).reduce((a,r)=>a+r.units,0);
+    const oldProps = filtered.filter(r => r.year < OLD_CUTOFF).reduce((a,r)=>a+r.properties,0);
+    barLabels.push('Pre-'+OLD_CUTOFF);
+    unitsByBar.push(oldUnits);
+    propsByBar.push(oldProps);
+    tipsByBar.push('Pre-'+OLD_CUTOFF+' ('+oldYears.length+' yrs)\nUnits: '+oldUnits.toLocaleString()+'\nProperties: '+oldProps);
+  }
+  recentYears.forEach(yr => {
+    const u = filtered.filter(r=>r.year===yr).reduce((a,r)=>a+r.units,0);
+    const p = filtered.filter(r=>r.year===yr).reduce((a,r)=>a+r.properties,0);
+    barLabels.push(yr);
+    unitsByBar.push(u);
+    propsByBar.push(p);
+    tipsByBar.push(yr+'\nUnits: '+u.toLocaleString()+'\nProperties: '+p);
+  });
 
   const W=880, H=440, PL=60, PR=20, PT=20, PB=50;
   const cW=W-PL-PR, cH=H-PT-PB;
-  const barW = cW/years.length*0.6;
+  const barW = cW/barLabels.length*0.6;
 
-  const rawMax = Math.max(1, ...unitsByYear);
+  const rawMax = Math.max(1, ...unitsByBar);
   function niceStep(rawMax, maxTicks) {
     const rough = rawMax / maxTicks;
     const mag = Math.pow(10, Math.floor(Math.log10(rough || 1)));
@@ -429,9 +455,11 @@ function renderChart() {
     return Math.max(1, nice * mag);
   }
   const step = niceStep(rawMax, 5);
-  const steps = Math.max(1, Math.ceil(rawMax / step)) + 1;
-  const maxVal = steps * step;
-  const xScale = i => PL + (i+0.5)/years.length*cW;
+  const steps = Math.max(1, Math.ceil(rawMax / step));
+  // Small 6% pad above the top gridline (not a whole extra step) so the tallest
+  // bar sits close to the top without touching the chart edge.
+  const maxVal = steps * step * 1.06;
+  const xScale = i => PL + (i+0.5)/barLabels.length*cW;
   const yScale = v => PT + cH - (v/maxVal)*cH;
 
   let parts = [];
@@ -441,16 +469,16 @@ function renderChart() {
     parts.push('<text x="'+(PL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#888">'+Math.round(v).toLocaleString()+'</text>');
   }
 
-  const skipLabel = Math.ceil(years.length/24);
-  years.forEach((yr,i)=>{
+  const skipLabel = Math.ceil(barLabels.length/24);
+  barLabels.forEach((lbl,i)=>{
     if(i % skipLabel !== 0) return;
     const x=xScale(i);
-    parts.push('<text x="'+x+'" y="'+(H-PT+4)+'" text-anchor="middle" font-size="9" fill="#888" transform="rotate(-45 '+x+' '+(H-PT+4)+')">'+yr+'</text>');
+    parts.push('<text x="'+x+'" y="'+(H-PT+4)+'" text-anchor="middle" font-size="9" fill="#888" transform="rotate(-45 '+x+' '+(H-PT+4)+')">'+lbl+'</text>');
   });
 
-  years.forEach((yr,i)=>{
-    const x=xScale(i)-barW/2, y=yScale(unitsByYear[i]), h=cH+PT-y;
-    parts.push('<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" fill="#c9a84c" rx="2" class="bar" data-tip="'+yr+'\nUnits: '+unitsByYear[i].toLocaleString()+'\nProperties: '+propsByYear[i]+'"/>');
+  barLabels.forEach((lbl,i)=>{
+    const x=xScale(i)-barW/2, y=yScale(unitsByBar[i]), h=cH+PT-y;
+    parts.push('<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" fill="#c9a84c" rx="2" class="bar" data-tip="'+tipsByBar[i]+'"/>');
   });
 
   parts.push('<line x1="'+PL+'" y1="'+PT+'" x2="'+PL+'" y2="'+(PT+cH)+'" stroke="#ccc" stroke-width="1"/>');
