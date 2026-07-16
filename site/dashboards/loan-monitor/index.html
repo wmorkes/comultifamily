@@ -234,7 +234,7 @@ function markerColor(score) {
   return '#aaa';
 }
 
-function matchRow(match, nl, aff, dist, lt, text) {
+function matchRow(match, nl, aff, dist, lt, text, score) {
   const q     = document.getElementById('q').value.toLowerCase();
   const mSel  = document.getElementById('matchSel').value;
   const aSel  = document.getElementById('affSel').value;
@@ -245,7 +245,11 @@ function matchRow(match, nl, aff, dist, lt, text) {
       : mSel === '1'   ? String(match) === '1'
       : mSel === '0'   ? String(match) === '0'
       : true);
-  return matchOk
+  // Score<40 rows ship in the data so search can still find them (e.g. a
+  // distant-maturity watch-list loan) — the 40+ floor only applies to the
+  // default (no search text) view.
+  const scoreOk = q ? true : (score == null || score >= 40);
+  return matchOk && scoreOk
       && (!aSel  || (aSel==='0' ? String(aff)!=='1' : String(aff)==='1'))
       && (!dSel  || String(dist) === dSel)
       && (!ltSel || String(lt)   === ltSel)
@@ -340,7 +344,7 @@ function sort(c) {
 function renderTable() {
   const key = SORT_KEYS[col];
   const rows = DATA.filter(r => matchRow(r.matched, r.is_new_lead, r.is_affordable, r.is_distressed, r.lender_type_short,
-    `${r.property} ${r.city} ${r.owner} ${r.crm_company} ${r.address}`));
+    `${r.property} ${r.city} ${r.owner} ${r.crm_company} ${r.address}`, r.score));
   rows.sort((a,b) => {
     const av = a[key], bv = b[key];
     const an = parseFloat(av), bn = parseFloat(bv);
@@ -360,7 +364,7 @@ function updateMap() {
   document.querySelectorAll('#tbody tr[data-idx]').forEach(r => { idxMap[r.dataset.idx] = r; });
 
   GEO.forEach(m => {
-    if (!matchRow(m.match, m.nl, m.aff, m.dist, m.lt, m.search)) return;
+    if (!matchRow(m.match, m.nl, m.aff, m.dist, m.lt, m.search, m.score)) return;
     const color = markerColor(m.score);
     const last = m.days >= 99999 ? 'Never contacted'
                : (m.days === null ? 'Unknown'
