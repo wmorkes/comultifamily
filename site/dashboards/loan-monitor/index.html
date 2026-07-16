@@ -417,7 +417,26 @@ function updateMap() {
   });
 }
 
+let fullDataPromise = null;
+function ensureFullData() {
+  if (!fullDataPromise) {
+    fullDataPromise = Promise.all([
+      fetch('/dashboards/loan-monitor/data-full.json').then(r => r.json()),
+      fetch('/dashboards/loan-monitor/geo-full.json').then(r => r.json()),
+    ]).then(([data, geo]) => { DATA = data; GEO = geo; });
+  }
+  return fullDataPromise;
+}
+
 function go() {
+  const q = document.getElementById('q').value;
+  if (q) {
+    // Chains through even if a load is already in flight or done — cheap once
+    // resolved, and guarantees we never render a search against the small
+    // default-only dataset while the full one is still loading.
+    ensureFullData().then(() => { renderTable(); updateMap(); });
+    return;
+  }
   renderTable();
   updateMap();
 }
