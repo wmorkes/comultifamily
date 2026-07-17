@@ -26,15 +26,17 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
 .btn-primary{background:#0c1a2e;color:#fff}.btn-primary:hover{background:#142338}
 .btn-secondary{background:#e8edf2;color:#333}.btn-secondary:hover{background:#d5dde6}
 .section{padding:10px 16px}
-#tableWrap{overflow-x:auto;background:#fff;border:1px solid #dde;border-radius:6px}
-table{width:100%;min-width:700px;border-collapse:collapse;font-size:14px}
-th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
+#tableWrap{overflow-x:auto;background:#fff;border:1px solid #dde;border-radius:6px;max-height:520px;overflow-y:auto}
+table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
+th{background:#e8edf2;padding:5px 10px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
 .col-left{text-align:left}
 .col-center{text-align:center}
 .col-right{text-align:right}
 th:hover{background:#d5dde6}
 th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
-td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
+td{padding:3px 10px;border-bottom:1px solid #eef;white-space:nowrap}
+tbody tr:nth-child(even) td{background:#f8fafb}
+#yearTable tbody tr:hover td{background:#eef4fa}
 tr:hover td{background:#f0f5fa}
 #chartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0}
 svg#chart{display:block;width:100%;height:auto}
@@ -204,7 +206,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Highland Ranch">Highland Ranch</option>
 <option value="Highlands Ranch">Highlands Ranch</option>
 <option value="Idaho Springs">Idaho Springs</option>
-<option value="Ignacio">Ignacio</option>
 <option value="Jackson">Jackson</option>
 <option value="Johnstown">Johnstown</option>
 <option value="Kemmerer">Kemmerer</option>
@@ -220,7 +221,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Las Animas">Las Animas</option>
 <option value="Leadville">Leadville</option>
 <option value="Limon">Limon</option>
-<option value="Littleon">Littleon</option>
 <option value="Littleton">Littleton</option>
 <option value="Lone Tree">Lone Tree</option>
 <option value="Longmont">Longmont</option>
@@ -275,7 +275,9 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Torrington">Torrington</option>
 <option value="Trinidad">Trinidad</option>
 <option value="USAF Academy">USAF Academy</option>
+<option value="Unincorporated">Unincorporated</option>
 <option value="Vail">Vail</option>
+<option value="Victor">Victor</option>
 <option value="Walsenburg">Walsenburg</option>
 <option value="Wellington">Wellington</option>
 <option value="Westminster">Westminster</option>
@@ -335,10 +337,12 @@ let DATA = [];
 let filtered = [];
 let sortCol = 'year', sortDir = -1;
 
-const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1979 & Older'];
+const VINTAGE_ORDER = ['Under Construction','2020s-Now','2010s','2000s','1990s','1980s','1979 & Older'];
+const UC_YEAR = 9999;
+function yearLabel(y) { return y === UC_YEAR ? 'Under Construction' : y; }
 
 const COLS = [
-  {key:'year',       label:'Year Built',  fmt:v=>v,                          align:'left'},
+  {key:'year',       label:'Year Built',  fmt:v=>yearLabel(v),               align:'left'},
   {key:'properties', label:'Properties',  fmt:v=>v.toLocaleString(),         align:'center'},
   {key:'units',      label:'Units',       fmt:v=>v.toLocaleString(),         align:'right'},
   {key:'avgSf',      label:'Avg SF/Unit', fmt:v=>v?v.toLocaleString():'—',   align:'right'},
@@ -440,7 +444,8 @@ function renderChart() {
   const OLD_CUTOFF = 1960;
   const allYears = [...new Set(DATA.map(r=>r.year))].sort((a,b)=>a-b);
   const oldYears = allYears.filter(y => y < OLD_CUTOFF);
-  const recentYears = allYears.filter(y => y >= OLD_CUTOFF);
+  const recentYears = allYears.filter(y => y >= OLD_CUTOFF && y !== UC_YEAR);
+  const hasUC = allYears.includes(UC_YEAR);
 
   const barLabels = [];
   const unitsByBar = [];
@@ -454,6 +459,7 @@ function renderChart() {
     propsByBar.push(oldProps);
     tipsByBar.push('Pre-'+OLD_CUTOFF+' ('+oldYears.length+' yrs)\nUnits: '+oldUnits.toLocaleString()+'\nProperties: '+oldProps);
   }
+  const recentStart = barLabels.length;
   recentYears.forEach(yr => {
     const u = filtered.filter(r=>r.year===yr).reduce((a,r)=>a+r.units,0);
     const p = filtered.filter(r=>r.year===yr).reduce((a,r)=>a+r.properties,0);
@@ -462,6 +468,14 @@ function renderChart() {
     propsByBar.push(p);
     tipsByBar.push(yr+'\nUnits: '+u.toLocaleString()+'\nProperties: '+p);
   });
+  if (hasUC) {
+    const u = filtered.filter(r=>r.year===UC_YEAR).reduce((a,r)=>a+r.units,0);
+    const p = filtered.filter(r=>r.year===UC_YEAR).reduce((a,r)=>a+r.properties,0);
+    barLabels.push('Under Construction');
+    unitsByBar.push(u);
+    propsByBar.push(p);
+    tipsByBar.push('Under Construction\nUnits: '+u.toLocaleString()+'\nProperties: '+p);
+  }
 
   const W=880, H=380, PL=60, PR=20, PT=16, PB=50;
   const cW=W-PL-PR, cH=H-PT-PB;
@@ -492,7 +506,7 @@ function renderChart() {
 
   const skipLabel = Math.ceil(barLabels.length/36);
   barLabels.forEach((lbl,i)=>{
-    if(i % skipLabel !== 0) return;
+    if(i % skipLabel !== 0 && lbl !== 'Under Construction') return;
     const x=xScale(i);
     parts.push('<text x="'+x+'" y="'+(H-PT+4)+'" text-anchor="middle" font-size="9" fill="#888" transform="rotate(-45 '+x+' '+(H-PT+4)+')">'+lbl+'</text>');
   });
@@ -503,14 +517,15 @@ function renderChart() {
   });
 
   // Average units/yr trendline — computed over individual-year bars only
-  // (excludes the Pre-<cutoff> aggregate bar, which would otherwise skew
-  // the average down since it sums 60+ sparse years into one bar).
+  // (excludes the Pre-<cutoff> aggregate bar and the Under Construction
+  // bar, neither of which represents a single year's delivery total, so
+  // either would skew the average).
   if (recentYears.length) {
-    const recentUnits = unitsByBar.slice(barLabels.length - recentYears.length);
+    const recentUnits = unitsByBar.slice(recentStart, recentStart + recentYears.length);
     const avgUnits = recentUnits.reduce((a,v)=>a+v,0) / recentYears.length;
     const avgY = yScale(avgUnits);
     parts.push('<line x1="'+PL+'" y1="'+avgY+'" x2="'+(W-PR)+'" y2="'+avgY+'" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>');
-    parts.push('<text x="'+(W-PR-4)+'" y="'+(avgY-6)+'" text-anchor="end" font-size="10" fill="#0c1a2e" font-weight="600">Avg: '+Math.round(avgUnits).toLocaleString()+'/yr</text>');
+    parts.push('<text id="avgLabelText" x="'+(PL+6)+'" y="'+(avgY-6)+'" font-size="10" fill="#0c1a2e" font-weight="600">Avg: '+Math.round(avgUnits).toLocaleString()+'/yr</text>');
   }
 
   parts.push('<line x1="'+PL+'" y1="'+PT+'" x2="'+PL+'" y2="'+(PT+cH)+'" stroke="#ccc" stroke-width="1"/>');
@@ -519,6 +534,24 @@ function renderChart() {
   const svg = document.getElementById('chart');
   svg.setAttribute('viewBox','0 0 '+W+' '+H);
   svg.innerHTML = parts.join('');
+
+  // Avg label sits on a solid chip so it stays legible regardless of which
+  // bars happen to be tall behind it — the dashed line crosses every bar's
+  // base, so there's no reliably "empty" spot to place bare text.
+  const avgLabelEl = svg.querySelector('#avgLabelText');
+  if (avgLabelEl) {
+    const bbox = avgLabelEl.getBBox();
+    const pad = 3;
+    const chip = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    chip.setAttribute('x', bbox.x - pad);
+    chip.setAttribute('y', bbox.y - pad);
+    chip.setAttribute('width', bbox.width + pad*2);
+    chip.setAttribute('height', bbox.height + pad*2);
+    chip.setAttribute('fill', '#fff');
+    chip.setAttribute('fill-opacity', '0.92');
+    chip.setAttribute('rx', '2');
+    svg.insertBefore(chip, avgLabelEl);
+  }
 
   document.getElementById('chartLegend').innerHTML =
     '<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>'
