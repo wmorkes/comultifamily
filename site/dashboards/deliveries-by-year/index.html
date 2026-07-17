@@ -60,11 +60,11 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .stat-title{font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;padding-bottom:6px;border-bottom:1px solid #dde}
 .stat-row b{font-size:20px;display:block;color:#0c1a2e;line-height:1.2}
 .stat-row span{font-size:14px;color:#666}
-.stat-row.primary{padding-bottom:8px;margin-bottom:2px;border-bottom:1px solid #f0f0f0}
-.stat-row.primary b{font-size:28px;color:#c9a84c}
-.vintage-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-top:4px}
-.vintage-cell{font-size:11px;color:#666;border-bottom:1px solid #f0f0f0;padding-bottom:4px}
-.vintage-cell b{display:block;font-size:15px;color:#0c1a2e}
+.vintage-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:10.5px;margin-top:4px}
+.vintage-table th{background:none;position:static;padding:0 0 4px;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.2px;cursor:default;border-bottom:1px solid #dde;white-space:normal;line-height:1.2}
+.vintage-table td{padding:5px 0;border-bottom:1px solid #f0f0f0;color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vintage-table td:first-child{color:#0c1a2e;font-weight:600}
+.vintage-table th:not(:first-child),.vintage-table td:not(:first-child){text-align:right}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
@@ -300,7 +300,13 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
       <div id="statsSummary"></div>
       <div>
         <div class="stat-title">Inventory by Vintage</div>
-        <div class="vintage-grid" id="vintageGrid"></div>
+        <table class="vintage-table">
+          <colgroup>
+            <col style="width:34%"><col style="width:22%"><col style="width:24%"><col style="width:20%">
+          </colgroup>
+          <thead><tr><th>Vintage</th><th>Props</th><th>Units</th><th>% Tot.</th></tr></thead>
+          <tbody id="vintageBody"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -325,7 +331,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 let DATA = [];
 let filtered = [];
 let sortCol = 'year', sortDir = -1;
-let GRAND_TOTAL_UNITS = 0;
 
 const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1979 & Older'];
 
@@ -403,10 +408,8 @@ function renderStats() {
   const label = [msa, city].filter(Boolean).join(' — ');
   const totalUnits = filtered.reduce((a,r)=>a+r.units,0);
   const totalProps = filtered.reduce((a,r)=>a+r.properties,0);
-  const pctOfTotal = GRAND_TOTAL_UNITS ? (totalUnits / GRAND_TOTAL_UNITS * 100) : 0;
   document.getElementById('statsSummary').innerHTML = `
     <div class="stat-title">Summary${label?' — '+label:''}</div>
-    <div class="stat-row primary"><b>${pctOfTotal.toFixed(1)}%</b><span>of Total CO/WY Inventory</span></div>
     <div class="stat-row"><b>${totalUnits.toLocaleString()}</b><span>Total Units</span></div>
     <div class="stat-row"><b>${totalProps.toLocaleString()}</b><span>Total Properties</span></div>
   `;
@@ -417,9 +420,10 @@ function renderStats() {
     b.properties += r.properties;
     b.units += r.units;
   });
-  document.getElementById('vintageGrid').innerHTML = VINTAGE_ORDER.map(v => {
+  document.getElementById('vintageBody').innerHTML = VINTAGE_ORDER.map(v => {
     const b = byVintage[v] || {properties:0, units:0};
-    return `<div class="vintage-cell">${v}<b>${b.units.toLocaleString()}</b>${b.properties.toLocaleString()} props</div>`;
+    const pct = totalUnits ? (b.units / totalUnits * 100) : 0;
+    return `<tr><td>${v}</td><td>${b.properties.toLocaleString()}</td><td>${b.units.toLocaleString()}</td><td>${pct.toFixed(1)}%</td></tr>`;
   }).join('');
 }
 
@@ -533,7 +537,6 @@ fetch('/dashboards/deliveries-by-year/data.json')
   .then(d => {
     DATA = d;
     filtered = DATA;
-    GRAND_TOTAL_UNITS = DATA.reduce((a,r)=>a+r.units,0);
     renderTable();
     renderChart();
   });
