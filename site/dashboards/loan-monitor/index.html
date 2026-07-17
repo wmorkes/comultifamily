@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Loan Monitor – 07/16/2026</title>
+<title>Loan Monitor – 07/17/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO multifamily loan maturities and watch list. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -108,7 +108,7 @@ td.wrap { white-space: normal; }
 <header>
   <div>
     <h1>CO Multifamily Loan Monitor</h1>
-    <p>Generated 07/16/2026 &middot; Data source: Yardi Matrix</p>
+    <p>Generated 07/17/2026 &middot; Data source: Yardi Matrix</p>
   </div>
 </header>
 <div class="main">
@@ -159,15 +159,15 @@ td.wrap { white-space: normal; }
       <div class="score-tooltip">
         <strong style="display:block;margin-bottom:4px;font-size:12px">Scoring</strong>
         <table>
-          <tr><td>Maturity ≤12mo</td><td>80 base</td></tr>
-          <tr><td>Maturity 12–24mo</td><td>60 base</td></tr>
-          <tr><td>Maturity 24–36mo</td><td>40 base</td></tr>
-          <tr><td>Watch List</td><td>+10</td></tr>
-          <tr><td>Arrears / Special Servicing / REO</td><td>100 (forced)</td></tr>
-          <tr><td>DSCR &lt; 1.10</td><td>+20</td></tr>
-          <tr><td>Floating / Bridge / Construction</td><td>+10</td></tr>
+          <tr><td>Maturity 13–24mo, no flags</td><td>50</td></tr>
+          <tr><td>Watch List (maturity &gt;12mo)</td><td>60</td></tr>
+          <tr><td>DSCR &lt; 1.10 (maturity &gt;12mo)</td><td>70</td></tr>
+          <tr><td>Maturity 0–12mo, no flags</td><td>80</td></tr>
+          <tr><td>Maturity 0–12mo + a flag, or DSCR .80–.90</td><td>90</td></tr>
+          <tr><td>Arrears / Special Servicing / DSCR &lt; .80</td><td>100</td></tr>
         </table>
-        <div style="margin-top:6px;opacity:.6;font-size:10px">&#9679; Red ≥ 80 &nbsp;&#9679; Orange 60–79 &nbsp;&#9679; Blue 40–59</div>
+        <div style="margin-top:6px;opacity:.6;font-size:10px">Highest matching tier wins — not additive. Flag = Watch List or DSCR &lt; 1.10.</div>
+        <div style="margin-top:4px;opacity:.6;font-size:10px">&#9679; Red ≥ 80 &nbsp;&#9679; Orange 60–79 &nbsp;&#9679; Blue 50–59</div>
       </div>
     </div>
   </div>
@@ -230,7 +230,7 @@ const markerLayer = L.layerGroup().addTo(map);
 function markerColor(score) {
   if (score >= 80) return '#c0392b';
   if (score >= 60) return '#e67e22';
-  if (score >= 40) return '#2980b9';
+  if (score >= 50) return '#2980b9';
   return '#aaa';
 }
 
@@ -245,10 +245,10 @@ function matchRow(match, nl, aff, dist, lt, text, score) {
       : mSel === '1'   ? String(match) === '1'
       : mSel === '0'   ? String(match) === '0'
       : true);
-  // Score<40 rows ship in the data so search can still find them (e.g. a
-  // distant-maturity watch-list loan) — the 40+ floor only applies to the
+  // Score<50 rows ship in the data so search can still find them (e.g. a
+  // distant-maturity distressed loan) — the 50+ floor only applies to the
   // default (no search text) view.
-  const scoreOk = q ? true : (score == null || score >= 40);
+  const scoreOk = q ? true : (score == null || score >= 50);
   return matchOk && scoreOk
       && (!aSel  || (aSel==='0' ? String(aff)!=='1' : String(aff)==='1'))
       && (!dSel  || String(dist) === dSel)
@@ -276,7 +276,7 @@ function scoreBarHtml(score) {
   let color;
   if      (score >= 80) color = '#c0392b';
   else if (score >= 60) color = '#e67e22';
-  else if (score >= 40) color = '#2980b9';
+  else if (score >= 50) color = '#2980b9';
   else                  color = '#95a5a6';
   return `<span style="font-weight:700;color:${color}">${score}</span>`;
 }
