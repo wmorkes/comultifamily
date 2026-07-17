@@ -442,9 +442,9 @@ function renderChart() {
     tipsByBar.push(yr+'\nUnits: '+u.toLocaleString()+'\nProperties: '+p);
   });
 
-  const W=880, H=440, PL=60, PR=20, PT=20, PB=50;
+  const W=880, H=380, PL=60, PR=20, PT=16, PB=50;
   const cW=W-PL-PR, cH=H-PT-PB;
-  const barW = cW/barLabels.length*0.6;
+  const barW = cW/barLabels.length*0.78;
 
   const rawMax = Math.max(1, ...unitsByBar);
   function niceStep(rawMax, maxTicks) {
@@ -469,7 +469,7 @@ function renderChart() {
     parts.push('<text x="'+(PL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#888">'+Math.round(v).toLocaleString()+'</text>');
   }
 
-  const skipLabel = Math.ceil(barLabels.length/24);
+  const skipLabel = Math.ceil(barLabels.length/36);
   barLabels.forEach((lbl,i)=>{
     if(i % skipLabel !== 0) return;
     const x=xScale(i);
