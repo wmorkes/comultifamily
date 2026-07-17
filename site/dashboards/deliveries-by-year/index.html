@@ -60,6 +60,8 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .stat-title{font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;padding-bottom:6px;border-bottom:1px solid #dde}
 .stat-row b{font-size:20px;display:block;color:#0c1a2e;line-height:1.2}
 .stat-row span{font-size:14px;color:#666}
+.stat-row.primary{padding-bottom:8px;margin-bottom:2px;border-bottom:1px solid #f0f0f0}
+.stat-row.primary b{font-size:28px;color:#c9a84c}
 .vintage-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;margin-top:4px}
 .vintage-cell{font-size:11px;color:#666;border-bottom:1px solid #f0f0f0;padding-bottom:4px}
 .vintage-cell b{display:block;font-size:15px;color:#0c1a2e}
@@ -280,6 +282,15 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Woodland Park">Woodland Park</option>
 <option value="lakewood">lakewood</option></select>
   </div>
+  <div class="filter-group">
+    <label>Submarket</label>
+    <select id="fSubmarket" onchange="applyFilters()"><option value="">All Submarkets</option>
+<option value="Denver">Denver</option>
+<option value="First Ring">First Ring</option>
+<option value="Second Ring">Second Ring</option>
+<option value="Tertiary">Tertiary</option>
+<option value="Unknown">Unknown</option></select>
+  </div>
   <div style="display:flex;gap:6px;padding-bottom:1px">
     <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
     <button class="btn btn-secondary" onclick="clearFilters()">Clear</button>
@@ -321,13 +332,15 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 let DATA = [];
 let filtered = [];
 let sortCol = 'year', sortDir = -1;
+let GRAND_TOTAL_UNITS = 0;
 
 const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1979 & Older'];
 
 const COLS = [
-  {key:'year',       label:'Year Built', fmt:v=>v,                    align:'left'},
-  {key:'properties', label:'Properties', fmt:v=>v.toLocaleString(),   align:'center'},
-  {key:'units',      label:'Units',      fmt:v=>v.toLocaleString(),  align:'right'},
+  {key:'year',       label:'Year Built',  fmt:v=>v,                          align:'left'},
+  {key:'properties', label:'Properties',  fmt:v=>v.toLocaleString(),         align:'center'},
+  {key:'units',      label:'Units',       fmt:v=>v.toLocaleString(),         align:'right'},
+  {key:'avgSf',      label:'Avg SF/Unit', fmt:v=>v?v.toLocaleString():'—',   align:'right'},
 ];
 
 const head = document.getElementById('tableHead');
@@ -347,13 +360,17 @@ function onMsaChange() {
   const fCity = document.getElementById('fCity');
   const cities = [...new Set(DATA.filter(r=>!msa || r.msa===msa).map(r=>r.city))].sort();
   fCity.innerHTML = '<option value="">All Cities</option>' + cities.map(c=>`<option value="${c}">${c}</option>`).join('');
+  const fSubmarket = document.getElementById('fSubmarket');
+  const submarkets = [...new Set(DATA.filter(r=>!msa || r.msa===msa).map(r=>r.submarket))].sort();
+  fSubmarket.innerHTML = '<option value="">All Submarkets</option>' + submarkets.map(s=>`<option value="${s}">${s}</option>`).join('');
   applyFilters();
 }
 
 function applyFilters() {
   const msa  = document.getElementById('fMsa').value;
   const city = document.getElementById('fCity').value;
-  filtered = DATA.filter(r => (!msa || r.msa===msa) && (!city || r.city===city));
+  const submarket = document.getElementById('fSubmarket').value;
+  filtered = DATA.filter(r => (!msa || r.msa===msa) && (!city || r.city===city) && (!submarket || r.submarket===submarket));
   renderTable();
   renderChart();
 }
@@ -362,17 +379,23 @@ function clearFilters() {
   document.getElementById('fMsa').value = '';
   onMsaChange();
   document.getElementById('fCity').value = '';
+  document.getElementById('fSubmarket').value = '';
   applyFilters();
 }
 
 function yearRows() {
   const byYear = {};
   filtered.forEach(r => {
-    const b = byYear[r.year] || (byYear[r.year] = {year:r.year, properties:0, units:0});
+    const b = byYear[r.year] || (byYear[r.year] = {year:r.year, properties:0, units:0, sf_sum:0, sf_units:0});
     b.properties += r.properties;
     b.units += r.units;
+    b.sf_sum += r.sf_sum;
+    b.sf_units += r.sf_units;
   });
-  return Object.values(byYear);
+  return Object.values(byYear).map(b => ({
+    ...b,
+    avgSf: b.sf_units ? Math.round(b.sf_sum / b.sf_units) : null,
+  }));
 }
 
 function renderTable() {
@@ -389,11 +412,14 @@ function renderTable() {
 function renderStats() {
   const msa = document.getElementById('fMsa').value;
   const city = document.getElementById('fCity').value;
-  const label = [msa, city].filter(Boolean).join(' — ');
+  const submarket = document.getElementById('fSubmarket').value;
+  const label = [msa, submarket, city].filter(Boolean).join(' — ');
   const totalUnits = filtered.reduce((a,r)=>a+r.units,0);
   const totalProps = filtered.reduce((a,r)=>a+r.properties,0);
+  const pctOfTotal = GRAND_TOTAL_UNITS ? (totalUnits / GRAND_TOTAL_UNITS * 100) : 0;
   document.getElementById('statsSummary').innerHTML = `
     <div class="stat-title">Summary${label?' — '+label:''}</div>
+    <div class="stat-row primary"><b>${pctOfTotal.toFixed(1)}%</b><span>of Total CO/WY Inventory</span></div>
     <div class="stat-row"><b>${totalUnits.toLocaleString()}</b><span>Total Units</span></div>
     <div class="stat-row"><b>${totalProps.toLocaleString()}</b><span>Total Properties</span></div>
   `;
@@ -508,6 +534,7 @@ fetch('/dashboards/deliveries-by-year/data.json')
   .then(d => {
     DATA = d;
     filtered = DATA;
+    GRAND_TOTAL_UNITS = DATA.reduce((a,r)=>a+r.units,0);
     renderTable();
     renderChart();
   });
