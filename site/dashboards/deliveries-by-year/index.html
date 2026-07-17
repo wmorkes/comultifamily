@@ -416,7 +416,7 @@ function renderChart() {
   // 1870s) and would stretch the x-axis to 140+ bars for little signal, so they're
   // combined into a single leading "Pre-<cutoff>" bar; everything from the cutoff
   // forward keeps its own bar.
-  const OLD_CUTOFF = 1980;
+  const OLD_CUTOFF = 1960;
   const allYears = [...new Set(DATA.map(r=>r.year))].sort((a,b)=>a-b);
   const oldYears = allYears.filter(y => y < OLD_CUTOFF);
   const recentYears = allYears.filter(y => y >= OLD_CUTOFF);
