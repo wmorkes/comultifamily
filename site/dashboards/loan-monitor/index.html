@@ -79,12 +79,13 @@ td.wrap { white-space: normal; }
 .score-help-btn:hover { background: rgba(255,255,255,.25); }
 .score-tooltip { display: none; position: absolute; right: 0; top: 26px; background: #0c1a2e;
                   color: white; border-radius: 6px; padding: 10px 14px; font-size: 11px;
-                  line-height: 1.8; white-space: nowrap; z-index: 9999;
-                  box-shadow: 0 4px 12px rgba(0,0,0,.3); min-width: 320px; }
-.score-tooltip table { background: transparent; min-width: 0; }
+                  line-height: 1.8; z-index: 9999;
+                  box-shadow: 0 4px 12px rgba(0,0,0,.3); width: 320px; }
+.score-tooltip table { background: transparent; min-width: 0; width: 100%; table-layout: fixed; }
 .score-tooltip tr { background: transparent !important; }
-.score-tooltip td { color: white; border: none; padding: 1px 8px 1px 0; font-size: 11px; white-space: nowrap; }
-.score-tooltip td:last-child { opacity: .7; }
+.score-tooltip td { color: white; border: none; padding: 3px 8px 3px 0; font-size: 11px; vertical-align: top; }
+.score-tooltip td:first-child { width: 30px; font-weight: 700; }
+.score-tooltip td:last-child { opacity: .8; white-space: normal; }
 .score-help:hover .score-tooltip { display: block; }
 .co-topbar { background: #0c1a2e; border-bottom: 2px solid #c9a84c; padding: 6px 20px;
               display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
@@ -159,12 +160,12 @@ td.wrap { white-space: normal; }
       <div class="score-tooltip">
         <strong style="display:block;margin-bottom:4px;font-size:12px">Scoring</strong>
         <table>
-          <tr><td>Maturity 13–24mo, no flags</td><td>50</td></tr>
-          <tr><td>Watch List (maturity &gt;12mo)</td><td>60</td></tr>
-          <tr><td>DSCR &lt; 1.10 (maturity &gt;12mo)</td><td>70</td></tr>
-          <tr><td>Maturity 0–12mo, no flags</td><td>80</td></tr>
-          <tr><td>Maturity 0–12mo + a flag, or DSCR .80–.90</td><td>90</td></tr>
-          <tr><td>Arrears / Special Servicing / DSCR &lt; .80</td><td>100</td></tr>
+          <tr><td>100</td><td>Arrears / Special Servicing / DSCR &lt; .80</td></tr>
+          <tr><td>90</td><td>Maturity 0–12mo + a flag, or DSCR .80–.90</td></tr>
+          <tr><td>80</td><td>Maturity 0–12mo, no flags</td></tr>
+          <tr><td>70</td><td>DSCR &lt; 1.10 (maturity &gt;12mo)</td></tr>
+          <tr><td>60</td><td>Watch List (maturity &gt;12mo)</td></tr>
+          <tr><td>50</td><td>Maturity 13–24mo, no flags</td></tr>
         </table>
         <div style="margin-top:6px;opacity:.6;font-size:10px">Highest matching tier wins — not additive. Flag = Watch List or DSCR &lt; 1.10.</div>
         <div style="margin-top:4px;opacity:.6;font-size:10px">&#9679; Red ≥ 80 &nbsp;&#9679; Orange 60–79 &nbsp;&#9679; Blue 50–59</div>
