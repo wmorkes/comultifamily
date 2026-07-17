@@ -70,6 +70,9 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .vintage-pct-hi{color:#c9a84c;font-weight:700}
 .vintage-pct-mid{color:#0c1a2e}
 .vintage-pct-lo{color:#999}
+.vintage-row-uc td{background:#0c1a2e;color:#fff}
+.vintage-row-uc td:first-child{color:#fff;font-size:11.5px;white-space:nowrap}
+.vintage-row-uc td.vintage-pct-hi,.vintage-row-uc td.vintage-pct-mid,.vintage-row-uc td.vintage-pct-lo{color:#fff}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
@@ -431,7 +434,8 @@ function renderStats() {
     const b = byVintage[v] || {properties:0, units:0};
     const pct = totalUnits ? (b.units / totalUnits * 100) : 0;
     const pctClass = pct >= 20 ? 'vintage-pct-hi' : pct >= 10 ? 'vintage-pct-mid' : 'vintage-pct-lo';
-    return `<tr><td>${v}</td><td>${b.properties.toLocaleString()}</td><td>${b.units.toLocaleString()}</td><td class="${pctClass}">${pct.toFixed(1)}%</td></tr>`;
+    const rowClass = v === 'Under Construction' ? ' class="vintage-row-uc"' : '';
+    return `<tr${rowClass}><td>${v}</td><td>${b.properties.toLocaleString()}</td><td>${b.units.toLocaleString()}</td><td class="${pctClass}">${pct.toFixed(1)}%</td></tr>`;
   }).join('');
 }
 
@@ -513,7 +517,8 @@ function renderChart() {
 
   barLabels.forEach((lbl,i)=>{
     const x=xScale(i)-barW/2, y=yScale(unitsByBar[i]), h=cH+PT-y;
-    parts.push('<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" fill="#c9a84c" rx="2" class="bar" data-tip="'+tipsByBar[i]+'"/>');
+    const barColor = lbl === 'Under Construction' ? '#0c1a2e' : '#c9a84c';
+    parts.push('<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" fill="'+barColor+'" rx="2" class="bar" data-tip="'+tipsByBar[i]+'"/>');
   });
 
   // Average units/yr trendline — computed over individual-year bars only
@@ -555,6 +560,7 @@ function renderChart() {
 
   document.getElementById('chartLegend').innerHTML =
     '<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>'
+    + (hasUC ? '<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Under Construction</div>' : '')
     + '<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0c1a2e;height:0;width:12px"></div>Average Units/Yr</div>';
 
   const tooltip = document.getElementById('tooltip');
