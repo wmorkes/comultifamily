@@ -323,7 +323,9 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <hr class="divider">
 
 <div class="section">
-  <div style="font-size:12px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Deliveries by Year</div>
+  <div id="tableToggle" style="font-size:12px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px" onclick="toggleTable()">
+    <span id="tableToggleArrow">&#9662;</span>Deliveries by Year
+  </div>
   <div id="tableWrap">
     <table id="yearTable">
       <thead><tr id="tableHead"></tr></thead>
@@ -384,6 +386,14 @@ function clearFilters() {
   onMsaChange();
   document.getElementById('fCity').value = '';
   applyFilters();
+}
+
+function toggleTable() {
+  const wrap = document.getElementById('tableWrap');
+  const arrow = document.getElementById('tableToggleArrow');
+  const collapsed = wrap.style.display === 'none';
+  wrap.style.display = collapsed ? '' : 'none';
+  arrow.innerHTML = collapsed ? '&#9662;' : '&#9656;';
 }
 
 function yearRows() {
@@ -502,11 +512,14 @@ function renderChart() {
     const nice = norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10;
     return Math.max(1, nice * mag);
   }
-  const step = niceStep(rawMax, 5);
-  const steps = Math.max(1, Math.ceil(rawMax / step));
-  // Small 6% pad above the top gridline (not a whole extra step) so the tallest
-  // bar sits close to the top without touching the chart edge.
-  const maxVal = steps * step * 1.06;
+  // Fixed 10% headroom above the tallest bar (not a whole extra gridline
+  // step, which could leave 20-30%+ of blank space depending on how rawMax
+  // falls relative to a "nice" step boundary) — gridlines are then drawn up
+  // to whatever fits under that ceiling, rather than the ceiling being
+  // derived from the gridlines.
+  const maxVal = rawMax * 1.10;
+  const step = niceStep(maxVal, 5);
+  const steps = Math.max(1, Math.floor(maxVal / step));
   const xScale = i => PL + (i+0.5)/barLabels.length*cW;
   const yScale = v => PT + cH - (v/maxVal)*cH;
 
