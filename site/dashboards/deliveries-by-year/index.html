@@ -99,14 +99,16 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
   <div class="filter-group">
     <label>MSA</label>
     <select id="fMsa" onchange="onMsaChange()"><option value="">All MSAs</option>
-<option value="Colorado Springs">Colorado Springs</option>
+<option value="Wyoming">Wyoming</option>
+<option value="Northern CO">Northern CO</option>
 <option value="Denver">Denver</option>
+<option value="Colorado Springs">Colorado Springs</option>
+<option value="Pueblo">Pueblo</option>
+<option value="Colorado Mountains">Colorado Mountains</option>
 <option value="Fort Collins">Fort Collins</option>
 <option value="Mountain">Mountain</option>
 <option value="Plains">Plains</option>
-<option value="Pueblo">Pueblo</option>
-<option value="Unknown">Unknown</option>
-<option value="Wyoming">Wyoming</option></select>
+<option value="Unknown">Unknown</option></select>
   </div>
   <div class="filter-group">
     <label>City</label>
@@ -282,15 +284,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Woodland Park">Woodland Park</option>
 <option value="lakewood">lakewood</option></select>
   </div>
-  <div class="filter-group">
-    <label>Submarket</label>
-    <select id="fSubmarket" onchange="applyFilters()"><option value="">All Submarkets</option>
-<option value="Denver">Denver</option>
-<option value="First Ring">First Ring</option>
-<option value="Second Ring">Second Ring</option>
-<option value="Tertiary">Tertiary</option>
-<option value="Unknown">Unknown</option></select>
-  </div>
   <div style="display:flex;gap:6px;padding-bottom:1px">
     <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
     <button class="btn btn-secondary" onclick="clearFilters()">Clear</button>
@@ -360,17 +353,13 @@ function onMsaChange() {
   const fCity = document.getElementById('fCity');
   const cities = [...new Set(DATA.filter(r=>!msa || r.msa===msa).map(r=>r.city))].sort();
   fCity.innerHTML = '<option value="">All Cities</option>' + cities.map(c=>`<option value="${c}">${c}</option>`).join('');
-  const fSubmarket = document.getElementById('fSubmarket');
-  const submarkets = [...new Set(DATA.filter(r=>!msa || r.msa===msa).map(r=>r.submarket))].sort();
-  fSubmarket.innerHTML = '<option value="">All Submarkets</option>' + submarkets.map(s=>`<option value="${s}">${s}</option>`).join('');
   applyFilters();
 }
 
 function applyFilters() {
   const msa  = document.getElementById('fMsa').value;
   const city = document.getElementById('fCity').value;
-  const submarket = document.getElementById('fSubmarket').value;
-  filtered = DATA.filter(r => (!msa || r.msa===msa) && (!city || r.city===city) && (!submarket || r.submarket===submarket));
+  filtered = DATA.filter(r => (!msa || r.msa===msa) && (!city || r.city===city));
   renderTable();
   renderChart();
 }
@@ -379,7 +368,6 @@ function clearFilters() {
   document.getElementById('fMsa').value = '';
   onMsaChange();
   document.getElementById('fCity').value = '';
-  document.getElementById('fSubmarket').value = '';
   applyFilters();
 }
 
@@ -412,8 +400,7 @@ function renderTable() {
 function renderStats() {
   const msa = document.getElementById('fMsa').value;
   const city = document.getElementById('fCity').value;
-  const submarket = document.getElementById('fSubmarket').value;
-  const label = [msa, submarket, city].filter(Boolean).join(' — ');
+  const label = [msa, city].filter(Boolean).join(' — ');
   const totalUnits = filtered.reduce((a,r)=>a+r.units,0);
   const totalProps = filtered.reduce((a,r)=>a+r.properties,0);
   const pctOfTotal = GRAND_TOTAL_UNITS ? (totalUnits / GRAND_TOTAL_UNITS * 100) : 0;
@@ -507,6 +494,17 @@ function renderChart() {
     parts.push('<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+h+'" fill="#c9a84c" rx="2" class="bar" data-tip="'+tipsByBar[i]+'"/>');
   });
 
+  // Average units/yr trendline — computed over individual-year bars only
+  // (excludes the Pre-<cutoff> aggregate bar, which would otherwise skew
+  // the average down since it sums 60+ sparse years into one bar).
+  if (recentYears.length) {
+    const recentUnits = unitsByBar.slice(barLabels.length - recentYears.length);
+    const avgUnits = recentUnits.reduce((a,v)=>a+v,0) / recentYears.length;
+    const avgY = yScale(avgUnits);
+    parts.push('<line x1="'+PL+'" y1="'+avgY+'" x2="'+(W-PR)+'" y2="'+avgY+'" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>');
+    parts.push('<text x="'+(W-PR-4)+'" y="'+(avgY-6)+'" text-anchor="end" font-size="10" fill="#0c1a2e" font-weight="600">Avg: '+Math.round(avgUnits).toLocaleString()+'/yr</text>');
+  }
+
   parts.push('<line x1="'+PL+'" y1="'+PT+'" x2="'+PL+'" y2="'+(PT+cH)+'" stroke="#ccc" stroke-width="1"/>');
   parts.push('<line x1="'+PL+'" y1="'+(PT+cH)+'" x2="'+(W-PR)+'" y2="'+(PT+cH)+'" stroke="#ccc" stroke-width="1"/>');
 
@@ -515,7 +513,8 @@ function renderChart() {
   svg.innerHTML = parts.join('');
 
   document.getElementById('chartLegend').innerHTML =
-    '<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>';
+    '<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>'
+    + '<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0c1a2e;height:0;width:12px"></div>Average Units/Yr</div>';
 
   const tooltip = document.getElementById('tooltip');
   svg.querySelectorAll('.bar').forEach(el=>{
