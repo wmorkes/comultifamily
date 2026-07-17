@@ -112,11 +112,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Denver">Denver</option>
 <option value="Colorado Springs">Colorado Springs</option>
 <option value="Pueblo">Pueblo</option>
-<option value="Colorado Mountains">Colorado Mountains</option>
-<option value="Fort Collins">Fort Collins</option>
-<option value="Mountain">Mountain</option>
-<option value="Plains">Plains</option>
-<option value="Unknown">Unknown</option></select>
+<option value="Colorado Mountains">Colorado Mountains</option></select>
   </div>
   <div class="filter-group">
     <label>City</label>
@@ -342,7 +338,7 @@ let DATA = [];
 let filtered = [];
 let sortCol = 'year', sortDir = -1;
 
-const VINTAGE_ORDER = ['Under Construction','2020s-Now','2010s','2000s','1990s','1980s','1979 & Older'];
+const VINTAGE_ORDER = ['Under Construction','2020-2025','2010s','2000s','1990s','1980s','1979 & Older'];
 const UC_YEAR = 9999;
 function yearLabel(y) { return y === UC_YEAR ? 'Under Construction' : y; }
 
@@ -530,10 +526,16 @@ function renderChart() {
     parts.push('<text x="'+(PL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#888">'+Math.round(v).toLocaleString()+'</text>');
   }
 
-  const skipLabel = Math.ceil(barLabels.length/36);
+  // A small tick mark under every bar (one per year, no exceptions) keeps
+  // the axis dense/precise, but text labels only appear at decade starts
+  // (plus the Pre-<cutoff> and Under Construction bars) — labeling every
+  // year made the axis unreadably busy once the 1960 cutoff was added.
   barLabels.forEach((lbl,i)=>{
-    if(i % skipLabel !== 0 && lbl !== 'Under Construction') return;
     const x=xScale(i);
+    parts.push('<line x1="'+x+'" y1="'+(H-PT)+'" x2="'+x+'" y2="'+(H-PT+3)+'" stroke="#ccc" stroke-width="1"/>');
+    const isDecadeStart = typeof lbl === 'number' && lbl % 10 === 0;
+    const isSpecial = lbl === 'Under Construction' || (typeof lbl === 'string' && lbl.indexOf('Pre-') === 0);
+    if (!isDecadeStart && !isSpecial) return;
     parts.push('<text x="'+x+'" y="'+(H-PT+4)+'" text-anchor="middle" font-size="9" fill="#888" transform="rotate(-45 '+x+' '+(H-PT+4)+')">'+lbl+'</text>');
   });
 
