@@ -28,11 +28,11 @@
 <body>
 <div id="site-header"></div>
 
-<section class="section section--light" style="padding-top:120px;padding-bottom:96px;">
+<section class="section section--light" style="padding-top:120px;padding-bottom:48px;">
   <div class="access-portal-grid" style="max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;">
 
     <div>
-      <div class="page-eyebrow" style="margin-bottom:16px;">
+      <div class="page-eyebrow" style="margin-bottom:2px;">
         <div class="eyebrow-line"></div>
         <div class="eyebrow-text" style="color:var(--navy);">Private Access</div>
       </div>
@@ -42,30 +42,42 @@
         <li class="access-feature-item">
           <div class="access-feature-icon">1</div>
           <div>
-            <div class="access-feature-title">New Construction Pipeline Report</div>
-            <div class="access-feature-desc">Tracked multifamily projects under construction and in planning across Colorado and Wyoming, updated as new supply is identified.</div>
+            <div class="access-feature-title">Delivery History</div>
+            <div class="access-feature-desc">Multifamily development by year, tracking completed supply across Colorado and Wyoming.</div>
           </div>
         </li>
         <li class="access-feature-item">
           <div class="access-feature-icon">2</div>
           <div>
-            <div class="access-feature-title">CHFA Rent &amp; Income Limits</div>
-            <div class="access-feature-desc">Current Colorado Housing and Finance Authority limits by county and unit type, for affordable and mixed-income underwriting.</div>
+            <div class="access-feature-title">Sales History</div>
+            <div class="access-feature-desc">Multifamily sales by year, drawn from 15 years of closed transactions across our covered markets.</div>
           </div>
         </li>
         <li class="access-feature-item">
           <div class="access-feature-icon">3</div>
           <div>
-            <div class="access-feature-title">Sales by Year</div>
-            <div class="access-feature-desc">Transaction volume and pricing trends drawn from 15 years of closed multifamily sales across our covered markets.</div>
+            <div class="access-feature-title">Construction Pipeline</div>
+            <div class="access-feature-desc">Current multifamily development pipeline, tracking projects under construction and in planning across Colorado and Wyoming.</div>
+          </div>
+        </li>
+        <li class="access-feature-item">
+          <div class="access-feature-icon">4</div>
+          <div>
+            <div class="access-feature-title">CHFA Rent Limits</div>
+            <div class="access-feature-desc">Historic and current max allowable rents for Colorado, by county and unit type.</div>
           </div>
         </li>
       </ul>
     </div>
 
-    <div style="background:var(--bg-card);border:1px solid #e2e5ea;border-radius:12px;padding:32px;" id="form-wrap">
-      <h2 style="font-size:18px;margin-bottom:20px;">Access Portal</h2>
-      <form name="dashboard-access" method="POST" data-netlify="true" action="/market-intelligence/?submitted=true">
+    <div style="background:var(--navy);border:1px solid var(--navy);border-radius:12px;padding:32px;" id="form-wrap">
+      <h2 style="font-size:18px;margin-bottom:20px;color:#fff;">Access Portal</h2>
+      <form name="dashboard-access" method="POST" data-netlify="true" action="/market-intelligence/?submitted=true" style="--form-label-gap:2px;">
+        <style>
+          #form-wrap .form-label{margin-bottom:var(--form-label-gap);color:rgba(255,255,255,0.6);}
+          #form-wrap .form-group{gap:var(--form-label-gap);}
+          #form-wrap .form-input{background:#fff;border-color:transparent;}
+        </style>
         <input type="hidden" name="form-name" value="dashboard-access">
 
         <div class="form-row">
@@ -79,14 +91,14 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-top:15px;">
           <label class="form-label">Email Address</label>
           <input type="email" name="email" class="form-input" placeholder="your@email.com" required>
         </div>
 
         <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;padding:14px;margin-top:8px;">Enter →</button>
       </form>
-      <p style="text-align:center;font-size:12px;color:var(--text-soft);margin-top:20px;"><a href="mailto:bill.morkes@colliers.com" style="color:var(--navy);text-decoration:underline;">Questions?</a></p>
+      <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.6);margin-top:20px;"><a href="mailto:bill.morkes@colliers.com" style="color:#fff;text-decoration:underline;">Questions?</a></p>
     </div>
 
   </div>
@@ -96,7 +108,7 @@
 <script src="/js/shared.js"></script>
 <script>
 if (window.location.search.includes('submitted=true')) {
-  document.getElementById('form-wrap').innerHTML = '<div style="padding:32px 0;text-align:center;"><div style="font-size:28px;color:var(--gold);margin-bottom:16px;">&#10003;</div><h3 style="margin-bottom:10px;">Request Received</h3><p style="color:var(--text-soft);font-size:15px;">Bill will review your request and send your private access link within one business day.</p></div>';
+  document.getElementById('form-wrap').innerHTML = '<div style="padding:32px 0;text-align:center;"><div style="font-size:28px;color:var(--gold);margin-bottom:16px;">&#10003;</div><h3 style="margin-bottom:10px;color:#fff;">Request Received</h3><p style="color:rgba(255,255,255,0.6);font-size:15px;">Please check your inbox for a unique link to the Market Intelligence Portal, good for 48 hours. If you need more time, please let us know.</p></div>';
 }
 </script>
 </body>

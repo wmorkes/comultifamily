@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>On-Market Report – 07/24/2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="CO multifamily on-market listings. Private dashboard.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/on-market/">
+<meta property="og:title" content="On-Market Report | CO Multifamily Advisors">
+<meta property="og:description" content="CO multifamily on-market listings. Private dashboard.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/on-market/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"On-Market Report","url":"https://www.comultifamily.com/dashboards/on-market/"}</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1a2e'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='13' font-weight='700' fill='white' text-anchor='middle'%3EOM%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; font-size: 13px;
+        background: #f0f2f5; color: #1a1a1a; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+header { background: #0c1a2e; color: white; padding: 10px 20px; flex-shrink: 0; }
+header h1 { font-size: 16px; font-weight: 600; }
+header p  { font-size: 11px; opacity: .7; margin-top: 2px; }
+.stats { background: #142338; color: white; padding: 6px 12px;
+          display: flex; gap: 14px; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
+.stat { display: flex; flex-direction: column; }
+.stat-val { font-size: 16px; font-weight: 700; line-height: 1.2; }
+.stat-lbl { font-size: 10px; opacity: .7; text-transform: uppercase; letter-spacing: .4px; }
+.stat-divider { width: 1px; background: rgba(255,255,255,.2); align-self: stretch; }
+.controls { padding: 6px 10px; background: white; border-bottom: 1px solid #ddd;
+             display: flex; gap: 6px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+.controls input  { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px;
+                    font-size: 12px; flex: 0 1 260px; min-width: 140px; }
+.controls select { padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; min-width: 150px; }
+.main { display: flex; flex: 1; overflow: hidden; }
+#map { width: 35%; flex-shrink: 0; }
+.right-pane { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.table-wrap { flex: 1; overflow-x: auto; overflow-y: auto; }
+table { width: 100%; border-collapse: collapse; background: white; table-layout: fixed; min-width: 900px; }
+thead th { background: #0c1a2e; color: white; padding: 6px 8px; text-align: left;
+            cursor: pointer; white-space: nowrap; user-select: none; font-weight: 500; font-size: 11px;
+            position: sticky; top: 0; z-index: 5; }
+thead th:hover { background: #1a3a5c; }
+thead th.asc::after  { content: ' ↑'; }
+thead th.desc::after { content: ' ↓'; }
+tbody tr:nth-child(even) { background: #fafafa; }
+tbody tr:hover { background: #eef3fb; cursor: pointer; }
+tbody tr.highlighted { background: #dbeafe !important; }
+td { padding: 5px 8px; border-bottom: 1px solid #ebebeb; vertical-align: middle;
+      font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px;
+        font-weight: 600; }
+.tag-list  { background: #dbe5f5; color: #0c1a2e; }
+.tag-redux { background: #fbeecb; color: #7a5c00; }
+.legend { background: white; padding: 8px 12px; border-radius: 6px;
+           box-shadow: 0 1px 5px rgba(0,0,0,.2); line-height: 1.7; font-size: 11px; }
+.legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+               margin-right: 5px; vertical-align: middle; }
+.co-topbar { background: #0c1a2e; border-bottom: 2px solid #c9a84c; padding: 6px 20px;
+              display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
+<script src="/js/token-gate.js"></script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else{gtag('event','dashboard_access',{'client_token':r.email.replace('@','-').replace(/\.com$/,'')});document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a id="hubBackLink" href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
+</div>
+<header>
+  <div>
+    <h1>CO Multifamily On-Market Report</h1>
+    <p>Generated 07/24/2026 &middot; Team only &middot; Source: CRM Market Movement</p>
+  </div>
+</header>
+<div class="main">
+  <div id="map"></div>
+  <div class="right-pane">
+  <div class="controls">
+    <input type="text" id="q" placeholder="Search property, seller, broker, city…" oninput="go()">
+    <select id="typeSel" onchange="go()">
+      <option value="">List &amp; Redux</option>
+      <option value="List">List Only</option>
+      <option value="Redux">Redux Only</option>
+    </select>
+    <select id="msaSel" onchange="go()">
+      <option value="">All Markets</option>
+    </select>
+    <select id="ptSel" onchange="go()">
+      <option value="">All Property Types</option>
+    </select>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="stat-val" id="sProp">—</span><span class="stat-lbl">Properties</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><span class="stat-val" id="sUnits">—</span><span class="stat-lbl">Units</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><span class="stat-val" style="color:#6fa8dc" id="sList">—</span><span class="stat-lbl">List</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><span class="stat-val" style="color:#c9a84c" id="sRedux">—</span><span class="stat-lbl">Redux</span></div>
+  </div>
+  <div class="table-wrap">
+  <table id="t">
+  <colgroup>
+    <col style="width:9%"><!-- Date -->
+    <col style="width:18%"><!-- Property -->
+    <col style="width:10%"><!-- City -->
+    <col style="width:5%"><!-- State -->
+    <col style="width:9%"><!-- MSA -->
+    <col style="width:9%"><!-- Type -->
+    <col style="width:5%"><!-- Units -->
+    <col style="width:5%"><!-- YOC -->
+    <col style="width:15%"><!-- Seller -->
+    <col style="width:15%"><!-- Broker -->
+  </colgroup>
+  <thead><tr>
+    <th onclick="sort(0)">Date Listed</th>
+    <th onclick="sort(1)">Property</th>
+    <th onclick="sort(2)">City</th>
+    <th onclick="sort(3)">State</th>
+    <th onclick="sort(4)">MSA</th>
+    <th onclick="sort(5)">Type</th>
+    <th onclick="sort(6)">Units</th>
+    <th onclick="sort(7)">YOC</th>
+    <th onclick="sort(8)">Seller</th>
+    <th onclick="sort(9)">Listing Broker</th>
+  </tr></thead>
+  <tbody id="tbody">
+  </tbody></table></div>
+  </div>
+</div>
+<script>
+let GEO = [];
+let DATA = [];
+
+const map = L.map('map').setView([39.7,-104.9], 7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; OpenStreetMap contributors', maxZoom:18
+}).addTo(map);
+
+const legend = L.control({position:'bottomleft'});
+legend.onAdd = () => {
+  const d = L.DomUtil.create('div','legend');
+  d.innerHTML = [
+    ['#0c1a2e','List'],
+    ['#c9a84c','Redux'],
+  ].map(([c,l])=>`<div><span class="legend-dot" style="background:${c}"></span>${l}</div>`).join('');
+  return d;
+};
+legend.addTo(map);
+
+const markerByIdx = {};
+const markerLayer = L.layerGroup().addTo(map);
+
+function markerColor(type) {
+  return type === 'Redux' ? '#c9a84c' : '#0c1a2e';
+}
+
+function populateFilterOptions() {
+  const msaSel = document.getElementById('msaSel');
+  const ptSel  = document.getElementById('ptSel');
+  const msas = [...new Set(DATA.map(r => r.msa).filter(Boolean))].sort();
+  const pts  = [...new Set(DATA.map(r => r.property_type).filter(Boolean))].sort();
+  msas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; msaSel.appendChild(o); });
+  pts.forEach(p  => { const o = document.createElement('option'); o.value = p; o.textContent = p; ptSel.appendChild(o); });
+}
+
+function matchRow(type, msa, pt, text) {
+  const q      = document.getElementById('q').value.toLowerCase();
+  const tSel   = document.getElementById('typeSel').value;
+  const mSel   = document.getElementById('msaSel').value;
+  const pSel   = document.getElementById('ptSel').value;
+  return (!tSel || type === tSel)
+      && (!mSel || msa === mSel)
+      && (!pSel || pt === pSel)
+      && (!q    || (text||'').toLowerCase().includes(q));
+}
+
+function updateStats(visRows) {
+  let props=0, units=0, list=0, redux=0;
+  visRows.forEach(r => {
+    props++;
+    units += Number(r.units) || 0;
+    if (r.movement_type === 'List') list++;
+    else if (r.movement_type === 'Redux') redux++;
+  });
+  document.getElementById('sProp').textContent  = props.toLocaleString();
+  document.getElementById('sUnits').textContent = units.toLocaleString();
+  document.getElementById('sList').textContent  = list.toLocaleString();
+  document.getElementById('sRedux').textContent = redux.toLocaleString();
+}
+
+function esc(s) {
+  return (s == null ? '' : String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function typeTag(type) {
+  return type === 'Redux' ? '<span class="tag tag-redux">Redux</span>' : '<span class="tag tag-list">List</span>';
+}
+
+function rowHtml(r) {
+  return `<tr data-idx="${r.idx}" data-type="${esc(r.movement_type)}" data-msa="${esc(r.msa)}" data-pt="${esc(r.property_type)}">`
+    + `<td data-v="${esc(r.date_listed)}">${esc(r.date_display)}</td>`
+    + `<td title="${esc(r.property)}">${esc(r.property)} ${typeTag(r.movement_type)}</td>`
+    + `<td>${esc(r.city)}</td>`
+    + `<td>${esc(r.state)}</td>`
+    + `<td>${esc(r.msa)}</td>`
+    + `<td>${esc(r.property_type)}</td>`
+    + `<td data-v="${r.units||0}">${r.units||''}</td>`
+    + `<td data-v="${r.yoc||0}">${r.yoc||''}</td>`
+    + `<td title="${esc(r.seller)}">${esc(r.seller)}</td>`
+    + `<td title="${esc(r.listing_broker_company)}${r.listing_broker ? ' — '+esc(r.listing_broker) : ''}">${esc(r.listing_broker_company)}${r.listing_broker ? ' <span style="color:#888">— '+esc(r.listing_broker)+'</span>' : ''}</td>`
+    + `</tr>`;
+}
+
+let col=0, asc=false;
+const SORT_KEYS = ['date_listed','property','city','state','msa','property_type','units','yoc','seller','listing_broker_company'];
+
+function sort(c) {
+  asc = (col===c) ? !asc : false; col = c;
+  document.querySelectorAll('thead th').forEach((th,i) => {
+    th.className = i===c ? (asc?'asc':'desc') : '';
+  });
+  renderTable();
+  updateMap();
+}
+
+function renderTable() {
+  const key = SORT_KEYS[col];
+  const rows = DATA.filter(r => matchRow(r.movement_type, r.msa, r.property_type,
+    `${r.property} ${r.address} ${r.city} ${r.seller} ${r.listing_broker_company} ${r.listing_broker}`));
+  rows.sort((a,b) => {
+    const av = a[key], bv = b[key];
+    const an = parseFloat(av), bn = parseFloat(bv);
+    const cmp = (av==null||av==='') ? 1 : (bv==null||bv==='') ? -1
+      : (!isNaN(an)&&!isNaN(bn)) ? an-bn : String(av).localeCompare(String(bv));
+    return asc ? cmp : -cmp;
+  });
+  document.getElementById('tbody').innerHTML = rows.map(rowHtml).join('');
+  updateStats(rows);
+  return rows;
+}
+
+function updateMap() {
+  markerLayer.clearLayers();
+  Object.keys(markerByIdx).forEach(k => delete markerByIdx[k]);
+
+  const idxMap = {};
+  document.querySelectorAll('#tbody tr[data-idx]').forEach(r => { idxMap[r.dataset.idx] = r; });
+
+  GEO.forEach(m => {
+    if (!matchRow(m.movement_type, m.msa, m.property_type,
+      `${m.property} ${m.address} ${m.city} ${m.seller} ${m.listing_broker_company} ${m.listing_broker}`)) return;
+    if (m.lat == null || m.lng == null) return;
+    const color = markerColor(m.movement_type);
+    const icon = L.divIcon({
+      html: `<div style="background:${color};width:12px;height:12px;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,.4)"></div>`,
+      className: '', iconSize: [12,12], iconAnchor: [6,6]
+    });
+    const s = 'color:#555;font-size:11px';
+    const cityMeta = [m.city, m.units ? `${m.units} units` : '', m.yoc || ''].filter(Boolean).join(' · ');
+    const priceStr = m.price ? '$' + Number(m.price).toLocaleString() : '';
+    const marker = L.marker([m.lat, m.lng], {icon})
+      .bindPopup(`<div style="font-size:12px;line-height:1.7;min-width:200px">` +
+        `<strong style="display:block;margin-bottom:2px">${m.property}</strong>` +
+        `<div style="${s}"><a href="https://www.google.com/maps?q=${m.lat},${m.lng}" target="_blank" style="color:#0c1a2e">${m.address}</a></div>` +
+        (cityMeta  ? `<div style="${s}">${cityMeta}</div>` : '') +
+        `<div style="${s};margin-top:2px">${m.movement_type}${m.date_display ? ' · ' + m.date_display : ''}</div>` +
+        (priceStr  ? `<div style="${s}">${priceStr}</div>` : '') +
+        (m.seller  ? `<div style="${s}">Seller: ${m.seller}</div>` : '') +
+        (m.listing_broker_company ? `<div style="${s}">Broker: ${m.listing_broker_company}${m.listing_broker ? ' — '+m.listing_broker : ''}</div>` : '') +
+        (m.notes   ? `<div style="color:#0c1a2e;font-size:11px;margin-top:4px">${m.notes}</div>` : '') +
+        `</div>`, {maxWidth:300})
+      .addTo(markerLayer);
+
+    markerByIdx[String(m.idx)] = marker;
+    const tr = idxMap[String(m.idx)];
+    if (tr) {
+      marker.on('click', () => {
+        document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('highlighted'));
+        tr.classList.add('highlighted');
+        tr.scrollIntoView({block:'nearest', behavior:'smooth'});
+      });
+    }
+  });
+
+  document.querySelectorAll('#tbody tr[data-idx]').forEach(r => {
+    r.onclick = () => {
+      document.querySelectorAll('#tbody tr').forEach(x => x.classList.remove('highlighted'));
+      r.classList.add('highlighted');
+      const pin = markerByIdx[r.dataset.idx];
+      if (pin) {
+        map.flyTo(pin.getLatLng(), Math.max(map.getZoom(), 13), {duration:0.6});
+        pin.openPopup();
+      }
+    };
+  });
+}
+
+function go() {
+  renderTable();
+  updateMap();
+}
+
+document.querySelectorAll('thead th')[0].className = 'desc';
+Promise.all([
+  fetch('/dashboards/on-market/data.json').then(r => r.json()),
+  fetch('/dashboards/on-market/geo.json').then(r => r.json()),
+]).then(([data, geo]) => {
+  DATA = data;
+  GEO = geo;
+  populateFilterOptions();
+  go();
+});
+(function() {
+  const token = new URLSearchParams(location.search).get('token');
+  if (token) {
+    const el = document.getElementById('hubBackLink');
+    if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
+  }
+})();
+</script>
+</body></html>
