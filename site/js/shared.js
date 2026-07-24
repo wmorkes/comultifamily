@@ -1,5 +1,19 @@
 /* shared.js — injects nav + footer + scroll reveal + SEO on every page */
 
+/* ─── KNOWN-CLIENT GA4 TAGGING (reads cookie set by token-gate.js) ──
+   Once a dashboard visitor's token validates, rememberClientToken() in
+   token-gate.js drops a 30-day co_client_token cookie. Here, on every page
+   site-wide, if that cookie is present we tag it as a default event
+   parameter so later GA4 events (page_view, etc.) on non-dashboard pages
+   are also attributed to that known client. Anonymous visitors (no cookie)
+   are completely unaffected. */
+(function() {
+  const match = document.cookie.match(/(?:^|; )co_client_token=([^;]*)/);
+  if (!match) return;
+  const clientToken = decodeURIComponent(match[1]);
+  if (typeof gtag === 'function') gtag('set', { client_token: clientToken });
+})();
+
 /* ─── FONT PRELOAD (non-blocking, skipped if already in <head>) ─ */
 (function() {
   const FONT_URL = 'https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap';

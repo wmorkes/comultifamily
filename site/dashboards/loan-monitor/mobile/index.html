@@ -65,6 +65,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   gtag("config", "G-53BCG1FL5M");
   if (__r.valid && __r.isTeam) {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+    rememberClientToken(__clientLabel);
     document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
   }
 </script>

@@ -82,7 +82,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
   gtag("config", "G-53BCG1FL5M");
 </script>
 <script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 </head>
 <body>
 <div class="co-topbar">
@@ -112,7 +112,8 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Denver">Denver</option>
 <option value="Colorado Springs">Colorado Springs</option>
 <option value="Pueblo">Pueblo</option>
-<option value="Colorado Mountains">Colorado Mountains</option></select>
+<option value="Colorado Mountains">Colorado Mountains</option>
+<option value="Various">Various</option></select>
   </div>
   <div class="filter-group">
     <label>City</label>

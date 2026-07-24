@@ -108,10 +108,12 @@ The site pulls live data from two tabs of a publicly published Google Sheet. Bot
 
 **Sheet ID:** `1XodqdnLEKNVOUQvkOmyoklY_CNZM02UmNl2q6Ut2Uns`
 
-| Tab | GID | Used by | Columns |
+| Tab name | GID | Used by | Columns |
 |-----|-----|---------|---------|
-| Closed Deals | `0` | `deal-map.js` (track record map + table) | DATE, PROPERTY, ADDRESS, CITY, MSA, STATE, PROPERTY TYPE, UNITS, YOC, PRICE, Featured, Notes |
-| Active Listings | `1516487704` | `listings.html` (property grid) | Status, Property, Type, Type 2, City, State, Price, Units, Year, Image, URL |
+| Sales (Closed Deals) | `0` | `deal-map.js` (track record map + table) | DATE, PROPERTY, ADDRESS, CITY, MSA, STATE, PROPERTY TYPE, UNITS, YOC, PRICE, Featured, Notes |
+| Listings (Active Listings) | `1516487704` | `listings.html` (property grid) | Status, Property, Type, Type 2, City, State, Price, Units, Year, Image, URL |
+
+Both tabs are updated manually by Bill directly in the Sheet — no sync script involved.
 
 **Fetch URL pattern:**
 ```

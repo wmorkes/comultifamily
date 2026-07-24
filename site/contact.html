@@ -236,6 +236,10 @@ if (window.location.search.includes('submitted=true')) {
   if (form) {
     form.innerHTML = '<div style="padding:48px 0;text-align:center;"><div style="font-size:32px;margin-bottom:16px;">✓</div><h3 style="font-family:Inter,sans-serif;margin-bottom:12px;">Message Received</h3><p style="color:var(--text-soft);">Thank you, we\'ll be in touch within one business day.</p></div>';
   }
+  // GA4 conversion — fires only once Netlify has confirmed the submission
+  // succeeded (redirect back with ?submitted=true), not on raw form submit,
+  // so it can't double-count retries or fire on a rejected/spam submission.
+  if (typeof gtag === 'function') gtag('event', 'generate_lead');
 }
 // Pre-select dropdown from URL hash (e.g. contact.html#resource)
 window.addEventListener('DOMContentLoaded', () => {

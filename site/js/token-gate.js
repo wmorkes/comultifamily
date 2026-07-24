@@ -47,6 +47,20 @@ function getTokenFromURL() {
   return new URLSearchParams(window.location.search).get('token') || '';
 }
 
+/**
+ * Remembers a validated visitor across the rest of the site (not just the
+ * gated dashboard pages) by dropping a cookie with the same client_token
+ * label already used in GA4 (see build-ga4-report.py / customEvent:client_token).
+ * shared.js reads this cookie on every page and tags subsequent GA4 events
+ * with it, so a known client's later visits to listings/markets/etc. also
+ * get attributed to them — anonymous visitors are unaffected.
+ */
+function rememberClientToken(clientLabel) {
+  var maxAgeSeconds = 30 * 24 * 60 * 60; // 30 days — independent of the 48h dashboard-token validity window
+  document.cookie = 'co_client_token=' + encodeURIComponent(clientLabel) +
+    ';path=/;max-age=' + maxAgeSeconds + ';SameSite=Lax';
+}
+
 function appendTokenToLinks(token) {
   document.querySelectorAll('a[data-token-link]').forEach(a => {
     const url = new URL(a.href, window.location.origin);
