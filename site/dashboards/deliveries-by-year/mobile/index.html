@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multifamily Deliveries by Year (Mobile)</title>
+<meta name="description" content="Colorado and Wyoming multifamily development deliveries by year. Mobile view.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/deliveries-by-year/mobile/">
+<meta property="og:title" content="Multifamily Deliveries by Year (Mobile)">
+<meta property="og:description" content="Colorado and Wyoming multifamily development deliveries by year. Mobile view.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/deliveries-by-year/mobile/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Multifamily Deliveries by Year","url":"https://www.comultifamily.com/dashboards/deliveries-by-year/mobile/"}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='13' font-weight='bold' text-anchor='middle' fill='white'>DY</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%}
+body{font-family:system-ui,sans-serif;font-size:14px;background:#f4f6f9;color:#222}
+.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:8px 14px;display:flex;align-items:center;justify-content:space-between}
+.co-wordmark{font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
+.co-hub-link{font-size:11px;color:rgba(255,255,255,.7);text-decoration:none}
+header{background:#0c1a2e;color:#fff;padding:12px 14px}
+header h1{font-size:15px;font-weight:600}
+header p{font-size:11px;opacity:.7;margin-top:3px;line-height:1.4}
+.toolbar{padding:12px 14px;background:#fff;border-bottom:1px solid #dde}
+.filter-group{display:flex;flex-direction:column;gap:4px}
+.filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
+select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;background:#fff;color:#222;width:100%}
+.section{padding:12px 14px}
+.summary-bar{display:flex;gap:10px;margin-bottom:12px}
+.summary-tile{flex:1;background:#fff;border:1px solid #dde;border-radius:8px;padding:10px;text-align:center}
+.summary-tile b{display:block;font-size:16px;color:#0c1a2e}
+.summary-tile span{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.3px}
+.card{background:#fff;border:1px solid #dde;border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.card-title{font-size:14px;font-weight:700;color:#0c1a2e;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #eef}
+.card.card-uc .card-title{color:#b91c1c}
+.metric-row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px}
+.metric-row span:first-child{color:#666}
+.metric-row span:last-child{font-weight:600}
+.loading{text-align:center;padding:30px;color:#888;font-size:13px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-53BCG1FL5M");
+</script>
+<script src="/js/token-gate.js"></script>
+<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+</div>
+<header>
+  <h1>Multifamily Deliveries by Year</h1>
+  <p>Source: CO Multifamily Advisors internal database &middot; 10+ unit properties &middot; Colorado &amp; Wyoming</p>
+</header>
+
+<div class="toolbar">
+  <div class="filter-group">
+    <label>Market</label>
+    <select id="fMsa" onchange="render()"></select>
+  </div>
+</div>
+
+<div class="section" id="body">
+  <div class="loading">Loading&hellip;</div>
+</div>
+
+<script>
+let DATA = [];
+const UC_YEAR = 9999;
+const OLD_CUTOFF = 1960;
+
+function yearLabel(y) { return y === UC_YEAR ? 'Under Construction' : y; }
+
+function yearRows(msa) {
+  const rows = DATA.filter(r => !msa || r.msa === msa);
+  const byYear = {};
+  rows.forEach(r => {
+    const b = byYear[r.year] || (byYear[r.year] = {year:r.year, properties:0, units:0, sf_sum:0, sf_units:0});
+    b.properties += r.properties;
+    b.units += r.units;
+    b.sf_sum += r.sf_sum;
+    b.sf_units += r.sf_units;
+  });
+  return Object.values(byYear);
+}
+
+function cardHtml(label, r, extraClass) {
+  const avgSf = r.sf_units ? Math.round(r.sf_sum / r.sf_units) : null;
+  return `
+    <div class="card${extraClass ? ' '+extraClass : ''}">
+      <div class="card-title">${label}</div>
+      <div class="metric-row"><span>Properties</span><span>${r.properties.toLocaleString()}</span></div>
+      <div class="metric-row"><span>Units</span><span>${r.units.toLocaleString()}</span></div>
+      <div class="metric-row"><span>Avg SF/Unit</span><span>${avgSf==null?'—':avgSf.toLocaleString()}</span></div>
+    </div>`;
+}
+
+function render() {
+  const msa = document.getElementById('fMsa').value;
+  const rows = yearRows(msa);
+  const totalProps = rows.reduce((a,r)=>a+r.properties,0);
+  const totalUnits = rows.reduce((a,r)=>a+r.units,0);
+
+  const summary = `
+    <div class="summary-bar">
+      <div class="summary-tile"><b>${totalProps.toLocaleString()}</b><span>Properties</span></div>
+      <div class="summary-tile"><b>${totalUnits.toLocaleString()}</b><span>Units</span></div>
+    </div>`;
+
+  const ucRow = rows.find(r => r.year === UC_YEAR);
+  const recentRows = rows.filter(r => r.year !== UC_YEAR && r.year >= OLD_CUTOFF).sort((a,b) => b.year - a.year);
+  const oldRows = rows.filter(r => r.year < OLD_CUTOFF);
+
+  let cards = '';
+  if (ucRow) cards += cardHtml('Under Construction', ucRow, 'card-uc');
+  cards += recentRows.map(r => cardHtml(String(r.year), r)).join('');
+  if (oldRows.length) {
+    const old = oldRows.reduce((a,r) => ({
+      properties: a.properties + r.properties, units: a.units + r.units,
+      sf_sum: a.sf_sum + r.sf_sum, sf_units: a.sf_units + r.sf_units,
+    }), {properties:0, units:0, sf_sum:0, sf_units:0});
+    cards += cardHtml(`Pre-${OLD_CUTOFF}`, old);
+  }
+
+  document.getElementById('body').innerHTML = summary + cards;
+}
+
+fetch('/dashboards/deliveries-by-year/data.json')
+  .then(r => r.json())
+  .then(d => {
+    DATA = d;
+    const msas = [...new Set(DATA.map(r=>r.msa))].sort();
+    const fm = document.getElementById('fMsa');
+    fm.innerHTML = '<option value="">All Markets</option>' + msas.map(m => `<option value="${m}">${m}</option>`).join('');
+    render();
+  });
+
+(function() {
+  const token = new URLSearchParams(location.search).get('token');
+  if (token) {
+    const el = document.getElementById('hubBackLink');
+    if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
+  }
+})();
+</script>
+</body>
+</html>

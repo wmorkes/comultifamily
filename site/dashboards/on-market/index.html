@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>On-Market Report – 07/24/2026</title>
+<title>On-Market Report – 07/27/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO multifamily on-market listings. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -52,7 +52,9 @@ td { padding: 5px 8px; border-bottom: 1px solid #ebebeb; vertical-align: middle;
 .tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px;
         font-weight: 600; }
 .tag-list  { background: #dbe5f5; color: #0c1a2e; }
-.tag-redux { background: #fbeecb; color: #7a5c00; }
+.tag-redux { background: #e3ab13; color: #0c1a2e; }
+.badge { display: inline-block; padding: 1px 5px; border-radius: 3px;
+          font-size: 10px; font-weight: 600; white-space: nowrap; }
 .legend { background: white; padding: 8px 12px; border-radius: 6px;
            box-shadow: 0 1px 5px rgba(0,0,0,.2); line-height: 1.7; font-size: 11px; }
 .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%;
@@ -79,7 +81,7 @@ td { padding: 5px 8px; border-bottom: 1px solid #ebebeb; vertical-align: middle;
 <header>
   <div>
     <h1>CO Multifamily On-Market Report</h1>
-    <p>Generated 07/24/2026 &middot; Team only &middot; Source: CRM Market Movement</p>
+    <p>Generated 07/27/2026 &middot; Team only &middot; Source: CRM Market Movement</p>
   </div>
 </header>
 <div class="main">
@@ -98,6 +100,9 @@ td { padding: 5px 8px; border-bottom: 1px solid #ebebeb; vertical-align: middle;
     <select id="ptSel" onchange="go()">
       <option value="">All Property Types</option>
     </select>
+    <label style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#333;white-space:nowrap;cursor:pointer;flex:0 0 auto;margin-left:10px">
+      <input type="checkbox" id="viewOnly" onchange="go()" style="margin:0;width:14px;min-width:14px;flex:none">Adjust table to Map view
+    </label>
   </div>
   <div class="stats">
     <div class="stat"><span class="stat-val" id="sProp">—</span><span class="stat-lbl">Properties</span></div>
@@ -106,7 +111,7 @@ td { padding: 5px 8px; border-bottom: 1px solid #ebebeb; vertical-align: middle;
     <div class="stat-divider"></div>
     <div class="stat"><span class="stat-val" style="color:#6fa8dc" id="sList">—</span><span class="stat-lbl">List</span></div>
     <div class="stat-divider"></div>
-    <div class="stat"><span class="stat-val" style="color:#c9a84c" id="sRedux">—</span><span class="stat-lbl">Redux</span></div>
+    <div class="stat"><span class="stat-val" style="color:#e3ab13" id="sRedux">—</span><span class="stat-lbl">Redux</span></div>
   </div>
   <div class="table-wrap">
   <table id="t">
@@ -152,7 +157,7 @@ legend.onAdd = () => {
   const d = L.DomUtil.create('div','legend');
   d.innerHTML = [
     ['#0c1a2e','List'],
-    ['#c9a84c','Redux'],
+    ['#e3ab13','Redux'],
   ].map(([c,l])=>`<div><span class="legend-dot" style="background:${c}"></span>${l}</div>`).join('');
   return d;
 };
@@ -162,7 +167,7 @@ const markerByIdx = {};
 const markerLayer = L.layerGroup().addTo(map);
 
 function markerColor(type) {
-  return type === 'Redux' ? '#c9a84c' : '#0c1a2e';
+  return type === 'Redux' ? '#e3ab13' : '#0c1a2e';
 }
 
 function populateFilterOptions() {
@@ -174,15 +179,23 @@ function populateFilterOptions() {
   pts.forEach(p  => { const o = document.createElement('option'); o.value = p; o.textContent = p; ptSel.appendChild(o); });
 }
 
-function matchRow(type, msa, pt, text) {
+const idxToLatLng = {};
+
+function matchRow(type, msa, pt, text, idx) {
   const q      = document.getElementById('q').value.toLowerCase();
   const tSel   = document.getElementById('typeSel').value;
   const mSel   = document.getElementById('msaSel').value;
   const pSel   = document.getElementById('ptSel').value;
-  return (!tSel || type === tSel)
+  if (!((!tSel || type === tSel)
       && (!mSel || msa === mSel)
       && (!pSel || pt === pSel)
-      && (!q    || (text||'').toLowerCase().includes(q));
+      && (!q    || (text||'').toLowerCase().includes(q)))) return false;
+
+  if (document.getElementById('viewOnly').checked && idx !== undefined) {
+    const ll = idxToLatLng[String(idx)];
+    if (!ll || !map.getBounds().contains(ll)) return false;
+  }
+  return true;
 }
 
 function updateStats(visRows) {
@@ -207,14 +220,36 @@ function typeTag(type) {
   return type === 'Redux' ? '<span class="tag tag-redux">Redux</span>' : '<span class="tag tag-list">List</span>';
 }
 
+// Canonical category palette — shared with comultifamily.com (css/style.css
+// --color-* vars) and the Pipeline dashboard's TYPE_META. LIHTC/HAP are
+// subsidized/affordable housing programs, so both map to the site's
+// Affordable color; Condo is unique to On-Market and gets a neutral slate.
+const PROPERTY_TYPE_META = {
+  'Market Rate': 'background:rgba(201,168,76,.14);color:#c9a84c',
+  'LIHTC':       'background:rgba(126,184,201,.14);color:#7eb8c9',
+  'HAP':         'background:rgba(126,184,201,.14);color:#7eb8c9',
+  'Senior':      'background:rgba(126,201,184,.14);color:#7ec9b8',
+  'Student':     'background:rgba(184,126,201,.14);color:#b87ec9',
+  'Condo':       'background:rgba(138,148,168,.14);color:#8a94a8',
+};
+
+function propertyTypeBadge(pt) {
+  if (!pt) return '';
+  const style = PROPERTY_TYPE_META[pt] || 'background:#eee;color:#333';
+  return `<span class="badge" style="${style}">${esc(pt)}</span>`;
+}
+
 function rowHtml(r) {
+  const noPin = !idxToLatLng[String(r.idx)]
+    ? '<span title="No map pin — missing/invalid coordinates" style="margin-left:4px;color:#b91c1c;font-size:10px">&#9888;</span>'
+    : '';
   return `<tr data-idx="${r.idx}" data-type="${esc(r.movement_type)}" data-msa="${esc(r.msa)}" data-pt="${esc(r.property_type)}">`
     + `<td data-v="${esc(r.date_listed)}">${esc(r.date_display)}</td>`
-    + `<td title="${esc(r.property)}">${esc(r.property)} ${typeTag(r.movement_type)}</td>`
+    + `<td title="${esc(r.property)}">${esc(r.property)} ${typeTag(r.movement_type)}${noPin}</td>`
     + `<td>${esc(r.city)}</td>`
     + `<td>${esc(r.state)}</td>`
     + `<td>${esc(r.msa)}</td>`
-    + `<td>${esc(r.property_type)}</td>`
+    + `<td>${propertyTypeBadge(r.property_type)}</td>`
     + `<td data-v="${r.units||0}">${r.units||''}</td>`
     + `<td data-v="${r.yoc||0}">${r.yoc||''}</td>`
     + `<td title="${esc(r.seller)}">${esc(r.seller)}</td>`
@@ -237,7 +272,7 @@ function sort(c) {
 function renderTable() {
   const key = SORT_KEYS[col];
   const rows = DATA.filter(r => matchRow(r.movement_type, r.msa, r.property_type,
-    `${r.property} ${r.address} ${r.city} ${r.seller} ${r.listing_broker_company} ${r.listing_broker}`));
+    `${r.property} ${r.address} ${r.city} ${r.seller} ${r.listing_broker_company} ${r.listing_broker}`, r.idx));
   rows.sort((a,b) => {
     const av = a[key], bv = b[key];
     const an = parseFloat(av), bn = parseFloat(bv);
@@ -259,7 +294,7 @@ function updateMap() {
 
   GEO.forEach(m => {
     if (!matchRow(m.movement_type, m.msa, m.property_type,
-      `${m.property} ${m.address} ${m.city} ${m.seller} ${m.listing_broker_company} ${m.listing_broker}`)) return;
+      `${m.property} ${m.address} ${m.city} ${m.seller} ${m.listing_broker_company} ${m.listing_broker}`, m.idx)) return;
     if (m.lat == null || m.lng == null) return;
     const color = markerColor(m.movement_type);
     const icon = L.divIcon({
@@ -267,14 +302,16 @@ function updateMap() {
       className: '', iconSize: [12,12], iconAnchor: [6,6]
     });
     const s = 'color:#555;font-size:11px';
-    const cityMeta = [m.city, m.units ? `${m.units} units` : '', m.yoc || ''].filter(Boolean).join(' · ');
+    const cityState = [m.city, m.state].filter(Boolean).join(', ');
+    const unitsYoc  = [m.units ? `${m.units} units` : '', m.yoc || ''].filter(Boolean).join(' · ');
     const priceStr = m.price ? '$' + Number(m.price).toLocaleString() : '';
     const marker = L.marker([m.lat, m.lng], {icon})
       .bindPopup(`<div style="font-size:12px;line-height:1.7;min-width:200px">` +
-        `<strong style="display:block;margin-bottom:2px">${m.property}</strong>` +
+        `<strong>${m.property}</strong> ${propertyTypeBadge(m.property_type)}<br>` +
         `<div style="${s}"><a href="https://www.google.com/maps?q=${m.lat},${m.lng}" target="_blank" style="color:#0c1a2e">${m.address}</a></div>` +
-        (cityMeta  ? `<div style="${s}">${cityMeta}</div>` : '') +
-        `<div style="${s};margin-top:2px">${m.movement_type}${m.date_display ? ' · ' + m.date_display : ''}</div>` +
+        (cityState ? `<div style="${s}">${cityState}</div>` : '') +
+        (unitsYoc  ? `<div style="${s}">${unitsYoc}</div>` : '') +
+        `<div style="margin-top:2px">${typeTag(m.movement_type)}${m.date_display ? ` <span style="${s}">· ${m.date_display}</span>` : ''}</div>` +
         (priceStr  ? `<div style="${s}">${priceStr}</div>` : '') +
         (m.seller  ? `<div style="${s}">Seller: ${m.seller}</div>` : '') +
         (m.listing_broker_company ? `<div style="${s}">Broker: ${m.listing_broker_company}${m.listing_broker ? ' — '+m.listing_broker : ''}</div>` : '') +
@@ -318,8 +355,19 @@ Promise.all([
 ]).then(([data, geo]) => {
   DATA = data;
   GEO = geo;
+  GEO.forEach(m => {
+    if (m.lat != null && m.lng != null) idxToLatLng[String(m.idx)] = [m.lat, m.lng];
+  });
   populateFilterOptions();
   go();
+});
+
+// Keep the table in sync with the map viewport when "Adjust table to Map view" is on
+let viewSyncTimer = null;
+map.on('moveend zoomend', () => {
+  if (!document.getElementById('viewOnly').checked) return;
+  clearTimeout(viewSyncTimer);
+  viewSyncTimer = setTimeout(go, 200);
 });
 (function() {
   const token = new URLSearchParams(location.search).get('token');

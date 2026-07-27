@@ -41,11 +41,6 @@ tr:hover td{background:#f0f5fa}
 th.sf-group{background:#fbf8ee;border-left:2px solid #e8d9a8}
 td.sf-group{background:#fdfcf7;border-left:2px solid #eee2c0}
 tr:hover td.sf-group{background:#f6f1e2}
-.pagination{display:flex;align-items:center;gap:8px;padding:10px 0;justify-content:flex-end}
-.pagination button{padding:4px 10px;border:1px solid #ccd;border-radius:4px;cursor:pointer;background:#fff;font-size:12px}
-.pagination button.active{background:#0c1a2e;color:#fff;border-color:#0c1a2e}
-.pagination button:disabled{opacity:.4;cursor:default}
-#pageInfo{font-size:11px;color:#666}
 #chartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0}
 svg#chart{display:block;width:100%;height:auto}
 .chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:8px 0 0;font-size:11px}
@@ -171,7 +166,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
       <tbody id="tableBody"></tbody>
     </table>
   </div>
-  <div class="pagination" id="pagination"></div>
   <div class="compare-footnote">Avg Price, Avg $/Unit, and Avg $/SF are averaged only across sales with a reported price (some sales in this dataset have no disclosed price and are excluded from these averages, though still counted in Sales).</div>
 </div>
 
@@ -310,8 +304,6 @@ function renderTable() {
   tbody.innerHTML = sorted.map(r =>
     '<tr>' + COLS.map((c,i)=>`<td class="col-${c.align}${i>=SF_GROUP_START?' sf-group':''}">${c.fmt(r[c.key])}</td>`).join('') + '</tr>'
   ).join('');
-
-  document.getElementById('pagination').innerHTML = '';
 }
 
 function renderStats() {
