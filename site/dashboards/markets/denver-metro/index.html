@@ -405,11 +405,13 @@ function toggleDeliveryTable() {
 }
 
 // ── On-Market (map) ──
+// Colors match the canonical category palette (css/style.css --color-* vars,
+// see project_dashboard_branding memory) — not a one-off map palette.
 const OM_CATEGORIES = [
   {key:'Market Rate', color:'#c9a84c'},
   {key:'Affordable',  color:'#7eb8c9'},
   {key:'Student',     color:'#b87ec9'},
-  {key:'Land',        color:'#8a94a8'},
+  {key:'Land',        color:'#7ec994'},
 ];
 const OM_COLOR_BY_CAT = Object.fromEntries(OM_CATEGORIES.map(c => [c.key, c.color]));
 let omMap = null, omMarkerLayer = null;
