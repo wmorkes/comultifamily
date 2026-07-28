@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>On-Market Report – 07/27/2026</title>
+<title>On-Market Report – 07/28/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO multifamily on-market listings. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -81,7 +81,7 @@ td { padding: 5px 8px; border-bottom: 1px solid #ebebeb; vertical-align: middle;
 <header>
   <div>
     <h1>CO Multifamily On-Market Report</h1>
-    <p>Generated 07/27/2026 &middot; Team only &middot; Source: CRM Market Movement</p>
+    <p>Generated 07/28/2026 &middot; Team only &middot; Source: CRM Market Movement</p>
   </div>
 </header>
 <div class="main">
@@ -173,7 +173,7 @@ function markerColor(type) {
 function populateFilterOptions() {
   const msaSel = document.getElementById('msaSel');
   const ptSel  = document.getElementById('ptSel');
-  const msas = [...new Set(DATA.map(r => r.msa).filter(Boolean))].sort();
+  const msas = [...new Set(DATA.map(r => r.market).filter(Boolean))].sort();
   const pts  = [...new Set(DATA.map(r => r.property_type).filter(Boolean))].sort();
   msas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; msaSel.appendChild(o); });
   pts.forEach(p  => { const o = document.createElement('option'); o.value = p; o.textContent = p; ptSel.appendChild(o); });
@@ -243,7 +243,7 @@ function rowHtml(r) {
   const noPin = !idxToLatLng[String(r.idx)]
     ? '<span title="No map pin — missing/invalid coordinates" style="margin-left:4px;color:#b91c1c;font-size:10px">&#9888;</span>'
     : '';
-  return `<tr data-idx="${r.idx}" data-type="${esc(r.movement_type)}" data-msa="${esc(r.msa)}" data-pt="${esc(r.property_type)}">`
+  return `<tr data-idx="${r.idx}" data-type="${esc(r.movement_type)}" data-msa="${esc(r.market)}" data-pt="${esc(r.property_type)}">`
     + `<td data-v="${esc(r.date_listed)}">${esc(r.date_display)}</td>`
     + `<td title="${esc(r.property)}">${esc(r.property)} ${typeTag(r.movement_type)}${noPin}</td>`
     + `<td>${esc(r.city)}</td>`
@@ -271,7 +271,7 @@ function sort(c) {
 
 function renderTable() {
   const key = SORT_KEYS[col];
-  const rows = DATA.filter(r => matchRow(r.movement_type, r.msa, r.property_type,
+  const rows = DATA.filter(r => matchRow(r.movement_type, r.market, r.property_type,
     `${r.property} ${r.address} ${r.city} ${r.seller} ${r.listing_broker_company} ${r.listing_broker}`, r.idx));
   rows.sort((a,b) => {
     const av = a[key], bv = b[key];
@@ -293,7 +293,7 @@ function updateMap() {
   document.querySelectorAll('#tbody tr[data-idx]').forEach(r => { idxMap[r.dataset.idx] = r; });
 
   GEO.forEach(m => {
-    if (!matchRow(m.movement_type, m.msa, m.property_type,
+    if (!matchRow(m.movement_type, m.market, m.property_type,
       `${m.property} ${m.address} ${m.city} ${m.seller} ${m.listing_broker_company} ${m.listing_broker}`, m.idx)) return;
     if (m.lat == null || m.lng == null) return;
     const color = markerColor(m.movement_type);
