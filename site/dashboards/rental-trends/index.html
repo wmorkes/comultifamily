@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rental Market Trends &mdash; Colorado Multifamily</title>
+<meta name="description" content="Colorado multifamily asking rent and occupancy trends by market, 2011 to present. Private dashboard.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.comultifamily.com/dashboards/rental-trends/">
+<meta property="og:title" content="Rental Market Trends | CO Multifamily Advisors">
+<meta property="og:description" content="Colorado multifamily asking rent and occupancy trends by market, 2011 to present. Private dashboard.">
+<meta property="og:url" content="https://www.comultifamily.com/dashboards/rental-trends/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Rental Market Trends","url":"https://www.comultifamily.com/dashboards/rental-trends/"}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>RT</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%}
+body{font-family:system-ui,sans-serif;font-size:13px;background:#f4f6f9;color:#222}
+.page{max-width:1300px;margin:0 auto;overflow-x:hidden}
+.co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:5px 20px}
+.co-wordmark{font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
+header{background:#0c1a2e;color:#fff;padding:5px 10px}
+header h1{font-size:16px;font-weight:600}
+header p{font-size:11px;opacity:.7;margin-top:2px}
+.toolbar{display:flex;flex-wrap:wrap;gap:16px;padding:5px 8px;background:#fff;border-bottom:1px solid #dde;align-items:flex-end}
+.filter-group{display:flex;flex-direction:column;gap:3px}
+.filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
+select{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:12px;background:#fff;color:#222}
+.section{padding:6px 8px}
+#chartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:7px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:thin}
+#chartWrap::-webkit-scrollbar{height:10px}
+#chartWrap::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:5px}
+#chartWrap::-webkit-scrollbar-track{background:#e8edf2}
+svg#chart{display:block;width:100%;height:auto}
+.chart-legend{display:flex;flex-wrap:wrap;gap:14px;padding:10px 2px 0;font-size:11px}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-swatch{width:12px;height:3px;border-radius:2px}
+.chart-row{display:flex;gap:14px;align-items:stretch}
+#statsPanel{width:400px;flex-shrink:0;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
+.stat-title{font-weight:700;font-size:12px;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid #dde}
+.stat-header-row{display:grid;grid-template-columns:36% 16% 16% 16% 16%;border-bottom:1px solid #dde;padding-bottom:2px;margin-bottom:0}
+.stat-header-row div{font-size:10px;color:#888;text-align:right}
+.stat-header-row div:first-child{text-align:left}
+.stat-row{display:grid;grid-template-columns:36% 16% 16% 16% 16%;padding:4px 0;border-bottom:1px solid #f4f4f4;align-items:center}
+.stat-row .market-name{font-weight:700;font-size:14px;overflow:visible;white-space:nowrap}
+.stat-row .stat-val{text-align:right;font-size:14px}
+.stat-empty{color:#aaa;font-size:12px;margin-top:6px}
+.stat-footnote{font-size:10px;color:#888;margin-top:8px;padding-top:6px;border-top:1px solid #f0f0f0;line-height:1.4}
+.tooltip{position:fixed;background:rgba(0,0,0,.85);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
+.divider{border:none;border-top:2px solid #dde;margin:0}
+.section-title{font-size:12px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+#tableWrap{overflow-x:auto;background:#fff;border:1px solid #dde;border-radius:6px;scrollbar-width:thin}
+#tableWrap::-webkit-scrollbar{height:10px}
+#tableWrap::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:5px}
+#tableWrap::-webkit-scrollbar-track{background:#e8edf2}
+table{width:100%;min-width:1000px;border-collapse:collapse;font-size:13px}
+th{background:#e8edf2;padding:7px 10px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap;text-align:right}
+tr:hover td{background:#f0f5fa}
+.note{font-size:10px;color:#888;margin-top:6px}
+.footnote{font-size:10px;color:#888;padding:4px 8px}
+.co-hub-link{font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;flex-shrink:0}
+.co-hub-link:hover{color:#fff}
+</style>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  var __clientLabel, __clientName;
+  if (__r.valid) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+    __clientName = getNameFromURL().full;
+    if (__clientName) gtag('set', {'client_name': __clientName});
+  }
+  gtag("config", "G-53BCG1FL5M");
+  if (!__r.valid) {
+    window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else {
+    var __accessParams = {'client_token': __clientLabel};
+    if (__clientName) __accessParams.client_name = __clientName;
+    gtag('event', 'dashboard_access', __accessParams);
+    rememberClientToken(__clientLabel);
+    document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
+  }
+</script>
+</head>
+<body>
+<div class="co-topbar">
+  <span class="co-wordmark">CO Multifamily Advisors</span>
+  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+</div>
+<header>
+  <h1>Rental Market Trends &mdash; Colorado Multifamily</h1>
+  <p>Source: Yardi Matrix &middot; Monthly asking rent &amp; occupancy, 2011&ndash;present &middot; Denver, Colorado Springs, Colorado Mountains, Pueblo</p>
+</header>
+<div class="page">
+
+<div class="toolbar">
+  <div class="filter-group">
+    <label>Metric</label>
+    <select id="fMetric" onchange="render()">
+      <option value="rent">Asking Rent ($/unit)</option>
+      <option value="occupancy">Occupancy Rate (%)</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <label>From Year</label>
+    <select id="fFrom" onchange="render()"></select>
+  </div>
+  <div class="filter-group">
+    <label>To Year</label>
+    <select id="fTo" onchange="render()"></select>
+  </div>
+  <div class="filter-group">
+    <label>Market</label>
+    <select id="fMarket" onchange="render()">
+      <option value="All">All Markets</option>
+      <option value="Denver">Denver</option>
+      <option value="Colorado Springs">Colorado Springs</option>
+      <option value="Pueblo">Pueblo</option>
+      <option value="Colorado Mountains">Colorado Mountains</option>
+    </select>
+  </div>
+</div>
+
+<div class="section">
+  <div class="chart-row">
+    <div id="chartWrap">
+      <svg id="chart" width="900" height="440"></svg>
+      <div class="chart-legend" id="chartLegend"></div>
+      <div class="note" id="chartNote"></div>
+    </div>
+    <div id="statsPanel">
+      <div id="chartSummary"></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-title">Annual Averages</div>
+  <div id="tableWrap">
+    <table id="annualTable">
+      <thead><tr id="tableHead"></tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footnote">Colorado Mountains and Pueblo rent series begin Oct 2025 in this export (limited history available). All other series run monthly from Jan/Mar 2011 to the current survey month.</div>
+
+<div class="tooltip" id="tooltip"></div>
+</div>
+
+<script>
+const DATA = {"rent":{"Colorado Springs":{"2011-01":706.84,"2011-02":706.15,"2011-03":713.89,"2011-04":722.0,"2011-05":732.97,"2011-06":738.31,"2011-07":739.14,"2011-08":742.37,"2011-09":746.93,"2011-10":744.22,"2011-11":739.24,"2011-12":739.13,"2012-01":742.29,"2012-02":742.38,"2012-03":746.11,"2012-04":751.31,"2012-05":760.5,"2012-06":767.42,"2012-07":769.68,"2012-08":771.5,"2012-09":774.44,"2012-10":768.22,"2012-11":775.38,"2012-12":769.92,"2013-01":776.84,"2013-02":773.3,"2013-03":775.25,"2013-04":780.31,"2013-05":786.8,"2013-06":793.39,"2013-07":796.28,"2013-08":801.61,"2013-09":807.45,"2013-10":809.67,"2013-11":805.21,"2013-12":807.79,"2014-01":806.89,"2014-02":804.9,"2014-03":807.84,"2014-04":819.92,"2014-05":826.04,"2014-06":836.89,"2014-07":845.23,"2014-08":855.41,"2014-09":860.24,"2014-10":875.34,"2014-11":870.39,"2014-12":869.28,"2015-01":871.72,"2015-02":872.19,"2015-03":876.33,"2015-04":884.47,"2015-05":889.6,"2015-06":898.18,"2015-07":901.77,"2015-08":912.21,"2015-09":919.62,"2015-10":934.9,"2015-11":939.51,"2015-12":943.2,"2016-01":938.59,"2016-02":942.93,"2016-03":951.11,"2016-04":960.68,"2016-05":967.72,"2016-06":977.91,"2016-07":994.25,"2016-08":1005.74,"2016-09":1009.87,"2016-10":1028.48,"2016-11":1034.44,"2016-12":1032.0,"2017-01":1032.45,"2017-02":1031.43,"2017-03":1039.2,"2017-04":1057.78,"2017-05":1072.01,"2017-06":1082.51,"2017-07":1084.24,"2017-08":1092.64,"2017-09":1098.21,"2017-10":1109.74,"2017-11":1105.35,"2017-12":1097.65,"2018-01":1098.44,"2018-02":1094.74,"2018-03":1105.05,"2018-04":1118.34,"2018-05":1122.66,"2018-06":1131.43,"2018-07":1137.17,"2018-08":1140.8,"2018-09":1142.15,"2018-10":1139.52,"2018-11":1137.17,"2018-12":1137.33,"2019-01":1139.82,"2019-02":1150.54,"2019-03":1160.4,"2019-04":1167.45,"2019-05":1180.82,"2019-06":1197.0,"2019-07":1209.76,"2019-08":1220.27,"2019-09":1221.1,"2019-10":1226.44,"2019-11":1221.05,"2019-12":1220.75,"2020-01":1223.03,"2020-02":1223.16,"2020-03":1229.43,"2020-04":1223.89,"2020-05":1229.93,"2020-06":1240.33,"2020-07":1250.55,"2020-08":1262.16,"2020-09":1269.8,"2020-10":1282.1,"2020-11":1285.64,"2020-12":1287.59,"2021-01":1290.69,"2021-02":1294.51,"2021-03":1314.76,"2021-04":1337.29,"2021-05":1371.35,"2021-06":1421.16,"2021-07":1450.42,"2021-08":1469.64,"2021-09":1470.63,"2021-10":1482.81,"2021-11":1469.94,"2021-12":1472.13,"2022-01":1471.84,"2022-02":1476.75,"2022-03":1498.89,"2022-04":1519.02,"2022-05":1541.21,"2022-06":1568.26,"2022-07":1579.26,"2022-08":1585.13,"2022-09":1590.36,"2022-10":1589.35,"2022-11":1574.86,"2022-12":1569.46,"2023-01":1565.3,"2023-02":1556.93,"2023-03":1560.86,"2023-04":1571.57,"2023-05":1572.64,"2023-06":1579.86,"2023-07":1577.41,"2023-08":1577.89,"2023-09":1569.07,"2023-10":1574.92,"2023-11":1564.6,"2023-12":1562.8,"2024-01":1556.32,"2024-02":1572.21,"2024-03":1580.21,"2024-04":1576.45,"2024-05":1573.87,"2024-06":1578.68,"2024-07":1593.03,"2024-08":1593.15,"2024-09":1585.94,"2024-10":1584.08,"2024-11":1576.06,"2024-12":1563.12,"2025-01":1557.8,"2025-02":1553.98,"2025-03":1548.51,"2025-04":1547.82,"2025-05":1547.96,"2025-06":1552.68,"2025-07":1553.53,"2025-08":1550.23,"2025-09":1535.61,"2025-10":1530.99,"2025-11":1519.44,"2025-12":1518.0,"2026-01":1520.33,"2026-02":1528.37,"2026-03":1541.31,"2026-04":1549.0,"2026-05":1550.69,"2026-06":1549.09,"2026-07":1552.38},"Denver":{"2011-01":877.05,"2011-02":879.51,"2011-03":886.78,"2011-04":896.12,"2011-05":903.8,"2011-06":910.83,"2011-07":914.77,"2011-08":919.45,"2011-09":928.33,"2011-10":933.23,"2011-11":933.72,"2011-12":932.86,"2012-01":935.79,"2012-02":938.15,"2012-03":945.88,"2012-04":951.51,"2012-05":959.24,"2012-06":969.78,"2012-07":976.44,"2012-08":984.81,"2012-09":989.67,"2012-10":998.39,"2012-11":997.62,"2012-12":999.33,"2013-01":1000.81,"2013-02":1006.0,"2013-03":1013.16,"2013-04":1021.63,"2013-05":1030.08,"2013-06":1055.19,"2013-07":1062.4,"2013-08":1069.67,"2013-09":1078.19,"2013-10":1092.74,"2013-11":1094.93,"2013-12":1095.82,"2014-01":1098.83,"2014-02":1110.34,"2014-03":1124.0,"2014-04":1135.67,"2014-05":1148.92,"2014-06":1175.56,"2014-07":1186.48,"2014-08":1201.96,"2014-09":1211.54,"2014-10":1228.59,"2014-11":1231.63,"2014-12":1233.3,"2015-01":1236.77,"2015-02":1251.19,"2015-03":1264.67,"2015-04":1279.48,"2015-05":1296.37,"2015-06":1322.36,"2015-07":1328.22,"2015-08":1336.43,"2015-09":1341.73,"2015-10":1350.66,"2015-11":1346.39,"2015-12":1341.97,"2016-01":1340.61,"2016-02":1344.54,"2016-03":1357.36,"2016-04":1369.93,"2016-05":1383.28,"2016-06":1398.09,"2016-07":1398.73,"2016-08":1398.7,"2016-09":1396.37,"2016-10":1397.43,"2016-11":1393.99,"2016-12":1392.13,"2017-01":1388.28,"2017-02":1388.13,"2017-03":1402.11,"2017-04":1418.82,"2017-05":1433.37,"2017-06":1458.08,"2017-07":1455.3,"2017-08":1455.17,"2017-09":1452.59,"2017-10":1456.88,"2017-11":1455.54,"2017-12":1454.45,"2018-01":1452.71,"2018-02":1458.8,"2018-03":1472.81,"2018-04":1486.35,"2018-05":1498.78,"2018-06":1515.45,"2018-07":1518.08,"2018-08":1519.78,"2018-09":1521.01,"2018-10":1523.08,"2018-11":1524.12,"2018-12":1525.06,"2019-01":1524.82,"2019-02":1526.31,"2019-03":1537.99,"2019-04":1552.82,"2019-05":1564.11,"2019-06":1576.73,"2019-07":1576.84,"2019-08":1576.91,"2019-09":1576.29,"2019-10":1577.5,"2019-11":1574.61,"2019-12":1570.49,"2020-01":1567.54,"2020-02":1568.98,"2020-03":1568.71,"2020-04":1562.82,"2020-05":1558.48,"2020-06":1560.91,"2020-07":1563.65,"2020-08":1564.83,"2020-09":1564.73,"2020-10":1567.37,"2020-11":1568.61,"2020-12":1573.37,"2021-01":1574.37,"2021-02":1579.25,"2021-03":1606.17,"2021-04":1636.37,"2021-05":1666.98,"2021-06":1701.95,"2021-07":1732.67,"2021-08":1763.78,"2021-09":1791.85,"2021-10":1817.85,"2021-11":1816.76,"2021-12":1817.47,"2022-01":1822.85,"2022-02":1830.26,"2022-03":1857.53,"2022-04":1884.46,"2022-05":1912.72,"2022-06":1943.25,"2022-07":1945.21,"2022-08":1945.8,"2022-09":1944.38,"2022-10":1946.62,"2022-11":1934.69,"2022-12":1926.66,"2023-01":1919.96,"2023-02":1919.73,"2023-03":1927.16,"2023-04":1938.28,"2023-05":1950.66,"2023-06":1966.13,"2023-07":1966.5,"2023-08":1964.14,"2023-09":1960.97,"2023-10":1960.71,"2023-11":1954.85,"2023-12":1948.57,"2024-01":1946.03,"2024-02":1948.86,"2024-03":1961.21,"2024-04":1972.14,"2024-05":1984.66,"2024-06":1996.31,"2024-07":1993.41,"2024-08":1984.62,"2024-09":1973.74,"2024-10":1957.12,"2024-11":1940.3,"2024-12":1924.35,"2025-01":1914.24,"2025-02":1910.49,"2025-03":1915.04,"2025-04":1921.77,"2025-05":1927.97,"2025-06":1936.85,"2025-07":1930.26,"2025-08":1921.14,"2025-09":1907.63,"2025-10":1896.54,"2025-11":1884.06,"2025-12":1875.87,"2026-01":1871.13,"2026-02":1869.57,"2026-03":1876.53,"2026-04":1882.43,"2026-05":1891.03,"2026-06":1897.36,"2026-07":1900.39},"Colorado Mountains":{"2025-10":2848.55,"2025-11":2600.99,"2025-12":1699.79,"2026-01":2188.33,"2026-02":2085.55,"2026-03":2082.63,"2026-04":2099.68,"2026-05":2088.13,"2026-06":2076.84,"2026-07":2064.88},"Pueblo":{"2025-10":1197.43,"2025-11":1197.43,"2025-12":1357.42,"2026-01":1174.43,"2026-02":1187.05,"2026-03":1212.79,"2026-04":1209.66,"2026-05":1213.96,"2026-06":1215.0,"2026-07":1203.28}},"occupancy":{"Colorado Springs":{"2011-03":0.935,"2011-04":0.935,"2011-05":0.935,"2011-06":0.936,"2011-07":0.938,"2011-08":0.94,"2011-09":0.942,"2011-10":0.942,"2011-11":0.943,"2011-12":0.942,"2012-01":0.942,"2012-02":0.941,"2012-03":0.941,"2012-04":0.942,"2012-05":0.943,"2012-06":0.944,"2012-07":0.94,"2012-08":0.937,"2012-09":0.934,"2012-10":0.932,"2012-11":0.931,"2012-12":0.93,"2013-01":0.927,"2013-02":0.925,"2013-03":0.923,"2013-04":0.925,"2013-05":0.928,"2013-06":0.929,"2013-07":0.929,"2013-08":0.931,"2013-09":0.932,"2013-10":0.932,"2013-11":0.933,"2013-12":0.934,"2014-01":0.933,"2014-02":0.932,"2014-03":0.931,"2014-04":0.933,"2014-05":0.936,"2014-06":0.938,"2014-07":0.939,"2014-08":0.94,"2014-09":0.94,"2014-10":0.942,"2014-11":0.943,"2014-12":0.946,"2015-01":0.945,"2015-02":0.945,"2015-03":0.945,"2015-04":0.944,"2015-05":0.947,"2015-06":0.949,"2015-07":0.952,"2015-08":0.955,"2015-09":0.956,"2015-10":0.959,"2015-11":0.959,"2015-12":0.962,"2016-01":0.964,"2016-02":0.965,"2016-03":0.965,"2016-04":0.966,"2016-05":0.966,"2016-06":0.966,"2016-07":0.966,"2016-08":0.966,"2016-09":0.966,"2016-10":0.964,"2016-11":0.963,"2016-12":0.961,"2017-01":0.961,"2017-02":0.961,"2017-03":0.962,"2017-04":0.964,"2017-05":0.964,"2017-06":0.963,"2017-07":0.961,"2017-08":0.96,"2017-09":0.959,"2017-10":0.957,"2017-11":0.955,"2017-12":0.955,"2018-01":0.954,"2018-02":0.955,"2018-03":0.957,"2018-04":0.958,"2018-05":0.959,"2018-06":0.958,"2018-07":0.956,"2018-08":0.954,"2018-09":0.952,"2018-10":0.95,"2018-11":0.95,"2018-12":0.949,"2019-01":0.949,"2019-02":0.95,"2019-03":0.951,"2019-04":0.952,"2019-05":0.954,"2019-06":0.953,"2019-07":0.953,"2019-08":0.952,"2019-09":0.95,"2019-10":0.95,"2019-11":0.949,"2019-12":0.949,"2020-01":0.949,"2020-02":0.949,"2020-03":0.95,"2020-04":0.951,"2020-05":0.952,"2020-06":0.954,"2020-07":0.955,"2020-08":0.956,"2020-09":0.958,"2020-10":0.959,"2020-11":0.959,"2020-12":0.959,"2021-01":0.96,"2021-02":0.961,"2021-03":0.963,"2021-04":0.965,"2021-05":0.966,"2021-06":0.966,"2021-07":0.965,"2021-08":0.962,"2021-09":0.96,"2021-10":0.958,"2021-11":0.957,"2021-12":0.955,"2022-01":0.953,"2022-02":0.953,"2022-03":0.952,"2022-04":0.95,"2022-05":0.949,"2022-06":0.948,"2022-07":0.948,"2022-08":0.947,"2022-09":0.946,"2022-10":0.945,"2022-11":0.945,"2022-12":0.944,"2023-01":0.943,"2023-02":0.943,"2023-03":0.942,"2023-04":0.941,"2023-05":0.94,"2023-06":0.939,"2023-07":0.938,"2023-08":0.936,"2023-09":0.936,"2023-10":0.934,"2023-11":0.932,"2023-12":0.931,"2024-01":0.93,"2024-02":0.93,"2024-03":0.93,"2024-04":0.93,"2024-05":0.93,"2024-06":0.932,"2024-07":0.932,"2024-08":0.931,"2024-09":0.931,"2024-10":0.931,"2024-11":0.93,"2024-12":0.929,"2025-01":0.929,"2025-02":0.93,"2025-03":0.931,"2025-04":0.93,"2025-05":0.932,"2025-06":0.933,"2025-07":0.933,"2025-08":0.933,"2025-09":0.933,"2025-10":0.934,"2025-11":0.933,"2025-12":0.932,"2026-01":0.932,"2026-02":0.932,"2026-03":0.933,"2026-04":0.932,"2026-05":0.933,"2026-06":0.932},"Denver":{"2011-03":0.938,"2011-04":0.938,"2011-05":0.939,"2011-06":0.939,"2011-07":0.94,"2011-08":0.941,"2011-09":0.942,"2011-10":0.944,"2011-11":0.944,"2011-12":0.945,"2012-01":0.945,"2012-02":0.945,"2012-03":0.946,"2012-04":0.946,"2012-05":0.946,"2012-06":0.946,"2012-07":0.945,"2012-08":0.943,"2012-09":0.94,"2012-10":0.939,"2012-11":0.939,"2012-12":0.938,"2013-01":0.938,"2013-02":0.937,"2013-03":0.937,"2013-04":0.937,"2013-05":0.937,"2013-06":0.937,"2013-07":0.938,"2013-08":0.938,"2013-09":0.938,"2013-10":0.94,"2013-11":0.942,"2013-12":0.943,"2014-01":0.943,"2014-02":0.943,"2014-03":0.942,"2014-04":0.943,"2014-05":0.944,"2014-06":0.946,"2014-07":0.946,"2014-08":0.947,"2014-09":0.947,"2014-10":0.947,"2014-11":0.947,"2014-12":0.947,"2015-01":0.947,"2015-02":0.948,"2015-03":0.948,"2015-04":0.949,"2015-05":0.949,"2015-06":0.95,"2015-07":0.953,"2015-08":0.954,"2015-09":0.955,"2015-10":0.956,"2015-11":0.957,"2015-12":0.957,"2016-01":0.957,"2016-02":0.957,"2016-03":0.957,"2016-04":0.958,"2016-05":0.957,"2016-06":0.957,"2016-07":0.956,"2016-08":0.955,"2016-09":0.953,"2016-10":0.951,"2016-11":0.95,"2016-12":0.948,"2017-01":0.949,"2017-02":0.951,"2017-03":0.954,"2017-04":0.956,"2017-05":0.957,"2017-06":0.957,"2017-07":0.955,"2017-08":0.953,"2017-09":0.951,"2017-10":0.949,"2017-11":0.948,"2017-12":0.948,"2018-01":0.948,"2018-02":0.948,"2018-03":0.949,"2018-04":0.95,"2018-05":0.952,"2018-06":0.953,"2018-07":0.953,"2018-08":0.952,"2018-09":0.951,"2018-10":0.949,"2018-11":0.948,"2018-12":0.947,"2019-01":0.947,"2019-02":0.947,"2019-03":0.948,"2019-04":0.95,"2019-05":0.951,"2019-06":0.951,"2019-07":0.951,"2019-08":0.949,"2019-09":0.947,"2019-10":0.946,"2019-11":0.945,"2019-12":0.943,"2020-01":0.942,"2020-02":0.942,"2020-03":0.942,"2020-04":0.942,"2020-05":0.943,"2020-06":0.944,"2020-07":0.945,"2020-08":0.945,"2020-09":0.945,"2020-10":0.944,"2020-11":0.944,"2020-12":0.944,"2021-01":0.945,"2021-02":0.947,"2021-03":0.949,"2021-04":0.951,"2021-05":0.954,"2021-06":0.956,"2021-07":0.957,"2021-08":0.958,"2021-09":0.957,"2021-10":0.956,"2021-11":0.956,"2021-12":0.955,"2022-01":0.955,"2022-02":0.954,"2022-03":0.954,"2022-04":0.953,"2022-05":0.953,"2022-06":0.952,"2022-07":0.951,"2022-08":0.95,"2022-09":0.949,"2022-10":0.948,"2022-11":0.948,"2022-12":0.948,"2023-01":0.949,"2023-02":0.949,"2023-03":0.95,"2023-04":0.95,"2023-05":0.951,"2023-06":0.951,"2023-07":0.951,"2023-08":0.95,"2023-09":0.949,"2023-10":0.948,"2023-11":0.947,"2023-12":0.947,"2024-01":0.947,"2024-02":0.947,"2024-03":0.948,"2024-04":0.949,"2024-05":0.949,"2024-06":0.948,"2024-07":0.947,"2024-08":0.945,"2024-09":0.943,"2024-10":0.942,"2024-11":0.94,"2024-12":0.94,"2025-01":0.94,"2025-02":0.94,"2025-03":0.941,"2025-04":0.941,"2025-05":0.941,"2025-06":0.941,"2025-07":0.941,"2025-08":0.94,"2025-09":0.938,"2025-10":0.937,"2025-11":0.935,"2025-12":0.934,"2026-01":0.934,"2026-02":0.934,"2026-03":0.934,"2026-04":0.934,"2026-05":0.934,"2026-06":0.935}}};
+
+const MARKET_COLORS = {
+  'Denver': '#0c1a2e',
+  'Colorado Springs': '#c9a84c',
+  'Colorado Mountains': '#1a7a3c',
+  'Pueblo': '#c0392b'
+};
+const MARKET_ORDER = ['Denver','Colorado Springs','Colorado Mountains','Pueblo'];
+
+function marketsForMetric(metric) {
+  return MARKET_ORDER.filter(m => DATA[metric][m]);
+}
+
+function allMonthKeys(metric) {
+  const keys = new Set();
+  Object.values(DATA[metric]).forEach(series => Object.keys(series).forEach(k => keys.add(k)));
+  return [...keys].sort();
+}
+
+function initYearSelects() {
+  const metric = document.getElementById('fMetric').value;
+  const keys = allMonthKeys(metric);
+  const years = [...new Set(keys.map(k => parseInt(k.slice(0,4))))].sort((a,b)=>a-b);
+  const fFrom = document.getElementById('fFrom'), fTo = document.getElementById('fTo');
+  const curFrom = fFrom.value, curTo = fTo.value;
+  fFrom.innerHTML = years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  fTo.innerHTML = years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  fFrom.value = years.includes(parseInt(curFrom)) ? curFrom : years[0];
+  fTo.value = years.includes(parseInt(curTo)) ? curTo : years[years.length-1];
+}
+
+function fmtVal(metric, v) {
+  if (v == null) return '—';
+  return metric === 'occupancy' ? (v*100).toFixed(1)+'%' : '$'+Math.round(v).toLocaleString();
+}
+
+const MONTH_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+function fmtDateKey(k) {
+  const [y,m] = k.split('-').map(Number);
+  return `${MONTH_ABBR[m-1]}-${y}`;
+}
+
+function render() {
+  const metric = document.getElementById('fMetric').value;
+  initYearSelects();
+  const fromYear = parseInt(document.getElementById('fFrom').value);
+  const toYear = parseInt(document.getElementById('fTo').value);
+
+  const allKeys = allMonthKeys(metric).filter(k => {
+    const y = parseInt(k.slice(0,4));
+    return y >= fromYear && y <= toYear;
+  });
+
+  const selected = document.getElementById('fMarket').value;
+  const markets = marketsForMetric(metric).filter(m => selected === 'All' || m === selected);
+
+  renderChart(metric, allKeys, markets);
+  renderSidebar(markets);
+  renderTable(metric, markets, fromYear, toYear);
+}
+
+// ---- Sidebar: change over trailing periods, computed off the full series (not the year filter) ----
+function monthsBack(key, n) {
+  const [y,m] = key.split('-').map(Number);
+  const total = y*12 + (m-1) - n;
+  const yy = Math.floor(total/12), mm = total%12 + 1;
+  return `${yy}-${String(mm).padStart(2,'0')}`;
+}
+
+function pctChange(cur, base) {
+  if (cur == null || base == null || base === 0) return null;
+  return (cur-base)/base*100;
+}
+function ptChange(cur, base) {
+  if (cur == null || base == null) return null;
+  return (cur-base)*100;
+}
+
+function periodStats(metric, series) {
+  const keys = Object.keys(series).sort();
+  if (keys.length < 2) return null;
+  const lastKey = keys[keys.length-1];
+  const lastVal = series[lastKey];
+  const firstKey = keys[0];
+
+  function valNear(targetKey) {
+    // exact match, else nearest available key <= target
+    if (series[targetKey] != null) return series[targetKey];
+    const cands = keys.filter(k => k <= targetKey);
+    return cands.length ? series[cands[cands.length-1]] : null;
+  }
+
+  const ytdKey = lastKey.slice(0,4) + '-01';
+  const periods = {
+    all:  series[firstKey],
+    y10:  valNear(monthsBack(lastKey, 120)),
+    y5:   valNear(monthsBack(lastKey, 60)),
+    y3:   valNear(monthsBack(lastKey, 36)),
+    y1:   valNear(monthsBack(lastKey, 12)),
+    ytd:  valNear(ytdKey),
+  };
+
+  const diffFn = metric === 'occupancy' ? ptChange : pctChange;
+  return {
+    lastKey, lastVal,
+    all: diffFn(lastVal, periods.all),
+    y10: keys[0] <= monthsBack(lastKey,120) ? diffFn(lastVal, periods.y10) : null,
+    y5:  keys[0] <= monthsBack(lastKey,60)  ? diffFn(lastVal, periods.y5)  : null,
+    y3:  keys[0] <= monthsBack(lastKey,36)  ? diffFn(lastVal, periods.y3)  : null,
+    y1:  keys[0] <= monthsBack(lastKey,12)  ? diffFn(lastVal, periods.y1)  : null,
+    ytd: diffFn(lastVal, periods.ytd),
+  };
+}
+
+function fmtChange(metric, v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const color = v<-1 ? '#c0392b' : v<0 ? '#e67e22' : v<=5 ? '#222' : '#1a7a3c';
+  const suffix = metric === 'occupancy' ? ' pts' : '%';
+  return `<span style="color:${color};font-weight:600">${v>=0?'+':''}${v.toFixed(1)}${suffix}</span>`;
+}
+
+// Occupancy cells: color directly by occupancy level.
+// 95-100% green, 93-94.9% black, 90-92.9% orange, below 90% red.
+function fmtOccCell(v, prev, bold) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const pct = v * 100;
+  const color = pct<90 ? '#c0392b' : pct<93 ? '#e67e22' : pct<95 ? '#222' : '#1a7a3c';
+  return `<span style="color:${color};font-weight:600">${fmtVal('occupancy', v)}</span>`;
+}
+
+function yearAvg(series, year) {
+  const vals = Object.keys(series).filter(k => k.startsWith(String(year))).map(k => series[k]);
+  if (!vals.length) return null;
+  return vals.reduce((a,b)=>a+b,0) / vals.length;
+}
+
+function renderSidebar(markets) {
+  const el = document.getElementById('chartSummary');
+  if (!markets.length) {
+    el.innerHTML = '<div class="stat-title">Market Summary</div><div class="stat-empty">Select at least one market</div>';
+    return;
+  }
+
+  const rentLastKey = allMonthKeys('rent').slice(-1)[0];
+  const occLastKey = allMonthKeys('occupancy').slice(-1)[0];
+  const thisYear = parseInt(occLastKey.slice(0,4));
+
+  // -- Top: change in asking rent --
+  let h = `<div class="stat-title">Change in Asking Rent (as of ${fmtDateKey(rentLastKey)})</div>`;
+  h += '<div class="stat-header-row"><div>Market</div><div>10yr</div><div>5yr</div><div>3yr</div><div>1yr</div></div>';
+  markets.forEach(m => {
+    const series = DATA.rent[m];
+    if (!series) return;
+    const st = periodStats('rent', series);
+    if (!st) return;
+    h += `<div class="stat-row">`;
+    h += `<div class="market-name" title="${m}">${m}</div>`;
+    h += `<div class="stat-val">${fmtChange('rent', st.y10)}</div>`;
+    h += `<div class="stat-val">${fmtChange('rent', st.y5)}</div>`;
+    h += `<div class="stat-val">${fmtChange('rent', st.y3)}</div>`;
+    h += `<div class="stat-val">${fmtChange('rent', st.y1)}</div>`;
+    h += `</div>`;
+  });
+
+  // -- Bottom: average occupancy by calendar year --
+  h += `<div class="stat-title" style="margin-top:10px">Avg Occupancy by Year</div>`;
+  h += `<div class="stat-header-row"><div>Market</div><div>2019</div><div>2021</div><div>${thisYear-1}</div><div>${thisYear}</div></div>`;
+  markets.forEach(m => {
+    const series = DATA.occupancy[m];
+    if (!series) {
+      h += `<div class="stat-row"><div class="market-name" title="${m}">${m}</div><div class="stat-val" style="color:#bbb">no data</div><div class="stat-val"></div><div class="stat-val"></div><div class="stat-val"></div></div>`;
+      return;
+    }
+    const a19 = yearAvg(series, 2019);
+    const a21 = yearAvg(series, 2021);
+    const a1  = yearAvg(series, thisYear-1);
+    const a0  = yearAvg(series, thisYear);
+    h += `<div class="stat-row">`;
+    h += `<div class="market-name" title="${m}">${m}</div>`;
+    h += `<div class="stat-val">${fmtOccCell(a19, null)}</div>`;
+    h += `<div class="stat-val">${fmtOccCell(a21, a19)}</div>`;
+    h += `<div class="stat-val">${fmtOccCell(a1, a21)}</div>`;
+    h += `<div class="stat-val">${fmtOccCell(a0, a1, true)}</div>`;
+    h += `</div>`;
+  });
+
+  h += '<div class="stat-footnote">Rent: % change vs. each trailing period. Occupancy: average rate by calendar year (current year partial through latest survey month).</div>';
+  el.innerHTML = h;
+}
+
+function renderChart(metric, keys, markets) {
+  const W=1200, H=440, PL=70, PR=20, PT=20, PB=40;
+  const cW=W-PL-PR, cH=H-PT-PB;
+
+  let allVals = [];
+  markets.forEach(m => keys.forEach(k => {
+    const v = DATA[metric][m][k];
+    if (v != null) allVals.push(v);
+  }));
+  if (allVals.length === 0) {
+    document.getElementById('chart').innerHTML = '<text x="20" y="40" font-size="13" fill="#888">No data for selected filters</text>';
+    document.getElementById('chartLegend').innerHTML = '';
+    document.getElementById('chartNote').textContent = '';
+    return;
+  }
+  let minV = Math.min(...allVals), maxV = Math.max(...allVals);
+  const pad = (maxV - minV) * 0.08 || (metric==='occupancy'?0.02:50);
+  minV -= pad; maxV += pad;
+  if (metric === 'occupancy') { minV = Math.max(0, minV); }
+
+  const xScale = i => PL + (keys.length<=1 ? cW/2 : i/(keys.length-1)*cW);
+  const yScale = v => PT + cH - (v-minV)/(maxV-minV)*cH;
+
+  let parts = [];
+  const GRIDLINES = 5;
+  for (let i=0;i<=GRIDLINES;i++) {
+    const v = minV + (maxV-minV)*i/GRIDLINES;
+    const y = yScale(v);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${fmtVal(metric,v)}</text>`);
+  }
+
+  const yearTicks = [];
+  keys.forEach((k,i) => {
+    if (k.slice(5,7)==='01' || i===0) yearTicks.push({i, label:k.slice(0,4)});
+  });
+  yearTicks.forEach(t => {
+    const x = xScale(t.i);
+    parts.push(`<text x="${x}" y="${H-PB+16}" text-anchor="middle" font-size="10" fill="#888">${t.label}</text>`);
+    parts.push(`<line x1="${x}" y1="${PT}" x2="${x}" y2="${PT+cH}" stroke="#f4f4f4" stroke-width="1"/>`);
+  });
+
+  markets.forEach(m => {
+    const series = DATA[metric][m];
+    const pts = [];
+    keys.forEach((k,i) => {
+      const v = series[k];
+      if (v != null) pts.push({x:xScale(i), y:yScale(v), k, v});
+    });
+    if (pts.length === 0) return;
+    const d = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
+    const color = MARKET_COLORS[m] || '#333';
+    parts.push(`<path d="${d}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`);
+    // sparse visible dots (every ~6th point + last) to keep the line readable at monthly density,
+    // but each gets a larger invisible hit circle so hover still works between visible dots.
+    const metricLabel = metric === 'occupancy' ? 'Occupancy' : 'Asking Rent';
+    pts.forEach((p,i) => {
+      const tip = `${m} — ${fmtDateKey(p.k)}\n${metricLabel}: ${fmtVal(metric,p.v)}`;
+      if (i % 6 === 0 || i === pts.length-1) {
+        parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="${color}" stroke="#fff" stroke-width="1.5" class="pt" data-tip="${tip}"/>`);
+      } else {
+        parts.push(`<circle cx="${p.x}" cy="${p.y}" r="6" fill="transparent" class="pt" data-tip="${tip}"/>`);
+      }
+    });
+  });
+
+  parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+
+  const svg = document.getElementById('chart');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = parts.join('');
+
+  document.getElementById('chartLegend').innerHTML = markets.map(m =>
+    `<div class="legend-item"><div class="legend-swatch" style="background:${MARKET_COLORS[m]}"></div>${m}</div>`
+  ).join('');
+
+  const tooltip = document.getElementById('tooltip');
+  svg.querySelectorAll('.pt').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+12)+'px';
+      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent = el.getAttribute('data-tip');
+    });
+    el.addEventListener('mouseleave', () => { tooltip.style.display='none'; });
+  });
+
+  document.getElementById('chartNote').textContent =
+    metric === 'rent' ? 'Monthly average asking rent per unit.' : 'Monthly average occupancy rate.';
+}
+
+function renderTable(metric, markets, fromYear, toYear) {
+  const years = [];
+  for (let y=fromYear; y<=toYear; y++) years.push(y);
+
+  const head = document.getElementById('tableHead');
+  head.innerHTML = '<th>Market</th>' + years.map(y=>`<th>${y}</th>`).join('');
+
+  const body = document.getElementById('tableBody');
+  body.innerHTML = markets.map(m => {
+    const series = DATA[metric][m];
+    const cells = years.map(y => {
+      const vals = Object.keys(series).filter(k => k.startsWith(String(y))).map(k => series[k]);
+      if (vals.length === 0) return '<td>—</td>';
+      const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+      return `<td>${fmtVal(metric, avg)}</td>`;
+    }).join('');
+    return `<tr><td style="font-weight:700">${m}</td>${cells}</tr>`;
+  }).join('');
+}
+
+render();
+</script>
+</body>
+</html>

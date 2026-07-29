@@ -48,6 +48,18 @@ function getTokenFromURL() {
 }
 
 /**
+ * Optional first/last name carried in the URL (?fn=&ln=) when a link was
+ * issued via the token generator tool, so it can be tagged onto GA4 events
+ * for clients who never went through the request form.
+ */
+function getNameFromURL() {
+  var p = new URLSearchParams(window.location.search);
+  var fn = (p.get('fn') || '').trim();
+  var ln = (p.get('ln') || '').trim();
+  return { first: fn, last: ln, full: (fn + ' ' + ln).trim() };
+}
+
+/**
  * Remembers a validated visitor across the rest of the site (not just the
  * gated dashboard pages) by dropping a cookie with the same client_token
  * label already used in GA4 (see build-ga4-report.py / customEvent:client_token).
@@ -62,9 +74,12 @@ function rememberClientToken(clientLabel) {
 }
 
 function appendTokenToLinks(token) {
+  var name = getNameFromURL();
   document.querySelectorAll('a[data-token-link]').forEach(a => {
     const url = new URL(a.href, window.location.origin);
     url.searchParams.set('token', token);
+    if (name.first) url.searchParams.set('fn', name.first);
+    if (name.last) url.searchParams.set('ln', name.last);
     a.href = url.toString();
   });
 }

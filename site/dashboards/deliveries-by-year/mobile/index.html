@@ -40,15 +40,33 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
 .metric-row span:last-child{font-weight:600}
 .loading{text-align:center;padding:30px;color:#888;font-size:13px}
 </style>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
+  var __clientLabel, __clientName;
+  if (__r.valid) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+    __clientName = getNameFromURL().full;
+    if (__clientName) gtag('set', {'client_name': __clientName});
+  }
   gtag("config", "G-53BCG1FL5M");
+  if (!__r.valid) {
+    window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else {
+    var __accessParams = {'client_token': __clientLabel};
+    if (__clientName) __accessParams.client_name = __clientName;
+    gtag('event', 'dashboard_access', __accessParams);
+    rememberClientToken(__clientLabel);
+    document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
+  }
 </script>
-<script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 </head>
 <body>
 <div class="co-topbar">

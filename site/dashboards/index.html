@@ -26,13 +26,21 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
-  var __clientLabel;
+  var __clientLabel, __clientName;
   if (__r.valid) {
     __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
     gtag('set', {'client_token': __clientLabel});
+    if (!__r.isTeam) {
+      __clientName = getNameFromURL().full;
+      if (__clientName) gtag('set', {'client_name': __clientName});
+    }
   }
   gtag("config", "G-53BCG1FL5M");
-  if (__r.valid) gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+  if (__r.valid) {
+    var __accessParams = {'client_token': __clientLabel};
+    if (__clientName) __accessParams.client_name = __clientName;
+    gtag('event', 'dashboard_access', __accessParams);
+  }
 </script>
 </head>
 <body>
@@ -105,6 +113,10 @@
             <div class="card-title-row"><span class="card-num">4</span><span class="card-title">CHFA Rent Limits</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Historic and Current Max Allowable Rents for CO</div>
           </a>
+          <a href="/dashboards/rental-trends/" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">5</span><span class="card-title">Rental Market Trends</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Asking Rent &amp; Occupancy by Market, 2011&ndash;Present</div>
+          </a>
         </div>
       </div>
 
@@ -140,6 +152,10 @@
             <div class="card-title-row"><span class="card-num">9</span><span class="card-title">Address Geocoder</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Batch Lat/Lng Lookup</div>
           </a>
+          <a href="/dashboards/token-gen/" data-token-link id="tokenGenCard" class="dashboard-card-link" style="display:none;">
+            <div class="card-title-row"><span class="card-num">10</span><span class="card-title">Token Generator</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Direct Client Access Link</div>
+          </a>
         </div>
       </div>
 
@@ -165,6 +181,9 @@
     document.getElementById('gate-approved').style.display = 'block';
     if (__r.isTeam) {
       document.getElementById('team-section').style.display = 'block';
+      if (__r.email.toLowerCase() === 'bill.morkes@colliers.com') {
+        document.getElementById('tokenGenCard').style.display = '';
+      }
     }
   } else if (__r.reason === 'expired') {
     document.getElementById('gate-expired').style.display = 'block';
