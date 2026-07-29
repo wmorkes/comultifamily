@@ -55,7 +55,7 @@ button:hover { background: #16294a; }
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
+  <a id="hubBackLink" href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Dashboard Token Generator</h1>
@@ -157,6 +157,14 @@ function copyLink() {
     btn.classList.add('copied');
   });
 }
+
+(function() {
+  var token = new URLSearchParams(location.search).get('token');
+  if (token) {
+    var el = document.getElementById('hubBackLink');
+    if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
+  }
+})();
 </script>
 </body>
 </html>
