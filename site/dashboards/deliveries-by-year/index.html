@@ -83,20 +83,17 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
-  var __clientLabel, __clientName;
+  var __clientLabel;
   if (__r.valid) {
     __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
     gtag('set', {'client_token': __clientLabel});
-    __clientName = getNameFromURL().full;
-    if (__clientName) gtag('set', {'client_name': __clientName});
+    gtag('set', 'user_properties', {'client_token': __clientLabel});
   }
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
   } else {
-    var __accessParams = {'client_token': __clientLabel};
-    if (__clientName) __accessParams.client_name = __clientName;
-    gtag('event', 'dashboard_access', __accessParams);
+    gtag('event', 'dashboard_access', {'client_token': __clientLabel});
     rememberClientToken(__clientLabel);
     document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
   }
