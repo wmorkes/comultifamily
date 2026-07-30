@@ -50,10 +50,10 @@ svg#chart{display:block;width:100%;flex:1 1 auto;min-height:420px}
 .tooltip{position:fixed;background:rgba(0,0,0,.85);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
 .divider{border:none;border-top:2px solid #dde;margin:0}
 .section-title{font-size:12px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-#tableWrap{overflow-x:auto;background:#fff;border:1px solid #dde;border-radius:6px;scrollbar-width:thin}
-#tableWrap::-webkit-scrollbar{height:10px}
-#tableWrap::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:5px}
-#tableWrap::-webkit-scrollbar-track{background:#e8edf2}
+#tableWrap,#occTableWrap{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px;scrollbar-width:thin}
+#tableWrap::-webkit-scrollbar,#occTableWrap::-webkit-scrollbar{height:10px}
+#tableWrap::-webkit-scrollbar-thumb,#occTableWrap::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:5px}
+#tableWrap::-webkit-scrollbar-track,#occTableWrap::-webkit-scrollbar-track{background:#e8edf2}
 table{width:100%;min-width:1000px;border-collapse:collapse;font-size:13px}
 th{background:#e8edf2;padding:7px 10px;text-align:right;white-space:nowrap}
 th:first-child,td:first-child{text-align:left}
@@ -102,13 +102,6 @@ tr:hover td{background:#f0f5fa}
 
 <div class="toolbar">
   <div class="filter-group">
-    <label>Metric</label>
-    <select id="fMetric" onchange="onMetricOrGroupChange()">
-      <option value="rent">Asking Rent ($/unit)</option>
-      <option value="occupancy">Occupancy Rate (%)</option>
-    </select>
-  </div>
-  <div class="filter-group">
     <label>View By</label>
     <select id="fGroup" onchange="onGroupChange()">
       <option value="market">Market</option>
@@ -149,7 +142,7 @@ tr:hover td{background:#f0f5fa}
 <hr class="divider">
 
 <div class="section">
-  <div class="section-title" id="tableTitle">Year-over-Year Change</div>
+  <div class="section-title" id="tableTitle">Year over Year Change in Asking Rent</div>
   <div id="tableWrap">
     <table id="annualTable">
       <thead><tr id="tableHead"></tr></thead>
@@ -157,6 +150,19 @@ tr:hover td{background:#f0f5fa}
     </table>
   </div>
   <div class="note" id="tableNote">% change vs. the prior calendar year's average. Hover a cell for that year's actual value; hover a point on the chart above for the exact month.</div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-title">Occupancy by Year</div>
+  <div id="occTableWrap">
+    <table id="occTable">
+      <thead><tr id="occTableHead"></tr></thead>
+      <tbody id="occTableBody"></tbody>
+    </table>
+  </div>
+  <div class="note">Average occupancy rate by calendar year (current year partial through latest survey month).</div>
 </div>
 
 <div class="footnote">Colorado Mountains and Pueblo rent series begin Oct 2025 in this export (limited history available). Occupancy data is not yet available for Colorado Mountains or Pueblo. All other series run monthly from Jan/Mar 2011 to the current survey month.</div>
@@ -204,7 +210,7 @@ function allMonthKeys(metric) {
 }
 
 function initYearSelects() {
-  const metric = document.getElementById('fMetric').value;
+  const metric = 'rent';
   const keys = allMonthKeys(metric);
   const years = [...new Set(keys.map(k => parseInt(k.slice(0,4))))].sort((a,b)=>a-b);
   const fFrom = document.getElementById('fFrom'), fTo = document.getElementById('fTo');
@@ -217,7 +223,7 @@ function initYearSelects() {
 
 function populateMarketSelect() {
   const group = document.getElementById('fGroup').value;
-  const metric = document.getElementById('fMetric').value;
+  const metric = 'rent';
   const fMarket = document.getElementById('fMarket');
   const cur = fMarket.value;
   const markets = marketsPresent(metric);
@@ -228,7 +234,7 @@ function populateMarketSelect() {
 }
 
 function populateCitySelect() {
-  const metric = document.getElementById('fMetric').value;
+  const metric = 'rent';
   const market = document.getElementById('fMarket').value;
   const fCity = document.getElementById('fCity');
   const cur = fCity.value;
@@ -248,12 +254,6 @@ function onMarketChange() {
   if (document.getElementById('fGroup').value === 'city') populateCitySelect();
   render();
 }
-function onMetricOrGroupChange() {
-  populateMarketSelect();
-  if (document.getElementById('fGroup').value === 'city') populateCitySelect();
-  render();
-}
-
 function fmtVal(metric, v) {
   if (v == null) return '—';
   return metric === 'occupancy' ? (v*100).toFixed(1)+'%' : '$'+Math.round(v).toLocaleString();
@@ -266,7 +266,7 @@ function fmtDateKey(k) {
 }
 
 function render() {
-  const metric = document.getElementById('fMetric').value;
+  const metric = 'rent';
   initYearSelects();
   const fromYear = parseInt(document.getElementById('fFrom').value);
   const toYear = parseInt(document.getElementById('fTo').value);
@@ -277,13 +277,15 @@ function render() {
   });
 
   const items = activeSeries(metric);
+  const occItems = activeSeries('occupancy');
 
   // Sidebar/table render first: the chart's height is flex-stretched to match the
   // sidebar, so the chart must measure its box *after* the sidebar's row count (and
   // therefore height) is finalized for this selection — otherwise it sizes itself
   // off the previous selection's layout for one render.
-  renderSidebar(items, metric);
-  renderTable(metric, items, fromYear, toYear);
+  renderSidebar(items);
+  renderTable(items, fromYear, toYear);
+  renderOccupancyTable(occItems, fromYear, toYear);
   renderChart(metric, allKeys, items);
 }
 
@@ -298,6 +300,10 @@ function monthsBack(key, n) {
 function pctChange(cur, base) {
   if (cur == null || base == null || base === 0) return null;
   return (cur-base)/base*100;
+}
+function cagr(cur, base, years) {
+  if (cur == null || base == null || base <= 0 || !years) return null;
+  return (Math.pow(cur/base, 1/years) - 1) * 100;
 }
 function ptChange(cur, base) {
   if (cur == null || base == null) return null;
@@ -328,13 +334,16 @@ function periodStats(metric, series) {
   };
 
   const diffFn = metric === 'occupancy' ? ptChange : pctChange;
+  const yearFn = metric === 'rent'
+    ? (base, years) => cagr(lastVal, base, years)
+    : (base) => diffFn(lastVal, base);
   return {
     lastKey, lastVal,
     all: diffFn(lastVal, periods.all),
-    y10: keys[0] <= monthsBack(lastKey,120) ? diffFn(lastVal, periods.y10) : null,
-    y5:  keys[0] <= monthsBack(lastKey,60)  ? diffFn(lastVal, periods.y5)  : null,
-    y3:  keys[0] <= monthsBack(lastKey,36)  ? diffFn(lastVal, periods.y3)  : null,
-    y1:  keys[0] <= monthsBack(lastKey,12)  ? diffFn(lastVal, periods.y1)  : null,
+    y10: keys[0] <= monthsBack(lastKey,120) ? yearFn(periods.y10, 10) : null,
+    y5:  keys[0] <= monthsBack(lastKey,60)  ? yearFn(periods.y5, 5)   : null,
+    y3:  keys[0] <= monthsBack(lastKey,36)  ? yearFn(periods.y3, 3)   : null,
+    y1:  keys[0] <= monthsBack(lastKey,12)  ? yearFn(periods.y1, 1)   : null,
     ytd: diffFn(lastVal, periods.ytd),
   };
 }
@@ -359,7 +368,7 @@ function yearAvg(series, year) {
   return vals.reduce((a,b)=>a+b,0) / vals.length;
 }
 
-function renderSidebar(items, metric) {
+function renderSidebar(items) {
   const el = document.getElementById('chartSummary');
   if (!items.length) {
     el.innerHTML = '<div class="stat-title">Summary</div><div class="stat-empty">Select at least one market or city</div>';
@@ -369,12 +378,9 @@ function renderSidebar(items, metric) {
   const pool = group === 'market' ? 'market' : 'city';
 
   const rentKeysAll = Object.values(DATA.rent[pool]).flatMap(s => Object.keys(s));
-  const occKeysAll = Object.values(DATA.occupancy[pool]).flatMap(s => Object.keys(s));
   const rentLastKey = rentKeysAll.length ? rentKeysAll.sort().slice(-1)[0] : null;
-  const occLastKey = occKeysAll.length ? occKeysAll.sort().slice(-1)[0] : null;
-  const thisYear = occLastKey ? parseInt(occLastKey.slice(0,4)) : new Date().getFullYear();
 
-  let h = `<div class="stat-title">Change in Asking Rent${rentLastKey ? ' (as of ' + fmtDateKey(rentLastKey) + ')' : ''}</div>`;
+  let h = `<div class="stat-title">Avg. Change per Year in Asking Rent${rentLastKey ? ' (as of ' + fmtDateKey(rentLastKey) + ')' : ''}</div>`;
   h += '<div class="stat-header-row"><div>Name</div><div>10yr</div><div>5yr</div><div>3yr</div><div>1yr</div></div>';
   items.forEach(({name}) => {
     const series = DATA.rent[pool][name];
@@ -391,30 +397,7 @@ function renderSidebar(items, metric) {
     h += `</div>`;
   });
 
-  // Skip when viewing Occupancy — the annual table below already breaks out
-  // occupancy by calendar year, so this panel would just duplicate it.
-  if (metric !== 'occupancy') {
-    h += `<div class="stat-title" style="margin-top:10px">Avg Occupancy by Year</div>`;
-    h += `<div class="stat-header-row"><div>Name</div><div>2019</div><div>2021</div><div>${thisYear-1}</div><div>${thisYear}</div></div>`;
-    items.forEach(({name}) => {
-      const series = DATA.occupancy[pool][name];
-      if (!series) return;
-      const a19 = yearAvg(series, 2019);
-      const a21 = yearAvg(series, 2021);
-      const a1  = yearAvg(series, thisYear-1);
-      const a0  = yearAvg(series, thisYear);
-      if (a19 == null && a21 == null && a1 == null && a0 == null) return;
-      h += `<div class="stat-row">`;
-      h += `<div class="market-name" title="${name}">${name}</div>`;
-      h += `<div class="stat-val">${fmtOccCell(a19)}</div>`;
-      h += `<div class="stat-val">${fmtOccCell(a21)}</div>`;
-      h += `<div class="stat-val">${fmtOccCell(a1)}</div>`;
-      h += `<div class="stat-val">${fmtOccCell(a0)}</div>`;
-      h += `</div>`;
-    });
-  }
-
-  h += '<div class="stat-footnote">Rent: % change vs. each trailing period. Occupancy: average rate by calendar year (current year partial through latest survey month).</div>';
+  h += '<div class="stat-footnote">% change vs. each trailing period.</div>';
   el.innerHTML = h;
 }
 
@@ -509,7 +492,7 @@ function renderChart(metric, keys, items) {
     metric === 'rent' ? 'Monthly average asking rent per unit.' : 'Monthly average occupancy rate.';
 }
 
-function renderTable(metric, items, fromYear, toYear) {
+function renderTable(items, fromYear, toYear) {
   const years = [];
   for (let y=fromYear; y<=toYear; y++) years.push(y);
 
@@ -517,31 +500,29 @@ function renderTable(metric, items, fromYear, toYear) {
   head.innerHTML = '<th>Name</th>' + years.map(y=>`<th>${y}</th>`).join('');
 
   const body = document.getElementById('tableBody');
-  const titleEl = document.getElementById('tableTitle');
-  const noteEl = document.getElementById('tableNote');
-
-  if (metric === 'occupancy') {
-    titleEl.textContent = 'Occupancy by Year';
-    noteEl.textContent = 'Average occupancy rate by calendar year (current year partial through latest survey month).';
-    body.innerHTML = items.map(({name, series}) => {
-      const vals = years.map(y => yearAvg(series, y));
-      if (vals.every(v => v == null)) return '';
-      const cells = vals.map(v => `<td>${fmtOccCell(v)}</td>`).join('');
-      return `<tr><td style="font-weight:700">${name}</td>${cells}</tr>`;
-    }).join('');
-    return;
-  }
-
-  titleEl.textContent = 'Year-over-Year Change';
-  noteEl.textContent = "% change vs. the prior calendar year's average. Hover a cell for that year's actual value; hover a point on the chart above for the exact month.";
-  const diffFn = pctChange;
   body.innerHTML = items.map(({name, series}) => {
-    const changes = years.map(y => diffFn(yearAvg(series, y), yearAvg(series, y - 1)));
+    const changes = years.map(y => pctChange(yearAvg(series, y), yearAvg(series, y - 1)));
     if (changes.every(c => c == null)) return '';
     const cells = years.map((y, i) => {
       const cur = yearAvg(series, y);
-      return `<td title="${fmtVal(metric, cur)}">${fmtChange(metric, changes[i])}</td>`;
+      return `<td title="${fmtVal('rent', cur)}">${fmtChange('rent', changes[i])}</td>`;
     }).join('');
+    return `<tr><td style="font-weight:700">${name}</td>${cells}</tr>`;
+  }).join('');
+}
+
+function renderOccupancyTable(items, fromYear, toYear) {
+  const years = [];
+  for (let y=fromYear; y<=toYear; y++) years.push(y);
+
+  const head = document.getElementById('occTableHead');
+  head.innerHTML = '<th>Name</th>' + years.map(y=>`<th>${y}</th>`).join('');
+
+  const body = document.getElementById('occTableBody');
+  body.innerHTML = items.map(({name, series}) => {
+    const vals = years.map(y => yearAvg(series, y));
+    if (vals.every(v => v == null)) return '';
+    const cells = vals.map(v => `<td>${fmtOccCell(v)}</td>`).join('');
     return `<tr><td style="font-weight:700">${name}</td>${cells}</tr>`;
   }).join('');
 }
