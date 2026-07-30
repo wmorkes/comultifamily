@@ -10,7 +10,7 @@ export default async (req, context) => {
 
   const ua = req.headers.get('user-agent') || '';
   if (BOT_UA.test(ua)) {
-    return new Response('', { status: 204 });
+    return new Response(null, { status: 204 });
   }
 
   let payload;
@@ -44,5 +44,5 @@ export default async (req, context) => {
   const key = `events/${day}/${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`;
   await store.setJSON(key, record);
 
-  return new Response('', { status: 204 });
+  return new Response(null, { status: 204 });
 };
