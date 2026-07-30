@@ -207,7 +207,7 @@ function buildListingCard(r) {
 
   return `
     <div class="property-card reveal" data-type="${filter}">
-      <a href="${url}" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;">
+      <a href="${url}" target="_blank" rel="noopener" class="listing-card-link" data-listing-property="${name}" data-listing-city="${city}${state ? ', ' + state : ''}" data-listing-type="${filterBase}" style="display:block;text-decoration:none;color:inherit;">
         <div class="prop-image">
           ${imgSrc
             ? `<img src="${imgSrc}" alt="${name}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -249,6 +249,19 @@ function renderListings(cards) {
   const activeBtn = document.querySelector('.filter-btn.active');
   if (activeBtn) filterProps(activeBtn, activeBtn.getAttribute('data-filter') || 'all');
 }
+
+// Track listing card clicks in GA4 (delegated — cards are re-rendered on filter/reload)
+document.getElementById('propertyGrid').addEventListener('click', function (e) {
+  const link = e.target.closest('.listing-card-link');
+  if (!link) return;
+  const detail = {
+    listing_property: link.getAttribute('data-listing-property') || '',
+    listing_city: link.getAttribute('data-listing-city') || '',
+    listing_type: link.getAttribute('data-listing-type') || ''
+  };
+  if (typeof window.coTrack === 'function') window.coTrack('listing_view', detail);
+  if (typeof gtag === 'function') gtag('event', 'listing_view', detail); // parallel-run window, remove once validated
+});
 
 // Show loading state
 document.getElementById('propertyGrid').innerHTML =

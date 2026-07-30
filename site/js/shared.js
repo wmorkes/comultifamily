@@ -18,6 +18,15 @@
   }
 })();
 
+/* ─── FIRST-PARTY TRACKING (replaces GA4, runs in parallel during validation) ─
+   Loads track.js sitewide, same pattern as the font/nav injection below. */
+(function() {
+  if (document.querySelector('script[src="/js/track.js"]')) return;
+  const s = document.createElement('script');
+  s.src = '/js/track.js';
+  document.head.appendChild(s);
+})();
+
 /* ─── FONT PRELOAD (non-blocking, skipped if already in <head>) ─ */
 (function() {
   const FONT_URL = 'https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap';
