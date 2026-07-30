@@ -1,27 +1,27 @@
-const { getStore } = require('@netlify/blobs');
+import { getStore } from '@netlify/blobs';
 
 // Cheap bot/UA filter — not exhaustive, just cuts obvious crawler noise.
 const BOT_UA = /bot|crawl|spider|slurp|facebookexternalhit|preview|headlesschrome|lighthouse|pingdom|monitor/i;
 
-exports.handler = async (event, context) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+export default async (req, context) => {
+  if (req.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405 });
   }
 
-  const ua = event.headers['user-agent'] || '';
+  const ua = req.headers.get('user-agent') || '';
   if (BOT_UA.test(ua)) {
-    return { statusCode: 204, body: '' };
+    return new Response('', { status: 204 });
   }
 
   let payload;
   try {
-    payload = JSON.parse(event.body || '{}');
+    payload = await req.json();
   } catch (e) {
-    return { statusCode: 400, body: 'Bad payload' };
+    return new Response('Bad payload', { status: 400 });
   }
 
   if (!payload.event || !payload.page) {
-    return { statusCode: 400, body: 'Missing event/page' };
+    return new Response('Missing event/page', { status: 400 });
   }
 
   const now = new Date();
@@ -44,5 +44,5 @@ exports.handler = async (event, context) => {
   const key = `events/${day}/${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`;
   await store.setJSON(key, record);
 
-  return { statusCode: 204, body: '' };
+  return new Response('', { status: 204 });
 };
