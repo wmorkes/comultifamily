@@ -5,3 +5,8 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+
+# Function dependencies (auto-installed at build time by the
+# @netlify/plugin-functions-install-core plugin, no need to commit)
+netlify/functions/node_modules/
+netlify/functions/package-lock.json
