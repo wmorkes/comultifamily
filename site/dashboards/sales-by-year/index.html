@@ -121,8 +121,8 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 
 <div class="toolbar">
   <div class="filter-group">
-    <label>Region</label>
-    <select id="fRegion" onchange="applyFilters()"><option value="">All Regions</option>
+    <label>Market</label>
+    <select id="fRegion" onchange="applyFilters()"><option value="">All Markets</option>
 <option value="Fort Collins">Fort Collins</option>
 <option value="Greeley">Greeley</option>
 <option value="Boulder">Boulder</option>
@@ -381,9 +381,9 @@ function renderYTDCompare() {
   const ytd = sumThroughMonth(CURRENT_YEAR, CURRENT_MONTH);
   const monthName = NOW.toLocaleString('en-US', {month:'long'});
   const compareYears = [
-    {label:'vs Last Year', year: CURRENT_YEAR-1},
-    {label:'vs 2021', year: 2021},
     {label:'vs 2019', year: 2019},
+    {label:'vs 2021', year: 2021},
+    {label:'vs '+(CURRENT_YEAR-1), year: CURRENT_YEAR-1},
   ].filter(cy => cy.year < CURRENT_YEAR);
 
   document.getElementById('ytdCompareTitle').textContent = `${CURRENT_YEAR} YTD Comparison (thru ${monthName})`;

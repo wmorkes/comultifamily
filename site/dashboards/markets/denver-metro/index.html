@@ -15,11 +15,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>M</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:hidden;width:100%}
 body{font-family:system-ui,sans-serif;font-size:13px;background:#f4f6f9;color:#222}
-.page{max-width:1400px;margin:0 auto;overflow-x:hidden}
+.page{overflow-x:hidden}
 .co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:5px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .co-wordmark{font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
 .co-hub-link{font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;flex-shrink:0}
@@ -36,16 +39,26 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 nav.section-nav{display:flex;gap:0;background:#fff;border-bottom:1px solid #dde;padding:0 16px;overflow-x:auto}
 nav.section-nav a{padding:10px 14px;font-size:12px;font-weight:600;color:#555;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
 nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
-.section{padding:18px 16px}
-/* Distinct tint per section (drawn from the canonical category palette) so
-   it's visually obvious when you've scrolled from one section to the next. */
-#overview{background:#fff}
-#operating{background:#fdf6e6}
-#sales{background:#eaf6f3}
-#construction{background:#eaf1f8}
-#onmarket{background:#f6eef9}
-.section-title{font-size:14px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e8edf2}
-.section-title .gold{color:#c9a84c}
+.section{padding:18px 0}
+.section-inner{max-width:1400px;margin:0 auto;padding:0 16px}
+/* Alternating grey/white section backgrounds, full-bleed edge to edge, matching
+   comultifamily.com's .section--light / .section--white pattern
+   (css/style.css --bg / --bg-card) — the max-width constraint lives on
+   .section-inner instead, so the color spans the whole viewport width. */
+#overview{background:#f2f3f5}
+#construction{background:#ffffff}
+#operating{background:#f2f3f5}
+#sales{background:#ffffff}
+#onmarket{background:#f2f3f5}
+/* Section headers mimic comultifamily.com's .section-tag / .section-h2 pattern
+   (Inter label + Raleway light heading) instead of the dashboard's old single-line title. */
+.section-title{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #e0e2e8}
+.section-tag{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:#58637a;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.section-tag::before{content:'';width:24px;height:1px;background:#58637a;flex-shrink:0}
+.section-h2{font-family:'Raleway',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:300;
+  color:#0c1a2e;line-height:1.15}
+.section-h2 .gold{color:#c9a84c;font-weight:500}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:8px 10px;background:#fff;border:1px solid #dde;border-radius:6px;align-items:flex-end;margin-bottom:12px}
 .filter-group{display:flex;flex-direction:column;gap:3px}
 .filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
@@ -53,24 +66,55 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
 .btn{padding:5px 14px;border:none;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600}
 .btn-primary{background:#0c1a2e;color:#fff}.btn-primary:hover{background:#142338}
 .btn-secondary{background:#e8edf2;color:#333}.btn-secondary:hover{background:#d5dde6}
-.toggle-table-btn{margin-top:10px}
 .stat-grid{display:flex;flex-wrap:wrap;gap:12px}
-.stat-tile{flex:1;min-width:150px;background:#fff;border:1px solid #dde;border-radius:6px;padding:14px 16px}
+.stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
+  border-radius:6px;padding:14px 16px}
 .stat-tile b{font-size:24px;display:block;color:#0c1a2e;line-height:1.2}
 .stat-tile span{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.3px}
-.coming-soon{background:#fff;border:1px dashed #c9a84c;border-radius:6px;padding:24px;text-align:center;color:#888}
-.coming-soon b{color:#c9a84c;display:block;font-size:13px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
-#tableWrap{overflow-x:auto;background:#fff;border:1px solid #dde;border-radius:6px}
+.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:12px;color:#555}
+.stat-tile .stat-secondary b{font-size:14px;color:#0c1a2e}
 table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
-th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0;z-index:1}
-th:hover{background:#d5dde6}
-th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
-.col-left{text-align:left} .col-center{text-align:center} .col-right{text-align:right}
+th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1}
 td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
 tr:hover td{background:#f0f5fa}
 #salesChartWrap,#deliveryChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0;margin-bottom:12px}
+#deliveryStatsPanel{width:340px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.stat-title{font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;padding-bottom:6px;border-bottom:1px solid #dde}
+.divider{border:none;border-top:2px solid #dde;margin:0}
+#operatingChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:7px;overflow-x:auto;min-width:0}
+#operatingStatsPanel{width:340px;flex-shrink:0;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
+.stat-header-row{display:grid;grid-template-columns:36% 16% 16% 16% 16%;border-bottom:1px solid #dde;padding-bottom:2px;margin-bottom:0}
+.stat-header-row div{font-size:10px;color:#888;text-align:right}
+.stat-header-row div:first-child{text-align:left}
+.stat-row-op{display:grid;grid-template-columns:36% 16% 16% 16% 16%;padding:4px 0;border-bottom:1px solid #f4f4f4;align-items:center}
+.stat-row-op .market-name{font-weight:700;font-size:14px;overflow:visible;white-space:nowrap}
+.stat-row-op .stat-val{text-align:right;font-size:14px}
+.stat-footnote{font-size:10px;color:#888;margin-top:8px;padding-top:6px;border-top:1px solid #f0f0f0;line-height:1.4}
+#operatingYoyWrap{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px;margin-bottom:8px}
+#salesStatsPanel{width:340px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
+#ytdCompareWrap{margin-top:12px}
+.stat-row b{font-size:20px;display:block;color:#0c1a2e;line-height:1.2}
+.stat-row span{font-size:14px;color:#666}
+.compare-table{width:100%;min-width:0;border-collapse:collapse;font-size:14px;margin-top:8px}
+.compare-table th{position:static;background:none;padding:2px 4px;text-align:right;font-weight:600;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.2px;cursor:default}
+.compare-table th:first-child,.compare-table td:first-child{text-align:left}
+.compare-table td{padding:3px 4px;border-bottom:1px solid #f4f4f4;text-align:right;white-space:nowrap}
+.compare-table tr:last-child td{border-bottom:none}
+.pos{color:#1a7a3c;font-weight:700}
+.neg{color:#c0392b;font-weight:700}
+.vintage-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:14px;margin-top:4px}
+.vintage-table th{background:none;position:static;padding:0 0 4px;font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.2px;cursor:default;border-bottom:1px solid #dde;white-space:normal;line-height:1.2}
+.vintage-table td{padding:4px 0;border-bottom:1px solid #f0f0f0;color:#333;white-space:normal;line-height:1.25}
+.vintage-table td:first-child{color:#0c1a2e;font-weight:600}
+.vintage-table th:not(:first-child),.vintage-table td:not(:first-child){text-align:right}
+.vintage-pct-hi{color:#c9a84c;font-weight:700}
+.vintage-pct-mid{color:#0c1a2e}
+.vintage-pct-lo{color:#999}
+.vintage-row-uc td{background:#0c1a2e;color:#fff}
+.vintage-row-uc td:first-child{color:#fff;white-space:nowrap}
+.vintage-row-uc td.vintage-pct-hi,.vintage-row-uc td.vintage-pct-mid,.vintage-row-uc td.vintage-pct-lo{color:#fff}
 svg.chart{display:block;width:100%;height:auto}
-.chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:8px 0 0;font-size:11px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:18px 0 0;font-size:11px}
 .legend-item{display:flex;align-items:center;gap:5px}
 .legend-swatch{width:12px;height:12px;border-radius:2px}
 .tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
@@ -80,15 +124,30 @@ svg.chart{display:block;width:100%;height:auto}
 .om-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 .leaflet-tooltip.om-tip{font-size:12px;padding:4px 8px;line-height:1.4}
 </style>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
+  var __clientLabel;
+  if (__r.valid) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+    gtag('set', 'user_properties', {'client_token': __clientLabel});
+  }
   gtag("config", "G-53BCG1FL5M");
+  if (!__r.valid) {
+    window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else {
+    gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+    rememberClientToken(__clientLabel);
+    document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
+  }
 </script>
-<script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 </head>
 <body>
 <div class="co-topbar">
@@ -98,7 +157,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Denver Metro Multifamily Market Report</h1>
-    <p>Sales history, construction pipeline, and on-market listings &middot; Generated 07/28/2026</p>
+    <p>Sales history, construction pipeline, and on-market listings &middot; Generated 07/30/2026</p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -108,28 +167,65 @@ svg.chart{display:block;width:100%;height:auto}
 </header>
 <nav class="section-nav">
   <a href="#overview">Overview</a>
+  <a href="#construction">Construction</a>
   <a href="#operating">Operating Metrics</a>
   <a href="#sales">Sales History</a>
-  <a href="#construction">Construction</a>
   <a href="#onmarket">On-Market</a>
 </nav>
 <div class="page">
 
-<div class="section" id="overview">
-  <div class="section-title">Market Overview</div>
+<div class="section" id="overview"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">At a Glance</div><h2 class="section-h2">Market Highlights</h2></div>
   <div class="stat-grid" id="overviewStats"></div>
-</div>
+</div></div>
 
-<div class="section" id="operating">
-  <div class="section-title">Operating Metrics <span class="gold">&mdash; Vacancy &amp; Rent</span></div>
-  <div class="coming-soon">
-    <b>Coming Soon</b>
-    Vacancy and rent data for Denver Metro is not yet available in this dashboard.
+<div class="section" id="construction"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Supply Pipeline</div><h2 class="section-h2">Construction &amp; Deliveries</h2></div>
+  <div style="display:flex;gap:14px;align-items:stretch">
+    <div id="deliveryChartWrap" style="flex:1;min-width:0">
+      <svg class="chart" id="deliveryChart" width="900" height="380"></svg>
+      <div class="chart-legend" id="deliveryChartLegend"></div>
+    </div>
+    <div id="deliveryStatsPanel">
+      <div id="deliveryStatsSummary"></div>
+      <div style="margin-top:12px">
+        <div class="stat-title">Inventory by Vintage</div>
+        <table class="vintage-table">
+          <colgroup>
+            <col style="width:46%"><col style="width:18%"><col style="width:20%"><col style="width:16%">
+          </colgroup>
+          <thead><tr><th>Vintage</th><th>Props</th><th>Units</th><th>% Tot.</th></tr></thead>
+          <tbody id="deliveryVintageBody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
+</div></div>
 
-<div class="section" id="sales">
-  <div class="section-title">Sales History <span class="gold">&mdash; 2011&ndash;Present</span></div>
+<div class="section" id="operating"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Fundamentals</div><h2 class="section-h2">Operating Metrics <span class="gold">&mdash; Vacancy &amp; Rent</span></h2></div>
+  <div id="operatingEmpty" style="display:none;padding:16px;color:#888">Rent and occupancy data for Denver Metro is not yet available.</div>
+  <div id="operatingBody">
+    <div style="display:flex;gap:14px;align-items:stretch">
+      <div id="operatingChartWrap" style="flex:1;min-width:0">
+        <svg id="operatingChart" width="900" height="380"></svg>
+        <div class="chart-legend" id="operatingChartLegend"></div>
+        <div class="note" id="operatingChartNote" style="font-size:11px;color:#888;margin-top:6px"></div>
+      </div>
+      <div id="operatingStatsPanel"><div id="operatingSidebar"></div></div>
+    </div>
+    <hr class="divider" style="margin:14px 0">
+    <div class="section-title" style="margin-bottom:8px">Rent Change &amp; Occupancy by Year</div>
+    <div id="operatingYoyWrap"><table id="operatingYoyTable">
+      <thead><tr id="operatingYoyHead"></tr></thead>
+      <tbody id="operatingYoyBody"></tbody>
+    </table></div>
+    <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Yardi Matrix, via the Rental Trends dashboard.</div>
+  </div>
+</div></div>
+
+<div class="section" id="sales"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Transaction Activity</div><h2 class="section-h2">Sales History <span class="gold">&mdash; 2011&ndash;Present</span></h2></div>
   <div class="toolbar">
     <div class="filter-group">
       <label>Vintage</label>
@@ -143,42 +239,39 @@ svg.chart{display:block;width:100%;height:auto}
         <option value="1970s & Older">1970s &amp; Older</option>
       </select>
     </div>
-    <div class="filter-group">
-      <label>Year</label>
-      <select id="fYear" onchange="applySalesFilters()"><option value="">All Years</option></select>
-    </div>
     <div style="display:flex;gap:6px;padding-bottom:1px">
       <button class="btn btn-primary" onclick="applySalesFilters()">Apply</button>
       <button class="btn btn-secondary" onclick="clearSalesFilters()">Clear</button>
     </div>
   </div>
-  <div id="salesChartWrap">
-    <svg class="chart" id="salesChart" width="900" height="360"></svg>
-    <div class="chart-legend" id="salesChartLegend"></div>
+  <div style="display:flex;gap:14px;align-items:stretch">
+    <div id="salesChartWrap" style="flex:1;min-width:0">
+      <svg class="chart" id="salesChart" width="900" height="460"></svg>
+      <div class="chart-legend" id="salesChartLegend"></div>
+    </div>
+    <div id="salesStatsPanel">
+      <div id="salesStatsSummary"></div>
+      <div id="ytdCompareWrap">
+        <div class="stat-title" id="ytdCompareTitle">YTD Comparison</div>
+        <div id="ytdCompare"></div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="stat-title" id="salesVintageTitle">YTD by Vintage</div>
+        <table class="vintage-table">
+          <colgroup>
+            <col style="width:36%"><col style="width:22%"><col style="width:20%"><col style="width:22%">
+          </colgroup>
+          <thead><tr><th>Vintage</th><th>$/Unit</th><th>$/SF</th><th id="salesVintageChgHead">vs LY</th></tr></thead>
+          <tbody id="salesVintageBody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div id="salesTableWrap"><table id="salesTable">
-    <thead><tr id="salesTableHead"></tr></thead>
-    <tbody id="salesTableBody"></tbody>
-  </table></div>
   <div id="salesEmpty" style="display:none;padding:16px;color:#888">No recorded sales for Denver Metro since 2011.</div>
-</div>
+</div></div>
 
-<div class="section" id="construction">
-  <div class="section-title">Construction &amp; Deliveries</div>
-  <div id="deliveryPreCutoff" style="font-size:11px;color:#888;margin-bottom:8px"></div>
-  <div id="deliveryChartWrap">
-    <svg class="chart" id="deliveryChart" width="900" height="300"></svg>
-    <div class="chart-legend" id="deliveryChartLegend"></div>
-  </div>
-  <button class="btn btn-secondary toggle-table-btn" id="deliveryTableToggle" onclick="toggleDeliveryTable()">Show Year-by-Year Table &#9662;</button>
-  <div id="deliveryTableWrap" style="display:none;margin-top:10px"><table id="deliveryTable">
-    <thead><tr id="deliveryTableHead"></tr></thead>
-    <tbody id="deliveryTableBody"></tbody>
-  </table></div>
-</div>
-
-<div class="section" id="onmarket">
-  <div class="section-title">Currently On-Market</div>
+<div class="section" id="onmarket"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Live Listings</div><h2 class="section-h2">Currently On-Market</h2></div>
   <div class="toolbar">
     <div class="filter-group">
       <label>Type</label>
@@ -201,7 +294,7 @@ svg.chart{display:block;width:100%;height:auto}
   </div>
   <div id="onMarketMap"></div>
   <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active listings for Denver Metro right now.</div>
-</div>
+</div></div>
 
 <div class="tooltip" id="tooltip"></div>
 </div><!-- /.page -->
@@ -209,6 +302,9 @@ svg.chart{display:block;width:100%;height:auto}
 <script>
 let D = null;
 const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1970s & Older','Unknown'];
+const NOW = new Date();
+const JS_CURRENT_YEAR = NOW.getFullYear();
+const JS_CURRENT_MONTH = NOW.getMonth() + 1;
 
 function dollar(v) { return '$'+Math.round(v).toLocaleString(); }
 function shortDollar(v) {
@@ -216,192 +312,594 @@ function shortDollar(v) {
   if(Math.abs(v) >= 1e6) return '$'+(v/1e6).toFixed(1)+'M';
   return dollar(v);
 }
+function fmtPct(v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const r = Math.round(v);
+  const cls = r<0 ? 'neg' : (r>10 ? 'pos' : '');
+  const span = cls ? '<span class="'+cls+'">' : '<span>';
+  return span+(r>=0?'+':'')+r+'%</span>';
+}
 
 function renderOverview() {
   const o = D.overview;
+  const rent = D.rent || {}, occ = D.occupancy || {};
+  const rentKeys = Object.keys(rent).sort(), occKeys = Object.keys(occ).sort();
+  const lastRent = rentKeys.length ? rent[rentKeys[rentKeys.length-1]] : null;
+  const lastOcc = occKeys.length ? occ[occKeys[occKeys.length-1]] : null;
+
+  const ucPct = o.totalUnits ? (o.underConstructionUnits / o.totalUnits * 100) : 0;
+
+  // YTD sales volume vs the same trailing-month cutoff last year — same math
+  // as the sidebar's YTD Comparison, computed here directly off D.sales.
+  function ytdVolume(year) {
+    return (D.sales || []).filter(r => r.year===year && r.month<=JS_CURRENT_MONTH).reduce((a,r)=>a+r.volume,0);
+  }
+  const ytdVol = ytdVolume(JS_CURRENT_YEAR);
+  const ytdVolLY = ytdVolume(JS_CURRENT_YEAR-1);
+  const ytdChg = pctChange(ytdVol, ytdVolLY);
+
   const tiles = [
-    {v: o.totalUnits.toLocaleString(), l: 'Total Units (10+ unit properties)'},
-    {v: o.totalProperties.toLocaleString(), l: 'Total Properties'},
-    {v: shortDollar(o.ttmVolume), l: 'Sales Volume (TTM)'},
-    {v: o.ttmDeals.toLocaleString(), l: 'Sales (TTM)'},
-    {v: o.onMarketCount.toLocaleString(), l: 'Currently On-Market'},
-    {v: o.underConstructionUnits.toLocaleString(), l: 'Units Under Construction'},
+    {v: o.totalUnits.toLocaleString(), l: 'Total Units',
+      sec: `${o.underConstructionUnits.toLocaleString()} Units Under Construction <b>(${ucPct.toFixed(1)}% of Total)</b>`},
+    {v: lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—', l: 'Avg Asking Rent',
+      sec: lastOcc!=null ? `<b>${(lastOcc*100).toFixed(1)}%</b> Avg Occupancy` : 'Occupancy — not available'},
+    {v: shortDollar(ytdVol), l: `${JS_CURRENT_YEAR} YTD Sales Volume`,
+      sec: ytdChg!=null ? `${fmtPct(Math.round(ytdChg))} vs ${JS_CURRENT_YEAR-1} YTD` : 'No prior-year data'},
+    {v: o.onMarketCount.toLocaleString(), l: 'Properties On-Market'},
+    {v: o.ttmDistressedDeals.toLocaleString(), l: 'Distress Signals — T12 Sales',
+      sec: `<b>${o.watchlistCount.toLocaleString()}</b> Properties on Watch List`},
   ];
   document.getElementById('overviewStats').innerHTML = tiles.map(t =>
-    `<div class="stat-tile"><b>${t.v}</b><span>${t.l}</span></div>`
+    `<div class="stat-tile"><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
   ).join('');
+}
+
+// ── Operating Metrics (rent & occupancy) ──
+// Ported from build_rental_trends_dashboard.py's chart/sidebar/table math as
+// closely as possible (same CAGR formula, same table shape — years as column
+// headers) so a number quoted here matches what a client sees on that hub
+// dashboard. Only difference: this page has exactly one series (the market
+// itself), so the sidebar/tables render a single row instead of one per market/city.
+const MONTH_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+function fmtDateKey(k) {
+  const [y,m] = k.split('-').map(Number);
+  return `${MONTH_ABBR[m-1]}-${y}`;
+}
+function fmtOpVal(metric, v) {
+  if (v == null) return '—';
+  return metric === 'occupancy' ? (v*100).toFixed(1)+'%' : '$'+Math.round(v).toLocaleString();
+}
+function monthsBack(key, n) {
+  const [y,m] = key.split('-').map(Number);
+  const total = y*12 + (m-1) - n;
+  const yy = Math.floor(total/12), mm = total%12 + 1;
+  return `${yy}-${String(mm).padStart(2,'0')}`;
+}
+function pctChange(cur, base) {
+  if (cur == null || base == null || base === 0) return null;
+  return (cur-base)/base*100;
+}
+function cagr(cur, base, years) {
+  if (cur == null || base == null || base <= 0 || !years) return null;
+  return (Math.pow(cur/base, 1/years) - 1) * 100;
+}
+function yearAvg(series, year) {
+  const vals = Object.keys(series).filter(k => k.startsWith(String(year))).map(k => series[k]);
+  if (!vals.length) return null;
+  return vals.reduce((a,b)=>a+b,0) / vals.length;
+}
+function fmtRentChange(v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const color = v<-1 ? '#c0392b' : v<0 ? '#e67e22' : v<=5 ? '#222' : '#1a7a3c';
+  return `<span style="color:${color};font-weight:600">${v>=0?'+':''}${v.toFixed(1)}%</span>`;
+}
+function fmtOccCell(v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const pct = v*100;
+  const color = pct<90 ? '#c0392b' : pct<93 ? '#e67e22' : pct<95 ? '#222' : '#1a7a3c';
+  return `<span style="color:${color};font-weight:600">${pct.toFixed(1)}%</span>`;
+}
+
+function valNear(series, keys, targetKey) {
+  if (series[targetKey] != null) return series[targetKey];
+  const cands = keys.filter(k => k <= targetKey);
+  return cands.length ? series[cands[cands.length-1]] : null;
+}
+
+function periodStats(series) {
+  const keys = Object.keys(series).sort();
+  if (keys.length < 2) return null;
+  const lastKey = keys[keys.length-1], lastVal = series[lastKey];
+  const near = t => valNear(series, keys, t);
+  return {
+    lastKey, lastVal,
+    y10: keys[0] <= monthsBack(lastKey,120) ? cagr(lastVal, near(monthsBack(lastKey,120)), 10) : null,
+    y5:  keys[0] <= monthsBack(lastKey,60)  ? cagr(lastVal, near(monthsBack(lastKey,60)), 5)   : null,
+    y3:  keys[0] <= monthsBack(lastKey,36)  ? cagr(lastVal, near(monthsBack(lastKey,36)), 3)   : null,
+    y1:  keys[0] <= monthsBack(lastKey,12)  ? pctChange(lastVal, near(monthsBack(lastKey,12))) : null,
+  };
+}
+
+function renderOperatingChart(rent, occ) {
+  const svgEl = document.getElementById('operatingChart');
+  const box = svgEl.getBoundingClientRect();
+  const W = Math.max(600, Math.round(box.width)), H = Math.max(320, Math.round(box.height) || 380);
+  const PL=70, PR=60, PT=20, PB=40;
+  const cW=W-PL-PR, cH=H-PT-PB;
+
+  const keys = [...new Set([...Object.keys(rent), ...Object.keys(occ)])].sort();
+  const rentVals = Object.values(rent);
+  let minRent = Math.min(...rentVals), maxRent = Math.max(...rentVals);
+  const rentPad = (maxRent-minRent)*0.08 || 50;
+  minRent -= rentPad; maxRent += rentPad;
+
+  const hasOcc = Object.keys(occ).length > 0;
+  let minOcc = 0, maxOcc = 1;
+  if (hasOcc) {
+    const occVals = Object.values(occ);
+    minOcc = Math.min(...occVals); maxOcc = Math.max(...occVals);
+    const occPad = (maxOcc-minOcc)*0.08 || 0.02;
+    minOcc = Math.max(0, minOcc-occPad); maxOcc += occPad;
+  }
+
+  const xScale = i => PL + (keys.length<=1 ? cW/2 : i/(keys.length-1)*cW);
+  const yRent = v => PT + cH - (v-minRent)/(maxRent-minRent)*cH;
+  const yOcc = v => PT + cH - (v-minOcc)/(maxOcc-minOcc)*cH;
+
+  let parts = [];
+  for (let i=0;i<=5;i++) {
+    const v = minRent + (maxRent-minRent)*i/5, y = yRent(v);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${fmtOpVal('rent',v)}</text>`);
+    if (hasOcc) {
+      const ov = minOcc + (maxOcc-minOcc)*i/5;
+      parts.push(`<text x="${W-PR+8}" y="${yOcc(ov)+4}" text-anchor="start" font-size="10" fill="#888">${fmtOpVal('occupancy',ov)}</text>`);
+    }
+  }
+  keys.forEach((k,i) => {
+    if (k.slice(5,7)==='01' || i===0) {
+      const x = xScale(i);
+      parts.push(`<text x="${x}" y="${H-PB+16}" text-anchor="middle" font-size="10" fill="#888">${k.slice(0,4)}</text>`);
+      parts.push(`<line x1="${x}" y1="${PT}" x2="${x}" y2="${PT+cH}" stroke="#f4f4f4" stroke-width="1"/>`);
+    }
+  });
+
+  function linePath(series, yFn) {
+    const pts = keys.filter(k => series[k] != null).map((k,i) => {
+      const idx = keys.indexOf(k);
+      return {x:xScale(idx), y:yFn(series[k]), k, v:series[k]};
+    });
+    return pts;
+  }
+
+  const rentPts = linePath(rent, yRent);
+  const rentD = rentPts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
+  parts.push(`<path d="${rentD}" fill="none" stroke="#0c1a2e" stroke-width="2.5" stroke-linejoin="round"/>`);
+  rentPts.forEach((p,i) => {
+    const tip = `Denver Metro\n${fmtDateKey(p.k)}\nRent: ${fmtOpVal('rent',p.v)}`;
+    if (i % 6 === 0 || i === rentPts.length-1) {
+      parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="pt" data-tip="${tip}"/>`);
+    } else {
+      parts.push(`<circle cx="${p.x}" cy="${p.y}" r="6" fill="transparent" class="pt" data-tip="${tip}"/>`);
+    }
+  });
+
+  if (hasOcc) {
+    const occPts = linePath(occ, yOcc);
+    const occD = occPts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
+    parts.push(`<path d="${occD}" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>`);
+    occPts.forEach((p,i) => {
+      const tip = `Denver Metro\n${fmtDateKey(p.k)}\nOccupancy: ${fmtOpVal('occupancy',p.v)}`;
+      if (i % 6 === 0 || i === occPts.length-1) {
+        parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#c9a84c" stroke="#fff" stroke-width="1.5" class="pt" data-tip="${tip}"/>`);
+      } else {
+        parts.push(`<circle cx="${p.x}" cy="${p.y}" r="6" fill="transparent" class="pt" data-tip="${tip}"/>`);
+      }
+    });
+  }
+
+  parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+
+  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svgEl.innerHTML = parts.join('');
+  document.getElementById('operatingChartLegend').innerHTML =
+    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Asking Rent (left axis)</div>` +
+    (hasOcc ? `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Occupancy (right axis)</div>` : '');
+  document.getElementById('operatingChartNote').textContent = 'Monthly average asking rent per unit and occupancy rate.';
+
+  const tooltip = document.getElementById('tooltip');
+  svgEl.querySelectorAll('.pt').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+12)+'px';
+      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent = el.getAttribute('data-tip');
+    });
+    el.addEventListener('mouseleave', () => { tooltip.style.display='none'; });
+  });
+}
+
+function renderOperatingSidebar(rent, occ) {
+  const st = periodStats(rent);
+  const rentKeys = Object.keys(rent).sort(), occKeys = Object.keys(occ).sort();
+  const lastRent = rentKeys.length ? rent[rentKeys[rentKeys.length-1]] : null;
+  const lastOcc = occKeys.length ? occ[occKeys[occKeys.length-1]] : null;
+
+  let h = '<div class="stat-title">Summary</div>';
+  h += `<div class="stat-row"><b>${lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—'}</b><span>Current Avg Asking Rent</span></div>`;
+  h += `<div class="stat-row"><b>${lastOcc!=null?(lastOcc*100).toFixed(1)+'%':'—'}</b><span>Current Avg Occupancy</span></div>`;
+
+  h += `<div class="stat-title" style="margin-top:12px">Avg. Change per Year in Asking Rent${st ? '<br>(as of ' + fmtDateKey(st.lastKey) + ')' : ''}</div>`;
+  h += '<div class="stat-header-row" style="grid-template-columns:55% 45%"><div>Period</div><div>Change</div></div>';
+  if (st) {
+    const periods = [{label:'1yr', v:st.y1}, {label:'3yr', v:st.y3}, {label:'5yr', v:st.y5}, {label:'10yr', v:st.y10}];
+    periods.forEach(p => {
+      h += `<div class="stat-row-op" style="grid-template-columns:55% 45%"><div class="market-name">${p.label}</div>` +
+        `<div class="stat-val">${fmtRentChange(p.v)}</div></div>`;
+    });
+  }
+  h += '<div class="stat-footnote">% change vs. each trailing period (10yr/5yr/3yr annualized, 1yr is straight YoY).</div>';
+  document.getElementById('operatingSidebar').innerHTML = h;
+}
+
+function renderOperatingYearTables(rent, occ) {
+  const years = [...new Set([...Object.keys(rent), ...Object.keys(occ)].map(k => parseInt(k.slice(0,4))))].sort((a,b)=>a-b);
+
+  document.getElementById('operatingYoyHead').innerHTML = '<th>Name</th>' + years.map(y=>`<th>${y}</th>`).join('');
+
+  const yoyCells = years.map(y => {
+    const cur = yearAvg(rent, y);
+    const change = pctChange(cur, yearAvg(rent, y-1));
+    return `<td title="${fmtOpVal('rent',cur)}">${fmtRentChange(change)}</td>`;
+  }).join('');
+  const occCells = years.map(y => `<td>${fmtOccCell(yearAvg(occ, y))}</td>`).join('');
+
+  document.getElementById('operatingYoyBody').innerHTML =
+    `<tr><td style="font-weight:700">Denver Metro — Rent Change</td>${yoyCells}</tr>` +
+    `<tr><td style="font-weight:700">Denver Metro — Occupancy</td>${occCells}</tr>`;
+}
+
+function renderOperating() {
+  const rent = D.rent || {}, occ = D.occupancy || {};
+  if (!Object.keys(rent).length && !Object.keys(occ).length) {
+    document.getElementById('operatingBody').style.display = 'none';
+    document.getElementById('operatingEmpty').style.display = 'block';
+    return;
+  }
+  renderOperatingChart(rent, occ);
+  renderOperatingSidebar(rent, occ);
+  renderOperatingYearTables(rent, occ);
 }
 
 // ── Sales ──
-const SALES_COLS = [
-  {key:'vintage',      label:'Vintage',      fmt:v=>v,                             align:'left'},
-  {key:'deals',        label:'Sales',        fmt:v=>v.toLocaleString(),            align:'center'},
-  {key:'volume',       label:'Total Volume', fmt:v=>dollar(v),                     align:'right'},
-  {key:'avgPrice',     label:'Avg Price',    fmt:v=>v==null?'—':dollar(v),         align:'right'},
-  {key:'pricePerUnit', label:'Avg $/Unit',   fmt:v=>v==null?'—':dollar(v),         align:'right'},
-  {key:'pricePerSF',   label:'Avg $/SF',     fmt:v=>v==null?'—':'$'+Math.round(v), align:'right'},
-];
-let salesSortCol = 'vintage', salesSortDir = 1;
-
 function renderSales() {
   if (!D.sales.length) {
     document.getElementById('salesChartWrap').style.display='none';
-    document.getElementById('salesTableWrap').style.display='none';
+    document.getElementById('salesStatsPanel').style.display='none';
     document.getElementById('salesEmpty').style.display='block';
     return;
   }
-
-  const head = document.getElementById('salesTableHead');
-  head.innerHTML = SALES_COLS.map((c,i) => {
-    const th = document.createElement('th');
-    return `<th class="col-${c.align}" data-key="${c.key}">${c.label}<span class="sort-arrow">&#8597;</span></th>`;
-  }).join('');
-  document.querySelectorAll('#salesTableHead th').forEach(th => {
-    th.onclick = () => {
-      const key = th.dataset.key;
-      if (salesSortCol === key) salesSortDir *= -1; else { salesSortCol = key; salesSortDir = 1; }
-      renderSalesTable();
-    };
-  });
-
-  const fy = document.getElementById('fYear');
-  if (fy.options.length <= 1) {
-    const years = [...new Set(D.sales.map(r=>r.year))].sort((a,b)=>b-a);
-    years.forEach(y => { fy.innerHTML += `<option value="${y}">${y}</option>`; });
-  }
-
-  renderSalesTable();
   renderSalesChart();
 }
 
-function salesVintageRows() {
+// Ported from build_sales_history.py's #statsPanel — Summary + YTD Comparison,
+// same math (through-current-month cutoff on both sides so the % changes stay
+// apples-to-apples), scoped to this page's single market instead of a region filter.
+function renderSalesStats() {
   const vintage = document.getElementById('fVintage').value;
-  const year = document.getElementById('fYear').value;
-  const filtered = D.sales.filter(r => (!vintage || r.vintage===vintage) && (!year || String(r.year)===year));
-
-  const byVintage = {};
-  filtered.forEach(r => {
-    const b = byVintage[r.vintage] || (byVintage[r.vintage] = {vintage:r.vintage,deals:0,volume:0,pricedDeals:0,unitsPriced:0,sfPriced:0,sfVolume:0});
-    b.deals += r.deals; b.volume += r.volume; b.pricedDeals += r.pricedDeals;
-    b.unitsPriced += r.unitsPriced; b.sfPriced += r.sfPriced; b.sfVolume += r.sfVolume;
-  });
-  return Object.values(byVintage).map(b => ({
-    vintage: b.vintage, deals: b.deals, volume: b.volume,
-    avgPrice: b.pricedDeals ? Math.round(b.volume/b.pricedDeals) : null,
-    pricePerUnit: b.unitsPriced ? Math.round(b.volume/b.unitsPriced) : null,
-    pricePerSF: b.sfPriced ? b.sfVolume/b.sfPriced : null,
-  }));
+  const marketAll = D.sales.filter(r => !vintage || r.vintage===vintage);
+  const totalDeals = marketAll.reduce((a,r)=>a+r.deals,0);
+  const totalVol = marketAll.reduce((a,r)=>a+r.volume,0);
+  document.getElementById('salesStatsSummary').innerHTML = `
+    <div class="stat-title">Summary${vintage?' — '+vintage:''}</div>
+    <div class="stat-row"><b>${dollar(totalVol)}</b><span>Total Volume</span></div>
+    <div class="stat-row"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span></div>
+  `;
+  renderYTDCompare();
+  renderSalesVintageBreakdown(marketAll);
 }
 
-function renderSalesTable() {
-  const rows = salesVintageRows().sort((a,b) => {
-    if (salesSortCol === 'vintage') {
-      const d = VINTAGE_ORDER.indexOf(a.vintage) - VINTAGE_ORDER.indexOf(b.vintage);
-      return salesSortDir < 0 ? -d : d;
-    }
-    const av=a[salesSortCol], bv=b[salesSortCol];
-    if (av==null) return 1; if (bv==null) return -1;
-    return av<bv ? -salesSortDir : av>bv ? salesSortDir : 0;
-  });
-  document.getElementById('salesTableBody').innerHTML = rows.map(r =>
-    '<tr>' + SALES_COLS.map(c=>`<td class="col-${c.align}">${c.fmt(r[c.key])}</td>`).join('') + '</tr>'
-  ).join('');
+// YTD (through the current month, both years) per vintage — same cutoff logic
+// as renderYTDCompare's $/SF row, just sliced by vintage instead of blended,
+// so this reads as "how's each vintage doing this year" rather than a static
+// all-time average that barely moves year to year.
+function ytdForVintage(marketAll, vintage, year) {
+  const rows = marketAll.filter(r => r.vintage===vintage && r.year===year && r.month<=JS_CURRENT_MONTH);
+  const unitsPriced = rows.reduce((a,r)=>a+r.unitsPriced,0);
+  const volume = rows.reduce((a,r)=>a+r.volume,0);
+  const sfPriced = rows.reduce((a,r)=>a+r.sfPriced,0);
+  const sfVolume = rows.reduce((a,r)=>a+r.sfVolume,0);
+  return {
+    perUnit: unitsPriced ? volume/unitsPriced : null,
+    perSF: sfPriced ? sfVolume/sfPriced : null,
+  };
+}
+
+function renderSalesVintageBreakdown(marketAll) {
+  const monthName = NOW.toLocaleString('en-US', {month:'long'});
+  document.getElementById('salesVintageTitle').textContent = `${JS_CURRENT_YEAR} YTD by Vintage (thru ${monthName})`;
+  document.getElementById('salesVintageChgHead').textContent = 'vs '+(JS_CURRENT_YEAR-1);
+  const vintages = VINTAGE_ORDER.filter(v => marketAll.some(r => r.vintage===v));
+  const rows = vintages.map(v => {
+    const cur = ytdForVintage(marketAll, v, JS_CURRENT_YEAR);
+    const prior = ytdForVintage(marketAll, v, JS_CURRENT_YEAR-1);
+    const chg = pctChange(cur.perSF, prior.perSF);
+    return `<tr><td>${v}</td>` +
+      `<td>${cur.perUnit!=null?dollar(cur.perUnit):'—'}</td>` +
+      `<td>${cur.perSF!=null?'$'+cur.perSF.toFixed(0):'—'}</td>` +
+      `<td>${fmtPct(chg)}</td></tr>`;
+  }).join('');
+  document.getElementById('salesVintageBody').innerHTML = rows;
+}
+
+function renderYTDCompare() {
+  const vintage = document.getElementById('fVintage').value;
+  const marketData = D.sales.filter(r => !vintage || r.vintage===vintage);
+
+  function sumThroughMonth(year, monthCutoff) {
+    const rows = marketData.filter(r => r.year===year && r.month<=monthCutoff);
+    const sfPriced = rows.reduce((a,r)=>a+r.sfPriced,0);
+    const sfVolume = rows.reduce((a,r)=>a+r.sfVolume,0);
+    return {
+      volume: rows.reduce((a,r)=>a+r.volume,0),
+      deals: rows.reduce((a,r)=>a+r.deals,0),
+      ppsf: sfPriced ? sfVolume/sfPriced : null,
+    };
+  }
+
+  const ytd = sumThroughMonth(JS_CURRENT_YEAR, JS_CURRENT_MONTH);
+  const monthName = NOW.toLocaleString('en-US', {month:'long'});
+  const compareYears = [
+    {label:'vs 2019', year: 2019},
+    {label:'vs 2021', year: 2021},
+    {label:'vs '+(JS_CURRENT_YEAR-1), year: JS_CURRENT_YEAR-1},
+  ].filter(cy => cy.year < JS_CURRENT_YEAR);
+
+  document.getElementById('ytdCompareTitle').textContent = `${JS_CURRENT_YEAR} YTD Comparison (thru ${monthName})`;
+
+  const metrics = [
+    {label:'Volume', key:'volume'},
+    {label:'Sales', key:'deals'},
+    {label:'$/SF', key:'ppsf'},
+  ];
+
+  const headHtml = '<th></th>' + compareYears.map(cy=>`<th>${cy.label}</th>`).join('');
+  const bodyHtml = metrics.map(m => {
+    const cells = compareYears.map(cy => {
+      const cmp = sumThroughMonth(cy.year, JS_CURRENT_MONTH);
+      const chg = pctChange(ytd[m.key], cmp[m.key]);
+      return `<td>${fmtPct(chg)}</td>`;
+    }).join('');
+    return `<tr><td>${m.label}</td>${cells}</tr>`;
+  }).join('');
+
+  document.getElementById('ytdCompare').innerHTML =
+    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>`;
 }
 
 function renderSalesChart() {
+  renderSalesStats();
   // Chart always spans the full dataset — it's a trend line, so the Year
   // filter (which only narrows the table) shouldn't crop it. Vintage still applies.
   const vintage = document.getElementById('fVintage').value;
   const chartData = D.sales.filter(r => !vintage || r.vintage===vintage);
+  const extraTip = y => {
+    const rows = chartData.filter(r=>r.year===y);
+    const unitsPriced = rows.reduce((a,r)=>a+r.unitsPriced,0);
+    const volume = rows.reduce((a,r)=>a+r.volume,0);
+    const sfPriced = rows.reduce((a,r)=>a+r.sfPriced,0);
+    const sfVolume = rows.reduce((a,r)=>a+r.sfVolume,0);
+    const perUnit = unitsPriced ? volume/unitsPriced : null;
+    const perSF = sfPriced ? sfVolume/sfPriced : null;
+    return `\nAvg $/Unit: ${perUnit!=null?dollar(perUnit):'—'}\nAvg $/SF: ${perSF!=null?'$'+perSF.toFixed(0):'—'}`;
+  };
+  // Match the sidebar's natural height (measured after renderSalesStats above
+  // has populated it) rather than a fixed chart height, so the two boxes in
+  // the flex row line up regardless of how much sidebar content there is.
+  // ~34px reserved for the chart-legend row below the SVG, which the sidebar
+  // has no equivalent of.
+  const panelBox = document.getElementById('salesStatsPanel').getBoundingClientRect();
+  const targetH = Math.round(panelBox.height - 34);
   renderBarLineChart('salesChart', 'salesChartLegend',
     [...new Set(D.sales.map(r=>r.year))].sort((a,b)=>a-b),
     y => chartData.filter(r=>r.year===y).reduce((a,r)=>a+r.deals,0),
     y => chartData.filter(r=>r.year===y).reduce((a,r)=>a+r.volume,0),
-    'Sales Count', 'Total Volume $', shortDollar, v=>'$'+Math.round(v).toLocaleString());
+    'Sales Count', 'Total Volume $', shortDollar, v=>'$'+Math.round(v).toLocaleString(),
+    null, extraTip, targetH);
 }
 
 function applySalesFilters() {
-  renderSalesTable();
   renderSalesChart();
 }
 
 function clearSalesFilters() {
   document.getElementById('fVintage').value = '';
-  document.getElementById('fYear').value = '';
   applySalesFilters();
 }
 
 // ── Construction ──
 // Years before OLD_CUTOFF are sparse (often 1-2 properties/yr going back to
 // the 1800s) and would make the x-axis unreadable one-tick-per-year — same
-// problem build_deliveries_by_year.py solved with its "Pre-1960" aggregate bar.
-const DELIVERY_OLD_CUTOFF = 1980;
+// problem build_deliveries_by_year.py solved, and the same fix: fold them all
+// into a single leading "Pre-<cutoff>" aggregate bar rather than plotting
+// (or omitting) them individually.
+const DELIVERY_OLD_CUTOFF = 1960;
+const PRE_CUTOFF_LABEL = 'Pre-' + DELIVERY_OLD_CUTOFF;
+
+const DELIVERY_VINTAGE_ORDER = ['Under Construction','2020s-Now','2010s','2000s','1990s','1980s','1970s & Older'];
+
+function renderDeliveryStats() {
+  const o = D.overview;
+  document.getElementById('deliveryStatsSummary').innerHTML = `
+    <div class="stat-title">Summary &mdash; Denver Metro</div>
+    <div class="stat-row"><b>${o.totalUnits.toLocaleString()}</b><span>Total Units</span></div>
+    <div class="stat-row"><b>${o.totalProperties.toLocaleString()}</b><span>Total Properties</span></div>
+  `;
+
+  const byVintage = {};
+  D.deliveries.forEach(r => {
+    const b = byVintage[r.vintage] || (byVintage[r.vintage] = {properties:0, units:0});
+    b.properties += r.properties;
+    b.units += r.units;
+  });
+  // The chart folds Under Construction into the current year's vintage bucket
+  // (see renderDeliveries) — back that out here so the vintage breakdown shows
+  // pure delivered totals, with Under Construction broken out as its own row,
+  // matching build_deliveries_by_year.py's table exactly.
+  const cv = o.currentYearVintage;
+  if (byVintage[cv]) {
+    byVintage[cv].units -= o.underConstructionUnits;
+    byVintage[cv].properties -= o.underConstructionCount;
+  }
+  byVintage['Under Construction'] = {properties: o.underConstructionCount, units: o.underConstructionUnits};
+
+  document.getElementById('deliveryVintageBody').innerHTML = DELIVERY_VINTAGE_ORDER.map(v => {
+    const b = byVintage[v] || {properties:0, units:0};
+    const pct = o.totalUnits ? (b.units / o.totalUnits * 100) : 0;
+    const pctClass = pct >= 20 ? 'vintage-pct-hi' : pct >= 10 ? 'vintage-pct-mid' : 'vintage-pct-lo';
+    const rowClass = v === 'Under Construction' ? ' class="vintage-row-uc"' : '';
+    return `<tr${rowClass}><td>${v}</td><td>${b.properties.toLocaleString()}</td><td>${b.units.toLocaleString()}</td><td class="${pctClass}">${pct.toFixed(1)}%</td></tr>`;
+  }).join('');
+}
 
 function renderDeliveries() {
+  renderDeliveryStats();
   if (!D.deliveries.length) {
     document.getElementById('deliveryChartWrap').innerHTML = '<div style="padding:16px;color:#888">No delivery history for Denver Metro.</div>';
     return;
   }
-  // Everything before the cutoff is a multi-decade cumulative total, not a
-  // single year's deliveries — charting it as a bar next to single-year bars
-  // swamps the scale and hides the recent trend, so it's called out as text
-  // above the chart instead (same idea as build_deliveries_by_year.py's
-  // "Pre-1960" bar, but pulled out of the chart entirely rather than plotted).
   const oldRows = D.deliveries.filter(r => r.year < DELIVERY_OLD_CUTOFF);
   const recentYears = [...new Set(D.deliveries.filter(r => r.year >= DELIVERY_OLD_CUTOFF).map(r=>r.year))].sort((a,b)=>a-b);
+  const chartYears = oldRows.length ? [PRE_CUTOFF_LABEL, ...recentYears] : recentYears;
 
-  const preCutoffEl = document.getElementById('deliveryPreCutoff');
-  if (oldRows.length) {
-    const oldProps = oldRows.reduce((a,r)=>a+r.properties,0);
-    const oldUnits = oldRows.reduce((a,r)=>a+r.units,0);
-    preCutoffEl.textContent = `Chart shows ${DELIVERY_OLD_CUTOFF}–present. ${oldProps.toLocaleString()} additional properties (${oldUnits.toLocaleString()} units) were built before ${DELIVERY_OLD_CUTOFF}.`;
+  const volFn = y => y === PRE_CUTOFF_LABEL
+    ? oldRows.reduce((a,r)=>a+r.units,0)
+    : D.deliveries.filter(r=>r.year===y).reduce((a,r)=>a+r.units,0);
+  const propFn = y => y === PRE_CUTOFF_LABEL
+    ? oldRows.reduce((a,r)=>a+r.properties,0)
+    : D.deliveries.filter(r=>r.year===y).reduce((a,r)=>a+r.properties,0);
+  const oldYearCount = new Set(oldRows.map(r=>r.year)).size;
+
+  // Match the sidebar's natural height (see renderSalesChart's identical
+  // pattern) so the chart and stats panel line up in the flex row.
+  const panelBox = document.getElementById('deliveryStatsPanel').getBoundingClientRect();
+  const targetH = Math.round(panelBox.height - 34);
+  renderUnitsBarChart('deliveryChart', 'deliveryChartLegend', chartYears, volFn, propFn, oldYearCount, 2026, targetH);
+}
+
+// Single-metric bar chart (units + avg/yr trendline), mirroring
+// build_deliveries_by_year.py's chart as closely as possible — unlike Sales
+// below, this is deliberately NOT the dual bar+line renderBarLineChart:
+// plotting Properties as bars alongside a Units line distorted the shape
+// compared to the hub dashboard, which only ever bars Units.
+function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight) {
+  const vals = years.map(valFn);
+  const props = years.map(propFn);
+  const W=880;
+  // Same width-scale correction as renderBarLineChart — the svg is
+  // width:100%/height:auto against this fixed-width viewBox, so on-screen
+  // height scales with rendered width; convert the desired pixel height
+  // into the matching viewBox height rather than using it directly.
+  let H = 380;
+  if (targetPixelHeight) {
+    const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
+    H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
+  }
+  const PL=60, PR=40, PT=16, PB=50;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const barW = cW/Math.max(years.length,1)*0.7;
+
+  function niceStep(rawMax, maxTicks) {
+    const rough = rawMax / maxTicks;
+    const mag = Math.pow(10, Math.floor(Math.log10(rough || 1)));
+    const norm = rough / mag;
+    const nice = norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10;
+    return Math.max(1, nice * mag);
+  }
+  const rawMax = Math.max(1, ...vals);
+  const maxVal = rawMax * 1.10;
+  const step = niceStep(maxVal, 5);
+  const steps = Math.max(1, Math.floor(maxVal / step));
+  const xScale = i => PL + (i+0.5)/Math.max(years.length,1)*cW;
+  const yScale = v => PT + cH - (v/maxVal)*cH;
+
+  let parts = [];
+  for (let i=0;i<=steps;i++) {
+    const v=i*step, y=yScale(v);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-6}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${Math.round(v).toLocaleString()}</text>`);
   }
 
-  renderBarLineChart('deliveryChart', 'deliveryChartLegend', recentYears,
-    y => D.deliveries.filter(r=>r.year===y).reduce((a,r)=>a+r.properties,0),
-    y => D.deliveries.filter(r=>r.year===y).reduce((a,r)=>a+r.units,0),
-    'Properties Delivered', 'Units Delivered', v=>Math.round(v).toLocaleString(), v=>Math.round(v).toLocaleString());
-
-  renderDeliveryTable();
-}
-
-const DELIVERY_COLS = [
-  {key:'year',       label:'Year',       fmt:v=>v,                    align:'left'},
-  {key:'vintage',    label:'Vintage',    fmt:v=>v,                    align:'left'},
-  {key:'properties', label:'Properties', fmt:v=>v.toLocaleString(),   align:'center'},
-  {key:'units',      label:'Units',      fmt:v=>v.toLocaleString(),   align:'right'},
-];
-let deliverySortCol = 'year', deliverySortDir = -1;
-
-function renderDeliveryTable() {
-  const head = document.getElementById('deliveryTableHead');
-  head.innerHTML = DELIVERY_COLS.map(c => `<th class="col-${c.align}" data-key="${c.key}">${c.label}<span class="sort-arrow">&#8597;</span></th>`).join('');
-  document.querySelectorAll('#deliveryTableHead th').forEach(th => {
-    th.onclick = () => {
-      const key = th.dataset.key;
-      if (deliverySortCol === key) deliverySortDir *= -1; else { deliverySortCol = key; deliverySortDir = 1; }
-      renderDeliveryTableBody();
-    };
+  // A small tick mark under every bar keeps the axis dense/precise, but text
+  // labels only appear at decade starts (plus the Pre-cutoff and highlighted
+  // current-year bars) and are canted -45° — matches
+  // build_deliveries_by_year.py's axis treatment exactly.
+  years.forEach((yr,i) => {
+    const x = xScale(i);
+    parts.push(`<line x1="${x}" y1="${H-PT}" x2="${x}" y2="${H-PT+3}" stroke="#ccc" stroke-width="1"/>`);
+    const isHighlightYr = highlightYear != null && yr === highlightYear;
+    const isDecadeStart = typeof yr === 'number' && yr % 10 === 0;
+    const isSpecial = isHighlightYr || isNaN(parseInt(yr,10));
+    if (!isDecadeStart && !isSpecial) return;
+    const labelText = isHighlightYr ? 'Under Construction' : yr;
+    // The highlight label ("Under Construction") is long and typically sits at
+    // the rightmost bar — anchoring it at its end (not middle) keeps the
+    // rotated text swinging up-left instead of overflowing past the chart's
+    // right edge and getting clipped.
+    const anchor = isHighlightYr ? 'end' : 'middle';
+    parts.push(`<text x="${x}" y="${H-PT+4}" text-anchor="${anchor}" font-size="9" fill="#888" transform="rotate(-45 ${x} ${H-PT+4})">${labelText}</text>`);
   });
-  renderDeliveryTableBody();
-}
 
-function renderDeliveryTableBody() {
-  const rows = [...D.deliveries].sort((a,b) => {
-    const av=a[deliverySortCol], bv=b[deliverySortCol];
-    return av<bv ? -deliverySortDir : av>bv ? deliverySortDir : 0;
+  years.forEach((yr,i) => {
+    const x=xScale(i)-barW/2, y=yScale(vals[i]), h=cH+PT-y;
+    const isHighlight = highlightYear != null && yr === highlightYear;
+    const barColor = isHighlight ? '#0c1a2e' : '#c9a84c';
+    // Matches build_deliveries_by_year.py's tooltip wording exactly (year/label,
+    // then Units, then Properties) — the highlight bar adds a parenthetical
+    // since it's a blended actual+pipeline total, not a pure "Under Construction" bar.
+    const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
+      : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+    const tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
+    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${barColor}" rx="2" class="bar" data-tip="${tip}"/>`);
   });
-  document.getElementById('deliveryTableBody').innerHTML = rows.map(r =>
-    '<tr>' + DELIVERY_COLS.map(c=>`<td class="col-${c.align}">${c.fmt(r[c.key])}</td>`).join('') + '</tr>'
-  ).join('');
-}
 
-function toggleDeliveryTable() {
-  const wrap = document.getElementById('deliveryTableWrap');
-  const btn = document.getElementById('deliveryTableToggle');
-  const showing = wrap.style.display !== 'none';
-  wrap.style.display = showing ? 'none' : 'block';
-  btn.innerHTML = showing ? 'Show Year-by-Year Table &#9662;' : 'Hide Year-by-Year Table &#9652;';
+  // Average trendline over ordinary single-year bars only — excludes the
+  // Pre-cutoff aggregate and the current year (which is inflated by the
+  // folded-in Under Construction pipeline, not a completed delivery total).
+  const plainVals = years.map((yr,i) => ({yr, v: vals[i]}))
+    .filter(({yr}) => !isNaN(parseInt(yr,10)) && yr !== highlightYear)
+    .map(({v}) => v);
+  if (plainVals.length) {
+    const avg = plainVals.reduce((a,v)=>a+v,0) / plainVals.length;
+    const avgY = yScale(avg);
+    parts.push(`<line x1="${PL}" y1="${avgY}" x2="${W-PR}" y2="${avgY}" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>`);
+    parts.push(`<text x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
+  }
+
+  parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+
+  const svg = document.getElementById(svgId);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = parts.join('');
+
+  const hasHighlight = highlightYear != null && years.includes(highlightYear);
+  document.getElementById(legendId).innerHTML =
+    `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>` +
+    (hasHighlight ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Under Construction</div>` : '') +
+    `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0c1a2e;height:0;width:12px"></div>Average Units/Yr</div>`;
+
+  const tooltip = document.getElementById('tooltip');
+  svg.querySelectorAll('.bar').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+12)+'px';
+      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent=el.getAttribute('data-tip');
+    });
+    el.addEventListener('mouseleave', () => { tooltip.style.display='none'; });
+  });
 }
 
 // ── On-Market (map) ──
@@ -480,10 +978,20 @@ function renderOnMarketMarkers() {
 }
 
 // ── Shared bar+line chart (bars=count on left axis, line=volume on right axis) ──
-function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip) {
+function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight) {
   const counts = years.map(countFn);
   const vols = years.map(volFn);
-  const W=880, H=svgId==='deliveryChart'?300:360, PL=60, PR=76, PT=16, PB=36;
+  const W=880;
+  // svg is width:100%/height:auto against a fixed-width viewBox, so its
+  // on-screen height scales with however wide it actually renders — convert
+  // the desired on-screen pixel height into the matching viewBox height,
+  // rather than using it directly (which was off by the width scale factor).
+  let H = 460;
+  if (targetPixelHeight) {
+    const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
+    H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
+  }
+  const PL=60, PR=76, PT=16, PB=36;
   const cW=W-PL-PR, cH=H-PT-PB;
   const barW = cW/Math.max(years.length,1)*0.6;
 
@@ -536,14 +1044,18 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
 
   years.forEach((yr,i) => {
     const x=xScale(i)-barW/2, y=yCount(counts[i]), h=cH+PT-y;
-    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="#c9a84c" rx="2" class="bar" data-tip="${yr}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}"/>`);
+    const isHighlight = highlightYear != null && yr === highlightYear;
+    const barTip = isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+    const extra = extraTipFn ? extraTipFn(yr) : '';
+    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${isHighlight?'#0c1a2e':'#c9a84c'}" rx="2" class="bar" data-tip="${barTip}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
   });
 
   const pts = years.map((yr,i) => ({x:xScale(i), y:yVol(vols[i])}));
   const d = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
   parts.push(`<path d="${d}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
   pts.forEach((p,i) => {
-    parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}"/>`);
+    const extra = extraTipFn ? extraTipFn(years[i]) : '';
+    parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
   });
 
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
@@ -555,7 +1067,8 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
 
   document.getElementById(legendId).innerHTML =
     `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>${countLabel} (left axis)</div>` +
-    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${volLabel} (right axis)</div>`;
+    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${volLabel} (right axis)</div>` +
+    (highlightYear != null ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${highlightYear} incl. Under Construction Pipeline</div>` : '');
 
   const tooltip = document.getElementById('tooltip');
   svg.querySelectorAll('.bar').forEach(el => {
@@ -574,6 +1087,7 @@ fetch('/dashboards/markets/denver-metro/data.json')
   .then(d => {
     D = d;
     renderOverview();
+    renderOperating();
     renderSales();
     renderDeliveries();
     renderOnMarket();
@@ -586,6 +1100,16 @@ fetch('/dashboards/markets/denver-metro/data.json')
     if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
   }
 })();
+
+let __opResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(__opResizeTimer);
+  __opResizeTimer = setTimeout(() => {
+    if (D && D.rent && Object.keys(D.rent).length) renderOperatingChart(D.rent, D.occupancy || {});
+    if (D && D.sales && D.sales.length) renderSalesChart();
+    if (D && D.deliveries && D.deliveries.length) renderDeliveries();
+  }, 150);
+});
 </script>
 </body>
 </html>
