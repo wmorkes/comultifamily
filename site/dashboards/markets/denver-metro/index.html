@@ -69,6 +69,9 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
 .stat-grid{display:flex;flex-wrap:wrap;gap:12px}
 .stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
   border-radius:6px;padding:14px 16px}
+.stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
+.stat-tile-dark .stat-eyebrow{color:#c9a84c}
 .stat-tile b{font-size:24px;display:block;color:#0c1a2e;line-height:1}
 .stat-tile span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
 .stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:13px;color:#555;line-height:1.3}
@@ -106,8 +109,8 @@ tr:hover td{background:#f0f5fa}
 .compare-table th:first-child,.compare-table td:first-child{text-align:left}
 .compare-table td{padding:3px 4px;border-bottom:1px solid #f4f4f4;text-align:right;white-space:nowrap}
 .compare-table tr:last-child td{border-bottom:none}
-.pos{color:#146130;font-weight:700;font-size:1.15em}
-.neg{color:#a3281c;font-weight:700;font-size:1.15em}
+.pos{color:#146130}
+.neg{color:#a3281c}
 .vintage-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:14px;margin-top:4px}
 .vintage-table th{background:none;position:static;padding:0 0 4px;font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.2px;cursor:default;border-bottom:1px solid #dde;white-space:normal;line-height:1.2}
 .vintage-table td{padding:4px 0;border-bottom:1px solid #f0f0f0;color:#333;white-space:normal;line-height:1.25}
@@ -129,6 +132,26 @@ svg.chart{display:block;width:100%;height:auto}
 .om-legend div{display:flex;align-items:center;gap:6px}
 .om-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 .leaflet-tooltip.om-tip{font-size:12px;padding:4px 8px;line-height:1.4}
+.cta-tab{position:fixed;top:50%;right:12px;transform:translateY(-50%);z-index:200;background:#0c1a2e;color:#fff;border:none;border-left:4px solid #c9a84c;clip-path:polygon(0% 0%,88% 0%,100% 50%,88% 100%,0% 100%);padding:16px 26px 16px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
+.cta-tab:hover{background:#152540;filter:drop-shadow(0 10px 14px rgba(0,0,0,.65))}
+.cta-panel{position:fixed;top:50%;right:0;height:auto;width:320px;max-width:88vw;background:#0c1a2e;border-radius:8px 0 0 8px;box-shadow:-4px 4px 24px rgba(0,0,0,.4);z-index:201;transform:translateX(100%) translateY(-50%);transition:transform .25s ease;display:flex;flex-direction:column;justify-content:center;padding:28px 20px}
+.cta-panel.open{transform:translateX(0) translateY(-50%)}
+.cta-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:rgba(255,255,255,.6);cursor:pointer;line-height:1}
+.cta-close:hover{color:#fff}
+.cta-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c9a84c;display:flex;align-items:center;gap:12px;margin-top:8px}
+.cta-eyebrow::before{content:'';width:24px;height:1px;background:#c9a84c;flex-shrink:0}
+.cta-heading{font-family:'Raleway',sans-serif;font-size:21px;font-weight:500;color:#fff;margin:10px 0 20px;white-space:nowrap}
+.cta-btn-primary{background:#c9a84c;color:#0c1a2e;border:none;border-radius:5px;padding:13px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.cta-btn-primary:hover{background:#d9bb64}
+.cta-btn-primary:disabled{opacity:.5;cursor:default}
+.cta-divider{display:flex;align-items:center;gap:10px;margin:22px 0 12px;font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em}
+.cta-divider::before,.cta-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.2)}
+.cta-note{width:100%;min-height:90px;background:#fff;color:#222;border:1px solid #ccd;border-radius:5px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:13px;resize:vertical}
+.cta-btn-secondary{margin-top:10px;background:#fff;color:#0c1a2e;border:1.5px solid #c9a84c;border-radius:5px;padding:11px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.cta-btn-secondary:disabled{opacity:.4;cursor:default;border-color:#ccd;color:#999}
+.cta-btn-secondary:not(:disabled):hover{background:#faf6ea}
+.cta-thanks{font-family:'Inter',sans-serif;font-size:14px;color:#fff;line-height:1.5;padding-top:8px}
+.cta-thanks b{color:#c9a84c}
 </style>
 <script src="/js/token-gate.js"></script>
 <script>
@@ -157,6 +180,27 @@ svg.chart{display:block;width:100%;height:auto}
 <script src="/js/track.js"></script>
 </head>
 <body>
+
+<button class="cta-tab" id="ctaTab" type="button">Talk to the Team</button>
+<div class="cta-panel" id="ctaPanel">
+  <button class="cta-close" id="ctaClose" type="button" aria-label="Close">&times;</button>
+  <div class="cta-eyebrow">Talk to the Team</div>
+  <div class="cta-heading">Questions or Comments?</div>
+  <form name="market-report-cta" method="POST" data-netlify="true" netlify-honeypot="cta-hp" id="ctaForm">
+    <input type="hidden" name="form-name" value="market-report-cta">
+    <p style="display:none"><label>Don't fill this out: <input name="cta-hp"></label></p>
+    <input type="hidden" name="email" id="ctaEmail" value="">
+    <input type="hidden" name="market" value="Denver Metro">
+    <input type="hidden" name="page" value="https://www.comultifamily.com/dashboards/markets/denver-metro/">
+    <input type="hidden" name="comment" id="ctaComment" value="">
+    <button type="button" class="cta-btn-primary" id="ctaTalkBtn">Contact Me ASAP</button>
+    <div class="cta-divider">Or Send a Note</div>
+    <textarea class="cta-note" id="ctaNoteText" placeholder="Type a question or comment..."></textarea>
+    <button type="button" class="cta-btn-secondary" id="ctaShareBtn" disabled>Let's Talk</button>
+  </form>
+  <div class="cta-thanks" id="ctaThanks" style="display:none"><b>Thanks &mdash; we'll be in touch shortly.</b><br>Craig, Bill, or Nate will reach out to you directly.</div>
+</div>
+
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
   <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
@@ -291,6 +335,14 @@ svg.chart{display:block;width:100%;height:auto}
       </select>
     </div>
     <div class="filter-group">
+      <label>Units</label>
+      <select id="omUnits" onchange="applyOnMarketFilters()">
+        <option value="">All Properties</option>
+        <option value="under100">Below 100 Units</option>
+        <option value="over100">Over 100 Units</option>
+      </select>
+    </div>
+    <div class="filter-group">
       <label>Search</label>
       <input id="omSearch" type="text" placeholder="Property or city&hellip;" onkeydown="if(event.key==='Enter')applyOnMarketFilters()">
     </div>
@@ -346,19 +398,19 @@ function renderOverview() {
   const ytdChg = pctChange(ytdVol, ytdVolLY);
 
   const tiles = [
-    {v: o.totalUnits.toLocaleString(), l: 'Total Units',
+    {eyebrow: 'Properties', v: o.totalUnits.toLocaleString(), l: 'Total Units',
       sec: `<div class="sec-line1"><b>${o.underConstructionUnits.toLocaleString()} (${ucPct.toFixed(1)}% of Total)</b></div>Units Under Construction`},
-    {v: lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—', l: 'Avg Asking Rent',
+    {eyebrow: 'Operations', v: lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—', l: 'Avg Asking Rent',
       sec: lastOcc!=null ? `<b>${(lastOcc*100).toFixed(1)}%</b> Avg Occupancy` : 'Occupancy — not available'},
-    {v: shortDollar(ytdVol), l: `${JS_CURRENT_YEAR} YTD Sales Volume`,
-      sec: ytdChg!=null ? `<div class="sec-line1">${fmtPct(Math.round(ytdChg))}</div>vs ${JS_CURRENT_YEAR-1} YTD` : 'No prior-year data'},
-    {v: o.onMarketCount.toLocaleString(), l: 'Properties On-Market',
+    {eyebrow: 'Sales', v: shortDollar(ytdVol), l: `${JS_CURRENT_YEAR} YTD Sales Volume`,
+      sec: ytdChg!=null ? `<div class="sec-line1"><b>${fmtPct(Math.round(ytdChg))}</b></div>vs ${JS_CURRENT_YEAR-1} YTD` : 'No prior-year data'},
+    {eyebrow: 'On-Market', v: o.onMarketCount.toLocaleString(), l: 'Properties',
       sec: `<b>${o.onMarketUnits.toLocaleString()}</b> Units On-Market`},
-    {v: o.ttmDistressedDeals.toLocaleString(), l: 'T12 Distressed Sales',
+    {eyebrow: 'Distress', v: o.ttmDistressedDeals.toLocaleString(), l: 'T12 Distressed Sales',
       sec: `<b>${o.watchlistCount.toLocaleString()}</b> Properties on Watch List`, dark: true},
   ];
   document.getElementById('overviewStats').innerHTML = tiles.map(t =>
-    `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
+    `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><div class="stat-eyebrow">${t.eyebrow}</div><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
   ).join('');
 }
 
@@ -958,17 +1010,20 @@ function renderOnMarket() {
 function applyOnMarketFilters() { renderOnMarketMarkers(); }
 function clearOnMarketFilters() {
   document.getElementById('omType').value = '';
+  document.getElementById('omUnits').value = '';
   document.getElementById('omSearch').value = '';
   renderOnMarketMarkers();
 }
 
 function renderOnMarketMarkers() {
   const typeSel = document.getElementById('omType').value;
+  const unitsSel = document.getElementById('omUnits').value;
   const q = document.getElementById('omSearch').value.trim().toLowerCase();
   omMarkerLayer.clearLayers();
   D.onmarket
     .filter(r => r.lat != null && r.lng != null)
     .filter(r => !typeSel || r.category === typeSel)
+    .filter(r => !unitsSel || (unitsSel === 'under100' ? (r.units||0) < 100 : (r.units||0) > 100))
     .filter(r => !q || (r.property||'').toLowerCase().includes(q) || (r.city||'').toLowerCase().includes(q))
     .forEach(r => {
       const color = OM_COLOR_BY_CAT[r.category] || '#888';
@@ -1118,6 +1173,50 @@ window.addEventListener('resize', () => {
     if (D && D.deliveries && D.deliveries.length) renderDeliveries();
   }, 150);
 });
+
+// "Talk to the Team" CTA — email/market/page are known from the validated
+// token (see __r near the top of <head>), so both buttons submit with zero
+// typing required beyond an optional comment.
+(function() {
+  var tab = document.getElementById('ctaTab'), panel = document.getElementById('ctaPanel'),
+      close = document.getElementById('ctaClose'), form = document.getElementById('ctaForm'),
+      note = document.getElementById('ctaNoteText'), talkBtn = document.getElementById('ctaTalkBtn'),
+      shareBtn = document.getElementById('ctaShareBtn'), thanks = document.getElementById('ctaThanks'),
+      emailField = document.getElementById('ctaEmail'), commentField = document.getElementById('ctaComment');
+
+  if (typeof __r !== 'undefined' && __r.valid) emailField.value = __r.email;
+
+  tab.addEventListener('click', function() { panel.classList.add('open'); });
+  close.addEventListener('click', function() { panel.classList.remove('open'); });
+
+  note.addEventListener('input', function() { shareBtn.disabled = note.value.trim() === ''; });
+
+  function submitCta(withComment) {
+    commentField.value = withComment ? note.value.trim() : '';
+    var data = new FormData(form);
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString() })
+      .then(function() {
+        form.style.display = 'none';
+        thanks.style.display = 'block';
+        // Lead event through both trackers — GA4 stays live alongside the
+        // first-party system through early September for comparison (see
+        // project_tracking_comparison memory), so both need this signal.
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {'market': 'Denver Metro', 'with_comment': withComment});
+        }
+        if (typeof window.coTrack === 'function') {
+          window.coTrack('cta_submit', {'market': 'Denver Metro', 'with_comment': withComment});
+        }
+      })
+      .catch(function() {
+        alert('Something went wrong sending your message — please email us directly at bill.morkes@colliers.com.');
+      });
+  }
+
+  talkBtn.addEventListener('click', function() { talkBtn.disabled = true; submitCta(false); });
+  shareBtn.addEventListener('click', function() { shareBtn.disabled = true; talkBtn.disabled = true; submitCta(true); });
+})();
 </script>
 </body>
 </html>
