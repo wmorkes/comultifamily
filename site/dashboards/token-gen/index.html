@@ -51,6 +51,7 @@ button:hover { background: #16294a; }
 </script>
 <script src="/js/token-gate.js"></script>
 <script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(r.email.toLowerCase()!=='bill.morkes@colliers.com')window.location.replace('/dashboards/');else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);}})();</script>
+<script src="/js/track.js"></script>
 </head>
 <body>
 <div class="co-topbar">
