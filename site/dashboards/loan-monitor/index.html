@@ -132,6 +132,7 @@ td.wrap { white-space: normal; }
     <select id="distSel" onchange="go()">
       <option value="">All Properties</option>
       <option value="1">Distressed Only</option>
+      <option value="new">Newly Distressed</option>
     </select>
     <select id="ltSel" onchange="go()">
       <option value="">All Loan Types</option>
@@ -154,6 +155,8 @@ td.wrap { white-space: normal; }
     <div class="stat"><span class="stat-val" style="color:#c0392b" id="sS80">—</span><span class="stat-lbl">Score 80+</span></div>
     <div class="stat-divider"></div>
     <div class="stat"><span class="stat-val" style="color:#e67e22" id="sS60">—</span><span class="stat-lbl">Score 60–79</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><span class="stat-val" style="color:#8e44ad" id="sNewDist">—</span><span class="stat-lbl">Newly Distressed</span></div>
     <div class="stat-divider"></div>
     <div class="stat"><span class="stat-val" id="sUnm">—</span><span class="stat-lbl">Unmatched</span></div>
     <div class="score-help">
@@ -181,9 +184,9 @@ td.wrap { white-space: normal; }
     <col style="width:6%"><!-- City -->
     <col style="width:4%"><!-- Units -->
     <col style="width:6%"><!-- YOC -->
-    <col style="width:17%"><!-- Company -->
+    <col style="width:14%"><!-- Company -->
     <col style="width:6%"><!-- Maturity -->
-    <col style="width:5%"><!-- Lender Type -->
+    <col style="width:8%"><!-- Lender Type -->
     <col style="width:14%"><!-- Lender -->
     <col style="width:7%"><!-- Loan $M -->
     <col style="width:14%"><!-- Special Servicer -->
@@ -236,7 +239,7 @@ function markerColor(score) {
   return '#aaa';
 }
 
-function matchRow(match, nl, aff, dist, lt, text, score) {
+function matchRow(match, nl, aff, dist, newDist, lt, text, score) {
   const q     = document.getElementById('q').value.toLowerCase();
   const mSel  = document.getElementById('matchSel').value;
   const aSel  = document.getElementById('affSel').value;
@@ -251,27 +254,30 @@ function matchRow(match, nl, aff, dist, lt, text, score) {
   // distant-maturity distressed loan) — the 50+ floor only applies to the
   // default (no search text) view.
   const scoreOk = q ? true : (score == null || score >= 50);
-  return matchOk && scoreOk
+  const distOk = !dSel
+    || (dSel === 'new' ? String(newDist) === '1' : String(dist) === dSel);
+  return matchOk && scoreOk && distOk
       && (!aSel  || (aSel==='0' ? String(aff)!=='1' : String(aff)==='1'))
-      && (!dSel  || String(dist) === dSel)
       && (!ltSel || String(lt)   === ltSel)
       && (!q     || (text||'').toLowerCase().includes(q));
 }
 
 function updateStats(visRows) {
-  let props=0, units=0, s80=0, s60=0, unm=0;
+  let props=0, units=0, s80=0, s60=0, unm=0, newDist=0;
   visRows.forEach(r => {
     props++;
     units += Number(r.units) || 0;
     if (r.score >= 80) s80++;
     else if (r.score >= 60) s60++;
     if (r.matched === '0') unm++;
+    if (r.is_newly_distressed === '1') newDist++;
   });
-  document.getElementById('sProp').textContent  = props.toLocaleString();
-  document.getElementById('sUnits').textContent = units.toLocaleString();
-  document.getElementById('sS80').textContent   = s80.toLocaleString();
-  document.getElementById('sS60').textContent   = s60.toLocaleString();
-  document.getElementById('sUnm').textContent   = unm.toLocaleString();
+  document.getElementById('sProp').textContent    = props.toLocaleString();
+  document.getElementById('sUnits').textContent   = units.toLocaleString();
+  document.getElementById('sS80').textContent     = s80.toLocaleString();
+  document.getElementById('sS60').textContent     = s60.toLocaleString();
+  document.getElementById('sNewDist').textContent = newDist.toLocaleString();
+  document.getElementById('sUnm').textContent     = unm.toLocaleString();
 }
 
 function scoreBarHtml(score) {
@@ -289,7 +295,8 @@ function esc(s) {
 
 function rowHtml(r) {
   let propTags = '';
-  if (r.is_distressed === '1') propTags += '<span class="tag tag-d">Distress</span>';
+  if (r.is_newly_distressed === '1') propTags += '<span class="tag tag-d" style="background:#8e44ad">New Distress</span>';
+  else if (r.is_distressed === '1') propTags += '<span class="tag tag-d">Distress</span>';
   if (r.is_affordable === '1') propTags += '<span class="tag tag-aff">Affordable</span>';
   if (r.loan_type === 'New Construction') propTags += '<span class="tag tag-nc">New Const</span>';
 
@@ -317,7 +324,7 @@ function rowHtml(r) {
     }
   }
 
-  return `<tr data-score="${r.score}" data-match="${r.matched}" data-nl="${r.is_new_lead}" data-aff="${r.is_affordable}" data-dist="${r.is_distressed}" data-lt="${esc(r.lender_type_short)}" data-idx="${r.idx}" data-units="${r.units||0}" data-addr="${esc(r.address)}">`
+  return `<tr data-score="${r.score}" data-match="${r.matched}" data-nl="${r.is_new_lead}" data-aff="${r.is_affordable}" data-dist="${r.is_distressed}" data-newdist="${r.is_newly_distressed}" data-lt="${esc(r.lender_type_short)}" data-idx="${r.idx}" data-units="${r.units||0}" data-addr="${esc(r.address)}">`
     + `<td data-v="${r.score}">${scoreBarHtml(r.score)}</td>`
     + `<td style="white-space:normal;min-width:120px;max-width:220px" title="${esc(r.address)}">${esc(r.property)}${propTags ? '<br>'+propTags : ''}</td>`
     + `<td>${esc(r.city)}</td>`
@@ -345,7 +352,7 @@ function sort(c) {
 
 function renderTable() {
   const key = SORT_KEYS[col];
-  const rows = DATA.filter(r => matchRow(r.matched, r.is_new_lead, r.is_affordable, r.is_distressed, r.lender_type_short,
+  const rows = DATA.filter(r => matchRow(r.matched, r.is_new_lead, r.is_affordable, r.is_distressed, r.is_newly_distressed, r.lender_type_short,
     `${r.property} ${r.city} ${r.owner} ${r.crm_company} ${r.address}`, r.score));
   rows.sort((a,b) => {
     const av = a[key], bv = b[key];
@@ -366,7 +373,7 @@ function updateMap() {
   document.querySelectorAll('#tbody tr[data-idx]').forEach(r => { idxMap[r.dataset.idx] = r; });
 
   GEO.forEach(m => {
-    if (!matchRow(m.match, m.nl, m.aff, m.dist, m.lt, m.search, m.score)) return;
+    if (!matchRow(m.match, m.nl, m.aff, m.dist, m.newdist, m.lt, m.search, m.score)) return;
     const color = markerColor(m.score);
     const last = m.days >= 99999 ? 'Never contacted'
                : (m.days === null ? 'Unknown'
