@@ -394,9 +394,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 
 <!-- Table -->
 <div class="section">
-  <div style="margin-bottom:8px">
-    <button class="btn btn-primary" onclick="exportCSV()">&#8595; Export CSV</button>
-  </div>
   <div id="tableWrap">
     <table>
       <thead><tr id="tableHead"></tr></thead>
@@ -520,22 +517,6 @@ function renderPagination(total) {
 }
 
 function goPage(p) { page=p; renderTable(); }
-
-function exportCSV() {
-  const headers = COLS.map(c=>c.key);
-  const lines = [headers.join(',')];
-  filtered.forEach(r => {
-    lines.push(headers.map(h => {
-      const v = r[h];
-      return typeof v==='string' && v.includes(',') ? `"${v}"` : v;
-    }).join(','));
-  });
-  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'chfa_limits_export.csv';
-  a.click();
-}
 
 // Summary helpers — defined at module level so renderSummary can call them
 function avgYoY(arr) {
