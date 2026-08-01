@@ -61,6 +61,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   if (__r.valid && __r.isTeam) {
     __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
     gtag('set', {'client_token': __clientLabel});
+    gtag('set', 'user_properties', {'client_token': __clientLabel});
   }
   gtag("config", "G-53BCG1FL5M");
   if (__r.valid && __r.isTeam) {
@@ -74,7 +75,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+  <a class="co-hub-link" href="/dashboards/" data-token-link>&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Loan Monitor Search</h1>
@@ -88,7 +89,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   <div class="result-count" id="resultCount"></div>
   <div id="results"></div>
 </div>
-<footer>Loan Monitor &middot; <a href="/dashboards/loan-monitor/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+<footer>Loan Monitor &middot; <a href="/dashboards/loan-monitor/" style="color:#999" data-token-link>Full desktop dashboard &rarr;</a></footer>
 
 <script>
 let GEO = [];
@@ -160,20 +161,6 @@ fetch('/dashboards/loan-monitor/geo.json')
     q.addEventListener('input', () => renderResults(q.value));
     renderResults('');
   });
-
-(function() {
-  const token = new URLSearchParams(location.search).get('token');
-  if (token) {
-    ['hubBackLink', 'desktopLink'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const url = new URL(el.href, location.origin);
-        url.searchParams.set('token', token);
-        el.href = url.toString();
-      }
-    });
-  }
-})();
 </script>
 </body>
 </html>

@@ -91,21 +91,38 @@ td.wrap { white-space: normal; }
               display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
 </style>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
+  var __clientLabel;
+  if (__r.valid) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+    gtag('set', 'user_properties', {'client_token': __clientLabel});
+  }
   gtag("config", "G-53BCG1FL5M");
+  if (!__r.valid) {
+    window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else if (!__r.isTeam) {
+    window.location.replace('/dashboards/');
+  } else {
+    gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+    rememberClientToken(__clientLabel);
+    document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
+  }
 </script>
-<script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(!r.isTeam)window.location.replace('/dashboards/');else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
 <script src="/js/track.js"></script>
 </head>
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a id="hubBackLink" href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
+  <a href="/dashboards/" data-token-link style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
 </div>
 <header>
   <div>
@@ -466,12 +483,5 @@ Promise.all([
   GEO = geo;
   go();
 });
-(function() {
-  const token = new URLSearchParams(location.search).get('token');
-  if (token) {
-    const el = document.getElementById('hubBackLink');
-    if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
-  }
-})();
 </script>
 </body></html>
