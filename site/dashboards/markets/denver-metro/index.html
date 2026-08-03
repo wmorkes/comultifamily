@@ -450,7 +450,7 @@ function yearAvg(series, year) {
 }
 function fmtRentChange(v) {
   if (v == null) return '<span style="color:#bbb">—</span>';
-  const color = v<-1 ? '#c0392b' : v<0 ? '#e67e22' : v<=5 ? '#222' : '#1a7a3c';
+  const color = v<=-3 ? '#c0392b' : v<0 ? '#e67e22' : v<=5 ? '#222' : '#1a7a3c';
   return `<span style="color:${color};font-weight:600">${v>=0?'+':''}${v.toFixed(1)}%</span>`;
 }
 function fmtOccCell(v) {
