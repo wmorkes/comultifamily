@@ -231,7 +231,7 @@ svg.chart{display:block;width:100%;height:auto}
 </div></div>
 
 <div class="section" id="construction"><div class="section-inner">
-  <div class="section-title"><div class="section-tag">Supply Pipeline</div><h2 class="section-h2">Historic &amp; Future Construction</h2></div>
+  <div class="section-title"><div class="section-tag">Supply Pipeline</div><h2 class="section-h2">Construction Trends</h2></div>
   <div style="display:flex;gap:14px;align-items:stretch">
     <div id="deliveryChartWrap" style="flex:1;min-width:0">
       <svg class="chart" id="deliveryChart" width="900" height="400"></svg>
@@ -351,6 +351,7 @@ svg.chart{display:block;width:100%;height:auto}
       <button class="btn btn-secondary" onclick="clearOnMarketFilters()">Clear</button>
     </div>
   </div>
+  <div id="omStats" style="display:flex;gap:20px;padding:10px 2px;font-size:13px;color:#444;border-bottom:1px solid #eee;margin-bottom:10px;"></div>
   <div id="onMarketMap"></div>
   <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active listings for Denver Metro right now.</div>
 </div></div>
@@ -1015,16 +1016,29 @@ function clearOnMarketFilters() {
   renderOnMarketMarkers();
 }
 
-function renderOnMarketMarkers() {
+function onMarketFiltered() {
   const typeSel = document.getElementById('omType').value;
   const unitsSel = document.getElementById('omUnits').value;
   const q = document.getElementById('omSearch').value.trim().toLowerCase();
-  omMarkerLayer.clearLayers();
-  D.onmarket
-    .filter(r => r.lat != null && r.lng != null)
+  return D.onmarket
     .filter(r => !typeSel || r.category === typeSel)
     .filter(r => !unitsSel || (unitsSel === 'under100' ? (r.units||0) < 100 : (r.units||0) > 100))
-    .filter(r => !q || (r.property||'').toLowerCase().includes(q) || (r.city||'').toLowerCase().includes(q))
+    .filter(r => !q || (r.property||'').toLowerCase().includes(q) || (r.city||'').toLowerCase().includes(q));
+}
+
+function renderOnMarketStats(filtered) {
+  const units = filtered.reduce((s,r) => s + (r.units||0), 0);
+  document.getElementById('omStats').innerHTML =
+    `<div><b>${filtered.length.toLocaleString()}</b> Properties</div>` +
+    `<div><b>${units.toLocaleString()}</b> Units</div>`;
+}
+
+function renderOnMarketMarkers() {
+  const filtered = onMarketFiltered();
+  renderOnMarketStats(filtered);
+  omMarkerLayer.clearLayers();
+  filtered
+    .filter(r => r.lat != null && r.lng != null)
     .forEach(r => {
       const color = OM_COLOR_BY_CAT[r.category] || '#888';
       const marker = L.circleMarker([r.lat, r.lng], {
