@@ -64,6 +64,7 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
 .map-panel #omStats,.map-panel #pipeStats{border-bottom:1px solid #eee}
 .map-panel #onMarketMap,.map-panel #pipelineMap{border:none;border-radius:0}
+.cf-wrap{max-width:1300px}
 .cf-subtitle{font-size:13px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #c9a84c}
 .cf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .cf-card{background:#fff;border:1px solid #dde;border-radius:8px;padding:14px}
@@ -1106,6 +1107,12 @@ function renderOnMarket() {
     legend.addTo(omMap);
   }
 
+  // Leaflet measures its container's width at creation time; if that happens
+  // before the page's fonts/layout fully settle, the map canvas can end up
+  // narrower than its actual CSS box and never self-correct. Force a
+  // re-measure before fitBounds so the map fills #onMarketMap exactly.
+  omMap.invalidateSize();
+
   if (geoRows.length) {
     omMap.fitBounds(geoRows.map(r => [r.lat, r.lng]), { padding: [24,24], maxZoom: 13 });
   } else {
@@ -1194,6 +1201,8 @@ function renderConstructionMap() {
     };
     legend.addTo(pipeMap);
   }
+
+  pipeMap.invalidateSize();
 
   if (geoRows.length) {
     pipeMap.fitBounds(geoRows.map(r => [r.lat, r.lng]), { padding: [24,24], maxZoom: 13 });
