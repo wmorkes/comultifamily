@@ -64,12 +64,16 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
 .map-panel #omStats,.map-panel #pipeStats{border-bottom:1px solid #eee}
 .map-panel #onMarketMap,.map-panel #pipelineMap{border:none;border-radius:0}
+.cf-wrap{max-width:1254px}
 .cf-subtitle{font-size:13px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #c9a84c}
 .cf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .cf-card{background:#fff;border:1px solid #dde;border-radius:8px;padding:14px}
 .cf-card-title{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
 table.cf-table{border-collapse:collapse;width:100%;font-size:12.5px}
-table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde}
+table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde;cursor:pointer;user-select:none}
+table.cf-table th:hover{color:#0c1a2e}
+table.cf-table th.asc::after{content:' \2191'}
+table.cf-table th.desc::after{content:' \2193'}
 table.cf-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0}
 table.cf-table tr:last-child td{border-bottom:none}
 table.cf-table tr:hover td{background:#f8f9fb}
@@ -399,39 +403,61 @@ svg.chart{display:block;width:100%;height:auto}
 <div class="section" id="capitalflow"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Capital Markets</div><h2 class="section-h2">Ownership &amp; Capital Flows</h2></div>
 
-  <div class="cf-subtitle">Current Ownership</div>
-  <div class="cf-grid2">
-    <div class="cf-card">
-      <div class="cf-card-title">By Buyer Type</div>
-      <table class="cf-table">
-        <thead><tr><th>Type</th><th>Props</th><th>Units</th></tr></thead>
-        <tbody id="ownByTypeBody"></tbody>
-      </table>
+  <div class="cf-wrap">
+    <div class="cf-subtitle">Current Ownership</div>
+    <div class="cf-grid2">
+      <div class="cf-card">
+        <div class="cf-card-title">By Buyer Type</div>
+        <table class="cf-table">
+          <thead><tr>
+            <th onclick="sortCfTable('ownByTypeBody','label',false,this)">Type</th>
+            <th onclick="sortCfTable('ownByTypeBody','properties',false,this)">Props</th>
+            <th onclick="sortCfTable('ownByTypeBody','units',false,this)">Units</th>
+            <th onclick="sortCfTable('ownByTypeBody','pct',false,this)">%</th>
+          </tr></thead>
+          <tbody id="ownByTypeBody"></tbody>
+        </table>
+      </div>
+      <div class="cf-card">
+        <div class="cf-card-title">By HQ State</div>
+        <table class="cf-table">
+          <thead><tr>
+            <th onclick="sortCfTable('ownByStateBody','label',false,this)">State</th>
+            <th onclick="sortCfTable('ownByStateBody','properties',false,this)">Props</th>
+            <th onclick="sortCfTable('ownByStateBody','units',false,this)">Units</th>
+            <th onclick="sortCfTable('ownByStateBody','pct',false,this)">%</th>
+          </tr></thead>
+          <tbody id="ownByStateBody"></tbody>
+        </table>
+      </div>
     </div>
-    <div class="cf-card">
-      <div class="cf-card-title">By HQ State</div>
-      <table class="cf-table">
-        <thead><tr><th>State</th><th>Props</th><th>Units</th></tr></thead>
-        <tbody id="ownByStateBody"></tbody>
-      </table>
-    </div>
-  </div>
 
-  <div class="cf-subtitle" style="margin-top:24px">Recent Investments (Trailing 24 Months)</div>
-  <div class="cf-grid2">
-    <div class="cf-card">
-      <div class="cf-card-title">By Buyer Type</div>
-      <table class="cf-table">
-        <thead><tr><th>Type</th><th>Deals</th><th>Volume</th></tr></thead>
-        <tbody id="recentByTypeBody"></tbody>
-      </table>
-    </div>
-    <div class="cf-card">
-      <div class="cf-card-title">By HQ State</div>
-      <table class="cf-table">
-        <thead><tr><th>State</th><th>Deals</th><th>Volume</th></tr></thead>
-        <tbody id="recentByStateBody"></tbody>
-      </table>
+    <div class="cf-subtitle" style="margin-top:24px">Recent Investments (Trailing 24 Months)</div>
+    <div class="cf-grid2">
+      <div class="cf-card">
+        <div class="cf-card-title">By Buyer Type</div>
+        <table class="cf-table">
+          <thead><tr>
+            <th onclick="sortCfTable('recentByTypeBody','label',true,this)">Type</th>
+            <th onclick="sortCfTable('recentByTypeBody','properties',true,this)">Deals</th>
+            <th onclick="sortCfTable('recentByTypeBody','volume',true,this)">Volume</th>
+            <th onclick="sortCfTable('recentByTypeBody','pct',true,this)">%</th>
+          </tr></thead>
+          <tbody id="recentByTypeBody"></tbody>
+        </table>
+      </div>
+      <div class="cf-card">
+        <div class="cf-card-title">By HQ State</div>
+        <table class="cf-table">
+          <thead><tr>
+            <th onclick="sortCfTable('recentByStateBody','label',true,this)">State</th>
+            <th onclick="sortCfTable('recentByStateBody','properties',true,this)">Deals</th>
+            <th onclick="sortCfTable('recentByStateBody','volume',true,this)">Volume</th>
+            <th onclick="sortCfTable('recentByStateBody','pct',true,this)">%</th>
+          </tr></thead>
+          <tbody id="recentByStateBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -1224,8 +1250,34 @@ function renderPipelineMarkers() {
 }
 
 // ── Capital Flows: pre-aggregated ownership/investment breakdowns ───────────
+const CF_ARRAYS = {};
+const CF_SORT = {};
+
 function capFlowRow(b, volCol) {
-  return `<tr><td>${b.label}</td><td>${b.properties.toLocaleString()}</td><td>${volCol ? shortDollar(b.volume) : b.units.toLocaleString()}</td></tr>`;
+  return `<tr><td>${b.label}</td><td>${b.properties.toLocaleString()}</td><td>${volCol ? shortDollar(b.volume) : b.units.toLocaleString()}</td><td>${b.pct}%</td></tr>`;
+}
+
+function renderCfTable(tbodyId, volCol) {
+  const arr = CF_ARRAYS[tbodyId] || [];
+  document.getElementById(tbodyId).innerHTML =
+    arr.map(b => capFlowRow(b, volCol)).join('') ||
+    `<tr><td colspan="4" style="color:#999">${volCol ? 'No activity' : 'No data'}</td></tr>`;
+}
+
+function sortCfTable(tbodyId, key, volCol, thEl) {
+  const arr = CF_ARRAYS[tbodyId];
+  if (!arr) return;
+  const st = CF_SORT[tbodyId] || (CF_SORT[tbodyId] = {key: null, asc: false});
+  st.asc = (st.key === key) ? !st.asc : false;
+  st.key = key;
+  arr.sort((a,b) => {
+    const av = a[key], bv = b[key];
+    if (typeof av === 'string') return st.asc ? av.localeCompare(bv) : bv.localeCompare(av);
+    return st.asc ? av-bv : bv-av;
+  });
+  renderCfTable(tbodyId, volCol);
+  thEl.parentElement.querySelectorAll('th').forEach(t => t.classList.remove('asc','desc'));
+  thEl.classList.add(st.asc ? 'asc' : 'desc');
 }
 
 function renderCapitalFlow() {
@@ -1234,10 +1286,14 @@ function renderCapitalFlow() {
     document.getElementById('capitalFlowEmpty').style.display = 'block';
     return;
   }
-  document.getElementById('ownByTypeBody').innerHTML = cf.ownership.byType.map(b => capFlowRow(b, false)).join('') || '<tr><td colspan="3" style="color:#999">No data</td></tr>';
-  document.getElementById('ownByStateBody').innerHTML = cf.ownership.byState.map(b => capFlowRow(b, false)).join('') || '<tr><td colspan="3" style="color:#999">No data</td></tr>';
-  document.getElementById('recentByTypeBody').innerHTML = cf.recent.byType.map(b => capFlowRow(b, true)).join('') || '<tr><td colspan="3" style="color:#999">No activity</td></tr>';
-  document.getElementById('recentByStateBody').innerHTML = cf.recent.byState.map(b => capFlowRow(b, true)).join('') || '<tr><td colspan="3" style="color:#999">No activity</td></tr>';
+  CF_ARRAYS['ownByTypeBody'] = cf.ownership.byType;
+  CF_ARRAYS['ownByStateBody'] = cf.ownership.byState;
+  CF_ARRAYS['recentByTypeBody'] = cf.recent.byType;
+  CF_ARRAYS['recentByStateBody'] = cf.recent.byState;
+  renderCfTable('ownByTypeBody', false);
+  renderCfTable('ownByStateBody', false);
+  renderCfTable('recentByTypeBody', true);
+  renderCfTable('recentByStateBody', true);
 }
 
 // ── Shared bar+line chart (bars=count on left axis, line=volume on right axis) ──
