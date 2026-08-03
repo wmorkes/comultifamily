@@ -227,6 +227,7 @@ svg.chart{display:block;width:100%;height:auto}
   <a href="#operating">Operating Metrics</a>
   <a href="#sales">Sales Metrics</a>
   <a href="#onmarket">Live Listings</a>
+  <a href="#capitalflow">Capital Markets</a>
 </nav>
 <div class="page">
 
@@ -383,6 +384,47 @@ svg.chart{display:block;width:100%;height:auto}
     <div id="onMarketMap"></div>
   </div>
   <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active listings for Denver Metro right now.</div>
+</div></div>
+
+<div class="section" id="capitalflow"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Capital Markets</div><h2 class="section-h2">Ownership &amp; Capital Flows</h2></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div>
+      <div class="stat-title" style="font-size:13px;margin-bottom:10px">Current Ownership</div>
+      <div style="margin-bottom:16px">
+        <div class="stat-title">By Buyer Type</div>
+        <table class="vintage-table">
+          <thead><tr><th>Type</th><th>Props</th><th>Units</th></tr></thead>
+          <tbody id="ownByTypeBody"></tbody>
+        </table>
+      </div>
+      <div>
+        <div class="stat-title">By HQ State</div>
+        <table class="vintage-table">
+          <thead><tr><th>State</th><th>Props</th><th>Units</th></tr></thead>
+          <tbody id="ownByStateBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="stat-title" style="font-size:13px;margin-bottom:10px">Recent Investments (Trailing 24 Months)</div>
+      <div style="margin-bottom:16px">
+        <div class="stat-title">By Buyer Type</div>
+        <table class="vintage-table">
+          <thead><tr><th>Type</th><th>Deals</th><th>Volume</th></tr></thead>
+          <tbody id="recentByTypeBody"></tbody>
+        </table>
+      </div>
+      <div>
+        <div class="stat-title">By HQ State</div>
+        <table class="vintage-table">
+          <thead><tr><th>State</th><th>Deals</th><th>Volume</th></tr></thead>
+          <tbody id="recentByStateBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div id="capitalFlowEmpty" style="display:none;padding:16px;color:#888">No recorded buyer data for Denver Metro yet.</div>
 </div></div>
 
 <div class="tooltip" id="tooltip"></div>
@@ -1170,6 +1212,23 @@ function renderPipelineMarkers() {
     });
 }
 
+// ── Capital Flows: pre-aggregated ownership/investment breakdowns ───────────
+function capFlowRow(b, volCol) {
+  return `<tr><td>${b.label}</td><td>${b.properties.toLocaleString()}</td><td>${volCol ? shortDollar(b.volume) : b.units.toLocaleString()}</td></tr>`;
+}
+
+function renderCapitalFlow() {
+  const cf = D.capitalFlow;
+  if (!cf || (!cf.ownership.byType.length && !cf.recent.byType.length)) {
+    document.getElementById('capitalFlowEmpty').style.display = 'block';
+    return;
+  }
+  document.getElementById('ownByTypeBody').innerHTML = cf.ownership.byType.map(b => capFlowRow(b, false)).join('') || '<tr><td colspan="3" style="color:#999">No data</td></tr>';
+  document.getElementById('ownByStateBody').innerHTML = cf.ownership.byState.map(b => capFlowRow(b, false)).join('') || '<tr><td colspan="3" style="color:#999">No data</td></tr>';
+  document.getElementById('recentByTypeBody').innerHTML = cf.recent.byType.map(b => capFlowRow(b, true)).join('') || '<tr><td colspan="3" style="color:#999">No activity</td></tr>';
+  document.getElementById('recentByStateBody').innerHTML = cf.recent.byState.map(b => capFlowRow(b, true)).join('') || '<tr><td colspan="3" style="color:#999">No activity</td></tr>';
+}
+
 // ── Shared bar+line chart (bars=count on left axis, line=volume on right axis) ──
 function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight) {
   const counts = years.map(countFn);
@@ -1285,6 +1344,7 @@ fetch('/dashboards/markets/denver-metro/data.json')
     renderDeliveries();
     renderConstructionMap();
     renderOnMarket();
+    renderCapitalFlow();
   });
 
 let __opResizeTimer;
