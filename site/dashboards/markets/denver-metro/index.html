@@ -65,13 +65,13 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
 .map-panel #omStats,.map-panel #pipeStats{border-bottom:1px solid #eee}
 .map-panel #onMarketMap,.map-panel #pipelineMap{border:none;border-radius:0}
-.cf-wrap{max-width:1600px}
+.cf-wrap{max-width:1150px}
 .cf-subtitle{font-size:13px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #c9a84c}
 .cf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;min-width:0}
 .cf-card{min-width:0;overflow-x:auto}
 .cf-card{background:#fff;border:1px solid #dde;border-radius:8px;padding:14px}
 .cf-card-title{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
-table.cf-table{border-collapse:collapse;width:40px;table-layout:fixed;font-size:12.5px}
+table.cf-table{border-collapse:collapse;width:100%;min-width:0;table-layout:fixed;font-size:12.5px}
 table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde;cursor:pointer;user-select:none}
 table.cf-table th:hover{color:#0c1a2e}
 table.cf-table th.asc::after{content:' \2191'}
@@ -374,7 +374,7 @@ svg.chart{display:block;width:100%;height:auto}
       <div class="cf-card">
         <div class="cf-card-title">By Buyer Type</div>
         <table class="cf-table">
-          <colgroup><col style="width:10px"><col style="width:10px"><col style="width:10px"><col style="width:10px"></colgroup>
+          <colgroup><col style="width:52%"><col style="width:14%"><col style="width:20%"><col style="width:14%"></colgroup>
           <thead><tr>
             <th onclick="sortCfTable('ownByTypeBody','label',false,this)">Type</th>
             <th onclick="sortCfTable('ownByTypeBody','properties',false,this)">Props</th>
@@ -387,7 +387,7 @@ svg.chart{display:block;width:100%;height:auto}
       <div class="cf-card">
         <div class="cf-card-title">By HQ State</div>
         <table class="cf-table">
-          <colgroup><col style="width:10px"><col style="width:10px"><col style="width:10px"><col style="width:10px"></colgroup>
+          <colgroup><col style="width:34%"><col style="width:22%"><col style="width:28%"><col style="width:16%"></colgroup>
           <thead><tr>
             <th onclick="sortCfTable('ownByStateBody','label',false,this)">State</th>
             <th onclick="sortCfTable('ownByStateBody','properties',false,this)">Props</th>
@@ -404,7 +404,7 @@ svg.chart{display:block;width:100%;height:auto}
       <div class="cf-card">
         <div class="cf-card-title">By Buyer Type</div>
         <table class="cf-table">
-          <colgroup><col style="width:10px"><col style="width:10px"><col style="width:10px"><col style="width:10px"></colgroup>
+          <colgroup><col style="width:46%"><col style="width:16%"><col style="width:22%"><col style="width:16%"></colgroup>
           <thead><tr>
             <th onclick="sortCfTable('recentByTypeBody','label',true,this)">Type</th>
             <th onclick="sortCfTable('recentByTypeBody','properties',true,this)">Deals</th>
@@ -417,7 +417,7 @@ svg.chart{display:block;width:100%;height:auto}
       <div class="cf-card">
         <div class="cf-card-title">By HQ State</div>
         <table class="cf-table">
-          <colgroup><col style="width:10px"><col style="width:10px"><col style="width:10px"><col style="width:10px"></colgroup>
+          <colgroup><col style="width:30%"><col style="width:22%"><col style="width:28%"><col style="width:20%"></colgroup>
           <thead><tr>
             <th onclick="sortCfTable('recentByStateBody','label',true,this)">State</th>
             <th onclick="sortCfTable('recentByStateBody','properties',true,this)">Deals</th>
