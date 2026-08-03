@@ -77,6 +77,8 @@ body.map-collapsed{padding-bottom:40px}
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else if (!__r.isTeam) {
+    window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});
     rememberClientToken(__clientLabel);

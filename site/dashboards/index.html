@@ -87,10 +87,22 @@
         .card-title-row .card-title { font-weight:700; color:#fff; font-size:16px; }
       </style>
 
-      <!-- Client-facing section -->
-      <div style="margin-bottom:24px;">
+      <!-- Client-facing section — empty for now; will hold Market Reports (rolled-up
+           views sourced from the team-only dashboards below) as those get built. -->
+      <div id="client-section" style="margin-bottom:24px;display:none;">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
           <span>Client Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
+        </div>
+        <div class="dashboard-card-grid">
+        </div>
+      </div>
+
+      <!-- Team-only section — all full-granularity dashboards live here now
+           (moved from Client Reports 2026-08-03: Sales History, Delivery History,
+           Construction Pipeline, CHFA Rent Limits, Rental Market Trends). -->
+      <div id="team-section" style="display:none;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
+          <span>Internal Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div class="dashboard-card-grid">
           <a href="/dashboards/sales-by-year/" data-mobile-href="/dashboards/sales-by-year/mobile/" data-token-link class="dashboard-card-link">
@@ -113,29 +125,20 @@
             <div class="card-title-row"><span class="card-num">5</span><span class="card-title">Rental Market Trends</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Asking Rent &amp; Occupancy by Market, 2011&ndash;Present</div>
           </a>
-        </div>
-      </div>
-
-      <!-- Team-only section -->
-      <div id="team-section" style="display:none;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-          <span>Internal Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
-        </div>
-        <div class="dashboard-card-grid">
           <a href="/dashboards/loan-monitor/" data-mobile-href="/dashboards/loan-monitor/mobile/" data-token-link class="dashboard-card-link">
-            <div class="card-title-row"><span class="card-num">5</span><span class="card-title">Loan Monitor</span></div>
+            <div class="card-title-row"><span class="card-num">6</span><span class="card-title">Loan Monitor</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Maturities &amp; Watch List Properties</div>
           </a>
           <a href="/dashboards/followup-gaps/" data-token-link class="dashboard-card-link desktop-only-card">
-            <div class="card-title-row"><span class="card-num">6</span><span class="card-title">Gap Report</span></div>
+            <div class="card-title-row"><span class="card-num">7</span><span class="card-title">Gap Report</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Follow-up Activity</div>
           </a>
           <a href="/dashboards/on-market/" data-token-link class="dashboard-card-link">
-            <div class="card-title-row"><span class="card-num">7</span><span class="card-title">On-Market Report</span></div>
+            <div class="card-title-row"><span class="card-num">8</span><span class="card-title">On-Market Report</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Active Listings &amp; Reduxes</div>
           </a>
           <a href="/dashboards/capital-flow/" data-token-link class="dashboard-card-link">
-            <div class="card-title-row"><span class="card-num">8</span><span class="card-title">Capital Flow</span></div>
+            <div class="card-title-row"><span class="card-num">9</span><span class="card-title">Capital Flow</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Buyer Origin, Type &amp; Vintage by Market</div>
           </a>
         </div>
@@ -145,15 +148,15 @@
         </div>
         <div class="desktop-only-card dashboard-card-grid">
           <a href="https://bov-generator-production.up.railway.app/" target="_blank" rel="noopener" class="dashboard-card-link">
-            <div class="card-title-row"><span class="card-num">9</span><span class="card-title">Emerald Package</span></div>
+            <div class="card-title-row"><span class="card-num">10</span><span class="card-title">Emerald Package</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Broker Opinion of Value Builder</div>
           </a>
           <a href="/dashboards/geocode/" target="_blank" rel="noopener" class="dashboard-card-link">
-            <div class="card-title-row"><span class="card-num">10</span><span class="card-title">Address Geocoder</span></div>
+            <div class="card-title-row"><span class="card-num">11</span><span class="card-title">Address Geocoder</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Batch Lat/Lng Lookup</div>
           </a>
           <a href="/dashboards/token-gen/" data-token-link id="tokenGenCard" class="dashboard-card-link" style="display:none;">
-            <div class="card-title-row"><span class="card-num">11</span><span class="card-title">Token Generator</span></div>
+            <div class="card-title-row"><span class="card-num">12</span><span class="card-title">Token Generator</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Direct Client Access Link</div>
           </a>
         </div>
