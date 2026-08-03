@@ -87,13 +87,18 @@
         .card-title-row .card-title { font-weight:700; color:#fff; font-size:16px; }
       </style>
 
-      <!-- Client-facing section — empty for now; will hold Market Reports (rolled-up
-           views sourced from the team-only dashboards below) as those get built. -->
-      <div id="client-section" style="margin-bottom:24px;display:none;">
+      <!-- Client-facing section — rolled-up per-market views sourced from the
+           team-only dashboards above. Only Denver Metro built so far; 8 more CO
+           markets + Wyoming still to template (see project_market_dashboards). -->
+      <div id="client-section" style="margin-bottom:24px;">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-          <span>Client Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
+          <span>Market Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div class="dashboard-card-grid">
+          <a href="/dashboards/markets/denver-metro/" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">1</span><span class="card-title">Denver Metro</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
         </div>
       </div>
 
