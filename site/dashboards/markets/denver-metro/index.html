@@ -64,6 +64,16 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
 .map-panel #omStats,.map-panel #pipeStats{border-bottom:1px solid #eee}
 .map-panel #onMarketMap,.map-panel #pipelineMap{border:none;border-radius:0}
+.cf-subtitle{font-size:13px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #c9a84c}
+.cf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cf-card{background:#fff;border:1px solid #dde;border-radius:8px;padding:14px}
+.cf-card-title{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+table.cf-table{border-collapse:collapse;width:100%;font-size:12.5px}
+table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde}
+table.cf-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0}
+table.cf-table tr:last-child td{border-bottom:none}
+table.cf-table tr:hover td{background:#f8f9fb}
+table.cf-table th:not(:first-child),table.cf-table td:not(:first-child){text-align:right}
 .filter-group{display:flex;flex-direction:column;gap:3px}
 .filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
 select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:12px;background:#fff;color:#222}
@@ -388,42 +398,43 @@ svg.chart{display:block;width:100%;height:auto}
 
 <div class="section" id="capitalflow"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Capital Markets</div><h2 class="section-h2">Ownership &amp; Capital Flows</h2></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-    <div>
-      <div class="stat-title" style="font-size:13px;margin-bottom:10px">Current Ownership</div>
-      <div style="margin-bottom:16px">
-        <div class="stat-title">By Buyer Type</div>
-        <table class="vintage-table">
-          <thead><tr><th>Type</th><th>Props</th><th>Units</th></tr></thead>
-          <tbody id="ownByTypeBody"></tbody>
-        </table>
-      </div>
-      <div>
-        <div class="stat-title">By HQ State</div>
-        <table class="vintage-table">
-          <thead><tr><th>State</th><th>Props</th><th>Units</th></tr></thead>
-          <tbody id="ownByStateBody"></tbody>
-        </table>
-      </div>
+
+  <div class="cf-subtitle">Current Ownership</div>
+  <div class="cf-grid2">
+    <div class="cf-card">
+      <div class="cf-card-title">By Buyer Type</div>
+      <table class="cf-table">
+        <thead><tr><th>Type</th><th>Props</th><th>Units</th></tr></thead>
+        <tbody id="ownByTypeBody"></tbody>
+      </table>
     </div>
-    <div>
-      <div class="stat-title" style="font-size:13px;margin-bottom:10px">Recent Investments (Trailing 24 Months)</div>
-      <div style="margin-bottom:16px">
-        <div class="stat-title">By Buyer Type</div>
-        <table class="vintage-table">
-          <thead><tr><th>Type</th><th>Deals</th><th>Volume</th></tr></thead>
-          <tbody id="recentByTypeBody"></tbody>
-        </table>
-      </div>
-      <div>
-        <div class="stat-title">By HQ State</div>
-        <table class="vintage-table">
-          <thead><tr><th>State</th><th>Deals</th><th>Volume</th></tr></thead>
-          <tbody id="recentByStateBody"></tbody>
-        </table>
-      </div>
+    <div class="cf-card">
+      <div class="cf-card-title">By HQ State</div>
+      <table class="cf-table">
+        <thead><tr><th>State</th><th>Props</th><th>Units</th></tr></thead>
+        <tbody id="ownByStateBody"></tbody>
+      </table>
     </div>
   </div>
+
+  <div class="cf-subtitle" style="margin-top:24px">Recent Investments (Trailing 24 Months)</div>
+  <div class="cf-grid2">
+    <div class="cf-card">
+      <div class="cf-card-title">By Buyer Type</div>
+      <table class="cf-table">
+        <thead><tr><th>Type</th><th>Deals</th><th>Volume</th></tr></thead>
+        <tbody id="recentByTypeBody"></tbody>
+      </table>
+    </div>
+    <div class="cf-card">
+      <div class="cf-card-title">By HQ State</div>
+      <table class="cf-table">
+        <thead><tr><th>State</th><th>Deals</th><th>Volume</th></tr></thead>
+        <tbody id="recentByStateBody"></tbody>
+      </table>
+    </div>
+  </div>
+
   <div id="capitalFlowEmpty" style="display:none;padding:16px;color:#888">No recorded buyer data for Denver Metro yet.</div>
 </div></div>
 
