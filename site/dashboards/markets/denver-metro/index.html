@@ -60,6 +60,10 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
   color:#0c1a2e;line-height:1.15}
 .section-h2 .gold{color:#c9a84c;font-weight:500}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:8px 10px;background:#fff;border:1px solid #dde;border-radius:6px;align-items:flex-end;margin-bottom:12px}
+.map-panel{background:#fff;border:1px solid #dde;border-radius:6px;overflow:hidden}
+.map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
+.map-panel #omStats,.map-panel #pipeStats{border-bottom:1px solid #eee}
+.map-panel #onMarketMap,.map-panel #pipelineMap{border:none;border-radius:0}
 .filter-group{display:flex;flex-direction:column;gap:3px}
 .filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
 select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:12px;background:#fff;color:#222}
@@ -254,22 +258,24 @@ svg.chart{display:block;width:100%;height:auto}
   </div>
 
   <div style="margin-top:24px">
-    <div class="toolbar">
-      <div class="filter-group">
-        <label>Status</label>
-        <select id="pipeStatus" onchange="applyPipelineFilters()">
-          <option value="">All Statuses</option>
-          <option value="under_construction">Under Construction</option>
-          <option value="planned">Planned</option>
-          <option value="prospective">Prospective</option>
-        </select>
+    <div class="map-panel">
+      <div class="toolbar">
+        <div class="filter-group">
+          <label>Status</label>
+          <select id="pipeStatus" onchange="applyPipelineFilters()">
+            <option value="">All Statuses</option>
+            <option value="under_construction">Under Construction</option>
+            <option value="planned">Planned</option>
+            <option value="prospective">Prospective</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:6px;padding-bottom:1px">
+          <button class="btn btn-secondary" onclick="clearPipelineFilters()">Clear</button>
+        </div>
       </div>
-      <div style="display:flex;gap:6px;padding-bottom:1px">
-        <button class="btn btn-secondary" onclick="clearPipelineFilters()">Clear</button>
-      </div>
+      <div id="pipeStats" style="display:flex;gap:20px;padding:10px 12px;font-size:13px;color:#444;"></div>
+      <div id="pipelineMap"></div>
     </div>
-    <div id="pipeStats" style="display:flex;gap:20px;padding:10px 2px;font-size:13px;color:#444;border-bottom:1px solid #eee;margin-bottom:10px;"></div>
-    <div id="pipelineMap"></div>
     <div id="pipelineEmpty" style="display:none;padding:16px;color:#888">No active pipeline properties for Denver Metro right now.</div>
   </div>
 </div></div>
@@ -344,36 +350,38 @@ svg.chart{display:block;width:100%;height:auto}
 
 <div class="section" id="onmarket"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Live Listings</div><h2 class="section-h2">Currently On-Market</h2></div>
-  <div class="toolbar">
-    <div class="filter-group">
-      <label>Type</label>
-      <select id="omType" onchange="applyOnMarketFilters()">
-        <option value="">All Types</option>
-        <option value="Market Rate">Market Rate</option>
-        <option value="Affordable">Affordable</option>
-        <option value="Student">Student</option>
-        <option value="Land">Land</option>
-      </select>
+  <div class="map-panel">
+    <div class="toolbar">
+      <div class="filter-group">
+        <label>Type</label>
+        <select id="omType" onchange="applyOnMarketFilters()">
+          <option value="">All Types</option>
+          <option value="Market Rate">Market Rate</option>
+          <option value="Affordable">Affordable</option>
+          <option value="Student">Student</option>
+          <option value="Land">Land</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Units</label>
+        <select id="omUnits" onchange="applyOnMarketFilters()">
+          <option value="">All Properties</option>
+          <option value="under100">Below 100 Units</option>
+          <option value="over100">Over 100 Units</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Search</label>
+        <input id="omSearch" type="text" placeholder="Property or city&hellip;" onkeydown="if(event.key==='Enter')applyOnMarketFilters()">
+      </div>
+      <div style="display:flex;gap:6px;padding-bottom:1px">
+        <button class="btn btn-primary" onclick="applyOnMarketFilters()">Apply</button>
+        <button class="btn btn-secondary" onclick="clearOnMarketFilters()">Clear</button>
+      </div>
     </div>
-    <div class="filter-group">
-      <label>Units</label>
-      <select id="omUnits" onchange="applyOnMarketFilters()">
-        <option value="">All Properties</option>
-        <option value="under100">Below 100 Units</option>
-        <option value="over100">Over 100 Units</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Search</label>
-      <input id="omSearch" type="text" placeholder="Property or city&hellip;" onkeydown="if(event.key==='Enter')applyOnMarketFilters()">
-    </div>
-    <div style="display:flex;gap:6px;padding-bottom:1px">
-      <button class="btn btn-primary" onclick="applyOnMarketFilters()">Apply</button>
-      <button class="btn btn-secondary" onclick="clearOnMarketFilters()">Clear</button>
-    </div>
+    <div id="omStats" style="display:flex;gap:20px;padding:10px 12px;font-size:13px;color:#444;"></div>
+    <div id="onMarketMap"></div>
   </div>
-  <div id="omStats" style="display:flex;gap:20px;padding:10px 2px;font-size:13px;color:#444;border-bottom:1px solid #eee;margin-bottom:10px;"></div>
-  <div id="onMarketMap"></div>
   <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active listings for Denver Metro right now.</div>
 </div></div>
 
@@ -1149,9 +1157,13 @@ function renderPipelineMarkers() {
         radius: 7, color: '#fff', weight: 1.5, fillColor: meta.color, fillOpacity: 0.9,
       });
       // Deliberately thin, matching the On-Market map's hover pattern — just
-      // enough to place the pin, no address/developer/property name.
+      // enough to place the pin, no address/developer/property name. Est.
+      // Delivery is dropped entirely (not shown as a blank/dash) when the
+      // source has no delivery date, rather than showing a placeholder.
+      const tipParts = [`${r.units || '—'} units`, meta.label];
+      if (r.delivery) tipParts.push(`Est. Delivery ${r.delivery}`);
       marker.bindTooltip(
-        `${r.units || '—'} units &middot; Est. Delivery ${r.delivery || '—'} &middot; ${meta.label}`,
+        tipParts.join(' &middot; '),
         { className: 'om-tip', direction: 'top', offset: [0,-4] }
       );
       marker.addTo(pipeMarkerLayer);
