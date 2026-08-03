@@ -127,11 +127,12 @@ svg.chart{display:block;width:100%;height:auto}
 .legend-item{display:flex;align-items:center;gap:5px}
 .legend-swatch{width:12px;height:12px;border-radius:2px}
 .tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
-#onMarketMap{height:520px;border:1px solid #dde;border-radius:6px}
+#onMarketMap,#pipelineMap{height:520px;border:1px solid #dde;border-radius:6px}
 .om-legend{background:#fff;padding:6px 8px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.2);font-size:11px;line-height:1.6}
 .om-legend div{display:flex;align-items:center;gap:6px}
 .om-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 .leaflet-tooltip.om-tip{font-size:12px;padding:4px 8px;line-height:1.4}
+.filter-stats-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;align-self:center}
 .cta-tab{position:fixed;top:50%;right:12px;transform:translateY(-50%);z-index:200;background:#0c1a2e;color:#fff;border:none;border-left:4px solid #c9a84c;clip-path:polygon(0% 0%,88% 0%,100% 50%,88% 100%,0% 100%);padding:16px 26px 16px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
 .cta-tab:hover{background:#152540;filter:drop-shadow(0 10px 14px rgba(0,0,0,.65))}
 .cta-panel{position:fixed;top:50%;right:0;height:auto;width:320px;max-width:88vw;background:#0c1a2e;border-radius:8px 0 0 8px;box-shadow:-4px 4px 24px rgba(0,0,0,.4);z-index:201;transform:translateX(100%) translateY(-50%);transition:transform .25s ease;display:flex;flex-direction:column;justify-content:center;padding:28px 20px}
@@ -250,6 +251,26 @@ svg.chart{display:block;width:100%;height:auto}
         </table>
       </div>
     </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="toolbar">
+      <div class="filter-group">
+        <label>Status</label>
+        <select id="pipeStatus" onchange="applyPipelineFilters()">
+          <option value="">All Statuses</option>
+          <option value="under_construction">Under Construction</option>
+          <option value="planned">Planned</option>
+          <option value="prospective">Prospective</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:6px;padding-bottom:1px">
+        <button class="btn btn-secondary" onclick="clearPipelineFilters()">Clear</button>
+      </div>
+    </div>
+    <div id="pipeStats" style="display:flex;gap:20px;padding:10px 2px;font-size:13px;color:#444;border-bottom:1px solid #eee;margin-bottom:10px;"></div>
+    <div id="pipelineMap"></div>
+    <div id="pipelineEmpty" style="display:none;padding:16px;color:#888">No active pipeline properties for Denver Metro right now.</div>
   </div>
 </div></div>
 
@@ -1029,6 +1050,7 @@ function onMarketFiltered() {
 function renderOnMarketStats(filtered) {
   const units = filtered.reduce((s,r) => s + (r.units||0), 0);
   document.getElementById('omStats').innerHTML =
+    `<div class="filter-stats-label">Matching Filters</div>` +
     `<div><b>${filtered.length.toLocaleString()}</b> Properties</div>` +
     `<div><b>${units.toLocaleString()}</b> Units</div>`;
 }
@@ -1051,6 +1073,88 @@ function renderOnMarketMarkers() {
         { className: 'om-tip', direction: 'top', offset: [0,-4] }
       );
       marker.addTo(omMarkerLayer);
+    });
+}
+
+// ── Construction Trends pipeline map (filterable by stage) ──────────────────
+const PIPE_STAGE_META = {
+  under_construction: {color:'#e53e3e', label:'Under Construction'},
+  planned:            {color:'#e3ab13', label:'Planned'},
+  prospective:        {color:'#0c1a2e', label:'Prospective'},
+};
+
+let pipeMap = null, pipeMarkerLayer = null;
+
+function renderConstructionMap() {
+  if (!D.pipeline || !D.pipeline.length) {
+    document.getElementById('pipelineMap').style.display='none';
+    document.querySelector('#construction .toolbar').style.display='none';
+    document.getElementById('pipelineEmpty').style.display='block';
+    return;
+  }
+
+  const geoRows = D.pipeline.filter(r => r.lat != null && r.lng != null);
+  if (!pipeMap) {
+    pipeMap = L.map('pipelineMap');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+    }).addTo(pipeMap);
+    pipeMarkerLayer = L.layerGroup().addTo(pipeMap);
+    const legend = L.control({position:'bottomleft'});
+    legend.onAdd = () => {
+      const d = L.DomUtil.create('div', 'om-legend');
+      d.innerHTML = Object.values(PIPE_STAGE_META).map(s => `<div><span class="dot" style="background:${s.color}"></span>${s.label}</div>`).join('');
+      return d;
+    };
+    legend.addTo(pipeMap);
+  }
+
+  if (geoRows.length) {
+    pipeMap.fitBounds(geoRows.map(r => [r.lat, r.lng]), { padding: [24,24], maxZoom: 13 });
+  } else {
+    pipeMap.setView([39.7, -104.9], 9);
+  }
+
+  renderPipelineMarkers();
+}
+
+function applyPipelineFilters() { renderPipelineMarkers(); }
+function clearPipelineFilters() {
+  document.getElementById('pipeStatus').value = '';
+  renderPipelineMarkers();
+}
+
+function pipelineFiltered() {
+  const statusSel = document.getElementById('pipeStatus').value;
+  return D.pipeline.filter(r => !statusSel || r.stage === statusSel);
+}
+
+function renderPipelineStats(filtered) {
+  const units = filtered.reduce((s,r) => s + (r.units||0), 0);
+  document.getElementById('pipeStats').innerHTML =
+    `<div class="filter-stats-label">Matching Filters</div>` +
+    `<div><b>${filtered.length.toLocaleString()}</b> Properties</div>` +
+    `<div><b>${units.toLocaleString()}</b> Units</div>`;
+}
+
+function renderPipelineMarkers() {
+  const filtered = pipelineFiltered();
+  renderPipelineStats(filtered);
+  pipeMarkerLayer.clearLayers();
+  filtered
+    .filter(r => r.lat != null && r.lng != null)
+    .forEach(r => {
+      const meta = PIPE_STAGE_META[r.stage] || {color:'#888', label:r.stage || 'Unknown'};
+      const marker = L.circleMarker([r.lat, r.lng], {
+        radius: 7, color: '#fff', weight: 1.5, fillColor: meta.color, fillOpacity: 0.9,
+      });
+      // Deliberately thin, matching the On-Market map's hover pattern — just
+      // enough to place the pin, no address/developer/property name.
+      marker.bindTooltip(
+        `${r.units || '—'} units &middot; Est. Delivery ${r.delivery || '—'} &middot; ${meta.label}`,
+        { className: 'om-tip', direction: 'top', offset: [0,-4] }
+      );
+      marker.addTo(pipeMarkerLayer);
     });
 }
 
@@ -1167,6 +1271,7 @@ fetch('/dashboards/markets/denver-metro/data.json')
     renderOperating();
     renderSales();
     renderDeliveries();
+    renderConstructionMap();
     renderOnMarket();
   });
 
