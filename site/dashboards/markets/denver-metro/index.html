@@ -203,7 +203,7 @@ svg.chart{display:block;width:100%;height:auto}
 
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+  <a class="co-hub-link" data-token-link href="/dashboards/">&#8592; Back to Hub</a>
 </div>
 <header>
   <div>
@@ -1157,12 +1157,6 @@ fetch('/dashboards/markets/denver-metro/data.json')
   });
 
 (function() {
-  const token = new URLSearchParams(location.search).get('token');
-  if (token) {
-    const el = document.getElementById('hubBackLink');
-    if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
-  }
-})();
 
 let __opResizeTimer;
 window.addEventListener('resize', () => {

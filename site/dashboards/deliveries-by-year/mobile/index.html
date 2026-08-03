@@ -69,7 +69,7 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+  <a class="co-hub-link" data-token-link href="/dashboards/">&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Multifamily Deliveries by Year</h1>
@@ -159,12 +159,6 @@ fetch('/dashboards/deliveries-by-year/data.json')
   });
 
 (function() {
-  const token = new URLSearchParams(location.search).get('token');
-  if (token) {
-    const el = document.getElementById('hubBackLink');
-    if (el) el.href = '/dashboards/?token=' + encodeURIComponent(token);
-  }
-})();
 </script>
 </body>
 </html>
