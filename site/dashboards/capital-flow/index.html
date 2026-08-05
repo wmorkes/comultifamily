@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Capital Flow Report – 08/04/2026</title>
+<title>Capital Flow Report – 08/05/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO/WY multifamily capital flow by buyer origin, type, market, and vintage. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -43,7 +43,7 @@ header p { font-size: 12px; color: var(--gold-light); margin-top: 3px; }
 .wrap { max-width: 1280px; margin: 0 auto; padding: 16px 24px 60px; }
 #flow { background: var(--surface-sunk); }
 #ownership { background: var(--surface); }
-.filters { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; position: sticky; top: 0; background: var(--surface-sunk); padding: 10px 0; z-index: 5; }
+.filters { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; position: sticky; top: 41px; background: var(--surface-sunk); padding: 10px 0; z-index: 5; }
 .filters select, .filters input { border: 1px solid var(--border); border-radius: 5px; padding: 7px 10px; font-size: 12.5px; background: var(--surface); color: var(--ink); }
 .filters .hint { font-size: 11px; color: var(--ink-muted); align-self: center; }
 .stats { display: flex; gap: 0; margin-bottom: 8px; background: var(--navy); border-radius: 8px; overflow: hidden; }
@@ -56,10 +56,10 @@ header p { font-size: 12px; color: var(--gold-light); margin-top: 3px; }
 .card.scroll { overflow-x: auto; }
 table.matrix { border-collapse: collapse; font-size: 12.5px; width: 100%; }
 table.matrix th { text-align: left; padding: 6px 10px; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
-table.matrix th:not(.state) { text-align: center; }
-table.matrix td { padding: 0; text-align: center; }
+table.matrix th:not(.state) { text-align: right; }
+table.matrix td { padding: 0; text-align: right; }
 table.matrix th.state { position: sticky; left: 0; background: var(--surface); }
-.cell { display: flex; align-items: center; justify-content: center; height: 36px; font-weight: 600; font-size: 11.5px; }
+.cell { display: flex; align-items: center; justify-content: flex-end; height: 36px; padding-right: 10px; font-weight: 600; font-size: 11.5px; }
 .legend { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 11px; color: var(--ink-muted); }
 .legend .sw { width: 20px; height: 10px; border-radius: 2px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -76,7 +76,14 @@ table.deals th.asc::after { content: ' \2191'; }
 table.deals th.desc::after { content: ' \2193'; }
 table.deals td { padding: 7px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 table.deals tr:hover td { background: var(--surface-sunk); }
-table.deals th:not(:first-child), table.deals td:not(:first-child) { text-align: center; }
+table.deals th:not(:first-child), table.deals td:not(:first-child) { text-align: right; }
+table.stat-pair { table-layout: fixed; }
+table.stat-pair th:nth-child(1), table.stat-pair td:nth-child(1) { width: 30%; }
+table.stat-pair th:nth-child(2), table.stat-pair td:nth-child(2),
+table.stat-pair th:nth-child(3), table.stat-pair td:nth-child(3),
+table.stat-pair th:nth-child(4), table.stat-pair td:nth-child(4),
+table.stat-pair th:nth-child(5), table.stat-pair td:nth-child(5),
+table.stat-pair th:nth-child(6), table.stat-pair td:nth-child(6) { width: 14%; }
 table.matrix th.sort-th { cursor: pointer; user-select: none; }
 table.matrix th.sort-th:hover { color: var(--ink); }
 th.sort-th.asc::after { content: ' \2191'; }
@@ -133,7 +140,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 </div>
 <header>
   <h1>CO/WY Multifamily Capital Flow</h1>
-  <p>Generated 08/04/2026 &middot; Team only &middot; Source: CRM Market Movement + Companies</p>
+  <p>Generated 08/05/2026 &middot; Team only &middot; Source: CRM Market Movement + Companies</p>
 </header>
 <nav class="section-nav">
   <a href="#flow">Capital Flow</a>
@@ -172,7 +179,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 
   <div class="section-title">Buyer Type Breakdown</div>
   <div class="card scroll">
-    <table class="deals" id="typeBreakdownTable">
+    <table class="deals stat-pair" id="typeBreakdownTable">
       <thead><tr>
         <th class="sort-th" onclick="sortSimple('typeBreakdownTable',0)">Category</th>
         <th class="sort-th" onclick="sortSimple('typeBreakdownTable',1)">Companies</th>
@@ -187,9 +194,9 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 
   <div class="section-title">Buyer Vintage Preference</div>
   <div class="card scroll">
-    <table class="deals" id="vintageSummaryTable">
+    <table class="deals stat-pair" id="vintageSummaryTable">
       <thead><tr>
-        <th class="sort-th asc" onclick="sortSimple('vintageSummaryTable',0)">Vintage</th>
+        <th class="sort-th desc" onclick="sortSimple('vintageSummaryTable',0)">Vintage</th>
         <th class="sort-th" onclick="sortSimple('vintageSummaryTable',1)">Properties</th>
         <th class="sort-th" onclick="sortSimple('vintageSummaryTable',2)">Units</th>
         <th class="sort-th" onclick="sortSimple('vintageSummaryTable',3)">$ Volume</th>
@@ -206,6 +213,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 
   <div class="section-title">Top Buyer States by Market (by $ Volume)</div>
   <div class="grid-auto" id="stateByMarketGrid"></div>
+  <div class="legend">Wyoming is a non-disclosure state &mdash; sale prices are rarely public, so its panel above is ranked by units instead of $ volume.</div>
 
   <div class="section-title">Top 20 Active Buyers <span style="font-weight:400;color:var(--ink-muted);text-transform:none;letter-spacing:0">&mdash; click a column to sort</span></div>
   <div class="card scroll" style="padding:0">
@@ -217,6 +225,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
         <th onclick="sort(3)">Properties</th>
         <th onclick="sort(4)">Units</th>
         <th onclick="sort(5)">$ Volume</th>
+        <th onclick="sort(6)">Last Purchase</th>
         <th>Markets</th>
       </tr></thead>
       <tbody id="dealsBody"></tbody>
@@ -242,7 +251,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 </div></div>
 
 <script>
-const MARKETS_ORDER = ["Boulder", "Colorado Springs", "Denver Metro", "Fort Collins", "Greeley", "Mountain Towns", "Pueblo", "Rural/Tertiary CO", "Various", "Western Slope", "Wyoming"];
+const MARKETS_ORDER = ["Boulder", "Colorado Springs", "Denver Metro", "Fort Collins", "Greeley", "Mountain Towns", "Pueblo", "Rural/Tertiary CO", "Western Slope", "Wyoming"];
 const TYPES = ["Private Capital / HNW", "Capital Syndicator", "Fund Manager", "Family Office", "REIT", "Sovereign Fund", "Housing Authority / Non-Profit"];
 const TYPE_COLOR = {
   "Private Capital / HNW": "var(--t-priv)",
@@ -270,6 +279,11 @@ function fmtM(n){
   return '$'+Math.round(n).toLocaleString();
 }
 function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fmtDate(d){
+  if (!d) return '—';
+  const [y,m,dd] = d.split('-');
+  return `${m}/${dd}/${y}`;
+}
 
 function populateSelect(id, values){
   const el = document.getElementById(id);
@@ -311,17 +325,22 @@ function renderStats(){
 }
 
 function renderStateByMarket(){
-  const markets = MARKETS_ORDER.filter(m => FILTERED.some(d=>d.market===m && d.buyer_state && d.price!=null));
+  // Wyoming is a non-disclosure state -- most sale prices are never public, so a
+  // $-volume ranking there both understates real buyers and drops any buyer whose
+  // deals are all unpriced. Rank Wyoming by units instead and don't require a price.
+  const markets = MARKETS_ORDER.filter(m => FILTERED.some(d=>d.market===m && d.buyer_state && (m==='Wyoming' || d.price!=null)));
   document.getElementById('stateByMarketGrid').innerHTML = markets.map(m => {
+    const byUnits = m === 'Wyoming';
     const totals = {};
-    FILTERED.filter(d=>d.market===m && d.buyer_state && d.price!=null)
-      .forEach(d => { totals[d.buyer_state] = (totals[d.buyer_state]||0) + d.price; });
+    FILTERED.filter(d=>d.market===m && d.buyer_state && (byUnits || d.price!=null))
+      .forEach(d => { totals[d.buyer_state] = (totals[d.buyer_state]||0) + (byUnits ? (Number(d.units)||0) : d.price); });
     const ranked = Object.entries(totals).sort((a,b)=>b[1]-a[1]).slice(0,5);
     const max = ranked[0][1];
-    return `<div class="card"><h4>${esc(m)}</h4>${ranked.map(([s,v]) => `
+    const label = byUnits ? 'Units' : '$ Volume';
+    return `<div class="card"><h4>${esc(m)} <span style="font-weight:400;color:var(--ink-muted);font-size:11px">(by ${label})</span></h4>${ranked.map(([s,v]) => `
       <div class="rank-row">
         <div class="lbl">${esc(s)}</div>
-        <div class="val">${fmtM(v)}</div>
+        <div class="val">${byUnits ? Math.round(v).toLocaleString() : fmtM(v)}</div>
         <div class="bar-bg"><div class="bar-fill" style="width:${100*v/max}%;background:${s==='CO'?'var(--gold)':'var(--navy)'}"></div></div>
       </div>`).join('')}</div>`;
   }).join('') || '<div style="color:var(--ink-muted);font-size:12.5px">No deals match the current filters.</div>';
@@ -440,7 +459,7 @@ function renderVintage(){
       avgPerUnit: b.units ? b.volume/b.units : null
     };
   });
-  const vst = SIMPLE_TABLES['vintageSummaryTable'] || (SIMPLE_TABLES['vintageSummaryTable'] = { sortCol: 0, asc: true });
+  const vst = SIMPLE_TABLES['vintageSummaryTable'] || (SIMPLE_TABLES['vintageSummaryTable'] = { sortCol: 0, asc: false });
   vst.rows = vintageRows;
   vst.keys = ['vidx','properties','units','volume','pctVolume','avgPerUnit'];
   vst.bodyId = 'vintageSummaryBody';
@@ -467,7 +486,7 @@ function renderVintage(){
 }
 
 let col = 5, asc = false;
-const SORT_KEYS = ['buyer','buyer_state','buyer_type','properties','units','volume'];
+const SORT_KEYS = ['buyer','buyer_state','buyer_type','properties','units','volume','lastPurchase'];
 
 function sort(c){
   asc = (col===c) ? !asc : false; col = c;
@@ -481,13 +500,14 @@ function ownerRows(){
     if (!d.buyer) return;
     if (!byOwner[d.buyer]) byOwner[d.buyer] = {
       buyer: d.buyer, buyer_state: d.buyer_state, buyer_type: d.buyer_type,
-      properties: 0, units: 0, volume: 0, markets: new Set()
+      properties: 0, units: 0, volume: 0, markets: new Set(), lastPurchase: ''
     };
     const o = byOwner[d.buyer];
     o.properties += 1;
     o.units += Number(d.units) || 0;
     if (d.price != null) o.volume += d.price;
     if (d.market) o.markets.add(d.market);
+    if (d.date && d.date > o.lastPurchase) o.lastPurchase = d.date;
   });
   return Object.values(byOwner);
 }
@@ -510,8 +530,9 @@ function renderDeals(){
       <td>${o.properties.toLocaleString()}</td>
       <td>${Math.round(o.units).toLocaleString()}</td>
       <td>${fmtM(o.volume)}</td>
+      <td>${fmtDate(o.lastPurchase)}</td>
       <td title="${esc([...o.markets].join(', '))}">${esc([...o.markets].join(', '))}</td>
-    </tr>`).join('') || '<tr><td colspan="7" style="color:var(--ink-muted)">No owners match the current filters.</td></tr>';
+    </tr>`).join('') || '<tr><td colspan="8" style="color:var(--ink-muted)">No owners match the current filters.</td></tr>';
 }
 
 function updateDataNote(){
