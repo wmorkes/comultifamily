@@ -559,7 +559,20 @@ function renderSummary(series) {
   h += '<div style="font-size:11px;color:#888;text-align:right">3yr</div>';
   h += '<div style="font-size:11px;color:#888;text-align:right">1yr</div>';
   h += '</div>';
-  series.forEach(function(s) {
+  function latestVal(pts) {
+    for (var i = pts.length - 1; i >= 0; i--) {
+      if (pts[i] != null) return pts[i];
+    }
+    return null;
+  }
+  var sortedSeries = [...series].sort(function(a, b) {
+    var av = latestVal(a.points), bv = latestVal(b.points);
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    return bv - av;
+  });
+  sortedSeries.forEach(function(s) {
     var st = yoyStats(s.points);
     h += '<div style="'+ROW+'padding:5px 0;border-bottom:1px solid #f4f4f4">';
     h += '<div style="color:'+s.color+';font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+s.county+'">'+s.county+'</div>';
