@@ -166,6 +166,10 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
         <div class="stat-title" id="ytdCompareTitle">YTD Comparison</div>
         <div id="ytdCompare"></div>
       </div>
+      <div id="distressWrap" style="margin-top:12px">
+        <div class="stat-title">Distressed Sales</div>
+        <div id="distressTable"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -222,7 +226,8 @@ function dollar(v) { return '$'+Math.round(v).toLocaleString(); }
 const head = document.getElementById('tableHead');
 COLS.forEach((c,i) => {
   const th = document.createElement('th');
-  th.innerHTML = c.label + '<span class="sort-arrow">&#8597;</span>';
+  const labelHtml = c.key==='vsYtd' ? `<span id="vsYtdLabel">${c.label}</span>` : c.label;
+  th.innerHTML = labelHtml + '<span class="sort-arrow">&#8597;</span>';
   th.classList.add('col-'+c.align);
   if(i>=SF_GROUP_START) th.classList.add('sf-group');
   th.onclick = () => {
@@ -288,10 +293,19 @@ function vintageRows() {
   // Comparison columns use a separate, consistent "through current month" cutoff
   // on both sides — independent of the full-year figures shown in the table —
   // so the % changes stay apples-to-apples regardless of which year is selected.
+  // 'vs YTD' normally compares the selected (past) year's cutoff against the
+  // current year's — but when the current year itself is selected, that would
+  // just compare current-year-YTD to itself (always blank), so the column
+  // swaps to compare against last year instead, with a matching dynamic label.
+  const vsYtdCompareYear = selectedYear===CURRENT_YEAR ? CURRENT_YEAR-1 : CURRENT_YEAR;
+  const vsYtdLabel = selectedYear===CURRENT_YEAR ? ('vs '+(CURRENT_YEAR-1)) : 'vs YTD';
+  const vsYtdLabelEl = document.getElementById('vsYtdLabel');
+  if (vsYtdLabelEl) vsYtdLabelEl.textContent = vsYtdLabel;
+
   const selectedYtdMap = vintagePPSFMap(selectedYear, region);
-  const ytdMap  = selectedYear!==CURRENT_YEAR ? vintagePPSFMap(CURRENT_YEAR, region) : null;
-  const map2021 = selectedYear!==2021         ? vintagePPSFMap(2021, region)         : null;
-  const map2019 = selectedYear!==2019         ? vintagePPSFMap(2019, region)         : null;
+  const ytdMap  = vintagePPSFMap(vsYtdCompareYear, region);
+  const map2021 = selectedYear!==2021 ? vintagePPSFMap(2021, region) : null;
+  const map2019 = selectedYear!==2019 ? vintagePPSFMap(2019, region) : null;
 
   return Object.values(byVintage).map(b => {
     const ppsf = b.sfPriced ? b.sfVolume/b.sfPriced : null;
@@ -344,6 +358,48 @@ function renderStats() {
     <div class="stat-row"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span></div>
   `;
   renderYTDCompare();
+  renderDistressStats();
+}
+
+// Distressed sales come in waves tied to down markets rather than a steady
+// rate, so a single YTD number can misleadingly read as "quiet" right after
+// a wave rolls off — showing YTD plus the two full prior years side by side
+// lets the sidebar surface a recent wave even if the current YTD looks calm.
+function renderDistressStats() {
+  const region = document.getElementById('fRegion').value;
+  const vintage = document.getElementById('fVintage').value;
+  const regionData = DATA.filter(r => (!region || r.region===region) && (!vintage || r.vintage===vintage));
+
+  // Current year is YTD (thru the current month, since later months have no
+  // data yet); the two prior years are shown as full-year totals.
+  function sumForYear(year, ytdOnly) {
+    const rows = regionData.filter(r => r.year===year && (!ytdOnly || r.month<=CURRENT_MONTH));
+    return {
+      deals: rows.reduce((a,r)=>a+(r.distressedDeals||0),0),
+      units: rows.reduce((a,r)=>a+(r.distressedUnits||0),0),
+      volume: rows.reduce((a,r)=>a+(r.distressedVolume||0),0),
+    };
+  }
+
+  // Each period's YoY comparison uses the matching prior-year window — same
+  // YTD cutoff for the current year, full year for the two prior years —
+  // so every column compares against exactly the 12 months before it.
+  const periods = [
+    {label:'YTD '+CURRENT_YEAR,       stats: sumForYear(CURRENT_YEAR, true),   priorStats: sumForYear(CURRENT_YEAR-1, true)},
+    {label:String(CURRENT_YEAR-1),    stats: sumForYear(CURRENT_YEAR-1, false), priorStats: sumForYear(CURRENT_YEAR-2, false)},
+    {label:String(CURRENT_YEAR-2),    stats: sumForYear(CURRENT_YEAR-2, false), priorStats: sumForYear(CURRENT_YEAR-3, false)},
+  ];
+
+  const headHtml = '<th></th>' + periods.map(p=>`<th>${p.label}</th>`).join('');
+  const rowsHtml = [
+    {label:'Sales',  fmt: p=>p.stats.deals.toLocaleString()},
+    {label:'Units',  fmt: p=>p.stats.units.toLocaleString()},
+    {label:'Volume', fmt: p=>shortDollar(p.stats.volume)},
+    {label:'YoY Change (Vol.)', fmt: p=>fmtPct(pctChange(p.stats.volume, p.priorStats.volume))},
+  ].map(m => `<tr><td>${m.label}</td>${periods.map(p=>`<td>${m.fmt(p)}</td>`).join('')}</tr>`).join('');
+
+  document.getElementById('distressTable').innerHTML =
+    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
 }
 
 function shortDollar(v) {

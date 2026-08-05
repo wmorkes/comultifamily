@@ -20,7 +20,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{overflow-x:hidden;width:100%}
+html{overflow-x:hidden}
+body{width:100%}
 body{font-family:system-ui,sans-serif;font-size:13px;background:#f4f6f9;color:#222}
 .page{overflow-x:hidden}
 .co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:5px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
@@ -30,13 +31,14 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#f4f6f9;color:#2
 header{background:#0c1a2e;color:#fff;padding:8px 20px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 header h1{font-family:'Raleway',sans-serif;font-size:20px;font-weight:500;padding:0;background:none}
 header p{font-family:'Inter',sans-serif;font-size:11px;opacity:.7;margin-top:2px}
+.info-tip{cursor:help;margin-left:4px;opacity:.85}
 .header-team{display:flex;gap:20px;align-items:center;flex-shrink:0}
 .colliers-logo{height:36px;filter:brightness(0) invert(1);opacity:.9}
 .header-broker{font-size:11px;line-height:1.5;text-align:right}
 .header-broker strong{display:block;font-size:12px}
 .header-broker a{color:rgba(255,255,255,.75);text-decoration:none}
 .header-broker a:hover{color:#fff}
-nav.section-nav{display:flex;gap:0;background:#fff;border-bottom:1px solid #dde;padding:0 16px;overflow-x:auto}
+nav.section-nav{display:flex;gap:0;background:#fff;border-bottom:1px solid #dde;padding:0 16px;overflow-x:auto;position:sticky;top:0;z-index:6}
 nav.section-nav a{padding:10px 14px;font-size:12px;font-weight:600;color:#555;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.06em}
 nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .section{padding:18px 0}
@@ -51,6 +53,17 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 #sales{background:#ffffff}
 #capitalflow{background:#f2f3f5}
 #onmarket{background:#ffffff}
+.footer-cta{background:#0c1a2e;padding:44px 0}
+.footer-cta .section-tag{color:#c9a84c;margin-bottom:10px}
+.footer-cta .section-tag::before{background:#c9a84c}
+.footer-cta .section-h2{color:#fff}
+.footer-cta-row{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.footer-cta-title-col{flex-shrink:0}
+.footer-cta-divider{width:1px;align-self:stretch;background:rgba(255,255,255,.2);flex-shrink:0}
+.footer-cta p{color:rgba(255,255,255,.82);font-size:15px;line-height:1.6;margin:0;flex:1;min-width:280px;max-width:840px}
+.footer-cta-btn{flex-shrink:0;padding-top:22px;padding-bottom:22px}
+.btn-gold{background:#c9a84c;color:#0c1a2e;padding:10px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.btn-gold:hover{background:#d8ba64}
 /* Section headers mimic comultifamily.com's .section-tag / .section-h2 pattern
    (Inter label + Raleway light heading) instead of the dashboard's old single-line title. */
 .section-title{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #e0e2e8}
@@ -93,11 +106,11 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
   text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
 .stat-tile-dark .stat-eyebrow{color:#c9a84c}
 .stat-tile b{font-size:24px;display:block;color:#0c1a2e;line-height:1}
-.stat-tile span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
+.stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
 .stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:13px;color:#555;line-height:1.3}
 .stat-tile .stat-secondary b{font-size:15px;color:#0c1a2e;line-height:1}
 .stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1}
-.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
+.stat-tile-dark{background:#4c5567;border-color:#4c5567;border-left-color:#c9a84c}
 .stat-tile-dark b{color:#fff}
 .stat-tile-dark span{color:#c7cedb}
 .stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
@@ -141,6 +154,22 @@ tr:hover td{background:#f0f5fa}
 .vintage-pct-lo{color:#999}
 .vintage-row-uc td{background:#0c1a2e;color:#fff}
 .vintage-row-uc td:first-child{color:#fff;white-space:nowrap}
+#salesVintageBox{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px}
+#salesVintageTable{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+#salesVintageTable .col-left{text-align:left}
+#salesVintageTable .col-center{text-align:center}
+#salesVintageTable .col-right{text-align:right}
+#salesVintageTable th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
+#salesVintageTable th:hover{background:#d5dde6}
+#salesVintageTable th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
+#salesVintageTable td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
+#salesVintageTable tr:hover td{background:#f0f5fa}
+#salesVintageGroupHead th{cursor:default;padding:3px 10px}
+#salesVintageTable .sf-group-title{background:#fdf6e3;color:#c9a84c;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;border-left:2px solid #e8d9a8}
+#salesVintageTable th.sf-group{background:#fbf8ee;border-left:2px solid #e8d9a8}
+#salesVintageTable td.sf-group{background:#fdfcf7;border-left:2px solid #eee2c0}
+#salesVintageTable tr:hover td.sf-group{background:#f6f1e2}
+.compare-footnote{font-size:10px;color:#888;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0}
 .vintage-row-uc td.vintage-pct-hi,.vintage-row-uc td.vintage-pct-mid,.vintage-row-uc td.vintage-pct-lo{color:#fff}
 svg.chart{display:block;width:100%;height:auto}
 .chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:18px 0 0;font-size:11px}
@@ -153,9 +182,9 @@ svg.chart{display:block;width:100%;height:auto}
 .om-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 .leaflet-tooltip.om-tip{font-size:12px;padding:4px 8px;line-height:1.4}
 .filter-stats-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;align-self:center}
-.cta-tab{position:fixed;top:50%;right:12px;transform:translateY(-50%);z-index:200;background:#0c1a2e;color:#fff;border:none;border-left:4px solid #c9a84c;clip-path:polygon(0% 0%,88% 0%,100% 50%,88% 100%,0% 100%);padding:16px 26px 16px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
+.cta-tab{position:fixed;top:50%;right:12px;transform:translateY(-50%);z-index:1100;background:#0c1a2e;color:#fff;border:none;border-left:4px solid #c9a84c;clip-path:polygon(0% 0%,88% 0%,100% 50%,88% 100%,0% 100%);padding:16px 26px 16px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
 .cta-tab:hover{background:#152540;filter:drop-shadow(0 10px 14px rgba(0,0,0,.65))}
-.cta-panel{position:fixed;top:50%;right:0;height:auto;width:320px;max-width:88vw;background:#0c1a2e;border-radius:8px 0 0 8px;box-shadow:-4px 4px 24px rgba(0,0,0,.4);z-index:201;transform:translateX(100%) translateY(-50%);transition:transform .25s ease;display:flex;flex-direction:column;justify-content:center;padding:28px 20px}
+.cta-panel{position:fixed;top:50%;right:0;height:auto;width:320px;max-width:88vw;background:#0c1a2e;border-radius:8px 0 0 8px;box-shadow:-4px 4px 24px rgba(0,0,0,.4);z-index:1101;transform:translateX(100%) translateY(-50%);transition:transform .25s ease;display:flex;flex-direction:column;justify-content:center;padding:28px 20px}
 .cta-panel.open{transform:translateX(0) translateY(-50%)}
 .cta-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:rgba(255,255,255,.6);cursor:pointer;line-height:1}
 .cta-close:hover{color:#fff}
@@ -229,7 +258,9 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Denver Metro</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/03/2026)</p>
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/04/2026)
+      <span class="info-tip" title="Data aggregated by Colliers using proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.">&#9432;</span>
+    </p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -275,6 +306,7 @@ svg.chart{display:block;width:100%;height:auto}
   </div>
 
   <div style="margin-top:24px">
+    <div class="cf-subtitle">Pipeline Map</div>
     <div class="map-panel">
       <div class="toolbar">
         <div class="filter-group">
@@ -301,6 +333,12 @@ svg.chart{display:block;width:100%;height:auto}
   <div class="section-title"><div class="section-tag">Operating Metrics</div><h2 class="section-h2">Vacancy and Rent Trends</h2></div>
   <div id="operatingEmpty" style="display:none;padding:16px;color:#888">Rent and occupancy data for Denver Metro is not yet available.</div>
   <div id="operatingBody">
+    <div class="toolbar" id="operatingToolbar">
+      <div class="filter-group">
+        <label>Asset Class</label>
+        <select id="fOperatingClass" onchange="renderOperating()"></select>
+      </div>
+    </div>
     <div style="display:flex;gap:14px;align-items:stretch">
       <div id="operatingChartWrap" style="flex:1;min-width:0">
         <svg id="operatingChart" width="900" height="400"></svg>
@@ -310,7 +348,7 @@ svg.chart{display:block;width:100%;height:auto}
       <div id="operatingStatsPanel"><div id="operatingSidebar"></div></div>
     </div>
     <hr class="divider" style="margin:14px 0">
-    <div class="section-title" style="margin-bottom:8px">Rent Change &amp; Occupancy by Year</div>
+    <div class="cf-subtitle" style="margin-bottom:8px">Rent Change &amp; Occupancy by Year</div>
     <div id="operatingYoyWrap"><table id="operatingYoyTable">
       <thead><tr id="operatingYoyHead"></tr></thead>
       <tbody id="operatingYoyBody"></tbody>
@@ -321,24 +359,6 @@ svg.chart{display:block;width:100%;height:auto}
 
 <div class="section" id="sales"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Sales Metrics</div><h2 class="section-h2">Transaction Trends</h2></div>
-  <div class="toolbar">
-    <div class="filter-group">
-      <label>Vintage</label>
-      <select id="fVintage" onchange="applySalesFilters()">
-        <option value="">All Vintages</option>
-        <option value="2020s-Now">2020s-Now</option>
-        <option value="2010s">2010s</option>
-        <option value="2000s">2000s</option>
-        <option value="1990s">1990s</option>
-        <option value="1980s">1980s</option>
-        <option value="1970s & Older">1970s &amp; Older</option>
-      </select>
-    </div>
-    <div style="display:flex;gap:6px;padding-bottom:1px">
-      <button class="btn btn-primary" onclick="applySalesFilters()">Apply</button>
-      <button class="btn btn-secondary" onclick="clearSalesFilters()">Clear</button>
-    </div>
-  </div>
   <div style="display:flex;gap:14px;align-items:stretch">
     <div id="salesChartWrap" style="flex:1;min-width:0">
       <svg class="chart" id="salesChart" width="900" height="400"></svg>
@@ -350,17 +370,24 @@ svg.chart{display:block;width:100%;height:auto}
         <div class="stat-title" id="ytdCompareTitle">YTD Comparison</div>
         <div id="ytdCompare"></div>
       </div>
-      <div style="margin-top:12px">
-        <div class="stat-title" id="salesVintageTitle">YTD by Vintage</div>
-        <table class="vintage-table">
-          <colgroup>
-            <col style="width:36%"><col style="width:22%"><col style="width:20%"><col style="width:22%">
-          </colgroup>
-          <thead><tr><th>Vintage</th><th>$/Unit</th><th>$/SF</th><th id="salesVintageChgHead">vs LY</th></tr></thead>
-          <tbody id="salesVintageBody"></tbody>
-        </table>
+      <div id="distressWrap" style="margin-top:12px">
+        <div class="stat-title">Distressed Sales</div>
+        <div id="distressTable"></div>
       </div>
     </div>
+  </div>
+  <div id="salesVintageWrap" style="margin-top:24px">
+    <div class="cf-subtitle">2026 Sales History by Vintage</div>
+    <div id="salesVintageBox">
+      <table id="salesVintageTable">
+        <thead>
+          <tr id="salesVintageGroupHead"></tr>
+          <tr id="salesVintageHead"></tr>
+        </thead>
+        <tbody id="salesVintageBody"></tbody>
+      </table>
+    </div>
+    <div class="compare-footnote">Avg Price, Avg $/Unit, and Avg $/SF are averaged only across sales with a reported price (some sales in this dataset have no disclosed price and are excluded from these averages, though still counted in Sales). For historical years or a vintage-specific cut, <a href="#" onclick="document.getElementById('ctaTab').click();return false;">contact us</a>.</div>
   </div>
   <div id="salesEmpty" style="display:none;padding:16px;color:#888">No recorded sales for Denver Metro since 2011.</div>
 </div></div>
@@ -470,6 +497,20 @@ svg.chart{display:block;width:100%;height:auto}
   <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active listings for Denver Metro right now.</div>
 </div></div>
 
+<div class="section footer-cta">
+  <div class="section-inner">
+    <div class="footer-cta-row">
+      <div class="footer-cta-title-col">
+        <div class="section-tag">Colliers Multifamily Intelligence</div>
+        <h2 class="section-h2">Need More Information</h2>
+      </div>
+      <div class="footer-cta-divider"></div>
+      <p>Access to data isn&rsquo;t the same as actionable intelligence. Colliers aggregates multifamily data into clear, decision-ready insight &mdash; so Principals can act with confidence. Contact us today to discuss your market&rsquo;s specific intelligence needs.</p>
+      <button class="btn btn-gold footer-cta-btn" onclick="document.getElementById('ctaTab').click()">Contact Us &rarr;</button>
+    </div>
+  </div>
+</div>
+
 <div class="tooltip" id="tooltip"></div>
 </div><!-- /.page -->
 
@@ -521,8 +562,8 @@ function renderOverview() {
       sec: ytdChg!=null ? `<div class="sec-line1"><b>${fmtPct(Math.round(ytdChg))}</b></div>vs ${JS_CURRENT_YEAR-1} YTD` : 'No prior-year data'},
     {eyebrow: 'On-Market', v: o.onMarketCount.toLocaleString(), l: 'Properties',
       sec: `<b>${o.onMarketUnits.toLocaleString()}</b> Units On-Market`},
-    {eyebrow: 'Distress', v: o.ttmDistressedDeals.toLocaleString(), l: 'T12 Distressed Sales',
-      sec: `<b>${o.watchlistCount.toLocaleString()}</b> Properties on Watch List`, dark: true},
+    {eyebrow: 'Distress', v: `${o.ttmDistressedDeals.toLocaleString()} (${shortDollar(o.ttmDistressedVolume)})`, l: `T12 Distressed Sales (${o.ttmRangeLabel})`,
+      sec: `<b>${o.watchlistCount.toLocaleString()} (${shortDollar(o.watchlistVolume)})</b> Properties on Watch List`, dark: true},
   ];
   document.getElementById('overviewStats').innerHTML = tiles.map(t =>
     `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><div class="stat-eyebrow">${t.eyebrow}</div><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
@@ -735,8 +776,29 @@ function renderOperatingYearTables(rent, occ) {
     `<tr><td style="font-weight:700">Denver Metro — Occupancy</td>${occCells}</tr>`;
 }
 
+let operatingClassBuilt = false;
+
+function buildOperatingClassSelect() {
+  if (operatingClassBuilt) return;
+  operatingClassBuilt = true;
+  const sel = document.getElementById('fOperatingClass');
+  const classes = D.assetClasses || [];
+  sel.innerHTML = classes.map(c => `<option value="${c}">${c}</option>`).join('');
+  sel.value = classes.includes('All Classes') ? 'All Classes' : (classes[0] || '');
+  document.getElementById('operatingToolbar').style.display = classes.length > 1 ? 'flex' : 'none';
+}
+
+function currentOperating() {
+  const byClass = D.rentByClass || {};
+  const sel = document.getElementById('fOperatingClass');
+  const cls = (sel && sel.value) || 'All Classes';
+  const data = byClass[cls] || {rent:{}, occupancy:{}};
+  return {rent: data.rent || {}, occ: data.occupancy || {}};
+}
+
 function renderOperating() {
-  const rent = D.rent || {}, occ = D.occupancy || {};
+  buildOperatingClassSelect();
+  const {rent, occ} = currentOperating();
   if (!Object.keys(rent).length && !Object.keys(occ).length) {
     document.getElementById('operatingBody').style.display = 'none';
     document.getElementById('operatingEmpty').style.display = 'block';
@@ -752,6 +814,7 @@ function renderSales() {
   if (!D.sales.length) {
     document.getElementById('salesChartWrap').style.display='none';
     document.getElementById('salesStatsPanel').style.display='none';
+    document.getElementById('salesVintageWrap').style.display='none';
     document.getElementById('salesEmpty').style.display='block';
     return;
   }
@@ -762,58 +825,158 @@ function renderSales() {
 // same math (through-current-month cutoff on both sides so the % changes stay
 // apples-to-apples), scoped to this page's single market instead of a region filter.
 function renderSalesStats() {
-  const vintage = document.getElementById('fVintage').value;
-  const marketAll = D.sales.filter(r => !vintage || r.vintage===vintage);
-  const totalDeals = marketAll.reduce((a,r)=>a+r.deals,0);
-  const totalVol = marketAll.reduce((a,r)=>a+r.volume,0);
+  const totalDeals = D.sales.reduce((a,r)=>a+r.deals,0);
+  const totalVol = D.sales.reduce((a,r)=>a+r.volume,0);
   document.getElementById('salesStatsSummary').innerHTML = `
-    <div class="stat-title">Summary &mdash; 2011&ndash;${JS_CURRENT_YEAR}${vintage?' — '+vintage:''}</div>
+    <div class="stat-title">Summary &mdash; 2011&ndash;${JS_CURRENT_YEAR}</div>
     <div class="stat-row"><b>${dollar(totalVol)}</b><span>Total Volume</span></div>
     <div class="stat-row"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span></div>
   `;
   renderYTDCompare();
-  renderSalesVintageBreakdown(marketAll);
+  renderDistressStats();
 }
 
-// YTD (through the current month, both years) per vintage — same cutoff logic
-// as renderYTDCompare's $/SF row, just sliced by vintage instead of blended,
-// so this reads as "how's each vintage doing this year" rather than a static
-// all-time average that barely moves year to year.
-function ytdForVintage(marketAll, vintage, year) {
-  const rows = marketAll.filter(r => r.vintage===vintage && r.year===year && r.month<=JS_CURRENT_MONTH);
-  const unitsPriced = rows.reduce((a,r)=>a+r.unitsPriced,0);
-  const volume = rows.reduce((a,r)=>a+r.volume,0);
-  const sfPriced = rows.reduce((a,r)=>a+r.sfPriced,0);
-  const sfVolume = rows.reduce((a,r)=>a+r.sfVolume,0);
-  return {
-    perUnit: unitsPriced ? volume/unitsPriced : null,
-    perSF: sfPriced ? sfVolume/sfPriced : null,
-  };
+// Ported from build_sales_history.py's sidebar Distressed Sales panel — same
+// YTD/prior-year-full/prior-prior-year-full columns + YoY % Chg row, scoped
+// to this page's single market (D.sales is already market-scoped, no region
+// filter needed).
+function renderDistressStats() {
+  function sumForYear(year, ytdOnly) {
+    const rows = D.sales.filter(r => r.year===year && (!ytdOnly || r.month<=JS_CURRENT_MONTH));
+    return {
+      deals: rows.reduce((a,r)=>a+(r.distressedDeals||0),0),
+      units: rows.reduce((a,r)=>a+(r.distressedUnits||0),0),
+      volume: rows.reduce((a,r)=>a+(r.distressedVolume||0),0),
+    };
+  }
+
+  const periods = [
+    {label:'YTD '+JS_CURRENT_YEAR,       stats: sumForYear(JS_CURRENT_YEAR, true),   priorStats: sumForYear(JS_CURRENT_YEAR-1, true)},
+    {label:String(JS_CURRENT_YEAR-1),    stats: sumForYear(JS_CURRENT_YEAR-1, false), priorStats: sumForYear(JS_CURRENT_YEAR-2, false)},
+    {label:String(JS_CURRENT_YEAR-2),    stats: sumForYear(JS_CURRENT_YEAR-2, false), priorStats: sumForYear(JS_CURRENT_YEAR-3, false)},
+  ];
+
+  const headHtml = '<th></th>' + periods.map(p=>`<th>${p.label}</th>`).join('');
+  const rowsHtml = [
+    {label:'Sales',  fmt: p=>p.stats.deals.toLocaleString()},
+    {label:'Units',  fmt: p=>p.stats.units.toLocaleString()},
+    {label:'Volume', fmt: p=>shortDollar(p.stats.volume)},
+    {label:'YoY Change (Vol.)', fmt: p=>fmtPct(pctChange(p.stats.volume, p.priorStats.volume))},
+  ].map(m => `<tr><td>${m.label}</td>${periods.map(p=>`<td>${m.fmt(p)}</td>`).join('')}</tr>`).join('');
+
+  document.getElementById('distressTable').innerHTML =
+    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
 }
 
-function renderSalesVintageBreakdown(marketAll) {
-  const monthName = NOW.toLocaleString('en-US', {month:'long'});
-  document.getElementById('salesVintageTitle').textContent = `${JS_CURRENT_YEAR} YTD by Vintage (thru ${monthName})`;
-  document.getElementById('salesVintageChgHead').textContent = 'vs '+(JS_CURRENT_YEAR-1);
-  const vintages = VINTAGE_ORDER.filter(v => marketAll.some(r => r.vintage===v));
-  const rows = vintages.map(v => {
-    const cur = ytdForVintage(marketAll, v, JS_CURRENT_YEAR);
-    const prior = ytdForVintage(marketAll, v, JS_CURRENT_YEAR-1);
-    const chg = pctChange(cur.perSF, prior.perSF);
-    return `<tr><td>${v}</td>` +
-      `<td>${cur.perUnit!=null?dollar(cur.perUnit):'—'}</td>` +
-      `<td>${cur.perSF!=null?'$'+cur.perSF.toFixed(0):'—'}</td>` +
-      `<td>${fmtPct(chg)}</td></tr>`;
-  }).join('');
-  document.getElementById('salesVintageBody').innerHTML = rows;
+// Ported from build_sales_history.py's Annual Sales History by Vintage table —
+// same COLS/sort logic, but pinned to the current year only (no Year or
+// Vintage selector) — this page is a client-facing teaser, not a filter tool;
+// deeper/historical cuts are the reason to use the CTA. 'vs YTD' column
+// dropped since current-year-vs-itself would always be a dash.
+const SALES_VINTAGE_COLS = [
+  {key:'vintage',      label:'Vintage',        fmt:v=>v,                              align:'left'},
+  {key:'deals',        label:'Sales',          fmt:v=>v.toLocaleString(),             align:'center'},
+  {key:'volume',       label:'Total Volume',   fmt:v=>dollar(v),                      align:'right'},
+  {key:'avgPrice',     label:'Avg Price',      fmt:v=>v==null?'—':dollar(v),          align:'right'},
+  {key:'pricePerUnit', label:'Avg $/Unit',     fmt:v=>v==null?'—':dollar(v),          align:'right'},
+  {key:'pricePerSF',   label:'Avg $/SF',                    fmt:v=>v==null?'—':'$'+Math.round(v), align:'right'},
+  {key:'vsLastYear',   label:`vs ${JS_CURRENT_YEAR-1} (YTD)`, fmt:v=>fmtPct(v),                  align:'right'},
+  {key:'vs2021',       label:'vs 2021 (YTD)',               fmt:v=>fmtPct(v),                      align:'right'},
+  {key:'vs2019',       label:'vs 2019 (YTD)',               fmt:v=>fmtPct(v),                      align:'right'},
+];
+const SALES_SF_GROUP_START = 5;
+let salesVintageSortCol = 'vintage', salesVintageSortDir = 1;
+let salesVintageHeadBuilt = false;
+
+function buildSalesVintageHead() {
+  if (salesVintageHeadBuilt) return;
+  salesVintageHeadBuilt = true;
+  const head = document.getElementById('salesVintageHead');
+  SALES_VINTAGE_COLS.forEach((c,i) => {
+    const th = document.createElement('th');
+    th.innerHTML = c.label + '<span class="sort-arrow">&#8597;</span>';
+    th.classList.add('col-'+c.align);
+    if (i>=SALES_SF_GROUP_START) th.classList.add('sf-group');
+    th.onclick = () => {
+      if (salesVintageSortCol===c.key) salesVintageSortDir*=-1; else {salesVintageSortCol=c.key;salesVintageSortDir=1;}
+      renderSalesVintageBreakdown();
+    };
+    head.appendChild(th);
+  });
+  document.getElementById('salesVintageGroupHead').innerHTML =
+    `<th colspan="${SALES_SF_GROUP_START}"></th>` +
+    `<th colspan="${SALES_VINTAGE_COLS.length-SALES_SF_GROUP_START}" class="sf-group-title">Price / SF</th>`;
+}
+
+function salesVintagePPSFMap(year) {
+  const rows = D.sales.filter(r => r.year===year && r.month<=JS_CURRENT_MONTH);
+  const byV = {};
+  rows.forEach(r => {
+    const b = byV[r.vintage] || (byV[r.vintage] = {sfPriced:0, sfVolume:0});
+    b.sfPriced += r.sfPriced;
+    b.sfVolume += r.sfVolume;
+  });
+  const out = {};
+  Object.keys(byV).forEach(v => { out[v] = byV[v].sfPriced ? byV[v].sfVolume/byV[v].sfPriced : null; });
+  return out;
+}
+
+function renderSalesVintageBreakdown() {
+  buildSalesVintageHead();
+  const filtered = D.sales.filter(r => r.year===JS_CURRENT_YEAR);
+
+  const byVintage = {};
+  filtered.forEach(r => {
+    const b = byVintage[r.vintage] || (byVintage[r.vintage] = {
+      vintage:r.vintage, deals:0, pricedDeals:0, volume:0, unitsPriced:0, sfPriced:0, sfVolume:0
+    });
+    b.deals += r.deals;
+    b.pricedDeals += r.pricedDeals;
+    b.volume += r.volume;
+    b.unitsPriced += r.unitsPriced;
+    b.sfPriced += r.sfPriced;
+    b.sfVolume += r.sfVolume;
+  });
+
+  const selectedYtdMap = salesVintagePPSFMap(JS_CURRENT_YEAR);
+  const mapLastYear = salesVintagePPSFMap(JS_CURRENT_YEAR-1);
+  const map2021 = salesVintagePPSFMap(2021);
+  const map2019 = salesVintagePPSFMap(2019);
+
+  const rows = Object.values(byVintage).map(b => {
+    const ppsf = b.sfPriced ? b.sfVolume/b.sfPriced : null;
+    const ppsfYtd = selectedYtdMap[b.vintage];
+    return {
+      vintage: b.vintage,
+      deals: b.deals,
+      volume: b.volume,
+      avgPrice: b.pricedDeals ? Math.round(b.volume/b.pricedDeals) : null,
+      pricePerUnit: b.unitsPriced ? Math.round(b.volume/b.unitsPriced) : null,
+      pricePerSF: ppsf,
+      vsLastYear: pctChange(ppsfYtd, mapLastYear[b.vintage]),
+      vs2021: pctChange(ppsfYtd, map2021[b.vintage]),
+      vs2019: pctChange(ppsfYtd, map2019[b.vintage]),
+    };
+  });
+
+  rows.sort((a,b) => {
+    if (salesVintageSortCol==='vintage') {
+      const d = VINTAGE_ORDER.indexOf(a.vintage) - VINTAGE_ORDER.indexOf(b.vintage);
+      return salesVintageSortDir<0 ? -d : d;
+    }
+    const av=a[salesVintageSortCol], bv=b[salesVintageSortCol];
+    if (av==null) return 1; if (bv==null) return -1;
+    return av<bv?-salesVintageSortDir:av>bv?salesVintageSortDir:0;
+  });
+
+  document.getElementById('salesVintageBody').innerHTML = rows.map(r =>
+    '<tr>' + SALES_VINTAGE_COLS.map((c,i)=>`<td class="col-${c.align}${i>=SALES_SF_GROUP_START?' sf-group':''}">${c.fmt(r[c.key])}</td>`).join('') + '</tr>'
+  ).join('');
 }
 
 function renderYTDCompare() {
-  const vintage = document.getElementById('fVintage').value;
-  const marketData = D.sales.filter(r => !vintage || r.vintage===vintage);
-
   function sumThroughMonth(year, monthCutoff) {
-    const rows = marketData.filter(r => r.year===year && r.month<=monthCutoff);
+    const rows = D.sales.filter(r => r.year===year && r.month<=monthCutoff);
     const sfPriced = rows.reduce((a,r)=>a+r.sfPriced,0);
     const sfVolume = rows.reduce((a,r)=>a+r.sfVolume,0);
     return {
@@ -855,10 +1018,10 @@ function renderYTDCompare() {
 
 function renderSalesChart() {
   renderSalesStats();
-  // Chart always spans the full dataset — it's a trend line, so the Year
-  // filter (which only narrows the table) shouldn't crop it. Vintage still applies.
-  const vintage = document.getElementById('fVintage').value;
-  const chartData = D.sales.filter(r => !vintage || r.vintage===vintage);
+  renderSalesVintageBreakdown();
+  // Chart always spans the full dataset, all vintages — a trend line, not a
+  // filterable table; a vintage-specific cut is a reason to use the CTA.
+  const chartData = D.sales;
   const extraTip = y => {
     const rows = chartData.filter(r=>r.year===y);
     const unitsPriced = rows.reduce((a,r)=>a+r.unitsPriced,0);
@@ -882,15 +1045,6 @@ function renderSalesChart() {
     y => chartData.filter(r=>r.year===y).reduce((a,r)=>a+r.volume,0),
     'Sales Count', 'Total Volume $', shortDollar, v=>'$'+Math.round(v).toLocaleString(),
     null, extraTip, targetH);
-}
-
-function applySalesFilters() {
-  renderSalesChart();
-}
-
-function clearSalesFilters() {
-  document.getElementById('fVintage').value = '';
-  applySalesFilters();
 }
 
 // ── Construction ──
@@ -1182,6 +1336,14 @@ const PIPE_STAGE_META = {
   prospective:        {color:'#0c1a2e', label:'Prospective'},
 };
 
+// Matches build_pipeline_report.py's TYPE_META labels exactly.
+const PIPE_TYPE_LABELS = {
+  'affordable':  'Affordable',
+  'senior':      'Senior',
+  'market-rate': 'Market Rate',
+  'btr':         'BTR',
+};
+
 let pipeMap = null, pipeMarkerLayer = null;
 
 function renderConstructionMap() {
@@ -1254,6 +1416,7 @@ function renderPipelineMarkers() {
       // Delivery is dropped entirely (not shown as a blank/dash) when the
       // source has no delivery date, rather than showing a placeholder.
       const tipParts = [`${r.units || '—'} units`, meta.label];
+      if (r.types && r.types.length) tipParts.push(r.types.map(t => PIPE_TYPE_LABELS[t] || t).join(', '));
       if (r.delivery) tipParts.push(`Est. Delivery ${r.delivery}`);
       marker.bindTooltip(
         tipParts.join(' &middot; '),
@@ -1432,7 +1595,10 @@ let __opResizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(__opResizeTimer);
   __opResizeTimer = setTimeout(() => {
-    if (D && D.rent && Object.keys(D.rent).length) renderOperatingChart(D.rent, D.occupancy || {});
+    if (D && D.assetClasses && D.assetClasses.length) {
+      const {rent, occ} = currentOperating();
+      if (Object.keys(rent).length || Object.keys(occ).length) renderOperatingChart(rent, occ);
+    }
     if (D && D.sales && D.sales.length) renderSalesChart();
     if (D && D.deliveries && D.deliveries.length) renderDeliveries();
   }, 150);
