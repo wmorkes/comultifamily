@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Loan Monitor – 08/03/2026</title>
+<title>Loan Monitor – 08/05/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO multifamily loan maturities and watch list. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -127,7 +127,7 @@ td.wrap { white-space: normal; }
 <header>
   <div>
     <h1>CO Multifamily Loan Monitor</h1>
-    <p>Generated 08/03/2026 &middot; Data source: Yardi Matrix</p>
+    <p>Generated 08/05/2026 &middot; Data source: Yardi Matrix</p>
   </div>
 </header>
 <div class="main">
@@ -380,14 +380,12 @@ function renderTable() {
   });
   document.getElementById('tbody').innerHTML = rows.map(rowHtml).join('');
   updateStats(rows);
+  wireRowClicks();
 }
 
 function updateMap() {
   markerLayer.clearLayers();
   Object.keys(markerByIdx).forEach(k => delete markerByIdx[k]);
-
-  const idxMap = {};
-  document.querySelectorAll('#tbody tr[data-idx]').forEach(r => { idxMap[r.dataset.idx] = r; });
 
   GEO.forEach(m => {
     if (!matchRow(m.match, m.nl, m.aff, m.dist, m.newdist, m.lt, m.search, m.score)) return;
@@ -418,17 +416,22 @@ function updateMap() {
       .addTo(markerLayer);
 
     markerByIdx[String(m.idx)] = marker;
-    const tr = idxMap[String(m.idx)];
-    if (tr) {
-      marker.on('click', () => {
-        document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('highlighted'));
-        tr.classList.add('highlighted');
-        tr.scrollIntoView({block:'nearest', behavior:'smooth'});
-      });
-    }
+    marker.on('click', () => {
+      const tr = document.querySelector(`#tbody tr[data-idx="${m.idx}"]`);
+      if (!tr) return;
+      document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('highlighted'));
+      tr.classList.add('highlighted');
+      tr.scrollIntoView({block:'nearest', behavior:'smooth'});
+    });
   });
 
-  // Wire row clicks for all visible rows — flyTo if pinned, highlight-only if not
+  wireRowClicks();
+}
+
+// Wire row clicks for all visible rows — flyTo if pinned, highlight-only if not.
+// Re-run any time #tbody's rows are rebuilt (sort or filter), since markerByIdx
+// itself doesn't need to change, only which <tr> elements the clicks attach to.
+function wireRowClicks() {
   document.querySelectorAll('#tbody tr[data-score]').forEach(r => {
     if (r.style.display === 'none') return;
     r.onclick = () => {
