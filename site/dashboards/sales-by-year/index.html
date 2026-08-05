@@ -13,6 +13,8 @@
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sales by Year","url":"https://www.comultifamily.com/dashboards/sales-by-year/"}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>SY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:hidden;width:100%}
@@ -62,10 +64,12 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .header-broker a{color:rgba(255,255,255,.75);text-decoration:none}
 .header-broker a:hover{color:#fff}
 #statsPanel{width:300px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.stat-title{font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;padding-bottom:6px;border-bottom:1px solid #dde}
-.stat-row b{font-size:20px;display:block;color:#0c1a2e;line-height:1.2}
-.stat-row span{font-size:14px;color:#666}
-.compare-table{width:100%;min-width:0;border-collapse:collapse;font-size:14px;margin-top:8px}
+.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
+.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;font-variant-numeric:tabular-nums}
+.stat-row b{font-size:13px;font-weight:700;color:#0c1a2e}
+.stat-row span{font-size:12.5px;color:#555}
+.compare-table-wrap{border:1px solid #dde;margin-top:4px;padding:6px 8px}
+.compare-table{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
 .compare-table th{position:static;background:none;padding:2px 4px;text-align:right;font-weight:600;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.2px;cursor:default}
 .compare-table th[colspan]{text-align:left;color:#c9a84c;border-bottom:1px solid #dde;padding-bottom:4px}
 .compare-table th:first-child,.compare-table td:first-child{text-align:left}
@@ -164,11 +168,11 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
       <div id="statsSummary"></div>
       <div id="ytdCompareWrap">
         <div class="stat-title" id="ytdCompareTitle">YTD Comparison</div>
-        <div id="ytdCompare"></div>
+        <div class="compare-table-wrap" id="ytdCompare"></div>
       </div>
       <div id="distressWrap" style="margin-top:12px">
         <div class="stat-title">Distressed Sales</div>
-        <div id="distressTable"></div>
+        <div class="compare-table-wrap" id="distressTable"></div>
       </div>
     </div>
   </div>
@@ -350,12 +354,12 @@ function renderStats() {
   const regionAll = DATA.filter(r => (!region || r.region===region) && (!vintage || r.vintage===vintage));
   const totalDeals = regionAll.reduce((a,r)=>a+r.deals,0);
   const totalVol = regionAll.reduce((a,r)=>a+r.volume,0);
-  const label = [region, vintage].filter(Boolean).join(' — ');
+  const label = (region ? region + ' Market' : 'All Markets') + (vintage ? ' — ' + vintage : '');
   const el = document.getElementById('statsSummary');
   el.innerHTML = `
-    <div class="stat-title">Summary${label?' — '+label:''}</div>
-    <div class="stat-row"><b>${dollar(totalVol)}</b><span>Total Volume</span></div>
-    <div class="stat-row"><b>${totalDeals.toLocaleString()}</b><span>Total Sales</span></div>
+    <div class="stat-title">${label}</div>
+    <div class="stat-row"><span>Total Volume</span><b>${dollar(totalVol)}</b></div>
+    <div class="stat-row"><span>Total Sales</span><b>${totalDeals.toLocaleString()}</b></div>
   `;
   renderYTDCompare();
   renderDistressStats();
@@ -438,14 +442,14 @@ function renderYTDCompare() {
   }
 
   const ytd = sumThroughMonth(CURRENT_YEAR, CURRENT_MONTH);
-  const monthName = NOW.toLocaleString('en-US', {month:'long'});
+  const monthName = NOW.toLocaleString('en-US', {month:'short'});
   const compareYears = [
     {label:'vs 2019', year: 2019},
     {label:'vs 2021', year: 2021},
     {label:'vs '+(CURRENT_YEAR-1), year: CURRENT_YEAR-1},
   ].filter(cy => cy.year < CURRENT_YEAR);
 
-  document.getElementById('ytdCompareTitle').textContent = `${CURRENT_YEAR} YTD Comparison (thru ${monthName})`;
+  document.getElementById('ytdCompareTitle').textContent = `${CURRENT_YEAR} YTD vs (thru ${monthName}.)`;
 
   const metrics = [
     {label:'Volume', key:'volume'},

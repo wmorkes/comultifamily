@@ -13,6 +13,8 @@
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Deliveries by Year","url":"https://www.comultifamily.com/dashboards/deliveries-by-year/"}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='13' font-weight='bold' text-anchor='middle' fill='white'>DY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:hidden;width:100%}
@@ -59,10 +61,12 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .header-broker a{color:rgba(255,255,255,.75);text-decoration:none}
 .header-broker a:hover{color:#fff}
 #statsPanel{width:330px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.stat-title{font-size:11px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;padding-bottom:6px;border-bottom:1px solid #dde}
-.stat-row b{font-size:20px;display:block;color:#0c1a2e;line-height:1.2}
-.stat-row span{font-size:14px;color:#666}
-.vintage-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:14px;margin-top:4px}
+.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
+.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;font-variant-numeric:tabular-nums}
+.stat-row b{font-size:13px;font-weight:700;color:#0c1a2e}
+.stat-row span{font-size:12.5px;color:#555}
+.vintage-table-wrap{border:1px solid #dde;margin-top:10px;padding:6px 8px}
+.vintage-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:14px}
 .vintage-table th{background:none;position:static;padding:0 0 4px;font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.2px;cursor:default;border-bottom:1px solid #dde;white-space:normal;line-height:1.2}
 .vintage-table td{padding:4px 0;border-bottom:1px solid #f0f0f0;color:#333;white-space:normal;line-height:1.25}
 .vintage-table td:first-child{color:#0c1a2e;font-weight:600}
@@ -134,8 +138,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Pueblo">Pueblo</option>
 <option value="Western Slope">Western Slope</option>
 <option value="Mountain Towns">Mountain Towns</option>
-<option value="Rural/Tertiary CO">Rural/Tertiary CO</option>
-<option value="Various">Various</option></select>
+<option value="Rural/Tertiary CO">Rural/Tertiary CO</option></select>
   </div>
   <div class="filter-group">
     <label>City</label>
@@ -295,7 +298,6 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Superior">Superior</option>
 <option value="Telluride">Telluride</option>
 <option value="Thornton">Thornton</option>
-<option value="Thorton">Thorton</option>
 <option value="Timnath">Timnath</option>
 <option value="Torrington">Torrington</option>
 <option value="Trinidad">Trinidad</option>
@@ -329,7 +331,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
     <div id="statsPanel">
       <div id="statsSummary"></div>
       <div>
-        <div class="stat-title">Inventory by Vintage</div>
+        <div class="vintage-table-wrap">
         <table class="vintage-table">
           <colgroup>
             <col style="width:46%"><col style="width:18%"><col style="width:20%"><col style="width:16%">
@@ -337,6 +339,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
           <thead><tr><th>Vintage</th><th>Props</th><th>Units</th><th>% Tot.</th></tr></thead>
           <tbody id="vintageBody"></tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>
@@ -447,13 +450,13 @@ function renderTable() {
 function renderStats() {
   const msa = document.getElementById('fMsa').value;
   const city = document.getElementById('fCity').value;
-  const label = [msa, city].filter(Boolean).join(' — ');
+  const label = msa ? (msa + ' Market' + (city ? ' — ' + city : '')) : 'All Markets';
   const totalUnits = filtered.reduce((a,r)=>a+r.units,0);
   const totalProps = filtered.reduce((a,r)=>a+r.properties,0);
   document.getElementById('statsSummary').innerHTML = `
-    <div class="stat-title">Summary${label?' — '+label:''}</div>
-    <div class="stat-row"><b>${totalUnits.toLocaleString()}</b><span>Total Units</span></div>
-    <div class="stat-row"><b>${totalProps.toLocaleString()}</b><span>Total Properties</span></div>
+    <div class="stat-title">${label}</div>
+    <div class="stat-row"><span>Total Units</span><b>${totalUnits.toLocaleString()}</b></div>
+    <div class="stat-row"><span>Total Properties</span><b>${totalProps.toLocaleString()}</b></div>
   `;
 
   const byVintage = {};
