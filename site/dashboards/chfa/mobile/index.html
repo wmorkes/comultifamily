@@ -75,7 +75,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+  <a class="co-hub-link" href="/dashboards/" data-token-link>&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>CHFA Rent &amp; Income Lookup</h1>
@@ -93,7 +93,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   </div>
   <div id="results"></div>
 </div>
-<footer>CHFA Colorado Rent &amp; Income Limits &middot; <a href="/dashboards/chfa/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+<footer>CHFA Colorado Rent &amp; Income Limits &middot; <a href="/dashboards/chfa/" style="color:#999" data-token-link>Full desktop dashboard &rarr;</a></footer>
 
 <script>
 const BR_KEYS  = ['rent_0br','rent_1br','rent_2br','rent_3br','rent_4br'];
@@ -180,19 +180,6 @@ fetch('/dashboards/chfa/data.json')
     renderResults();
   });
 
-(function() {
-  const token = new URLSearchParams(location.search).get('token');
-  if (token) {
-    ['hubBackLink', 'desktopLink'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const url = new URL(el.href, location.origin);
-        url.searchParams.set('token', token);
-        el.href = url.toString();
-      }
-    });
-  }
-})();
 </script>
 </body>
 </html>

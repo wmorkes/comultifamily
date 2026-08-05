@@ -90,7 +90,7 @@ body.map-collapsed{padding-bottom:40px}
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" id="hubBackLink" href="/dashboards/">&#8592; Back to Hub</a>
+  <a class="co-hub-link" href="/dashboards/" data-token-link>&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Pipeline Proximity Search</h1>
@@ -114,7 +114,7 @@ body.map-collapsed{padding-bottom:40px}
   <div class="result-count" id="resultCount"></div>
   <div id="results"></div>
 </div>
-<footer>CO/WY Multifamily New Construction Pipeline &middot; <a href="/dashboards/pipeline/" style="color:#999" id="desktopLink">Full desktop dashboard &rarr;</a></footer>
+<footer>CO/WY Multifamily New Construction Pipeline &middot; <a href="/dashboards/pipeline/" style="color:#999" data-token-link>Full desktop dashboard &rarr;</a></footer>
 
 <div id="mapWrap">
   <button class="map-toggle" id="mapToggle">Hide Map</button>
@@ -284,19 +284,6 @@ document.getElementById('radiusRow').addEventListener('click', e => {
   renderResults();
 });
 
-(function() {
-  const token = new URLSearchParams(location.search).get('token');
-  if (token) {
-    ['hubBackLink', 'desktopLink'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const url = new URL(el.href, location.origin);
-        url.searchParams.set('token', token);
-        el.href = url.toString();
-      }
-    });
-  }
-})();
 </script>
 </body>
 </html>
