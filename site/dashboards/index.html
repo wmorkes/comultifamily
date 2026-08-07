@@ -16,6 +16,7 @@
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Market Intelligence Dashboards","url":"https://www.comultifamily.com/dashboards/"}</script>
 <link rel="stylesheet" href="/css/style.css">
+<script src="/js/dashboard-visibility.js"></script>
 <script src="/js/token-gate.js"></script>
 <script>
   var __t = getTokenFromURL(), __r = validateToken(__t);
@@ -87,68 +88,73 @@
         .card-title-row .card-title { font-weight:700; color:#fff; font-size:16px; }
       </style>
 
-      <!-- Client-facing section — rolled-up per-market views sourced from the
-           team-only dashboards above. Only Denver Metro built so far; 8 more CO
-           markets + Wyoming still to template (see project_market_dashboards). -->
-      <div id="client-section" style="margin-bottom:24px;">
+      <!-- Market Reports — the client-facing, rolled-up market pages. Toggleable:
+           team always sees these; a non-team valid token only sees the ones
+           flagged true in /js/dashboard-visibility.js (CLIENT_VISIBLE), filtered
+           per-card below via data-client-slug. -->
+      <div id="market-reports-section" style="margin-bottom:24px;">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
           <span>Market Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div class="dashboard-card-grid">
-          <a href="/dashboards/markets/denver-metro/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/markets/denver-metro/" data-client-slug="denver-metro" data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">1</span><span class="card-title">Denver Metro</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
           </a>
         </div>
       </div>
 
-      <!-- Team-only section — all full-granularity dashboards live here now
-           (moved from Client Reports 2026-08-03: Sales History, Delivery History,
-           Construction Pipeline, CHFA Rent Limits, Rental Market Trends). -->
-      <div id="team-section" style="display:none;">
+      <!-- Dashboards — full-granularity reports. Team always sees every card.
+           Cards with data-client-slug are toggleable (CLIENT_VISIBLE) and show
+           for a non-team valid token only when turned on; cards with
+           data-team-only never have a client path, toggle or otherwise. -->
+      <div id="dashboards-section" style="margin-bottom:24px;">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-          <span>Internal Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
+          <span>Dashboards</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div class="dashboard-card-grid">
-          <a href="/dashboards/sales-by-year/" data-mobile-href="/dashboards/sales-by-year/mobile/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/sales-by-year/" data-mobile-href="/dashboards/sales-by-year/mobile/" data-client-slug="sales-by-year" data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">1</span><span class="card-title">Sales History</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Multifamily Sales by Year</div>
           </a>
-          <a href="/dashboards/deliveries-by-year/" data-mobile-href="/dashboards/deliveries-by-year/mobile/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/deliveries-by-year/" data-mobile-href="/dashboards/deliveries-by-year/mobile/" data-client-slug="deliveries-by-year" data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">2</span><span class="card-title">Delivery History</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Multifamily Development by Year</div>
           </a>
-          <a href="/dashboards/pipeline/" data-mobile-href="/dashboards/pipeline/mobile/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/pipeline/" data-mobile-href="/dashboards/pipeline/mobile/" data-client-slug="pipeline" data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">3</span><span class="card-title">Construction Pipeline</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Current Multifamily Development Pipeline</div>
           </a>
-          <a href="/dashboards/rental-trends/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/rental-trends/" data-client-slug="rental-trends" data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">4</span><span class="card-title">Rental Market Trends</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Asking Rent &amp; Occupancy by Market, 2011&ndash;Present</div>
           </a>
-          <a href="/dashboards/chfa/" data-mobile-href="/dashboards/chfa/mobile/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/chfa/" data-mobile-href="/dashboards/chfa/mobile/" data-client-slug="chfa" data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">5</span><span class="card-title">CHFA Rent Limits</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Historic and Current Max Allowable Rents for CO</div>
           </a>
-          <a href="/dashboards/capital-flow/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/capital-flow/" data-team-only data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">6</span><span class="card-title">Capital Flow</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Buyer Origin, Type &amp; Vintage by Market</div>
           </a>
-          <a href="/dashboards/on-market/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/on-market/" data-team-only data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">7</span><span class="card-title">On-Market Report</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Active Listings &amp; Reduxes</div>
           </a>
-          <a href="/dashboards/loan-monitor/" data-mobile-href="/dashboards/loan-monitor/mobile/" data-token-link class="dashboard-card-link">
+          <a href="/dashboards/loan-monitor/" data-mobile-href="/dashboards/loan-monitor/mobile/" data-team-only data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">8</span><span class="card-title">Loan Monitor</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Maturities &amp; Watch List Properties</div>
           </a>
-          <a href="/dashboards/followup-gaps/" data-token-link class="dashboard-card-link desktop-only-card">
+          <a href="/dashboards/followup-gaps/" data-team-only data-token-link class="dashboard-card-link desktop-only-card">
             <div class="card-title-row"><span class="card-num">9</span><span class="card-title">Gap Report</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Follow-up Activity</div>
           </a>
         </div>
+      </div>
 
-        <div class="desktop-only-card" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin:24px 0 12px;display:flex;align-items:center;gap:10px;">
+      <!-- Tools — team-only, never client-visible. -->
+      <div id="tools-section" style="display:none;">
+        <div class="desktop-only-card" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
           <span>Tools</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div class="desktop-only-card dashboard-card-grid">
@@ -188,10 +194,25 @@
     appendTokenToLinks(__t);
     document.getElementById('gate-approved').style.display = 'block';
     if (__r.isTeam) {
-      document.getElementById('team-section').style.display = 'block';
+      // Team sees every card, always — no filtering.
+      document.getElementById('tools-section').style.display = 'block';
       if (__r.email.toLowerCase() === 'bill.morkes@colliers.com') {
         document.getElementById('tokenGenCard').style.display = '';
       }
+    } else {
+      // Client token: hide team-only cards, and only show toggleable reports
+      // currently turned on in dashboard-visibility.js (CLIENT_VISIBLE).
+      document.querySelectorAll('[data-team-only]').forEach(a => { a.style.display = 'none'; });
+      document.querySelectorAll('[data-client-slug]').forEach(a => {
+        if (!CLIENT_VISIBLE[a.getAttribute('data-client-slug')]) a.style.display = 'none';
+      });
+      // Hide a section's header if the toggle left it with nothing to show.
+      ['market-reports-section', 'dashboards-section'].forEach(id => {
+        var section = document.getElementById(id);
+        if (!section.querySelector('.dashboard-card-link:not([style*="display: none"])')) {
+          section.style.display = 'none';
+        }
+      });
     }
   } else if (__r.reason === 'expired') {
     document.getElementById('gate-expired').style.display = 'block';

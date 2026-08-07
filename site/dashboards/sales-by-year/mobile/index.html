@@ -46,6 +46,7 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
 .compare-note{font-size:11px;color:#888;margin:-4px 0 12px}
 .loading{text-align:center;padding:30px;color:#888;font-size:13px}
 </style>
+<script src="/js/dashboard-visibility.js"></script>
 <script src="/js/token-gate.js"></script>
 <script>
   var __t = getTokenFromURL(), __r = validateToken(__t);
@@ -64,7 +65,7 @@ select{border:1px solid #ccd;border-radius:6px;padding:10px;font-size:15px;backg
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
-  } else if (!__r.isTeam) {
+  } else if (!__r.isTeam && !CLIENT_VISIBLE['sales-by-year']) {
     window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});

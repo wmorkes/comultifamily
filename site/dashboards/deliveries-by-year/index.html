@@ -78,6 +78,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .vintage-row-uc td:first-child{color:#fff;white-space:nowrap}
 .vintage-row-uc td.vintage-pct-hi,.vintage-row-uc td.vintage-pct-mid,.vintage-row-uc td.vintage-pct-lo{color:#fff}
 </style>
+<script src="/js/dashboard-visibility.js"></script>
 <script src="/js/token-gate.js"></script>
 <script>
   var __t = getTokenFromURL(), __r = validateToken(__t);
@@ -96,7 +97,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
-  } else if (!__r.isTeam) {
+  } else if (!__r.isTeam && !CLIENT_VISIBLE['deliveries-by-year']) {
     window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});

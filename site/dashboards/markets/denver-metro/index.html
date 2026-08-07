@@ -211,6 +211,7 @@ svg.chart{display:block;width:100%;height:auto}
 .cta-thanks{font-family:'Inter',sans-serif;font-size:14px;color:#fff;line-height:1.5;padding-top:8px}
 .cta-thanks b{color:#c9a84c}
 </style>
+<script src="/js/dashboard-visibility.js"></script>
 <script src="/js/token-gate.js"></script>
 <script>
   var __t = getTokenFromURL(), __r = validateToken(__t);
@@ -229,6 +230,8 @@ svg.chart{display:block;width:100%;height:auto}
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else if (!__r.isTeam && !CLIENT_VISIBLE['denver-metro']) {
+    window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});
     rememberClientToken(__clientLabel);
@@ -266,7 +269,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Denver Metro</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/06/2026)
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/07/2026)
       <span class="info-tip" title="Data aggregated by Colliers using proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.">&#9432;</span>
     </p>
   </div>

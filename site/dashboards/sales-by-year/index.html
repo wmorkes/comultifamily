@@ -79,6 +79,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 .neg{color:#c0392b;font-weight:700}
 .compare-footnote{font-size:10px;color:#888;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0}
 </style>
+<script src="/js/dashboard-visibility.js"></script>
 <script src="/js/token-gate.js"></script>
 <script>
   var __t = getTokenFromURL(), __r = validateToken(__t);
@@ -97,7 +98,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
-  } else if (!__r.isTeam) {
+  } else if (!__r.isTeam && !CLIENT_VISIBLE['sales-by-year']) {
     window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});
@@ -389,9 +390,9 @@ function renderDistressStats() {
   // YTD cutoff for the current year, full year for the two prior years —
   // so every column compares against exactly the 12 months before it.
   const periods = [
-    {label:'YTD '+CURRENT_YEAR,       stats: sumForYear(CURRENT_YEAR, true),   priorStats: sumForYear(CURRENT_YEAR-1, true)},
-    {label:String(CURRENT_YEAR-1),    stats: sumForYear(CURRENT_YEAR-1, false), priorStats: sumForYear(CURRENT_YEAR-2, false)},
     {label:String(CURRENT_YEAR-2),    stats: sumForYear(CURRENT_YEAR-2, false), priorStats: sumForYear(CURRENT_YEAR-3, false)},
+    {label:String(CURRENT_YEAR-1),    stats: sumForYear(CURRENT_YEAR-1, false), priorStats: sumForYear(CURRENT_YEAR-2, false)},
+    {label:'YTD '+CURRENT_YEAR,       stats: sumForYear(CURRENT_YEAR, true),   priorStats: sumForYear(CURRENT_YEAR-1, true)},
   ];
 
   const headHtml = '<th></th>' + periods.map(p=>`<th>${p.label}</th>`).join('');
