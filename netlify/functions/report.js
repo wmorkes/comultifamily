@@ -19,16 +19,22 @@ export default async (req) => {
   const since = url.searchParams.get('since') || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
   const store = getStore('events');
-  const { blobs } = await store.list({ prefix: 'events/' });
 
-  const records = [];
-  for (const { key } of blobs) {
-    // key format: events/YYYY-MM-DD/<timestamp>-<rand>
-    const day = key.split('/')[1];
-    if (!day || day < since || day > until) continue;
-    const record = await store.get(key, { type: 'json' });
-    if (record) records.push(record);
+  // Only list the day-prefixes actually in range, instead of every event
+  // blob ever stored — keeps list() work bounded by the window, not history.
+  const days = [];
+  for (let d = new Date(`${since}T00:00:00Z`); d <= new Date(`${until}T00:00:00Z`); d.setUTCDate(d.getUTCDate() + 1)) {
+    days.push(d.toISOString().slice(0, 10));
   }
+
+  const dayLists = await Promise.all(
+    days.map((day) => store.list({ prefix: `events/${day}/` }))
+  );
+  const keys = dayLists.flatMap(({ blobs }) => blobs.map((b) => b.key));
+
+  const records = (
+    await Promise.all(keys.map((key) => store.get(key, { type: 'json' })))
+  ).filter(Boolean);
 
   return new Response(JSON.stringify({ since, until, count: records.length, events: records }), {
     status: 200,
