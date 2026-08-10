@@ -33,6 +33,7 @@ export default async (req, context) => {
     listing_property: payload.listing_property ? String(payload.listing_property).slice(0, 128) : null,
     listing_city: payload.listing_city ? String(payload.listing_city).slice(0, 128) : null,
     listing_type: payload.listing_type ? String(payload.listing_type).slice(0, 64) : null,
+    user_agent: ua.slice(0, 256),
     timestamp: now.toISOString(),
     city: (context.geo && context.geo.city) || null,
     country: (context.geo && context.geo.country && context.geo.country.code) || null,
