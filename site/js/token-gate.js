@@ -61,6 +61,19 @@ function rememberClientToken(clientLabel) {
     ';path=/;max-age=' + maxAgeSeconds + ';SameSite=Lax';
 }
 
+/**
+ * Fetches a dashboard's data.json/geo.json via the gated /api/dashboard-data
+ * endpoint instead of the old plain-static path (site/dashboards/<name>/*.json
+ * was previously public with no auth at all — see netlify/functions/dashboard-data.js).
+ * Call with the same token already validated by this page's token-gate block.
+ */
+function fetchDashboardData(name, file, token) {
+  var url = '/api/dashboard-data?name=' + encodeURIComponent(name) +
+    '&token=' + encodeURIComponent(token);
+  if (file) url += '&file=' + encodeURIComponent(file);
+  return fetch(url).then(function (r) { return r.json(); });
+}
+
 function appendTokenToLinks(token) {
   document.querySelectorAll('a[data-token-link]').forEach(a => {
     const url = new URL(a.href, window.location.origin);

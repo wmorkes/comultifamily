@@ -241,8 +241,7 @@ function render() {
   document.getElementById('body').innerHTML = summary + cards;
 }
 
-fetch('/dashboards/sales-by-year/data.json')
-  .then(r => r.json())
+fetchDashboardData('sales-by-year', 'data.json', __t)
   .then(d => {
     DATA = d;
     const years = [...new Set(DATA.map(r=>r.year))].sort((a,b)=>b-a);

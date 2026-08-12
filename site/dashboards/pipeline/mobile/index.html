@@ -259,8 +259,7 @@ async function doSearch() {
   }
 }
 
-fetch('/dashboards/pipeline/geo.json')
-  .then(r => r.json())
+fetchDashboardData('pipeline', 'geo.json', __t)
   .then(d => { GEO = d; });
 
 function toggleMap(forceState) {

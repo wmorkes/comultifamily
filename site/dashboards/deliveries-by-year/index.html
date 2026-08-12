@@ -629,8 +629,7 @@ function renderChart() {
   });
 }
 
-fetch('/dashboards/deliveries-by-year/data.json')
-  .then(r => r.json())
+fetchDashboardData('deliveries-by-year', 'data.json', __t)
   .then(d => {
     DATA = d;
     filtered = DATA;

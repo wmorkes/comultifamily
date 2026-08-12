@@ -151,8 +151,7 @@ function render() {
   document.getElementById('body').innerHTML = summary + cards;
 }
 
-fetch('/dashboards/deliveries-by-year/data.json')
-  .then(r => r.json())
+fetchDashboardData('deliveries-by-year', 'data.json', __t)
   .then(d => {
     DATA = d;
     const msas = [...new Set(DATA.map(r=>r.msa))].sort();

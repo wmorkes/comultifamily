@@ -683,8 +683,7 @@ function renderChart() {
 }
 
 // Init
-fetch('/dashboards/chfa/data.json')
-  .then(r => r.json())
+fetchDashboardData('chfa', 'data.json', __t)
   .then(d => {
     DATA = d;
     filtered = [...DATA];

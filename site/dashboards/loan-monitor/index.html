@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Loan Monitor – 08/05/2026</title>
+<title>Loan Monitor – 08/12/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO multifamily loan maturities and watch list. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -127,7 +127,7 @@ td.wrap { white-space: normal; }
 <header>
   <div>
     <h1>CO Multifamily Loan Monitor</h1>
-    <p>Generated 08/05/2026 &middot; Data source: Yardi Matrix</p>
+    <p>Generated 08/12/2026 &middot; Data source: Yardi Matrix</p>
   </div>
 </header>
 <div class="main">
@@ -450,8 +450,8 @@ let fullDataPromise = null;
 function ensureFullData() {
   if (!fullDataPromise) {
     fullDataPromise = Promise.all([
-      fetch('/dashboards/loan-monitor/data-full.json').then(r => r.json()),
-      fetch('/dashboards/loan-monitor/geo-full.json').then(r => r.json()),
+      fetchDashboardData('loan-monitor', 'data-full.json', __t),
+      fetchDashboardData('loan-monitor', 'geo-full.json', __t),
     ]).then(([data, geo]) => { DATA = data; GEO = geo; });
   }
   return fullDataPromise;
@@ -479,8 +479,8 @@ function copyPhone(btn, num) {
 
 document.querySelectorAll('thead th')[0].className = 'desc';
 Promise.all([
-  fetch('/dashboards/loan-monitor/data.json').then(r => r.json()),
-  fetch('/dashboards/loan-monitor/geo.json').then(r => r.json()),
+  fetchDashboardData('loan-monitor', 'data.json', __t),
+  fetchDashboardData('loan-monitor', 'geo.json', __t),
 ]).then(([data, geo]) => {
   DATA = data;
   GEO = geo;

@@ -153,8 +153,7 @@ function renderResults(query) {
   }).join('');
 }
 
-fetch('/dashboards/loan-monitor/geo.json')
-  .then(r => r.json())
+fetchDashboardData('loan-monitor', 'geo.json', __t)
   .then(d => {
     GEO = d;
     const q = document.getElementById('q');

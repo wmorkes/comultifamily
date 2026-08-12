@@ -269,7 +269,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Denver Metro</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/07/2026)
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/12/2026)
       <span class="info-tip" title="Data aggregated by Colliers using proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.">&#9432;</span>
     </p>
   </div>
@@ -1591,8 +1591,7 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   });
 }
 
-fetch('/dashboards/markets/denver-metro/data.json')
-  .then(r => r.json())
+fetchDashboardData('markets/denver-metro', 'data.json', __t)
   .then(d => {
     D = d;
     renderOverview();

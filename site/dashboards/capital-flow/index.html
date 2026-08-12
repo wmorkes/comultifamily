@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Capital Flow Report – 08/05/2026</title>
+<title>Capital Flow Report – 08/12/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO/WY multifamily capital flow by buyer origin, type, market, and vintage. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -140,7 +140,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 </div>
 <header>
   <h1>CO/WY Multifamily Capital Flow</h1>
-  <p>Generated 08/05/2026 &middot; Team only &middot; Source: CRM Market Movement + Companies</p>
+  <p>Generated 08/12/2026 &middot; Team only &middot; Source: CRM Market Movement + Companies</p>
 </header>
 <nav class="section-nav">
   <a href="#flow">Capital Flow</a>
@@ -618,7 +618,7 @@ function renderMatrixTable(elId){
 
 document.querySelectorAll('#dealsTable thead th')[5].className = 'desc';
 
-fetch('/dashboards/capital-flow/data.json').then(r => r.json()).then(data => {
+fetchDashboardData('capital-flow', 'data.json', __t).then(data => {
   DEALS = data;
   populateSelect('fMarket', MARKETS_ORDER);
   populateSelect('fState', [...new Set(DEALS.map(d=>d.buyer_state).filter(Boolean))].sort());
