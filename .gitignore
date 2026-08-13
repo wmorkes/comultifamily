@@ -6,6 +6,9 @@ Thumbs.db
 # Local Netlify folder
 .netlify
 
+# Local secrets for netlify dev (real values live in Netlify's env var UI)
+.env
+
 # Function dependencies (auto-installed at build time by the
 # @netlify/plugin-functions-install-core plugin, no need to commit)
 netlify/functions/node_modules/

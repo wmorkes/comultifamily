@@ -197,7 +197,7 @@ td.wrap { white-space: normal; }
   <table id="t">
   <colgroup>
     <col style="width:5%"><!-- Score -->
-    <col style="width:16%"><!-- Property -->
+    <col style="width:24%"><!-- Property -->
     <col style="width:6%"><!-- City -->
     <col style="width:4%"><!-- Units -->
     <col style="width:6%"><!-- YOC -->
@@ -206,7 +206,7 @@ td.wrap { white-space: normal; }
     <col style="width:8%"><!-- Lender Type -->
     <col style="width:14%"><!-- Lender -->
     <col style="width:7%"><!-- Loan $M -->
-    <col style="width:14%"><!-- Special Servicer -->
+    <col style="width:6%"><!-- DSCR -->
   </colgroup>
   <thead><tr>
     <th onclick="sort(0)">Score</th>
@@ -219,7 +219,7 @@ td.wrap { white-space: normal; }
     <th onclick="sort(7)">Type</th>
     <th onclick="sort(8)">Lender</th>
     <th onclick="sort(9)">Loan $M</th>
-    <th onclick="sort(10)">Special Servicer</th>
+    <th onclick="sort(10)">DSCR</th>
   </tr></thead>
   <tbody id="tbody">
   </tbody></table></div>
@@ -310,6 +310,12 @@ function esc(s) {
   return (s == null ? '' : String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function dscrCellHtml(v) {
+  if (v == null) return '';
+  const color = v < 1.0 ? '#c0392b' : v < 1.10 ? '#b7770d' : '#333';
+  return `<span style="color:${color}">${v.toFixed(2)}</span>`;
+}
+
 function rowHtml(r) {
   let propTags = '';
   if (r.is_newly_distressed === '1') propTags += '<span class="tag tag-d" style="background:#8e44ad">New Distress</span>';
@@ -352,12 +358,12 @@ function rowHtml(r) {
     + `<td>${esc(r.lender_type_short)}</td>`
     + `<td style="${ltBg}">${esc(r.lender_name_short)}</td>`
     + `<td data-v="${r.loan_amount||0}">${esc(loanTd)}</td>`
-    + `<td title="${esc(r.special_servicer)}">${esc(r.special_servicer)}</td>`
+    + `<td data-v="${r.dscr==null?'':r.dscr}">${dscrCellHtml(r.dscr)}</td>`
     + `</tr>`;
 }
 
 let col=0, asc=false;
-const SORT_KEYS = ['score','property','city','units','yoc','crm_company','maturity_sort','lender_type_short','lender_name_short','loan_amount','special_servicer'];
+const SORT_KEYS = ['score','property','city','units','yoc','crm_company','maturity_sort','lender_type_short','lender_name_short','loan_amount','dscr'];
 
 function sort(c) {
   asc = (col===c) ? !asc : false; col = c;
@@ -411,6 +417,7 @@ function updateMap() {
         `<div style="${s}">Score: <strong>${m.score}</strong></div>` +
         (lenderStr  ? `<div style="${s}">${lenderStr}</div>` : '') +
         (loanMeta   ? `<div style="${s}">${loanMeta}</div>` : '') +
+        (m.ss       ? `<div style="${s}">Special Servicer: ${m.ss}</div>` : '') +
         (m.angle    ? `<div style="color:#0c1a2e;font-size:11px;margin-top:1px">${m.angle}</div>` : '') +
         `</div>`, {maxWidth:300})
       .addTo(markerLayer);
