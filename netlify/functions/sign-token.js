@@ -1,26 +1,18 @@
-import { createHmac, timingSafeEqual } from 'crypto';
+import { createHmac } from 'crypto';
 
 // Mints scoped, HMAC-signed dashboard tokens for the Token Generator page.
-// Gated by TOKEN_GEN_SECRET (an admin key embedded in token-gen/index.html,
-// same trust tier as DASHBOARD_DATA_SECRET) — not real auth, just stops
-// randoms from hitting this endpoint directly. Real enforcement of the
-// resulting token's scope happens server-side in dashboard-data.js.
-
-function timingSafeStringEqual(a, b) {
-  const bufA = Buffer.from(String(a));
-  const bufB = Buffer.from(String(b));
-  if (bufA.length !== bufB.length) return false;
-  return timingSafeEqual(bufA, bufB);
-}
+// Access is gated upstream by netlify/edge-functions/token-gen-auth.js
+// (HTTP Basic Auth, real credentials) — this endpoint is unreachable
+// without them, so it doesn't repeat that check itself. Real enforcement of
+// the resulting token's scope happens server-side in dashboard-data.js.
 
 export default async (req) => {
   if (req.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
-  const genSecret = process.env.TOKEN_GEN_SECRET;
   const signingSecret = process.env.TOKEN_SIGNING_SECRET;
-  if (!genSecret || !signingSecret) {
+  if (!signingSecret) {
     return new Response('Not Configured', { status: 500 });
   }
 
@@ -31,10 +23,7 @@ export default async (req) => {
     return new Response('Bad Request', { status: 400 });
   }
 
-  const { secret, email, scope } = body || {};
-  if (!secret || !timingSafeStringEqual(secret, genSecret)) {
-    return new Response('Unauthorized', { status: 401 });
-  }
+  const { email, scope } = body || {};
   if (!email || typeof email !== 'string') {
     return new Response('Bad Request', { status: 400 });
   }

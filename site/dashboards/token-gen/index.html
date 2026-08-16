@@ -55,14 +55,14 @@ button:hover { background: #16294a; }
   gtag("js", new Date());
   gtag("config", "G-53BCG1FL5M");
 </script>
-<script src="/js/token-gate.js"></script>
-<script>(function(){var t=getTokenFromURL(),r=validateToken(t);if(!r.valid)window.location.replace('/dashboards/'+(r.reason==='expired'?'?token='+encodeURIComponent(t):''));else if(r.email.toLowerCase()!=='bill.morkes@colliers.com')window.location.replace('/dashboards/');else{var clientLabel=r.email.replace('@','-').replace(/\.com$/,'');gtag('set',{'client_token':clientLabel});gtag('set','user_properties',{'client_token':clientLabel});gtag('event','dashboard_access',{'client_token':clientLabel});rememberClientToken(clientLabel);document.addEventListener('DOMContentLoaded',function(){appendTokenToLinks(t);});}})();</script>
+<!-- Page access is gated upstream by netlify/edge-functions/token-gen-auth.js
+     (HTTP Basic Auth) — no client-side token check needed here. -->
 <script src="/js/track.js"></script>
 </head>
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a href="/dashboards/" data-token-link style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
+  <a href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Dashboard Token Generator</h1>
@@ -124,7 +124,7 @@ button:hover { background: #16294a; }
 
     <button onclick="generate()">Generate Link</button>
     <div class="err" id="err">Enter a valid email address.</div>
-    <div class="err" id="errSign">Could not sign token &mdash; check the server is configured (TOKEN_GEN_SECRET / TOKEN_SIGNING_SECRET) and try again.</div>
+    <div class="err" id="errSign">Could not sign token &mdash; check the server is configured (TOKEN_SIGNING_SECRET) and try again.</div>
 
     <div class="result" id="result">
       <div class="result-label">Direct Access Link</div>
@@ -137,13 +137,6 @@ button:hover { background: #16294a; }
   </div>
 </div>
 <script>
-// Same trust tier as DASHBOARD_DATA_SECRET (bov-generator) — embedded admin
-// key that gates the sign-token endpoint. Page is unlinked/low-traffic
-// internal tool, this isn't real auth, just stops randoms hitting the API.
-// TODO: paste in the value of TOKEN_GEN_SECRET from .env (Bill: edit this
-// file directly in VS Code, don't paste the value into chat).
-var TOKEN_GEN_SECRET = "442da6b1dabb73447d47b37b4b15803a6f88d8d14eb88527";
-
 function generate() {
   var email = document.getElementById('email').value.trim();
   var errEl = document.getElementById('err');
@@ -170,7 +163,7 @@ function generate() {
   fetch('/api/sign-token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ secret: TOKEN_GEN_SECRET, email: email, scope: scope })
+    body: JSON.stringify({ email: email, scope: scope })
   })
     .then(function (r) { if (!r.ok) throw new Error('sign failed'); return r.json(); })
     .then(function (data) {
