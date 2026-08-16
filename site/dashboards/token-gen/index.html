@@ -56,13 +56,23 @@ button:hover { background: #16294a; }
   gtag("config", "G-53BCG1FL5M");
 </script>
 <!-- Page access is gated upstream by netlify/edge-functions/token-gen-auth.js
-     (HTTP Basic Auth) — no client-side token check needed here. -->
+     (HTTP Basic Auth) — no client-side token check needed here. This only
+     carries the visitor's own dashboard token (if they arrived with one)
+     through to the Back to Hub link, so leaving here doesn't drop them back
+     into the request flow — it's a UX passthrough, not an access check. -->
+<script src="/js/token-gate.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var t = getTokenFromURL();
+  if (t) appendTokenToLinks(t);
+});
+</script>
 <script src="/js/track.js"></script>
 </head>
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a href="/dashboards/" style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
+  <a href="/dashboards/" data-token-link style="font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;">&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Dashboard Token Generator</h1>
