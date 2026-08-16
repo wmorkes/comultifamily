@@ -41,6 +41,12 @@ button:hover { background: #16294a; }
 .copy-btn.copied { border-color: #2a9d50; color: #2a9d50; }
 .expiry-note { font-size: 12px; color: #58637a; margin-top: 4px; }
 .err { color: #c0392b; font-size: 13px; margin-top: 8px; display: none; }
+.scope-group { margin-bottom: 16px; }
+.scope-group-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #8a93a6; margin: 12px 0 6px; }
+.scope-list { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.scope-item { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 400; text-transform: none; letter-spacing: 0; color: #333; }
+.scope-item input { margin: 0; }
+.scope-note { font-size: 11px; color: #8a93a6; margin: -8px 0 4px; }
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
@@ -86,10 +92,39 @@ button:hover { background: #16294a; }
     </div>
     <label for="email" style="margin-top:16px;">Client Email</label>
     <input type="email" id="email" placeholder="client@example.com">
-    <p style="font-size:12px;color:#58637a;margin:-10px 0 16px;">Link is valid for 48 hours from generation, same as the standard request-approval flow. Name is optional but feeds the local activity report the same way a form request does &mdash; kept local, never sent to Google.</p>
+
+    <label style="margin-top:4px;">Dashboard Access</label>
+    <p class="scope-note">Leave everything unchecked to grant only whatever's currently open to all clients (CLIENT_VISIBLE). Check specific dashboards to additionally unlock them for this link only.</p>
+    <div class="scope-group">
+      <div class="scope-group-label">Market Reports</div>
+      <div class="scope-list" id="scopeMarketReports">
+        <label class="scope-item"><input type="checkbox" value="wyoming"> Wyoming</label>
+        <label class="scope-item"><input type="checkbox" value="fort-collins"> Fort Collins</label>
+        <label class="scope-item"><input type="checkbox" value="greeley"> Greeley</label>
+        <label class="scope-item"><input type="checkbox" value="boulder"> Boulder</label>
+        <label class="scope-item"><input type="checkbox" value="denver-metro"> Denver Metro</label>
+        <label class="scope-item"><input type="checkbox" value="colorado-springs"> Colorado Springs</label>
+        <label class="scope-item"><input type="checkbox" value="pueblo"> Pueblo</label>
+        <label class="scope-item"><input type="checkbox" value="western-slope"> Western Slope</label>
+        <label class="scope-item"><input type="checkbox" value="mountain-towns"> Mountain Towns</label>
+        <label class="scope-item"><input type="checkbox" value="rural-tertiary-co"> Rural/Tertiary CO</label>
+      </div>
+    </div>
+    <div class="scope-group">
+      <div class="scope-group-label">Dashboards</div>
+      <div class="scope-list" id="scopeDashboards">
+        <label class="scope-item"><input type="checkbox" value="sales-by-year"> Sales History</label>
+        <label class="scope-item"><input type="checkbox" value="deliveries-by-year"> Delivery History</label>
+        <label class="scope-item"><input type="checkbox" value="pipeline"> Construction Pipeline</label>
+        <label class="scope-item"><input type="checkbox" value="rental-trends"> Rental Market Trends</label>
+        <label class="scope-item"><input type="checkbox" value="chfa"> CHFA Rent Limits</label>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#58637a;margin:8px 0 16px;">Link is valid for 48 hours from generation, same as the standard request-approval flow. Name is optional but feeds the local activity report the same way a form request does &mdash; kept local, never sent to Google.</p>
 
     <button onclick="generate()">Generate Link</button>
     <div class="err" id="err">Enter a valid email address.</div>
+    <div class="err" id="errSign">Could not sign token &mdash; check the server is configured (TOKEN_GEN_SECRET / TOKEN_SIGNING_SECRET) and try again.</div>
 
     <div class="result" id="result">
       <div class="result-label">Direct Access Link</div>
@@ -102,51 +137,78 @@ button:hover { background: #16294a; }
   </div>
 </div>
 <script>
+// Same trust tier as DASHBOARD_DATA_SECRET (bov-generator) — embedded admin
+// key that gates the sign-token endpoint. Page is unlinked/low-traffic
+// internal tool, this isn't real auth, just stops randoms hitting the API.
+// TODO: paste in the value of TOKEN_GEN_SECRET from .env (Bill: edit this
+// file directly in VS Code, don't paste the value into chat).
+var TOKEN_GEN_SECRET = "REPLACE_WITH_TOKEN_GEN_SECRET";
+
 function generate() {
   var email = document.getElementById('email').value.trim();
   var errEl = document.getElementById('err');
+  var errSignEl = document.getElementById('errSign');
   var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     errEl.style.display = 'block';
+    errSignEl.style.display = 'none';
     document.getElementById('result').classList.remove('show');
     return;
   }
   errEl.style.display = 'none';
+  errSignEl.style.display = 'none';
 
-  var today = new Date();
-  var dateStr = today.getFullYear() + '-' +
-    String(today.getMonth() + 1).padStart(2, '0') + '-' +
-    String(today.getDate()).padStart(2, '0');
   var fname = document.getElementById('fname').value.trim();
   var lname = document.getElementById('lname').value.trim();
-  var token = btoa(email + '|' + dateStr);
-  var link = window.location.origin + '/dashboards/?token=' + encodeURIComponent(token);
+  var scope = Array.prototype.slice.call(
+    document.querySelectorAll('#scopeMarketReports input:checked, #scopeDashboards input:checked')
+  ).map(function (el) { return el.value; });
 
-  document.getElementById('linkOut').value = link;
-  document.getElementById('result').classList.add('show');
+  var genBtn = document.querySelector('button[onclick="generate()"]');
+  genBtn.disabled = true;
 
-  var noteExpires = new Date(new Date(dateStr).getTime() + 48 * 60 * 60 * 1000);
-  document.getElementById('expiryNote').textContent =
-    'Expires ' + noteExpires.toLocaleString() +
-    ' (48 hours from midnight on the encoded date, ' + dateStr + ' — same rule as the standard flow, so a link generated late in the day has less than a full 48 hours left).';
-
-  document.getElementById('copyBtn').classList.remove('copied');
-  document.getElementById('copyBtn').textContent = 'Copy';
-
-  // Log into the same "dashboard-access" Netlify form the request flow uses,
-  // tagged source=token-gen, so build_ga4_report.py's existing local Name/Email
-  // resolution picks these up too — no separate storage, no PII sent to GA4.
-  fetch('/', {
+  fetch('/api/sign-token', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      'form-name': 'dashboard-access',
-      'first-name': fname,
-      'last-name': lname,
-      'email': email,
-      'source': 'token-gen'
-    }).toString()
-  }).catch(function() { /* best-effort logging, link is already generated either way */ });
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ secret: TOKEN_GEN_SECRET, email: email, scope: scope })
+  })
+    .then(function (r) { if (!r.ok) throw new Error('sign failed'); return r.json(); })
+    .then(function (data) {
+      var link = window.location.origin + '/dashboards/?token=' + encodeURIComponent(data.token);
+
+      document.getElementById('linkOut').value = link;
+      document.getElementById('result').classList.add('show');
+
+      var noteExpires = new Date(new Date(data.date).getTime() + 48 * 60 * 60 * 1000);
+      var scopeNote = scope.length ? (' Scoped to: ' + scope.join(', ') + ' (plus anything already open to all clients).') : ' No extra scope granted beyond what\'s already open to all clients.';
+      document.getElementById('expiryNote').textContent =
+        'Expires ' + noteExpires.toLocaleString() +
+        ' (48 hours from midnight on the encoded date, ' + data.date + ' — same rule as the standard flow, so a link generated late in the day has less than a full 48 hours left).' + scopeNote;
+
+      document.getElementById('copyBtn').classList.remove('copied');
+      document.getElementById('copyBtn').textContent = 'Copy';
+
+      // Log into the same "dashboard-access" Netlify form the request flow uses,
+      // tagged source=token-gen, so build_ga4_report.py's existing local Name/Email
+      // resolution picks these up too — no separate storage, no PII sent to GA4.
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'dashboard-access',
+          'first-name': fname,
+          'last-name': lname,
+          'email': email,
+          'source': 'token-gen',
+          'scope': scope.join(',')
+        }).toString()
+      }).catch(function() { /* best-effort logging, link is already generated either way */ });
+    })
+    .catch(function () {
+      errSignEl.style.display = 'block';
+      document.getElementById('result').classList.remove('show');
+    })
+    .finally(function () { genBtn.disabled = false; });
 }
 
 function copyLink() {

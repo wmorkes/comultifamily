@@ -97,7 +97,7 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
-  } else if (!__r.isTeam && !CLIENT_VISIBLE['deliveries-by-year']) {
+  } else if (!isDashboardUnlocked('deliveries-by-year', __r.scope, __r.isTeam)) {
     window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});

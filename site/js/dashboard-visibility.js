@@ -13,7 +13,16 @@
  * for anyone with a bookmarked URL or old token link, not just the hub card.
  */
 const CLIENT_VISIBLE = {
+  'wyoming': false,
+  'fort-collins': false,
+  'greeley': false,
+  'boulder': false,
   'denver-metro': false,
+  'colorado-springs': false,
+  'pueblo': false,
+  'western-slope': false,
+  'mountain-towns': false,
+  'rural-tertiary-co': false,
   'sales-by-year': true,
   'deliveries-by-year': false,
   'pipeline': false,

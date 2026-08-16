@@ -86,6 +86,8 @@
         .card-title-row { display:flex; align-items:baseline; gap:12px; }
         .card-title-row .card-num { color:var(--gold); font-size:28px; font-weight:800; line-height:1; }
         .card-title-row .card-title { font-weight:700; color:#fff; font-size:16px; }
+        .dashboard-card-link.card-locked { pointer-events:none; filter:grayscale(1); opacity:.4; }
+        .dashboard-card-link.card-locked .card-request-link { pointer-events:auto; margin-top:auto; font-size:12px; font-weight:600; color:var(--gold); text-decoration:underline; }
       </style>
 
       <!-- Market Reports — the client-facing, rolled-up market pages. Toggleable:
@@ -97,8 +99,44 @@
           <span>Market Reports</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
         </div>
         <div class="dashboard-card-grid">
+          <a href="/dashboards/markets/wyoming/" data-client-slug="wyoming" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">1</span><span class="card-title">Wyoming</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/fort-collins/" data-client-slug="fort-collins" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">2</span><span class="card-title">Fort Collins</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/greeley/" data-client-slug="greeley" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">3</span><span class="card-title">Greeley</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/boulder/" data-client-slug="boulder" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">4</span><span class="card-title">Boulder</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
           <a href="/dashboards/markets/denver-metro/" data-client-slug="denver-metro" data-token-link class="dashboard-card-link">
-            <div class="card-title-row"><span class="card-num">1</span><span class="card-title">Denver Metro</span></div>
+            <div class="card-title-row"><span class="card-num">5</span><span class="card-title">Denver Metro</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/colorado-springs/" data-client-slug="colorado-springs" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">6</span><span class="card-title">Colorado Springs</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/pueblo/" data-client-slug="pueblo" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">7</span><span class="card-title">Pueblo</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/western-slope/" data-client-slug="western-slope" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">8</span><span class="card-title">Western Slope</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/mountain-towns/" data-client-slug="mountain-towns" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">9</span><span class="card-title">Mountain Towns</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
+          </a>
+          <a href="/dashboards/markets/rural-tertiary-co/" data-client-slug="rural-tertiary-co" data-token-link class="dashboard-card-link">
+            <div class="card-title-row"><span class="card-num">10</span><span class="card-title">Rural/Tertiary CO</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Market Report</div>
           </a>
         </div>
@@ -141,6 +179,16 @@
             <div class="card-title-row"><span class="card-num">7</span><span class="card-title">On-Market Report</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Active Listings &amp; Reduxes</div>
           </a>
+        </div>
+      </div>
+
+      <!-- Tools — team-only, never client-visible. Mobile support is per-card
+           (data-mobile-href / no desktop-only-card) not tied to this section. -->
+      <div id="tools-section" style="display:none;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
+          <span>Tools</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
+        </div>
+        <div class="dashboard-card-grid">
           <a href="/dashboards/loan-monitor/" data-mobile-href="/dashboards/loan-monitor/mobile/" data-team-only data-token-link class="dashboard-card-link">
             <div class="card-title-row"><span class="card-num">8</span><span class="card-title">Loan Monitor</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Maturities &amp; Watch List Properties</div>
@@ -149,20 +197,11 @@
             <div class="card-title-row"><span class="card-num">9</span><span class="card-title">Gap Report</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Follow-up Activity</div>
           </a>
-        </div>
-      </div>
-
-      <!-- Tools — team-only, never client-visible. -->
-      <div id="tools-section" style="display:none;">
-        <div class="desktop-only-card" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-          <span>Tools</span><span style="flex:1;height:1px;background:#dde;display:block;"></span>
-        </div>
-        <div class="desktop-only-card dashboard-card-grid">
-          <a href="https://bov-generator-production.up.railway.app/" target="_blank" rel="noopener" class="dashboard-card-link">
+          <a href="https://bov-generator-production.up.railway.app/" target="_blank" rel="noopener" class="dashboard-card-link desktop-only-card">
             <div class="card-title-row"><span class="card-num">10</span><span class="card-title">Emerald Package</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Broker Opinion of Value Builder</div>
           </a>
-          <a href="/dashboards/geocode/" target="_blank" rel="noopener" class="dashboard-card-link">
+          <a href="/dashboards/geocode/" target="_blank" rel="noopener" class="dashboard-card-link desktop-only-card">
             <div class="card-title-row"><span class="card-num">11</span><span class="card-title">Address Geocoder</span></div>
             <div style="font-size:13px;color:rgba(255,255,255,0.6);">Batch Lat/Lng Lookup</div>
           </a>
@@ -200,18 +239,23 @@
         document.getElementById('tokenGenCard').style.display = '';
       }
     } else {
-      // Client token: hide team-only cards, and only show toggleable reports
-      // currently turned on in dashboard-visibility.js (CLIENT_VISIBLE).
+      // Client token: hide team-only cards entirely. Client-tier cards always
+      // render — grey out (with a Request Access link) any not covered by
+      // CLIENT_VISIBLE or the token's own scope, instead of hiding them, so
+      // clients can see what's available and ask for it.
       document.querySelectorAll('[data-team-only]').forEach(a => { a.style.display = 'none'; });
       document.querySelectorAll('[data-client-slug]').forEach(a => {
-        if (!CLIENT_VISIBLE[a.getAttribute('data-client-slug')]) a.style.display = 'none';
-      });
-      // Hide a section's header if the toggle left it with nothing to show.
-      ['market-reports-section', 'dashboards-section'].forEach(id => {
-        var section = document.getElementById(id);
-        if (!section.querySelector('.dashboard-card-link:not([style*="display: none"])')) {
-          section.style.display = 'none';
-        }
+        var slug = a.getAttribute('data-client-slug');
+        if (isDashboardUnlocked(slug, __r.scope, false)) return;
+        a.classList.add('card-locked');
+        a.removeAttribute('href');
+        var titleEl = a.querySelector('.card-title');
+        var title = titleEl ? titleEl.textContent : 'this dashboard';
+        var request = document.createElement('a');
+        request.href = 'mailto:bill.morkes@colliers.com?subject=' + encodeURIComponent('Access Request: ' + title);
+        request.className = 'card-request-link';
+        request.textContent = 'Request Access →';
+        a.appendChild(request);
       });
     }
   } else if (__r.reason === 'expired') {
@@ -220,7 +264,7 @@
     document.getElementById('gate-denied').style.display = 'block';
   }
 
-  document.querySelectorAll('.dashboard-card-link').forEach(a => {
+  document.querySelectorAll('.dashboard-card-link:not(.card-locked)').forEach(a => {
     a.addEventListener('mouseenter', () => { a.style.opacity = '0.85'; a.style.transform = 'translateY(-2px)'; });
     a.addEventListener('mouseleave', () => { a.style.opacity = '1'; a.style.transform = 'none'; });
   });
