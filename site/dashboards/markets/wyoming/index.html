@@ -106,16 +106,27 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
 .stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
   text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
 .stat-tile-dark .stat-eyebrow{color:#c9a84c}
-.stat-tile b{font-size:24px;display:block;color:#0c1a2e;line-height:1}
+/* Top stat and secondary stat are two equal supporting figures under one
+   topic (eyebrow) — same size/weight for both values, and same size/color
+   for both captions, rather than a "hero number + footnote" hierarchy. */
+.stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
 .stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
-.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:13px;color:#555;line-height:1.3}
-.stat-tile .stat-secondary b{font-size:15px;color:#0c1a2e;line-height:1}
-.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1}
-.stat-tile-dark{background:#4c5567;border-color:#4c5567;border-left-color:#c9a84c}
+.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#666;letter-spacing:.3px;line-height:1.3}
+.stat-tile .stat-secondary b{font-size:18px;font-weight:700;color:#0c1a2e;line-height:1.15}
+.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1.15}
+/* True navy — was #4c5567 (a lighter slate), which made white text read
+   as muted/shaded. Applies to every dark tile in this file (Market
+   Overview's Distress tile included), not just Macro Backdrop. */
+.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
 .stat-tile-dark b{color:#fff}
 .stat-tile-dark span{color:#c7cedb}
 .stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
 .stat-tile-dark .stat-secondary b{color:#fff}
+/* fmtPct()'s .pos/.neg colors (dark green/dark red) are tuned for white
+   tiles — nearly illegible against navy. Brighter equivalents for dark
+   tiles only. */
+.stat-tile-dark .pos{color:#4ade80}
+.stat-tile-dark .neg{color:#f87171}
 table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
 th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1}
 td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
@@ -230,7 +241,7 @@ svg.chart{display:block;width:100%;height:auto}
   gtag("config", "G-53BCG1FL5M");
   if (!__r.valid) {
     window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
-  } else if (!isDashboardUnlocked('wyoming', __r.scope, __r.isTeam)) {
+  } else if (!__r.isTeam && !CLIENT_VISIBLE['wyoming']) {
     window.location.replace('/dashboards/');
   } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});
@@ -269,7 +280,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Wyoming</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/13/2026)
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/17/2026)
       <span class="info-tip" title="Data aggregated by Colliers using proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.">&#9432;</span>
     </p>
   </div>
@@ -281,6 +292,7 @@ svg.chart{display:block;width:100%;height:auto}
 </header>
 <nav class="section-nav">
   <a href="#overview">At a Glance</a>
+  <a href="#macro">Macro Backdrop</a>
   <a href="#construction">Supply Pipeline</a>
   <a href="#operating">Operating Metrics</a>
   <a href="#sales">Sales Metrics</a>
@@ -294,12 +306,19 @@ svg.chart{display:block;width:100%;height:auto}
   <div class="stat-grid" id="overviewStats"></div>
 </div></div>
 
+<div class="section" id="macro"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Macro Backdrop</div><h2 class="section-h2">Rates, Employment &amp; Cost to Own</h2></div>
+  <div class="stat-grid" id="macroStats"></div>
+  <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Federal Reserve Economic Data (FRED); Zillow Research (ZHVI).</div>
+</div></div>
+
 <div class="section" id="construction"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Supply Pipeline</div><h2 class="section-h2">Construction Trends</h2></div>
   <div style="display:flex;gap:14px;align-items:stretch">
     <div id="deliveryChartWrap" style="flex:1;min-width:0">
       <svg class="chart" id="deliveryChart" width="900" height="400"></svg>
       <div class="chart-legend" id="deliveryChartLegend"></div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:6px">SOFR overlay (gold dashed line) is unlagged — shown against the year each unit delivered, not the year the project's construction/bridge loan was actually originated (typically 1-3 years earlier). Source: Federal Reserve Economic Data (FRED).</div>
     </div>
     <div id="deliveryStatsPanel">
       <div id="deliveryStatsSummary"></div>
@@ -375,6 +394,7 @@ svg.chart{display:block;width:100%;height:auto}
     <div id="salesChartWrap" style="flex:1;min-width:0">
       <svg class="chart" id="salesChart" width="900" height="400"></svg>
       <div class="chart-legend" id="salesChartLegend"></div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:6px">10-Yr Treasury (gold dashed line) plotted on its own scale, unlagged. Source: Federal Reserve Economic Data (FRED).</div>
     </div>
     <div id="salesStatsPanel">
       <div id="salesStatsSummary"></div>
@@ -547,6 +567,16 @@ function fmtPct(v) {
   const span = cls ? '<span class="'+cls+'">' : '<span>';
   return span+(r>=0?'+':'')+r+'%</span>';
 }
+// 1-decimal variant — for stats like Inflation where whole-number rounding
+// loses meaningful precision (e.g. 3.6% vs 3.3% both matter). Same color
+// thresholds as fmtPct(), just checked against the rounded value.
+function fmtPct1(v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const r = Math.round(v);
+  const cls = r<0 ? 'neg' : (r>10 ? 'pos' : '');
+  const span = cls ? '<span class="'+cls+'">' : '<span>';
+  return span+(v>=0?'+':'')+v.toFixed(1)+'%</span>';
+}
 
 function renderOverview() {
   const o = D.overview;
@@ -566,19 +596,86 @@ function renderOverview() {
   const ytdVolLY = ytdVolume(JS_CURRENT_YEAR-1);
   const ytdChg = pctChange(ytdVol, ytdVolLY);
 
+  // Top/bottom swapped per Bill's request (except Distress) — the
+  // previously-secondary stat is now the headline figure for each tile.
   const tiles = [
-    {eyebrow: 'Properties', v: o.totalUnits.toLocaleString(), l: 'Total Units',
-      sec: `<div class="sec-line1"><b>${o.underConstructionUnits.toLocaleString()} (${ucPct.toFixed(1)}% of Total)</b></div>Units Under Construction`},
-    {eyebrow: 'Operations', v: lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—', l: 'Avg Asking Rent',
-      sec: lastOcc!=null ? `<b>${(lastOcc*100).toFixed(1)}%</b> Avg Occupancy` : 'Occupancy — not available'},
-    {eyebrow: 'Sales', v: shortDollar(ytdVol), l: `${JS_CURRENT_YEAR} YTD Sales Volume`,
-      sec: ytdChg!=null ? `<div class="sec-line1"><b>${fmtPct(Math.round(ytdChg))}</b></div>vs ${JS_CURRENT_YEAR-1} YTD` : 'No prior-year data'},
-    {eyebrow: 'On-Market', v: o.onMarketCount.toLocaleString(), l: 'Properties',
-      sec: `<b>${o.onMarketUnits.toLocaleString()}</b> Units On-Market`},
+    {eyebrow: 'Properties',
+      // Flag when the pipeline is large relative to existing stock — 15%+
+      // is the "notable, worth watching for oversupply" threshold; below
+      // that it's left uncolored (no clear "good" direction for this stat,
+      // only a "notably high" one).
+      v: `${o.underConstructionUnits.toLocaleString()} (${ucPct>=15?'<span class="neg">':''}${ucPct.toFixed(1)}% of Total${ucPct>=15?'</span>':''})`,
+      l: 'Units Under Construction',
+      sec: `<div class="sec-line1"><b>${o.totalUnits.toLocaleString()}</b></div>Total Units`},
+    {eyebrow: 'Operations', v: lastOcc!=null ? (lastOcc*100).toFixed(1)+'%' : '—', l: 'Avg Occupancy',
+      sec: `<div class="sec-line1"><b>${lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—'}</b></div>Avg Asking Rent`},
+    {eyebrow: 'Sales', v: ytdChg!=null ? fmtPct(Math.round(ytdChg)) : '—', l: `vs ${JS_CURRENT_YEAR-1} YTD`,
+      sec: `<div class="sec-line1"><b>${shortDollar(ytdVol)}</b></div>${JS_CURRENT_YEAR} YTD Sales Volume`},
+    {eyebrow: 'On-Market', v: o.onMarketUnits.toLocaleString(), l: 'Units On-Market',
+      sec: `<div class="sec-line1"><b>${o.onMarketCount.toLocaleString()}</b></div>Properties`},
     {eyebrow: 'Distress', v: `${o.ttmDistressedDeals.toLocaleString()} (${shortDollar(o.ttmDistressedVolume)})`, l: `T12 Distressed Sales (${o.ttmRangeLabel})`,
       sec: `<b>${o.watchlistCount.toLocaleString()} (${shortDollar(o.watchlistVolume)})</b> Properties on Watch List`, dark: true},
   ];
   document.getElementById('overviewStats').innerHTML = tiles.map(t =>
+    `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><div class="stat-eyebrow">${t.eyebrow}</div><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
+  ).join('');
+}
+
+// ── Macro Backdrop (FRED rates/employment/CPI + Zillow home values) ──
+// Server-computed at build time (see load_macro_backdrop() in
+// build_market_report.py) — this is national/regional context, not
+// per-visitor data, so it's baked into data.json rather than fetched live.
+function renderMacro() {
+  const m = D.macro;
+  if (!m) { document.getElementById('macroStats').innerHTML = ''; return; }
+
+  const rentVal = (D.rent && Object.keys(D.rent).length) ? D.rent[Object.keys(D.rent).sort().slice(-1)[0]] : null;
+  const costToOwn = m.estMonthlyCostToOwn;
+  // Rent-first framing throughout, to match the "Rent vs. Own" card title
+  // (this is a rental-brokerage dashboard) — a negative % means renting is
+  // cheaper than owning, which is the typical/expected case.
+  const rentVsOwnAvailable = rentVal != null && costToOwn != null && costToOwn > 0;
+  const rentVsOwnPct = rentVsOwnAvailable ? (rentVal - costToOwn) / costToOwn * 100 : null;
+  const rentVsOwnDollar = rentVsOwnAvailable ? Math.round(Math.abs(rentVal - costToOwn)) : null;
+  const rentVsOwnSec = rentVsOwnAvailable
+    ? `<div class="sec-line1"><b>${rentVal < costToOwn ? '-' : '+'}$${rentVsOwnDollar.toLocaleString()}/mo</b></div>${rentVal < costToOwn ? 'Discount' : 'Premium'} to Rent vs. Own`
+    : 'Rent comparison — not available';
+  // Inverted from fmtPct()'s usual growth-rate convention: a discount to
+  // rent (negative %) is the good/expected outcome here, so it's green;
+  // a premium to rent (positive %, renting costs more than owning) is red.
+  function fmtPctRentVsOwn(v) {
+    if (v == null) return '<span style="color:#bbb">—</span>';
+    const r = Math.round(v);
+    const cls = r > 0 ? 'neg' : (r < 0 ? 'pos' : '');
+    const span = cls ? '<span class="'+cls+'">' : '<span>';
+    return span+(r>=0?'+':'')+r+'%</span>';
+  }
+
+  const tiles = [
+    {eyebrow: 'Labor Force Participation',
+      v: (() => {
+        if (m.participationRate.value == null) return '—';
+        const base = m.participationRate.value.toFixed(1) + '%';
+        const chg = (m.participationRateYearAgo.value != null) ? pctChange(m.participationRate.value, m.participationRateYearAgo.value) : null;
+        return chg != null ? `${base} (${fmtPct(Math.round(chg))})` : base;
+      })(),
+      l: m.participationRate.date ? `WY, ${fmtMonYear(m.participationRate.date)}` : 'WY',
+      sec: m.participationRateYearAgo.value!=null
+        ? `<div class="sec-line1"><b>${m.participationRateYearAgo.value.toFixed(1)}%</b></div>WY, ${fmtMonYear(m.participationRateYearAgo.date)}`
+        : 'Prior-year data not available'},
+    {eyebrow: 'Inflation', v: m.cpiYoyPct!=null ? fmtPct1(m.cpiYoyPct) : '—',
+      l: `West Region CPI, YoY` + (m.cpiAsOfDate ? ` — as of ${fmtMonYear(m.cpiAsOfDate)}` : ''),
+      sec: m.nationalCpiYoyPct!=null
+        ? `<div class="sec-line1"><b>${fmtPct1(m.nationalCpiYoyPct)}</b></div>National CPI, YoY${m.nationalCpiAsOfDate ? ` (as of ${fmtMonYear(m.nationalCpiAsOfDate)})` : ''}`
+        : ''},
+    {eyebrow: 'Rates', v: m.treasury10yr.value!=null ? m.treasury10yr.value.toFixed(2)+'%' : '—', l: '10-Year Treasury',
+      sec: m.mortgage30yr.value!=null ? `<b>${m.mortgage30yr.value.toFixed(2)}%</b> 30-Yr Mortgage Rate` : ''},
+    {eyebrow: 'Home Values', v: m.zhvi.value!=null ? '$'+Math.round(m.zhvi.value).toLocaleString() : '—', l: 'Zillow Home Value Index',
+      sec: costToOwn!=null ? `<b>$${Math.round(costToOwn).toLocaleString()}/mo</b> est. P&amp;I (5% down, 30yr)` : ''},
+    {eyebrow: 'Rent vs. Own', v: rentVsOwnPct!=null ? fmtPctRentVsOwn(Math.round(rentVsOwnPct)) : '—', l: 'Asking Rent vs. Est. Cost to Own',
+      sec: rentVsOwnSec, dark: true},
+  ];
+  document.getElementById('macroStats').innerHTML = tiles.map(t =>
     `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><div class="stat-eyebrow">${t.eyebrow}</div><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
   ).join('');
 }
@@ -590,9 +687,14 @@ function renderOverview() {
 // dashboard. Only difference: this page has exactly one series (the market
 // itself), so the sidebar/tables render a single row instead of one per market/city.
 const MONTH_ABBR = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtDateKey(k) {
   const [y,m] = k.split('-').map(Number);
   return `${MONTH_ABBR[m-1]}-${y}`;
+}
+function fmtMonYear(k) {
+  const [y,m] = k.split('-').map(Number);
+  return `${MONTH_SHORT[m-1]} ${y}`;
 }
 function fmtOpVal(metric, v) {
   if (v == null) return '—';
@@ -727,6 +829,34 @@ function renderOperatingChart(rent, occ) {
     });
   }
 
+  // CPI YoY overlay — separates real vs. nominal rent growth. No dedicated
+  // axis (chart already has rent $ + occupancy %, a third labeled axis would
+  // clutter it); own internal scale fit to the chart height instead, with
+  // the value carried in the tooltip. Only one point per year (CPI is
+  // yearly-resolution here, rent/occ are monthly) mapped to each year's
+  // earliest available key, connected across years — a coarser line by
+  // nature, deliberately not implying monthly CPI precision it doesn't have.
+  const cpiByYear = (D.macro || {}).cpiYoyByYear || {};
+  const cpiPts = [];
+  Object.keys(cpiByYear).forEach(yr => {
+    const yearKeys = keys.filter(k => k.startsWith(yr));
+    if (!yearKeys.length) return;
+    cpiPts.push({k: yearKeys[0], i: keys.indexOf(yearKeys[0]), v: cpiByYear[yr], yr});
+  });
+  cpiPts.sort((a,b) => a.i-b.i);
+  if (cpiPts.length) {
+    const cpiVals = cpiPts.map(p=>p.v);
+    const cMin = Math.min(0, ...cpiVals) * 1.15, cMax = Math.max(...cpiVals) * 1.15;
+    const yCpi = v => PT + cH - (v-cMin)/Math.max(cMax-cMin,1)*cH;
+    const cpiD = cpiPts.map((p,i)=>(i===0?'M':'L')+xScale(p.i)+','+yCpi(p.v)).join(' ');
+    parts.push(`<path d="${cpiD}" fill="none" stroke="#333" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+    cpiPts.forEach(p => {
+      const tip = `${p.yr}\nCPI YoY: ${p.v>=0?'+':''}${p.v.toFixed(1)}%`;
+      parts.push(`<circle cx="${xScale(p.i)}" cy="${yCpi(p.v)}" r="3" fill="#333" class="pt" data-tip="${tip}"/>`);
+    });
+    parts.push(`<text x="${W-PR}" y="${PT-4}" text-anchor="end" font-size="10" fill="#333" font-weight="600">CPI YoY (annual, own scale)</text>`);
+  }
+
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
   parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
 
@@ -734,8 +864,10 @@ function renderOperatingChart(rent, occ) {
   svgEl.innerHTML = parts.join('');
   document.getElementById('operatingChartLegend').innerHTML =
     `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Asking Rent (left axis)</div>` +
-    (hasOcc ? `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Occupancy (right axis)</div>` : '');
-  document.getElementById('operatingChartNote').textContent = 'Monthly average asking rent per unit and occupancy rate.';
+    (hasOcc ? `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Occupancy (right axis)</div>` : '') +
+    (cpiPts.length ? `<div class="legend-item"><div class="legend-swatch" style="background:#333"></div>CPI YoY (own scale, annual)</div>` : '');
+  document.getElementById('operatingChartNote').textContent = 'Monthly average asking rent per unit and occupancy rate.' +
+    (cpiPts.length ? ' CPI overlay: Federal Reserve Economic Data (FRED), one point per year.' : '');
 
   const tooltip = document.getElementById('tooltip');
   svgEl.querySelectorAll('.pt').forEach(el => {
@@ -1057,7 +1189,7 @@ function renderSalesChart() {
     y => chartData.filter(r=>r.year===y).reduce((a,r)=>a+r.deals,0),
     y => chartData.filter(r=>r.year===y).reduce((a,r)=>a+r.volume,0),
     'Sales Count', 'Total Volume $', shortDollar, v=>'$'+Math.round(v).toLocaleString(),
-    null, extraTip, targetH);
+    null, extraTip, targetH, (D.macro||{}).treasury10yrByYear, '10-Yr Treasury');
 }
 
 // ── Construction ──
@@ -1127,7 +1259,7 @@ function renderDeliveries() {
   // pattern) so the chart and stats panel line up in the flex row.
   const panelBox = document.getElementById('deliveryStatsPanel').getBoundingClientRect();
   const targetH = Math.round(panelBox.height - 34);
-  renderUnitsBarChart('deliveryChart', 'deliveryChartLegend', chartYears, volFn, propFn, oldYearCount, 2026, targetH);
+  renderUnitsBarChart('deliveryChart', 'deliveryChartLegend', chartYears, volFn, propFn, oldYearCount, 2026, targetH, (D.macro||{}).sofrByYear);
 }
 
 // Single-metric bar chart (units + avg/yr trendline), mirroring
@@ -1135,7 +1267,7 @@ function renderDeliveries() {
 // below, this is deliberately NOT the dual bar+line renderBarLineChart:
 // plotting Properties as bars alongside a Units line distorted the shape
 // compared to the hub dashboard, which only ever bars Units.
-function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight) {
+function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear) {
   const vals = years.map(valFn);
   const props = years.map(propFn);
   const W=880;
@@ -1217,6 +1349,34 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const avgY = yScale(avg);
     parts.push(`<line x1="${PL}" y1="${avgY}" x2="${W-PR}" y2="${avgY}" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>`);
     parts.push(`<text x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
+  }
+
+  // Optional secondary-axis rate overlay (e.g. SOFR on the Construction
+  // Trends chart) — unlagged (see the caveat note under the chart in HTML):
+  // a given year's bar is delivery volume, the rate point for that same
+  // year is the rate AT DELIVERY, not at financing/origination 1-3 years
+  // earlier when the project would have actually been underwritten. Only
+  // plots years that have data (e.g. SOFR starts 2018) rather than a false
+  // zero for earlier bars, and connects across gaps in numeric-year order.
+  if (rateByYear) {
+    const ratePoints = years
+      .map((yr, i) => ({yr, i, v: rateByYear[yr]}))
+      .filter(p => typeof p.v === 'number');
+    if (ratePoints.length) {
+      const rMax = Math.max(...ratePoints.map(p=>p.v)) * 1.15;
+      const rScale = v => PT + cH - (v/Math.max(rMax,1))*cH;
+      for (let i=0;i<=steps;i++) {
+        const y = yScale(i*step);
+        const rv = (i*step/maxVal)*rMax;
+        parts.push(`<text x="${W-PR+6}" y="${y+4}" font-size="10" fill="#333">${rv.toFixed(1)}%</text>`);
+      }
+      const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
+      parts.push(`<path d="${pathD}" fill="none" stroke="#333" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      ratePoints.forEach(p => {
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#333" class="bar" data-tip="${p.yr}\nSOFR (avg): ${p.v.toFixed(2)}%"/>`);
+      });
+      parts.push(`<text x="${W-PR}" y="${PT-4}" text-anchor="end" font-size="10" fill="#333" font-weight="600">SOFR (annual avg, unlagged)</text>`);
+    }
   }
 
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
@@ -1487,7 +1647,7 @@ function renderCapitalFlow() {
 }
 
 // ── Shared bar+line chart (bars=count on left axis, line=volume on right axis) ──
-function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight) {
+function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight, rateByYear, rateLabel) {
   const counts = years.map(countFn);
   const vols = years.map(volFn);
   const W=880;
@@ -1567,6 +1727,27 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
     parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
   });
 
+  // Optional secondary rate overlay (e.g. 10yr Treasury on Sales/Transaction
+  // Trends) — deliberately no visible third axis (this chart already has two:
+  // count bars + volume line), to avoid the chart turning into axis clutter.
+  // The line/points carry their own tooltip instead; own internal scale fit
+  // to the chart height, unlagged, only plots years with data.
+  if (rateByYear) {
+    const ratePoints = years
+      .map((yr, i) => ({yr, i, v: rateByYear[yr]}))
+      .filter(p => typeof p.v === 'number');
+    if (ratePoints.length) {
+      const rMax = Math.max(...ratePoints.map(p=>p.v)) * 1.15;
+      const rScale = v => PT + cH - (v/Math.max(rMax,1))*cH;
+      const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
+      parts.push(`<path d="${pathD}" fill="none" stroke="#333" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      ratePoints.forEach(p => {
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#333" class="bar" data-tip="${p.yr}\n${rateLabel||'Rate'}: ${p.v.toFixed(2)}%"/>`);
+      });
+      parts.push(`<text x="${W-PR}" y="${PT-4}" text-anchor="end" font-size="10" fill="#333" font-weight="600">${rateLabel||'Rate'} (unlagged, own scale)</text>`);
+    }
+  }
+
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
   parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
 
@@ -1577,6 +1758,7 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   document.getElementById(legendId).innerHTML =
     `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>${countLabel} (left axis)</div>` +
     `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${volLabel} (right axis)</div>` +
+    (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:#333"></div>${rateLabel||'Rate'} (unlagged, own scale)</div>` : '') +
     (highlightYear != null ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${highlightYear} incl. Under Construction Pipeline</div>` : '');
 
   const tooltip = document.getElementById('tooltip');
@@ -1595,6 +1777,7 @@ fetchDashboardData('markets/wyoming', 'data.json', __t)
   .then(d => {
     D = d;
     renderOverview();
+    renderMacro();
     renderOperating();
     renderSales();
     renderDeliveries();
