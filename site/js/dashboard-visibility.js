@@ -23,7 +23,7 @@ const CLIENT_VISIBLE = {
   'western-slope': false,
   'mountain-towns': false,
   'rural-tertiary-co': false,
-  'sales-by-year': true,
+  'sales-by-year': false,
   'deliveries-by-year': false,
   'pipeline': false,
   'rental-trends': false,
