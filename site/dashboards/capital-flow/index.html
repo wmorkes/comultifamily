@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Capital Flow Report – 08/17/2026</title>
+<title>Capital Flow Report – 08/19/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO/WY multifamily capital flow by buyer origin, type, market, and vintage. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -140,7 +140,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 </div>
 <header>
   <h1>CO/WY Multifamily Capital Flow</h1>
-  <p>Generated 08/17/2026 &middot; Team only &middot; Source: CRM Market Movement + Companies</p>
+  <p>Generated 08/19/2026 &middot; Team only &middot; Source: CRM Market Movement + Companies</p>
 </header>
 <nav class="section-nav">
   <a href="#flow">Capital Flow</a>
@@ -160,6 +160,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
     <select id="fState" onchange="applyFilters()"><option value="">All Buyer States</option></select>
     <select id="fType" onchange="applyFilters()"><option value="">All Buyer Types</option></select>
     <select id="fVintage" onchange="applyFilters()"><option value="">All Vintages</option></select>
+    <select id="fPropType" onchange="applyFilters()"><option value="">All Property Types</option></select>
     <input type="text" id="fSearch" placeholder="Search property, buyer, city…" oninput="applyFilters()">
     <span class="hint">Filters reslice the matrix, leaderboards, vintage chart, and table together.</span>
   </div>
@@ -253,6 +254,7 @@ nav.section-nav a:hover { color: var(--ink); border-bottom-color: var(--gold); }
 <script>
 const MARKETS_ORDER = ["Boulder", "Colorado Springs", "Denver Metro", "Fort Collins", "Greeley", "Mountain Towns", "Pueblo", "Rural/Tertiary CO", "Western Slope", "Wyoming"];
 const TYPES = ["Private Capital / HNW", "Capital Syndicator", "Fund Manager", "Family Office", "REIT", "Sovereign Fund", "Housing Authority / Non-Profit"];
+const PROPERTY_TYPES = ["Condo", "HAP", "LIHTC", "MHC", "Market Rate", "Military", "Senior", "Student", "Supportive Care", "Supportive Health"];
 const TYPE_COLOR = {
   "Private Capital / HNW": "var(--t-priv)",
   "Capital Syndicator": "var(--t-inst)",
@@ -302,10 +304,12 @@ function applyFilters(){
   const s = document.getElementById('fState').value;
   const t = document.getElementById('fType').value;
   const v = document.getElementById('fVintage').value;
+  const pt = document.getElementById('fPropType').value;
   const q = document.getElementById('fSearch').value.toLowerCase();
   FILTERED = DEALS.filter(d =>
     (!cutoff || d.date >= cutoff)
     && (!m || d.market===m) && (!s || d.buyer_state===s) && (!t || d.buyer_type===t) && (!v || d.vintage===v)
+    && (!pt || d.property_type===pt)
     && (!q || `${d.property} ${d.address} ${d.city} ${d.buyer}`.toLowerCase().includes(q))
   );
   renderAll();
@@ -624,6 +628,7 @@ fetchDashboardData('capital-flow', 'data.json', __t).then(data => {
   populateSelect('fState', [...new Set(DEALS.map(d=>d.buyer_state).filter(Boolean))].sort());
   populateSelect('fType', TYPES);
   populateSelect('fVintage', VINTAGES);
+  populateSelect('fPropType', PROPERTY_TYPES);
   applyFilters();
   renderOwnership();
 });
