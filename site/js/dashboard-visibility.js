@@ -12,6 +12,19 @@
  * script read this, so turning a dashboard off here also revokes access
  * for anyone with a bookmarked URL or old token link, not just the hub card.
  */
+/**
+ * Emergency revocation list. Add a lowercase email here (and push) to cut
+ * off that person's access immediately, regardless of a still-valid,
+ * still-scoped, unexpired token they're holding — signature/expiry checks
+ * alone can't do this, since a signed token stays valid on its own until
+ * it naturally expires. Takes effect on next deploy, not instantly (no
+ * runtime dependency, unlike a live-fetched external list — see
+ * project_revocation_list memory for why that was rejected).
+ */
+const REVOKED_EMAILS = [
+  // 'someone@example.com',
+];
+
 const CLIENT_VISIBLE = {
   'wyoming': false,
   'fort-collins': false,

@@ -38,6 +38,7 @@ function validateToken(token) {
 
   const [email, dateStr, scopeStr] = parts;
   const scope = parts.length === 3 ? scopeStr.split(',').filter(Boolean) : null;
+  if (REVOKED_EMAILS.includes(email.toLowerCase())) return { valid: false, reason: 'revoked' };
   const isTeam = TEAM_EMAILS.includes(email.toLowerCase());
   if (isTeam) return { valid: true, email, isTeam: true, scope };
 

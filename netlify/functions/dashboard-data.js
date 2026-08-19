@@ -22,6 +22,15 @@ const TEAM_EMAILS = [
 ];
 const TOKEN_HOURS = 48;
 
+// Emergency revocation list. Mirrors site/js/dashboard-visibility.js's
+// REVOKED_EMAILS — duplicated here for the same reason CLIENT_VISIBLE is
+// (this function can't import that non-module browser script). Keep both
+// in sync. This is the list that actually matters: token-gate.js's copy is
+// cosmetic client-side UX, this one is the real server-side data gate.
+const REVOKED_EMAILS = [
+  // 'someone@example.com',
+];
+
 function timingSafeStringEqual(a, b) {
   const bufA = Buffer.from(String(a));
   const bufB = Buffer.from(String(b));
@@ -46,6 +55,7 @@ function validateToken(token) {
   if (parts.length !== 2 && parts.length !== 3) return fail;
 
   const [email, dateStr, scopeStr] = parts;
+  if (REVOKED_EMAILS.includes(email.toLowerCase())) return fail;
   const isTeam = TEAM_EMAILS.includes(email.toLowerCase());
 
   if (parts.length === 3) {
