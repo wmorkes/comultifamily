@@ -102,6 +102,7 @@ const DATASETS = {
   'markets/mountain-towns':   ['data.json'],
   'markets/rural-tertiary-co':['data.json'],
   'rental-trends':        ['data.json'],
+  'zillow-zhvi':          ['data.json'],
 };
 
 // Mirrors site/js/dashboard-visibility.js's CLIENT_VISIBLE map — duplicated
