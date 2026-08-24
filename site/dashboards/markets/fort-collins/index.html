@@ -31,7 +31,8 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#f4f6f9;color:#2
 header{background:#0c1a2e;color:#fff;padding:8px 20px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 header h1{font-family:'Raleway',sans-serif;font-size:20px;font-weight:500;padding:0;background:none}
 header p{font-family:'Inter',sans-serif;font-size:11px;opacity:.7;margin-top:2px}
-.info-tip{cursor:help;margin-left:4px;opacity:.85}
+.cities-callout{background:#f2f3f5;border-bottom:1px solid #dde;border-left:4px solid #c9a84c;padding:8px 20px;font-size:12px;color:#333;flex-shrink:0}
+.cities-callout b{color:#0c1a2e;font-weight:600}
 .header-team{display:flex;gap:20px;align-items:center;flex-shrink:0}
 .colliers-logo{height:36px;filter:brightness(0) invert(1);opacity:.9}
 .header-broker{font-size:11px;line-height:1.5;text-align:right}
@@ -286,9 +287,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Fort Collins</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/19/2026)
-      <span class="info-tip" title="Data aggregated by Colliers using proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.">&#9432;</span>
-    </p>
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/24/2026)</p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -296,6 +295,7 @@ svg.chart{display:block;width:100%;height:auto}
     <div class="header-broker"><strong>Nate Moyer</strong>Senior Vice President<br><a href="tel:+13032834568">(303) 283-4568</a> &middot; <a href="mailto:nate.moyer@colliers.com">nate.moyer@colliers.com</a></div>
   </div>
 </header>
+<div class="cities-callout"><b>Cities Included in Fort Collins:</b> Berthoud, Fort Collins, Laporte, Loveland, Timnath, Wellington, Windsor</div>
 <nav class="section-nav">
   <a href="#overview">At a Glance</a>
   <a href="#construction">Supply Pipeline</a>
@@ -321,7 +321,7 @@ svg.chart{display:block;width:100%;height:auto}
     <div id="deliveryChartWrap" style="flex:1;min-width:0">
       <svg class="chart" id="deliveryChart" width="900" height="400"></svg>
       <div class="chart-legend" id="deliveryChartLegend"></div>
-      <div class="note" style="font-size:11px;color:#888;margin-top:6px">SOFR overlay (gold dashed line) is unlagged — shown against the year each unit delivered, not the year the project's construction/bridge loan was actually originated (typically 1-3 years earlier). Source: Federal Reserve Economic Data (FRED).</div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Colliers proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.</div>
     </div>
     <div id="deliveryStatsPanel">
       <div id="deliveryStatsSummary"></div>
@@ -368,16 +368,19 @@ svg.chart{display:block;width:100%;height:auto}
   <div id="operatingEmpty" style="display:none;padding:16px;color:#888">Rent and occupancy data for Fort Collins is not yet available.</div>
   <div id="operatingBody">
     <div class="toolbar" id="operatingToolbar">
-      <div class="filter-group">
+      <div class="filter-group" id="operatingCityGroup">
+        <label>City</label>
+        <select id="fOperatingCity" onchange="renderOperating()" style="width:260px"></select>
+      </div>
+      <div class="filter-group" id="operatingClassGroup">
         <label>Asset Class</label>
-        <select id="fOperatingClass" onchange="renderOperating()"></select>
+        <select id="fOperatingClass" onchange="renderOperating()" style="width:260px"></select>
       </div>
     </div>
     <div style="display:flex;gap:14px;align-items:stretch">
       <div id="operatingChartWrap" style="flex:1;min-width:0">
         <svg id="operatingChart" width="900" height="400"></svg>
         <div class="chart-legend" id="operatingChartLegend"></div>
-        <div class="note" id="operatingChartNote" style="font-size:11px;color:#888;margin-top:6px"></div>
       </div>
       <div id="operatingStatsPanel"><div id="operatingSidebar"></div></div>
     </div>
@@ -397,7 +400,7 @@ svg.chart{display:block;width:100%;height:auto}
     <div id="salesChartWrap" style="flex:1;min-width:0">
       <svg class="chart" id="salesChart" width="900" height="400"></svg>
       <div class="chart-legend" id="salesChartLegend"></div>
-      <div class="note" style="font-size:11px;color:#888;margin-top:6px">10-Yr Treasury (gold dashed line) plotted on its own scale, unlagged. Source: Federal Reserve Economic Data (FRED).</div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Colliers proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.</div>
     </div>
     <div id="salesStatsPanel">
       <div id="salesStatsSummary"></div>
@@ -494,6 +497,7 @@ svg.chart{display:block;width:100%;height:auto}
   </div>
 
   <div id="capitalFlowEmpty" style="display:none;padding:16px;color:#888">No recorded buyer data for Fort Collins yet.</div>
+  <div class="note" style="font-size:11px;color:#888;margin-top:12px">Source: Colliers proprietary data and public information.</div>
 </div></div>
 
 <div class="section" id="onmarket"><div class="section-inner">
@@ -531,6 +535,7 @@ svg.chart{display:block;width:100%;height:auto}
     <div id="onMarketMap"></div>
   </div>
   <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active listings for Fort Collins right now.</div>
+  <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Colliers proprietary data and public information.</div>
 </div></div>
 
 <div class="section footer-cta">
@@ -754,7 +759,8 @@ function periodStats(series) {
   };
 }
 
-function renderOperatingChart(rent, occ) {
+function renderOperatingChart(rent, occ, label) {
+  label = label || 'Fort Collins Market';
   const svgEl = document.getElementById('operatingChart');
   const box = svgEl.getBoundingClientRect();
   const W = Math.max(600, Math.round(box.width)), H = Math.max(320, Math.round(box.height) || 400);
@@ -810,7 +816,7 @@ function renderOperatingChart(rent, occ) {
   const rentD = rentPts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
   parts.push(`<path d="${rentD}" fill="none" stroke="#0c1a2e" stroke-width="2.5" stroke-linejoin="round"/>`);
   rentPts.forEach((p,i) => {
-    const tip = `Fort Collins\n${fmtDateKey(p.k)}\nRent: ${fmtOpVal('rent',p.v)}`;
+    const tip = `${label}\n${fmtDateKey(p.k)}\nRent: ${fmtOpVal('rent',p.v)}`;
     if (i % 6 === 0 || i === rentPts.length-1) {
       parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="pt" data-tip="${tip}"/>`);
     } else {
@@ -823,7 +829,7 @@ function renderOperatingChart(rent, occ) {
     const occD = occPts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
     parts.push(`<path d="${occD}" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>`);
     occPts.forEach((p,i) => {
-      const tip = `Fort Collins\n${fmtDateKey(p.k)}\nOccupancy: ${fmtOpVal('occupancy',p.v)}`;
+      const tip = `${label}\n${fmtDateKey(p.k)}\nOccupancy: ${fmtOpVal('occupancy',p.v)}`;
       if (i % 6 === 0 || i === occPts.length-1) {
         parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#c9a84c" stroke="#fff" stroke-width="1.5" class="pt" data-tip="${tip}"/>`);
       } else {
@@ -852,12 +858,11 @@ function renderOperatingChart(rent, occ) {
     const cMin = Math.min(0, ...cpiVals) * 1.15, cMax = Math.max(...cpiVals) * 1.15;
     const yCpi = v => PT + cH - (v-cMin)/Math.max(cMax-cMin,1)*cH;
     const cpiD = cpiPts.map((p,i)=>(i===0?'M':'L')+xScale(p.i)+','+yCpi(p.v)).join(' ');
-    parts.push(`<path d="${cpiD}" fill="none" stroke="#333" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+    parts.push(`<path d="${cpiD}" fill="none" stroke="#0095DA" stroke-width="1.75" stroke-dasharray="3,3"/>`);
     cpiPts.forEach(p => {
       const tip = `${p.yr}\nCPI YoY: ${p.v>=0?'+':''}${p.v.toFixed(1)}%`;
-      parts.push(`<circle cx="${xScale(p.i)}" cy="${yCpi(p.v)}" r="3" fill="#333" class="pt" data-tip="${tip}"/>`);
+      parts.push(`<circle cx="${xScale(p.i)}" cy="${yCpi(p.v)}" r="3" fill="#0095DA" class="pt" data-tip="${tip}"/>`);
     });
-    parts.push(`<text x="${W-PR}" y="${PT-4}" text-anchor="end" font-size="10" fill="#333" font-weight="600">CPI YoY (annual, own scale)</text>`);
   }
 
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
@@ -866,11 +871,9 @@ function renderOperatingChart(rent, occ) {
   svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svgEl.innerHTML = parts.join('');
   document.getElementById('operatingChartLegend').innerHTML =
-    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Asking Rent (left axis)</div>` +
-    (hasOcc ? `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Occupancy (right axis)</div>` : '') +
-    (cpiPts.length ? `<div class="legend-item"><div class="legend-swatch" style="background:#333"></div>CPI YoY (own scale, annual)</div>` : '');
-  document.getElementById('operatingChartNote').textContent = 'Monthly average asking rent per unit and occupancy rate.' +
-    (cpiPts.length ? ' CPI overlay: Federal Reserve Economic Data (FRED), one point per year.' : '');
+    (hasOcc ? `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Monthly Avg. Occupancy (right axis)</div>` : '') +
+    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Monthly Avg. Asking Rent (left axis)</div>` +
+    (cpiPts.length ? `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>CPI YoY <span style="color:#888;font-size:10px">(own scale, annual — FRED)</span></div>` : '');
 
   const tooltip = document.getElementById('tooltip');
   svgEl.querySelectorAll('.pt').forEach(el => {
@@ -884,17 +887,17 @@ function renderOperatingChart(rent, occ) {
   });
 }
 
-function renderOperatingSidebar(rent, occ) {
+function renderOperatingSidebar(rent, occ, label) {
   const st = periodStats(rent);
   const rentKeys = Object.keys(rent).sort(), occKeys = Object.keys(occ).sort();
   const lastRent = rentKeys.length ? rent[rentKeys[rentKeys.length-1]] : null;
   const lastOcc = occKeys.length ? occ[occKeys[occKeys.length-1]] : null;
 
-  let h = `<div class="stat-title">Summary &mdash; ${JS_CURRENT_YEAR}</div>`;
+  let h = `<div class="stat-title">${label} &mdash; ${JS_CURRENT_YEAR}</div>`;
   h += `<div class="stat-row"><span>Current Avg Asking Rent</span><b>${lastRent!=null?'$'+Math.round(lastRent).toLocaleString():'—'}</b></div>`;
   h += `<div class="stat-row"><span>Current Avg Occupancy</span><b>${lastOcc!=null?(lastOcc*100).toFixed(1)+'%':'—'}</b></div>`;
 
-  h += `<div class="stat-title" style="margin-top:12px">Avg. Change per Year in Asking Rent${st ? '<br>(as of ' + fmtDateKey(st.lastKey) + ')' : ''}</div>`;
+  h += `<div class="stat-title" style="margin-top:25px">Annual Change in Asking Rent${st ? '<br>(as of ' + fmtDateKey(st.lastKey) + ')' : ''}</div>`;
   h += '<div class="stat-header-row" style="grid-template-columns:55% 45%"><div>Period</div><div>Change</div></div>';
   if (st) {
     const periods = [{label:'1yr', v:st.y1}, {label:'3yr', v:st.y3}, {label:'5yr', v:st.y5}, {label:'10yr', v:st.y10}];
@@ -907,7 +910,7 @@ function renderOperatingSidebar(rent, occ) {
   document.getElementById('operatingSidebar').innerHTML = h;
 }
 
-function renderOperatingYearTables(rent, occ) {
+function renderOperatingYearTables(rent, occ, label) {
   const years = [...new Set([...Object.keys(rent), ...Object.keys(occ)].map(k => parseInt(k.slice(0,4))))].sort((a,b)=>a-b);
 
   document.getElementById('operatingYoyHead').innerHTML = '<th>Name</th>' + years.map(y=>`<th>${y}</th>`).join('');
@@ -920,8 +923,8 @@ function renderOperatingYearTables(rent, occ) {
   const occCells = years.map(y => `<td>${fmtOccCell(yearAvg(occ, y))}</td>`).join('');
 
   document.getElementById('operatingYoyBody').innerHTML =
-    `<tr><td style="font-weight:700">Fort Collins — Rent Change</td>${yoyCells}</tr>` +
-    `<tr><td style="font-weight:700">Fort Collins — Occupancy</td>${occCells}</tr>`;
+    `<tr><td style="font-weight:700">${label} — Rent Change</td>${yoyCells}</tr>` +
+    `<tr><td style="font-weight:700">${label} — Occupancy</td>${occCells}</tr>`;
 }
 
 let operatingClassBuilt = false;
@@ -929,32 +932,48 @@ let operatingClassBuilt = false;
 function buildOperatingClassSelect() {
   if (operatingClassBuilt) return;
   operatingClassBuilt = true;
-  const sel = document.getElementById('fOperatingClass');
+  const classSel = document.getElementById('fOperatingClass');
   const classes = D.assetClasses || [];
-  sel.innerHTML = classes.map(c => `<option value="${c}">${c}</option>`).join('');
-  sel.value = classes.includes('All Classes') ? 'All Classes' : (classes[0] || '');
-  document.getElementById('operatingToolbar').style.display = classes.length > 1 ? 'flex' : 'none';
+  classSel.innerHTML = classes.map(c => `<option value="${c}">${c}</option>`).join('');
+  classSel.value = classes.includes('All Classes') ? 'All Classes' : (classes[0] || '');
+  document.getElementById('operatingClassGroup').style.display = classes.length > 1 ? '' : 'none';
+
+  const citySel = document.getElementById('fOperatingCity');
+  const cities = D.rentCities || [];
+  citySel.innerHTML = '<option value="">All Cities in Market</option>' +
+    cities.map(c => `<option value="${c}">${c}</option>`).join('');
+  citySel.value = '';
+  document.getElementById('operatingCityGroup').style.display = cities.length ? '' : 'none';
+
+  document.getElementById('operatingToolbar').style.display = (classes.length > 1 || cities.length) ? 'flex' : 'none';
 }
 
 function currentOperating() {
   const byClass = D.rentByClass || {};
-  const sel = document.getElementById('fOperatingClass');
-  const cls = (sel && sel.value) || 'All Classes';
-  const data = byClass[cls] || {rent:{}, occupancy:{}};
-  return {rent: data.rent || {}, occ: data.occupancy || {}};
+  const classSel = document.getElementById('fOperatingClass');
+  const cls = (classSel && classSel.value) || 'All Classes';
+  const data = byClass[cls] || {rent:{}, occupancy:{}, cityRent:{}, cityOccupancy:{}};
+  const citySel = document.getElementById('fOperatingCity');
+  const city = citySel && citySel.value;
+  if (city) {
+    return {rent: data.cityRent[city] || {}, occ: data.cityOccupancy[city] || {}, label: city};
+  }
+  return {rent: data.rent || {}, occ: data.occupancy || {}, label: 'Fort Collins Market'};
 }
 
 function renderOperating() {
   buildOperatingClassSelect();
-  const {rent, occ} = currentOperating();
+  const {rent, occ, label} = currentOperating();
   if (!Object.keys(rent).length && !Object.keys(occ).length) {
     document.getElementById('operatingBody').style.display = 'none';
     document.getElementById('operatingEmpty').style.display = 'block';
     return;
   }
-  renderOperatingChart(rent, occ);
-  renderOperatingSidebar(rent, occ);
-  renderOperatingYearTables(rent, occ);
+  document.getElementById('operatingBody').style.display = '';
+  document.getElementById('operatingEmpty').style.display = 'none';
+  renderOperatingChart(rent, occ, label);
+  renderOperatingSidebar(rent, occ, label);
+  renderOperatingYearTables(rent, occ, label);
 }
 
 // ── Sales ──
@@ -976,7 +995,7 @@ function renderSalesStats() {
   const totalDeals = D.sales.reduce((a,r)=>a+r.deals,0);
   const totalVol = D.sales.reduce((a,r)=>a+r.volume,0);
   document.getElementById('salesStatsSummary').innerHTML = `
-    <div class="stat-title">Summary &mdash; 2011&ndash;${JS_CURRENT_YEAR}</div>
+    <div class="stat-title">Fort Collins Market &mdash; 2011&ndash;${JS_CURRENT_YEAR}</div>
     <div class="stat-row"><span>Total Volume</span><b>${dollar(totalVol)}</b></div>
     <div class="stat-row"><span>Total Sales</span><b>${totalDeals.toLocaleString()}</b></div>
   `;
@@ -999,9 +1018,9 @@ function renderDistressStats() {
   }
 
   const periods = [
-    {label:'YTD '+JS_CURRENT_YEAR,       stats: sumForYear(JS_CURRENT_YEAR, true),   priorStats: sumForYear(JS_CURRENT_YEAR-1, true)},
-    {label:String(JS_CURRENT_YEAR-1),    stats: sumForYear(JS_CURRENT_YEAR-1, false), priorStats: sumForYear(JS_CURRENT_YEAR-2, false)},
     {label:String(JS_CURRENT_YEAR-2),    stats: sumForYear(JS_CURRENT_YEAR-2, false), priorStats: sumForYear(JS_CURRENT_YEAR-3, false)},
+    {label:String(JS_CURRENT_YEAR-1),    stats: sumForYear(JS_CURRENT_YEAR-1, false), priorStats: sumForYear(JS_CURRENT_YEAR-2, false)},
+    {label:'YTD '+JS_CURRENT_YEAR,       stats: sumForYear(JS_CURRENT_YEAR, true),   priorStats: sumForYear(JS_CURRENT_YEAR-1, true)},
   ];
 
   const headHtml = '<th></th>' + periods.map(p=>`<th>${p.label}</th>`).join('');
@@ -1028,9 +1047,9 @@ const SALES_VINTAGE_COLS = [
   {key:'avgPrice',     label:'Avg Price',      fmt:v=>v==null?'—':dollar(v),          align:'right'},
   {key:'pricePerUnit', label:'Avg $/Unit',     fmt:v=>v==null?'—':dollar(v),          align:'right'},
   {key:'pricePerSF',   label:'Avg $/SF',                    fmt:v=>v==null?'—':'$'+Math.round(v), align:'right'},
-  {key:'vsLastYear',   label:`vs ${JS_CURRENT_YEAR-1} (YTD)`, fmt:v=>fmtPct(v),                  align:'right'},
-  {key:'vs2021',       label:'vs 2021 (YTD)',               fmt:v=>fmtPct(v),                      align:'right'},
   {key:'vs2019',       label:'vs 2019 (YTD)',               fmt:v=>fmtPct(v),                      align:'right'},
+  {key:'vs2021',       label:'vs 2021 (YTD)',               fmt:v=>fmtPct(v),                      align:'right'},
+  {key:'vsLastYear',   label:`vs ${JS_CURRENT_YEAR-1} (YTD)`, fmt:v=>fmtPct(v),                  align:'right'},
 ];
 const SALES_SF_GROUP_START = 5;
 let salesVintageSortCol = 'vintage', salesVintageSortDir = 1;
@@ -1137,9 +1156,9 @@ function renderYTDCompare() {
   const ytd = sumThroughMonth(JS_CURRENT_YEAR, JS_CURRENT_MONTH);
   const monthName = NOW.toLocaleString('en-US', {month:'short'});
   const compareYears = [
-    {label:'vs 2019', year: 2019},
-    {label:'vs 2021', year: 2021},
-    {label:'vs '+(JS_CURRENT_YEAR-1), year: JS_CURRENT_YEAR-1},
+    {label:'2019 YTD', year: 2019},
+    {label:'2021 YTD', year: 2021},
+    {label:(JS_CURRENT_YEAR-1)+' YTD', year: JS_CURRENT_YEAR-1},
   ].filter(cy => cy.year < JS_CURRENT_YEAR);
 
   document.getElementById('ytdCompareTitle').textContent = `${JS_CURRENT_YEAR} YTD vs (thru ${monthName}.)`;
@@ -1246,8 +1265,8 @@ function renderDeliveries() {
     document.getElementById('deliveryChartWrap').innerHTML = '<div style="padding:16px;color:#888">No delivery history for Fort Collins.</div>';
     return;
   }
-  const oldRows = D.deliveries.filter(r => r.year < DELIVERY_OLD_CUTOFF);
-  const recentYears = [...new Set(D.deliveries.filter(r => r.year >= DELIVERY_OLD_CUTOFF).map(r=>r.year))].sort((a,b)=>a-b);
+  const oldRows = D.deliveries.filter(r => r.year <= DELIVERY_OLD_CUTOFF);
+  const recentYears = [...new Set(D.deliveries.filter(r => r.year > DELIVERY_OLD_CUTOFF).map(r=>r.year))].sort((a,b)=>a-b);
   const chartYears = oldRows.length ? [PRE_CUTOFF_LABEL, ...recentYears] : recentYears;
 
   const volFn = y => y === PRE_CUTOFF_LABEL
@@ -1374,11 +1393,10 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
         parts.push(`<text x="${W-PR+6}" y="${y+4}" font-size="10" fill="#333">${rv.toFixed(1)}%</text>`);
       }
       const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
-      parts.push(`<path d="${pathD}" fill="none" stroke="#333" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      parts.push(`<path d="${pathD}" fill="none" stroke="#0095DA" stroke-width="1.75" stroke-dasharray="3,3"/>`);
       ratePoints.forEach(p => {
-        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#333" class="bar" data-tip="${p.yr}\nSOFR (avg): ${p.v.toFixed(2)}%"/>`);
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#0095DA" class="bar" data-tip="${p.yr}\nSOFR (avg): ${p.v.toFixed(2)}%"/>`);
       });
-      parts.push(`<text x="${W-PR}" y="${PT-4}" text-anchor="end" font-size="10" fill="#333" font-weight="600">SOFR (annual avg, unlagged)</text>`);
     }
   }
 
@@ -1393,7 +1411,8 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
   document.getElementById(legendId).innerHTML =
     `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>` +
     (hasHighlight ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Under Construction</div>` : '') +
-    `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0c1a2e;height:0;width:12px"></div>Average Units/Yr</div>`;
+    `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0c1a2e;height:0;width:12px"></div>Average Units/Yr</div>` +
+    (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>SOFR <span style="color:#888;font-size:10px">(annual avg, unlagged — FRED)</span></div>` : '');
 
   const tooltip = document.getElementById('tooltip');
   svg.querySelectorAll('.bar').forEach(el => {
@@ -1743,11 +1762,10 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
       const rMax = Math.max(...ratePoints.map(p=>p.v)) * 1.15;
       const rScale = v => PT + cH - (v/Math.max(rMax,1))*cH;
       const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
-      parts.push(`<path d="${pathD}" fill="none" stroke="#333" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      parts.push(`<path d="${pathD}" fill="none" stroke="#0095DA" stroke-width="1.75" stroke-dasharray="3,3"/>`);
       ratePoints.forEach(p => {
-        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#333" class="bar" data-tip="${p.yr}\n${rateLabel||'Rate'}: ${p.v.toFixed(2)}%"/>`);
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#0095DA" class="bar" data-tip="${p.yr}\n${rateLabel||'Rate'}: ${p.v.toFixed(2)}%"/>`);
       });
-      parts.push(`<text x="${W-PR}" y="${PT-4}" text-anchor="end" font-size="10" fill="#333" font-weight="600">${rateLabel||'Rate'} (unlagged, own scale)</text>`);
     }
   }
 
@@ -1761,7 +1779,7 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   document.getElementById(legendId).innerHTML =
     `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>${countLabel} (left axis)</div>` +
     `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${volLabel} (right axis)</div>` +
-    (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:#333"></div>${rateLabel||'Rate'} (unlagged, own scale)</div>` : '') +
+    (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>${rateLabel||'Rate'} <span style="color:#888;font-size:10px">(unlagged, own scale — FRED)</span></div>` : '') +
     (highlightYear != null ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${highlightYear} incl. Under Construction Pipeline</div>` : '');
 
   const tooltip = document.getElementById('tooltip');
@@ -1794,8 +1812,8 @@ window.addEventListener('resize', () => {
   clearTimeout(__opResizeTimer);
   __opResizeTimer = setTimeout(() => {
     if (D && D.assetClasses && D.assetClasses.length) {
-      const {rent, occ} = currentOperating();
-      if (Object.keys(rent).length || Object.keys(occ).length) renderOperatingChart(rent, occ);
+      const {rent, occ, label} = currentOperating();
+      if (Object.keys(rent).length || Object.keys(occ).length) renderOperatingChart(rent, occ, label);
     }
     if (D && D.sales && D.sales.length) renderSalesChart();
     if (D && D.deliveries && D.deliveries.length) renderDeliveries();
