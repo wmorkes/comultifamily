@@ -127,6 +127,13 @@ const CLIENT_VISIBLE = {
   'chfa': false
 };
 
+// Datasets that must never be reachable by a client token, even if a scope
+// list is mistakenly typed to include their slug in token-gen. Unlike
+// CLIENT_VISIBLE (an opt-in toggle), this is an unconditional block — only
+// isTeam can ever pass. Loan Monitor and Gap Report carry internal broker
+// pipeline/follow-up intel that should never be client-facing.
+const TEAM_ONLY = ['loan-monitor', 'followup-gaps'];
+
 // Dataset "name" values for markets are "markets/<slug>"; CLIENT_VISIBLE and
 // token scope both key on the bare slug (matching the hub's data-client-slug).
 function slugFromDatasetName(name) {
@@ -157,6 +164,9 @@ export default async (req) => {
     }
     if (!tokenResult.isTeam) {
       const slug = slugFromDatasetName(name);
+      if (TEAM_ONLY.includes(slug)) {
+        return new Response('Unauthorized', { status: 401 });
+      }
       const inScope = Array.isArray(tokenResult.scope) && tokenResult.scope.includes(slug);
       if (!CLIENT_VISIBLE[slug] && !inScope) {
         return new Response('Unauthorized', { status: 401 });
