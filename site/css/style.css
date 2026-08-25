@@ -367,8 +367,13 @@ a { text-decoration:none; color:inherit; }
 }
 .access-feature-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 4px; }
 .access-feature-desc { font-size: 14px; color: var(--text-soft); line-height: 1.6; }
+.access-feature-list--grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+.access-feature-list--grid .access-feature-item:nth-last-child(-n+2) { border-bottom: none; }
 @media (max-width: 860px) {
   .access-portal-grid { grid-template-columns: 1fr !important; }
+  .access-feature-list--grid { grid-template-columns: 1fr !important; }
+  .access-feature-list--grid .access-feature-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .access-feature-list--grid .access-feature-item:last-child { border-bottom: none; }
 }
 
 /* ─── CARDS ──────────────────────────────────────────────── */
