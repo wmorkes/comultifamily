@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CO/WY Multifamily Pipeline – 08/19/2026</title>
+<title>CO/WY Multifamily Pipeline – 08/25/2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CO/WY multifamily new construction pipeline. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
@@ -37,8 +37,8 @@ header p  { font-size: 11px; opacity: .7; margin-top: 2px; }
 .stat-divider { width: 1px; background: rgba(255,255,255,.2); align-self: stretch; }
 .controls { padding: 6px 10px; background: white; border-bottom: 1px solid #ddd;
              display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
-.controls input  { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px;
-                    font-size: 12px; flex: 1; min-width: 140px; }
+.controls > input  { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px;
+                      font-size: 12px; flex: 1; min-width: 140px; }
 .controls select { padding: 4px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; }
 .main { display: flex; flex: 1; overflow: hidden; }
 #map { width: 40%; flex-shrink: 0; }
@@ -72,6 +72,20 @@ td.wrap { white-space: normal; }
 .btn-clear  { background: #e5e7eb; color: #333; }
 .btn-clear:hover  { background: #d1d5db; }
 #targetStatus { font-size: 11px; color: #666; }
+.ms-wrap { position: relative; }
+.ms-btn { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;
+           background: white; cursor: pointer; white-space: nowrap; }
+.ms-btn:hover { background: #f5f5f5; }
+.ms-menu { display: none; position: absolute; top: 100%; left: 0; margin-top: 2px; background: white;
+            border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+            max-height: 260px; overflow-y: auto; z-index: 20; min-width: 190px; padding: 4px 0; }
+.ms-actions { padding: 4px 10px 6px; border-bottom: 1px solid #eee; font-size: 11px; margin-bottom: 2px; }
+.ms-actions a { color: #0c1a2e; cursor: pointer; text-decoration: none; margin-right: 10px; }
+.ms-actions a:hover { text-decoration: underline; }
+.ms-item { display: flex; align-items: center; gap: 6px; padding: 3px 10px; font-size: 12px;
+            cursor: pointer; white-space: nowrap; }
+.ms-item:hover { background: #f5f5f5; }
+.ms-item input { margin: 0; width: 13px; height: 13px; min-width: 13px; flex: none; padding: 0; border-radius: 0; }
 .co-topbar { background: #0c1a2e; border-bottom: 2px solid #c9a84c; padding: 6px 20px;
               display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .co-wordmark { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: .06em; text-transform: uppercase; }
@@ -115,7 +129,7 @@ td.wrap { white-space: normal; }
 <header>
   <div>
     <h1>CO/WY Multifamily New Construction Pipeline</h1>
-    <p>Generated 08/19/2026 &middot; Data sources: Apartment Insights &middot; Yardi Matrix &middot; CoStar</p>
+    <p>Generated 08/25/2026 &middot; Data sources: Apartment Insights &middot; Yardi Matrix &middot; CoStar</p>
   </div>
   <div class="header-team"><img src="data:image/webp;base64,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" class="colliers-logo" alt="Colliers">
     <div class="header-broker">
@@ -158,6 +172,109 @@ td.wrap { white-space: normal; }
       <option value="Western Slope">Western Slope</option>
       <option value="Mountain Towns">Mountain Towns</option>
     </select>
+    <div class="ms-wrap" id="cityMsWrap">
+      <button type="button" class="ms-btn" id="cityMsBtn" onclick="toggleCityMenu(event)">All Cities</button>
+      <div class="ms-menu" id="cityMsMenu">
+        <div class="ms-actions"><a onclick="selectAllCities(event)">All</a><a onclick="clearAllCities(event)">None</a></div>
+      <label class="ms-item"><input type="checkbox" value="Alpine" checked onchange="onCityToggle()">Alpine</label>
+      <label class="ms-item"><input type="checkbox" value="Arvada" checked onchange="onCityToggle()">Arvada</label>
+      <label class="ms-item"><input type="checkbox" value="Aspen" checked onchange="onCityToggle()">Aspen</label>
+      <label class="ms-item"><input type="checkbox" value="Aurora" checked onchange="onCityToggle()">Aurora</label>
+      <label class="ms-item"><input type="checkbox" value="Avon" checked onchange="onCityToggle()">Avon</label>
+      <label class="ms-item"><input type="checkbox" value="Basalt" checked onchange="onCityToggle()">Basalt</label>
+      <label class="ms-item"><input type="checkbox" value="Battlement Mesa" checked onchange="onCityToggle()">Battlement Mesa</label>
+      <label class="ms-item"><input type="checkbox" value="Berthoud" checked onchange="onCityToggle()">Berthoud</label>
+      <label class="ms-item"><input type="checkbox" value="Boulder" checked onchange="onCityToggle()">Boulder</label>
+      <label class="ms-item"><input type="checkbox" value="Breckenridge" checked onchange="onCityToggle()">Breckenridge</label>
+      <label class="ms-item"><input type="checkbox" value="Brighton" checked onchange="onCityToggle()">Brighton</label>
+      <label class="ms-item"><input type="checkbox" value="Broomfield" checked onchange="onCityToggle()">Broomfield</label>
+      <label class="ms-item"><input type="checkbox" value="Buena Vista" checked onchange="onCityToggle()">Buena Vista</label>
+      <label class="ms-item"><input type="checkbox" value="Canon City" checked onchange="onCityToggle()">Canon City</label>
+      <label class="ms-item"><input type="checkbox" value="Carbondale" checked onchange="onCityToggle()">Carbondale</label>
+      <label class="ms-item"><input type="checkbox" value="Castle Pines" checked onchange="onCityToggle()">Castle Pines</label>
+      <label class="ms-item"><input type="checkbox" value="Castle Rock" checked onchange="onCityToggle()">Castle Rock</label>
+      <label class="ms-item"><input type="checkbox" value="Cedaredge" checked onchange="onCityToggle()">Cedaredge</label>
+      <label class="ms-item"><input type="checkbox" value="Centennial" checked onchange="onCityToggle()">Centennial</label>
+      <label class="ms-item"><input type="checkbox" value="Cheyenne" checked onchange="onCityToggle()">Cheyenne</label>
+      <label class="ms-item"><input type="checkbox" value="Clifton" checked onchange="onCityToggle()">Clifton</label>
+      <label class="ms-item"><input type="checkbox" value="Colorado Springs" checked onchange="onCityToggle()">Colorado Springs</label>
+      <label class="ms-item"><input type="checkbox" value="Commerce City" checked onchange="onCityToggle()">Commerce City</label>
+      <label class="ms-item"><input type="checkbox" value="Craig" checked onchange="onCityToggle()">Craig</label>
+      <label class="ms-item"><input type="checkbox" value="Crested Butte" checked onchange="onCityToggle()">Crested Butte</label>
+      <label class="ms-item"><input type="checkbox" value="Delta" checked onchange="onCityToggle()">Delta</label>
+      <label class="ms-item"><input type="checkbox" value="Denver" checked onchange="onCityToggle()">Denver</label>
+      <label class="ms-item"><input type="checkbox" value="Dillon" checked onchange="onCityToggle()">Dillon</label>
+      <label class="ms-item"><input type="checkbox" value="Driggs" checked onchange="onCityToggle()">Driggs</label>
+      <label class="ms-item"><input type="checkbox" value="Eagle" checked onchange="onCityToggle()">Eagle</label>
+      <label class="ms-item"><input type="checkbox" value="Edwards" checked onchange="onCityToggle()">Edwards</label>
+      <label class="ms-item"><input type="checkbox" value="El Jebel" checked onchange="onCityToggle()">El Jebel</label>
+      <label class="ms-item"><input type="checkbox" value="Englewood" checked onchange="onCityToggle()">Englewood</label>
+      <label class="ms-item"><input type="checkbox" value="Erie" checked onchange="onCityToggle()">Erie</label>
+      <label class="ms-item"><input type="checkbox" value="Evans" checked onchange="onCityToggle()">Evans</label>
+      <label class="ms-item"><input type="checkbox" value="Firestone" checked onchange="onCityToggle()">Firestone</label>
+      <label class="ms-item"><input type="checkbox" value="Fort Collins" checked onchange="onCityToggle()">Fort Collins</label>
+      <label class="ms-item"><input type="checkbox" value="Fort Lupton" checked onchange="onCityToggle()">Fort Lupton</label>
+      <label class="ms-item"><input type="checkbox" value="Fountain Valley" checked onchange="onCityToggle()">Fountain Valley</label>
+      <label class="ms-item"><input type="checkbox" value="Fraser" checked onchange="onCityToggle()">Fraser</label>
+      <label class="ms-item"><input type="checkbox" value="Frederick" checked onchange="onCityToggle()">Frederick</label>
+      <label class="ms-item"><input type="checkbox" value="Frisco" checked onchange="onCityToggle()">Frisco</label>
+      <label class="ms-item"><input type="checkbox" value="Fruita" checked onchange="onCityToggle()">Fruita</label>
+      <label class="ms-item"><input type="checkbox" value="Gilette" checked onchange="onCityToggle()">Gilette</label>
+      <label class="ms-item"><input type="checkbox" value="Glenwood Springs" checked onchange="onCityToggle()">Glenwood Springs</label>
+      <label class="ms-item"><input type="checkbox" value="Golden" checked onchange="onCityToggle()">Golden</label>
+      <label class="ms-item"><input type="checkbox" value="Granby" checked onchange="onCityToggle()">Granby</label>
+      <label class="ms-item"><input type="checkbox" value="Grand Junction" checked onchange="onCityToggle()">Grand Junction</label>
+      <label class="ms-item"><input type="checkbox" value="Greeley" checked onchange="onCityToggle()">Greeley</label>
+      <label class="ms-item"><input type="checkbox" value="Gunnison" checked onchange="onCityToggle()">Gunnison</label>
+      <label class="ms-item"><input type="checkbox" value="Gypsum" checked onchange="onCityToggle()">Gypsum</label>
+      <label class="ms-item"><input type="checkbox" value="Hayden" checked onchange="onCityToggle()">Hayden</label>
+      <label class="ms-item"><input type="checkbox" value="Highlands Ranch" checked onchange="onCityToggle()">Highlands Ranch</label>
+      <label class="ms-item"><input type="checkbox" value="Ignacio" checked onchange="onCityToggle()">Ignacio</label>
+      <label class="ms-item"><input type="checkbox" value="Jackson" checked onchange="onCityToggle()">Jackson</label>
+      <label class="ms-item"><input type="checkbox" value="Johnstown" checked onchange="onCityToggle()">Johnstown</label>
+      <label class="ms-item"><input type="checkbox" value="Lafayette" checked onchange="onCityToggle()">Lafayette</label>
+      <label class="ms-item"><input type="checkbox" value="Lakewood" checked onchange="onCityToggle()">Lakewood</label>
+      <label class="ms-item"><input type="checkbox" value="Laramie" checked onchange="onCityToggle()">Laramie</label>
+      <label class="ms-item"><input type="checkbox" value="Littleton" checked onchange="onCityToggle()">Littleton</label>
+      <label class="ms-item"><input type="checkbox" value="Lone Tree" checked onchange="onCityToggle()">Lone Tree</label>
+      <label class="ms-item"><input type="checkbox" value="Longmont" checked onchange="onCityToggle()">Longmont</label>
+      <label class="ms-item"><input type="checkbox" value="Louisville" checked onchange="onCityToggle()">Louisville</label>
+      <label class="ms-item"><input type="checkbox" value="Loveland" checked onchange="onCityToggle()">Loveland</label>
+      <label class="ms-item"><input type="checkbox" value="Manitou Springs" checked onchange="onCityToggle()">Manitou Springs</label>
+      <label class="ms-item"><input type="checkbox" value="Minturn" checked onchange="onCityToggle()">Minturn</label>
+      <label class="ms-item"><input type="checkbox" value="Montrose" checked onchange="onCityToggle()">Montrose</label>
+      <label class="ms-item"><input type="checkbox" value="Monument" checked onchange="onCityToggle()">Monument</label>
+      <label class="ms-item"><input type="checkbox" value="Morrison" checked onchange="onCityToggle()">Morrison</label>
+      <label class="ms-item"><input type="checkbox" value="New Castle" checked onchange="onCityToggle()">New Castle</label>
+      <label class="ms-item"><input type="checkbox" value="Northglenn" checked onchange="onCityToggle()">Northglenn</label>
+      <label class="ms-item"><input type="checkbox" value="Oak Creek" checked onchange="onCityToggle()">Oak Creek</label>
+      <label class="ms-item"><input type="checkbox" value="Pagosa Springs" checked onchange="onCityToggle()">Pagosa Springs</label>
+      <label class="ms-item"><input type="checkbox" value="Parachute" checked onchange="onCityToggle()">Parachute</label>
+      <label class="ms-item"><input type="checkbox" value="Parker" checked onchange="onCityToggle()">Parker</label>
+      <label class="ms-item"><input type="checkbox" value="Peyton" checked onchange="onCityToggle()">Peyton</label>
+      <label class="ms-item"><input type="checkbox" value="Poncha Springs" checked onchange="onCityToggle()">Poncha Springs</label>
+      <label class="ms-item"><input type="checkbox" value="Pueblo" checked onchange="onCityToggle()">Pueblo</label>
+      <label class="ms-item"><input type="checkbox" value="Salida" checked onchange="onCityToggle()">Salida</label>
+      <label class="ms-item"><input type="checkbox" value="Sedalia" checked onchange="onCityToggle()">Sedalia</label>
+      <label class="ms-item"><input type="checkbox" value="Sheridan" checked onchange="onCityToggle()">Sheridan</label>
+      <label class="ms-item"><input type="checkbox" value="Silt" checked onchange="onCityToggle()">Silt</label>
+      <label class="ms-item"><input type="checkbox" value="Silverthorne" checked onchange="onCityToggle()">Silverthorne</label>
+      <label class="ms-item"><input type="checkbox" value="Snowmass Village" checked onchange="onCityToggle()">Snowmass Village</label>
+      <label class="ms-item"><input type="checkbox" value="Steamboat Springs" checked onchange="onCityToggle()">Steamboat Springs</label>
+      <label class="ms-item"><input type="checkbox" value="Superior" checked onchange="onCityToggle()">Superior</label>
+      <label class="ms-item"><input type="checkbox" value="Tabernash" checked onchange="onCityToggle()">Tabernash</label>
+      <label class="ms-item"><input type="checkbox" value="Telluride" checked onchange="onCityToggle()">Telluride</label>
+      <label class="ms-item"><input type="checkbox" value="Thornton" checked onchange="onCityToggle()">Thornton</label>
+      <label class="ms-item"><input type="checkbox" value="Thronton" checked onchange="onCityToggle()">Thronton</label>
+      <label class="ms-item"><input type="checkbox" value="Timnath" checked onchange="onCityToggle()">Timnath</label>
+      <label class="ms-item"><input type="checkbox" value="Unincorporated" checked onchange="onCityToggle()">Unincorporated</label>
+      <label class="ms-item"><input type="checkbox" value="Vail" checked onchange="onCityToggle()">Vail</label>
+      <label class="ms-item"><input type="checkbox" value="Victor" checked onchange="onCityToggle()">Victor</label>
+      <label class="ms-item"><input type="checkbox" value="Westminster" checked onchange="onCityToggle()">Westminster</label>
+      <label class="ms-item"><input type="checkbox" value="Wheat Ridge" checked onchange="onCityToggle()">Wheat Ridge</label>
+      <label class="ms-item"><input type="checkbox" value="Windsor" checked onchange="onCityToggle()">Windsor</label>
+      </div>
+    </div>
     <select id="typeSel" onchange="go()">
       <option value="">All Types</option>
       <option value="market-rate">Market Rate</option>
@@ -165,8 +282,14 @@ td.wrap { white-space: normal; }
       <option value="affordable">Affordable</option>
       <option value="senior">Senior</option>
     </select>
+    <select id="sourceSel" onchange="go()">
+      <option value="">All Sources</option>
+      <option value="ai">Apartment Insights</option>
+      <option value="yardi">Yardi Matrix</option>
+      <option value="costar">CoStar</option>
+    </select>
     <label style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#333;white-space:nowrap;cursor:pointer;flex:0 0 auto;margin-left:10px">
-      <input type="checkbox" id="viewOnly" onchange="go()" style="margin:0;width:14px;min-width:14px;flex:none">Adjust table to Map view
+      <input type="checkbox" id="viewOnly" onchange="go()" style="margin:0;width:14px;min-width:14px;flex:none">Map View
     </label>
     <input type="text" id="targetAddr" class="target-input" placeholder="Target property address…" onkeydown="if(event.key==='Enter')dropTarget()">
     <button class="btn btn-target" onclick="dropTarget()">Drop Pin</button>
@@ -194,6 +317,7 @@ td.wrap { white-space: normal; }
     <col style="width:140px">
     <col style="width:220px">
     <col style="width:90px">
+    <col style="width:85px">
   </colgroup>
   <thead><tr>
     <th onclick="sort(0)">Property</th>
@@ -203,6 +327,7 @@ td.wrap { white-space: normal; }
     <th onclick="sort(4)">Type</th>
     <th onclick="sort(5)">Developer / Owner</th>
     <th onclick="sort(6)">Est. Delivery</th>
+    <th onclick="sort(7)">Source</th>
   </tr></thead>
   <tbody id="tbody">
   </tbody></table></div>
@@ -246,9 +371,10 @@ const TYPE_META = {
   'market-rate':{style:'background:rgba(201,168,76,.14);color:#c9a84c',  label:'Market Rate', order:2},
   btr:          {style:'background:rgba(201,126,76,.14);color:#c97e4c', label:'BTR',         order:3},
 };
-const SOURCE_BADGE = {
-  yardi:  '<span class="badge" style="background:#0c1a2e;color:#fff;font-size:9px">Yardi</span>',
-  costar: '<span class="badge" style="background:#0f4c81;color:#fff;font-size:9px">CoStar</span>',
+const SOURCE_META = {
+  ai:     {style:'background:#1b5e3a;color:#fff', label:'Apartment Insights', short:'AI'},
+  yardi:  {style:'background:#4a90c9;color:#fff', label:'Yardi Matrix',       short:'Yardi'},
+  costar: {style:'background:#0f4c81;color:#fff', label:'CoStar',             short:'CoStar'},
 };
 
 function esc(s) {
@@ -260,6 +386,18 @@ function deliveryTs(dateStr) {
   if (!m) return null;
   const d = new Date(+m[3], +m[1]-1, +m[2]);
   return isNaN(d) ? null : d.getTime();
+}
+
+// Shared by both the table row and the map marker so a search term that matches
+// one always matches the other — was previously two different fields (a narrow
+// name/developer/city string for the map vs. the full rendered row text for the
+// table), which made pins vanish on any search term outside that narrow set.
+function searchBlob(o) {
+  const stageLabel = (STAGE_META[o.stage] || {}).label || o.stage || '';
+  const typeLabels = (o.types || []).map(t => (TYPE_META[t] || {}).label || t).join(' ');
+  const sourceLabel = (SOURCE_META[o.source] || {}).label || o.source || '';
+  return [o.name, o.developer, o.city, o.market, stageLabel, typeLabels, o.units, o.delivery, o.address, sourceLabel]
+    .join(' ').toLowerCase();
 }
 
 function renderTable(rows) {
@@ -274,14 +412,16 @@ function renderTable(rows) {
     const noPin = !idxToLatLng[String(r.idx)]
       ? '<span title="No map pin — missing/invalid coordinates" style="margin-left:4px;color:#b91c1c;font-size:10px">&#9888;</span>'
       : '';
-    return `<tr data-stage="${esc(r.stage)}" data-market="${esc(r.market)}" data-types="${typesStr}" data-units="${r.units_int}" data-idx="${r.idx}">`
-      + `<td>${esc(r.name)}${SOURCE_BADGE[r.source] || ''}${noPin}</td>`
+    const sourceMeta = SOURCE_META[r.source] || {style:'background:#eee;color:#333', label:r.source, short:r.source};
+    return `<tr data-stage="${esc(r.stage)}" data-market="${esc(r.market)}" data-city="${esc(r.city)}" data-source="${esc(r.source)}" data-types="${typesStr}" data-units="${r.units_int}" data-idx="${r.idx}" data-search="${esc(searchBlob(r))}">`
+      + `<td>${esc(r.name)}${noPin}</td>`
       + `<td data-v="${stageMeta.sort}"><span class="badge" style="background:${stageMeta.bg};color:${stageMeta.fg}">${esc(stageMeta.label)}</span></td>`
       + `<td>${esc(r.city)}</td>`
       + `<td data-v="${esc(r.units)}">${esc(r.units)}</td>`
       + `<td>${typeTags}</td>`
       + `<td>${esc(r.developer)}</td>`
       + `<td${ts!==null?` data-v="${ts}"`:''}>${esc(r.delivery)}</td>`
+      + `<td><span class="badge" style="${sourceMeta.style}">${esc(sourceMeta.short)}</span></td>`
       + `</tr>`;
   }).join('');
 }
@@ -307,14 +447,52 @@ function updateStats(visRows) {
 // ── Filter ────────────────────────────────────────────────────────────────────
 const idxToLatLng = {};
 
-function matchRow(stage, market, types, text, idx) {
+// City multi-select: null = no filter (all checked, matches "All Cities" default);
+// otherwise a Set of the checked city values, so unchecking every box shows nothing.
+let SELECTED_CITIES = null;
+
+function toggleCityMenu(e) {
+  e.stopPropagation();
+  const m = document.getElementById('cityMsMenu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+}
+document.addEventListener('click', (e) => {
+  const wrap = document.getElementById('cityMsWrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('cityMsMenu').style.display = 'none';
+});
+function selectAllCities(e) {
+  e.preventDefault();
+  document.querySelectorAll('#cityMsMenu input[type=checkbox]').forEach(cb => cb.checked = true);
+  onCityToggle();
+}
+function clearAllCities(e) {
+  e.preventDefault();
+  document.querySelectorAll('#cityMsMenu input[type=checkbox]').forEach(cb => cb.checked = false);
+  onCityToggle();
+}
+function onCityToggle() {
+  const boxes = Array.from(document.querySelectorAll('#cityMsMenu input[type=checkbox]'));
+  const checked = boxes.filter(b => b.checked).map(b => b.value);
+  SELECTED_CITIES = checked.length === boxes.length ? null : new Set(checked);
+  const btn = document.getElementById('cityMsBtn');
+  btn.textContent = !SELECTED_CITIES ? 'All Cities'
+    : checked.length === 0 ? 'No Cities'
+    : checked.length === 1 ? checked[0]
+    : `${checked.length} Cities`;
+  go();
+}
+
+function matchRow(stage, market, city, source, types, text, idx) {
   const q    = document.getElementById('q').value.toLowerCase();
   const st   = document.getElementById('stageSel').value;
   const mkt  = document.getElementById('marketSel').value;
   const typ  = document.getElementById('typeSel').value;
+  const src  = document.getElementById('sourceSel').value;
   const typeArr = types.split ? types.split(' ') : types;
   if (!((!st  || stage  === st)
       && (!mkt || market === mkt)
+      && (!SELECTED_CITIES || SELECTED_CITIES.has(city))
+      && (!src || source === src)
       && (!typ || typeArr.includes(typ))
       && (!q   || (text  || '').toLowerCase().includes(q)))) return false;
 
@@ -351,7 +529,7 @@ function updateTable() {
   const rows = Array.from(document.querySelectorAll('#tbody tr[data-stage]'));
   const vis  = [];
   rows.forEach(r => {
-    const ok = matchRow(r.dataset.stage, r.dataset.market, r.dataset.types, r.textContent, r.dataset.idx);
+    const ok = matchRow(r.dataset.stage, r.dataset.market, r.dataset.city, r.dataset.source, r.dataset.types, r.dataset.search, r.dataset.idx);
     r.style.display = ok ? '' : 'none';
     if (ok) vis.push(r);
   });
@@ -368,7 +546,7 @@ function updateMap() {
 
   GEO.features.forEach(f => {
     const p = f.properties;
-    if (!matchRow(p.stage, p.market, p.types, p.search, p.idx)) return;
+    if (!matchRow(p.stage, p.market, p.city, p.source, p.types, searchBlob(p), p.idx)) return;
     const icon = L.divIcon({
       html: `<div style="background:${p.color};width:12px;height:12px;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,.4)"></div>`,
       className:'', iconSize:[12,12], iconAnchor:[6,6]
@@ -461,6 +639,6 @@ function clearTarget() {
 }
 </script>
 <footer style="font-size:10px;color:#999;padding:4px 10px;text-align:center;flex-shrink:0">
-  Data sources: Apartment Insights &middot; Yardi Matrix &middot; CoStar &middot; CO Multifamily Advisors, Colliers &middot; 08/19/2026
+  Data sources: Apartment Insights &middot; Yardi Matrix &middot; CoStar &middot; CO Multifamily Advisors, Colliers &middot; 08/25/2026
 </footer>
 </body></html>
