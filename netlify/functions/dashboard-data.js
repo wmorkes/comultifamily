@@ -131,8 +131,10 @@ const CLIENT_VISIBLE = {
 // list is mistakenly typed to include their slug in token-gen. Unlike
 // CLIENT_VISIBLE (an opt-in toggle), this is an unconditional block — only
 // isTeam can ever pass. Loan Monitor and Gap Report carry internal broker
-// pipeline/follow-up intel that should never be client-facing.
-const TEAM_ONLY = ['loan-monitor', 'followup-gaps'];
+// pipeline/follow-up intel that should never be client-facing; Capital Flow
+// and On-Market Report are also data-team-only on the hub (their data is
+// exposed to clients only in anonymized/aggregated form via Market Reports).
+const TEAM_ONLY = ['loan-monitor', 'followup-gaps', 'capital-flow', 'on-market'];
 
 // Dataset "name" values for markets are "markets/<slug>"; CLIENT_VISIBLE and
 // token scope both key on the bare slug (matching the hub's data-client-slug).
