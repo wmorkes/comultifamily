@@ -79,10 +79,11 @@ document.addEventListener('DOMContentLoaded', function () {
   <p>Skip the request form &mdash; generate a direct access link for a client</p>
 </header>
 <!-- Static shadow form so Netlify's build-time form detection registers this
-     submission path into the existing "dashboard-access" form (same one
-     market-intelligence.html's request form feeds) — the actual submission
-     below is fired via fetch(), not this form, since it stays on-page. -->
-<form name="dashboard-access" data-netlify="true" hidden>
+     submission path as its own "token-generator" form (separate from
+     "dashboard-access-request", the real client request form on
+     market-intelligence.html) — the actual submission below is fired via
+     fetch(), not this form, since it stays on-page. -->
+<form name="token-generator" data-netlify="true" hidden>
   <input type="text" name="first-name">
   <input type="text" name="last-name">
   <input type="email" name="email">
@@ -191,14 +192,15 @@ function generate() {
       document.getElementById('copyBtn').classList.remove('copied');
       document.getElementById('copyBtn').textContent = 'Copy';
 
-      // Log into the same "dashboard-access" Netlify form the request flow uses,
-      // tagged source=token-gen, so build_ga4_report.py's existing local Name/Email
-      // resolution picks these up too — no separate storage, no PII sent to GA4.
+      // Log into the separate "token-generator" Netlify form (split from the
+      // real client-request form 2026-08-26 so this doesn't trigger the
+      // request-alert notification) so build_ga4_report.py's existing local
+      // Name/Email resolution picks these up too — no PII sent to GA4.
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
-          'form-name': 'dashboard-access',
+          'form-name': 'token-generator',
           'first-name': fname,
           'last-name': lname,
           'email': email,
