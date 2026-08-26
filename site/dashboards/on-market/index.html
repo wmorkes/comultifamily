@@ -346,7 +346,9 @@ function updateMap() {
       marker.on('click', () => {
         document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('highlighted'));
         tr.classList.add('highlighted');
-        tr.scrollIntoView({block:'nearest', behavior:'smooth'});
+        // block:'center' — 'nearest' stops as soon as the row is barely
+        // visible, which lands it half-hidden under the sticky <th> header.
+        tr.scrollIntoView({block:'center', behavior:'smooth'});
       });
     }
   });

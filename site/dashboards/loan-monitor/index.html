@@ -431,7 +431,12 @@ function updateMap() {
       if (!tr) return;
       document.querySelectorAll('#tbody tr').forEach(r => r.classList.remove('highlighted'));
       tr.classList.add('highlighted');
-      tr.scrollIntoView({block:'nearest', behavior:'smooth'});
+      // block:'center' — 'nearest' stops scrolling as soon as the row is
+      // barely visible, which on this table means it lands half-hidden under
+      // the sticky <th> header (position:sticky, see .table-wrap th CSS) and
+      // reads as "didn't scroll all the way." Centering the row in the
+      // scroll container keeps it well clear of the header instead.
+      tr.scrollIntoView({block:'center', behavior:'smooth'});
     });
   });
 
