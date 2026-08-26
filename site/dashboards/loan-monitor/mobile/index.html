@@ -50,8 +50,6 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
 <script src="/js/token-gate.js"></script>
 <script>
   var __t = getTokenFromURL(), __r = validateToken(__t);
-  if (!__r.valid) window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
-  else if (!__r.isTeam) window.location.replace('/dashboards/');
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
 <script>
@@ -59,13 +57,17 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
   function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
   var __clientLabel;
-  if (__r.valid && __r.isTeam) {
+  if (__r.valid) {
     __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
     gtag('set', {'client_token': __clientLabel});
     gtag('set', 'user_properties', {'client_token': __clientLabel});
   }
   gtag("config", "G-53BCG1FL5M");
-  if (__r.valid && __r.isTeam) {
+  if (!__r.valid) {
+    window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else if (!__r.isTeam) {
+    window.location.replace('/dashboards/');
+  } else {
     gtag('event', 'dashboard_access', {'client_token': __clientLabel});
     rememberClientToken(__clientLabel);
     document.addEventListener('DOMContentLoaded', function(){ appendTokenToLinks(__t); });
@@ -76,7 +78,7 @@ footer{font-size:10px;color:#999;padding:16px;text-align:center}
 <body>
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
-  <a class="co-hub-link" href="/dashboards/" data-token-link>&#8592; Back to Hub</a>
+  <a class="co-hub-link" data-token-link href="/dashboards/">&#8592; Back to Hub</a>
 </div>
 <header>
   <h1>Loan Monitor Search</h1>
