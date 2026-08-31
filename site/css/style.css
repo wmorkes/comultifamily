@@ -679,10 +679,10 @@ a { text-decoration:none; color:inherit; }
 /* ─── MARKET PAGE LAYOUT ─── */
 .market-detail-layout { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
 .market-sidebar { position: sticky; top: 96px; }
-.sidebar-card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px 28px; margin-bottom: 2px; }
-.sidebar-card h4, .sidebar-card h3 { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-soft); margin-bottom: 16px; }
+.sidebar-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 32px 28px; margin-bottom: 2px; }
+.sidebar-card h4, .sidebar-card h3 { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--navy); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border-soft); }
 .section-h3 { font-size: 1.4rem; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; margin: 0 0 20px; }
-.sidebar-stat-val { font-family: 'Raleway', sans-serif; font-weight: 500; color: var(--text); font-size: 18px; white-space: nowrap; }
+.sidebar-stat-val { font-family: 'Raleway', sans-serif; font-weight: 700; color: var(--navy); font-size: 15px; white-space: nowrap; }
 .market-body { max-width: 680px; }
 .market-body h2 { font-family: 'Raleway', sans-serif; font-size: 28px; font-weight: 300; color: var(--text); margin: 36px 0 14px; line-height: 1.2; }
 .market-body h2:first-child { margin-top: 0; }
@@ -769,10 +769,10 @@ a { text-decoration:none; color:inherit; }
 .market-sidebar .deal-list-mini .deal-mini-name { color: #fff; }
 .market-sidebar .deal-list-mini .deal-mini-meta { color: #fff; }
 
-/* ─── SIDEBAR STATS — stacked layout ─────────────────────── */
-.sidebar-stat { display: flex; flex-direction: column; align-items: flex-start; padding: 14px 0; gap: 3px; border-bottom: 1px solid var(--border-soft); }
+/* ─── SIDEBAR STATS — label/value row layout (matches dashboard delinquency card) ── */
+.sidebar-stat { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; padding: 11px 0; gap: 12px; border-bottom: 1px solid var(--border-soft); }
 .sidebar-stat:last-child { border-bottom: none; }
-.sidebar-stat-label { font-size: 10px; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-soft); }
+.sidebar-stat-label { font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-soft); }
 
 /* ─── SIDEBAR MARKET TABLE ───────────────────────────────── */
 .sidebar-mkt-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0 10px; }
