@@ -446,7 +446,7 @@ function renderChart(metric, keys, items) {
   const svgEl = document.getElementById('chart');
   const box = svgEl.getBoundingClientRect();
   const W = Math.max(600, Math.round(box.width)), H = Math.max(320, Math.round(box.height));
-  const PL=70, PR=20, PT=20, PB=40;
+  const PL=75, PR=20, PT=20, PB=45;
   const cW=W-PL-PR, cH=H-PT-PB;
 
   let allVals = [];
@@ -474,7 +474,7 @@ function renderChart(metric, keys, items) {
     const v = minV + (maxV-minV)*i/GRIDLINES;
     const y = yScale(v);
     parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
-    parts.push(`<text x="${PL-8}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${fmtVal(metric,v)}</text>`);
+    parts.push(`<text x="${PL-13}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${fmtVal(metric,v)}</text>`);
   }
 
   const yearTicks = [];
@@ -483,7 +483,7 @@ function renderChart(metric, keys, items) {
   });
   yearTicks.forEach(t => {
     const x = xScale(t.i);
-    parts.push(`<text x="${x}" y="${H-PB+16}" text-anchor="middle" font-size="10" fill="#888">${t.label}</text>`);
+    parts.push(`<text x="${x}" y="${H-PB+21}" text-anchor="middle" font-size="10" fill="#888">${t.label}</text>`);
     parts.push(`<line x1="${x}" y1="${PT}" x2="${x}" y2="${PT+cH}" stroke="#f4f4f4" stroke-width="1"/>`);
   });
 
