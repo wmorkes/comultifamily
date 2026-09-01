@@ -501,8 +501,10 @@ function renderChart() {
     return Math.max(1, nice * mag);
   }
   const countStep = niceStep(rawMaxCount, 5);
-  // +1 extra step of headroom so the tallest bar doesn't touch the top edge.
-  const countSteps = Math.max(1, Math.ceil(rawMaxCount / countStep)) + 1;
+  // Round up to the next gridline rather than adding a full extra step of
+  // headroom above it (matches build_market_report.py's renderBarLineChart —
+  // the old "+1" left a visibly empty band above the tallest point).
+  const countSteps = Math.max(1, Math.ceil(rawMaxCount / countStep));
   const maxCount = countSteps * countStep;
 
   // Base unit is $250M (per Bill's spec) for wide-scope views, but drop down
