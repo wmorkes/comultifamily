@@ -289,7 +289,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Denver Metro</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 08/31/2026)</p>
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/01/2026)</p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -1822,7 +1822,7 @@ function renderCapitalFlow() {
   renderCfTable('recentByStateBody', true);
 }
 
-// ── Shared bar+line chart (bars=count on left axis, line=volume on right axis) ──
+// ── Shared bar+line chart (bars=volume on left axis, line=count on right axis) ──
 function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight, rateByYear, rateLabel) {
   const counts = years.map(countFn);
   const vols = years.map(volFn);
@@ -1865,14 +1865,14 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   const yVol   = v => PT + cH - (v/maxVol)*cH;
 
   let parts = [];
-  for(let i=0;i<=countSteps;i++) {
-    const v=i*countStep, y=yCount(v);
-    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
-    parts.push(`<text x="${PL-11}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${Math.round(v)}</text>`);
-  }
   for(let i=1;i<=volSteps;i++) {
     const v=i*volStep, y=yVol(v);
-    parts.push(`<text x="${W-PR+11}" y="${y+4}" text-anchor="start" font-size="10" fill="#888">${fmtAxis(v)}</text>`);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-11}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${fmtAxis(v)}</text>`);
+  }
+  for(let i=0;i<=countSteps;i++) {
+    const v=i*countStep, y=yCount(v);
+    parts.push(`<text x="${W-PR+11}" y="${y+4}" text-anchor="start" font-size="10" fill="#888">${Math.round(v)}</text>`);
   }
   // Thin x-axis labels once there are more bars than fit legibly — always keep
   // the first/last (and any non-numeric aggregate label like "Pre-1980").
@@ -1888,14 +1888,14 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   });
 
   years.forEach((yr,i) => {
-    const x=xScale(i)-barW/2, y=yCount(counts[i]), h=cH+PT-y;
+    const x=xScale(i)-barW/2, y=yVol(vols[i]), h=cH+PT-y;
     const isHighlight = highlightYear != null && yr === highlightYear;
     const barTip = isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
     const extra = extraTipFn ? extraTipFn(yr) : '';
     parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${isHighlight?'#0c1a2e':'#c9a84c'}" rx="2" class="bar" data-tip="${barTip}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
   });
 
-  const pts = years.map((yr,i) => ({x:xScale(i), y:yVol(vols[i])}));
+  const pts = years.map((yr,i) => ({x:xScale(i), y:yCount(counts[i])}));
   const d = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
   parts.push(`<path d="${d}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
   pts.forEach((p,i) => {
@@ -1931,8 +1931,8 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   svg.innerHTML = parts.join('');
 
   document.getElementById(legendId).innerHTML =
-    `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>${countLabel} (left axis)</div>` +
-    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${volLabel} (right axis)</div>` +
+    `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>${volLabel} (left axis)</div>` +
+    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${countLabel} (right axis)</div>` +
     (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>${rateLabel||'Rate'} <span style="color:#888;font-size:10px">(unlagged, own scale — FRED)</span></div>` : '') +
     (highlightYear != null ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${highlightYear} incl. Under Construction Pipeline</div>` : '');
 
