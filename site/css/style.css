@@ -243,7 +243,7 @@ a { text-decoration:none; color:inherit; }
   font-weight: 300;
   color: rgba(255,255,255,0.6);
   max-width: 560px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 /* ─── SECTION SHARED ─────────────────────────────────────── */
@@ -679,15 +679,36 @@ a { text-decoration:none; color:inherit; }
 .market-sidebar { position: sticky; top: 96px; }
 .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px 28px; margin-bottom: 2px; }
 .sidebar-card h4, .sidebar-card h3 { font-family: 'Raleway', sans-serif; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em; color: var(--navy); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1.5px solid var(--gold); }
-.section-h3 { font-size: 1.4rem; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; margin: 0 0 20px; }
 .sidebar-stat-val { font-family: 'Raleway', sans-serif; font-weight: 700; color: var(--navy); font-size: 14px; white-space: nowrap; }
 .market-body { max-width: 680px; }
-.market-body h2 { font-family: 'Raleway', sans-serif; font-size: 28px; font-weight: 300; color: var(--text); margin: 36px 0 14px; line-height: 1.2; }
-.market-body h2:first-child { margin-top: 0; }
+.market-body h2:not(.section-h2) { font-family: 'Raleway', sans-serif; font-size: 28px; font-weight: 300; color: var(--text); margin: 32px 0 16px; line-height: 1.2; }
+.market-body h2:not(.section-h2):first-child { margin-top: 0; }
 .related-markets-section h2,
 .faq-section h2 { font-family:'Raleway',sans-serif; font-size:28px; font-weight:300; color:var(--text); margin:12px 0 0; }
 .faq-section h2 { margin-bottom:32px; }
-.market-body p { font-size: 17px; font-weight: 300; color: #7c8698; line-height: 1.5; margin-bottom: 16px; }
+.market-body p:not(.section-lead) { font-size: 17px; font-weight: 300; color: #7c8698; line-height: 1.5; margin-bottom: 16px; }
+
+/* ─── CONTENT-HUB PAGE PATTERN (affordable/distressed template) ───────────
+   Reusable recipe for a full narrative service page (Credentials + N topic
+   sections + closed-transactions table + FAQ). To apply to a new page:
+     .narrative-h2 / .narrative-p    — section header + body copy (Raleway/Inter)
+     .narrative-cols (2-up) / .narrative-block (1-up) — boxless Process/
+       Key-Considerations panels; nest .service-num + .service-title + .service-bullets
+       inside — the gold .service-num eyebrow auto-hides in this context (one
+       eyebrow per page section, from .page-eyebrow, is enough)
+     .section-h3 + .section-divider  — optional third heading tier for a
+       sub-topic within a section (e.g. "Section 42 LIHTC" under "Rent-
+       Restricted Sales")
+     .market-cta-link                — single inline CTA link at the end of
+       the Credentials narrative body (no separate bottom dark CTA section)
+     .sidebar-jump-list               — "Navigate to Section" sidebar card
+   Spacing scale used throughout: 16px (heading→text, para→para), 32px
+   (block→block within a section), 48px (section→section, via .section padding).
+   ─────────────────────────────────────────────────────────────────────── */
+.narrative-h2 { font-family: 'Raleway', sans-serif; font-size: 28px; font-weight: 300; color: var(--text); margin: 32px 0 16px; line-height: 1.2; }
+.narrative-h2:first-child { margin-top: 0; }
+.narrative-p { font-size: 17px; font-weight: 300; color: #7c8698; line-height: 1.5; margin-bottom: 16px; }
+.market-body .narrative-p { max-width: 680px; }
 .market-cta-link { color: var(--navy); font-weight: 700; text-decoration: none; }
 .market-cta-link:hover { text-decoration: underline; }
 .market-cta-link-arrow { color: var(--gold); }
@@ -717,16 +738,18 @@ a { text-decoration:none; color:inherit; }
 
 /* ─── TRANSACTIONS TABLE ─── */
 .deals-table { width: 100%; border-top: 2px solid var(--navy); margin-top: 8px; }
-.deals-table-header { display: grid; grid-template-columns: 2.5fr 0.6fr 0.6fr 1fr 1fr; padding: 10px 12px; border-bottom: none; background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
-.deals-table-row { display: grid; grid-template-columns: 2.5fr 0.6fr 0.6fr 1fr 1fr; padding: 13px 12px; border-bottom: 1px solid var(--border-soft); align-items: center; font-size: 15px; }
+/* Standard column order (all tables): Property, Location, Units, Built, Type, Price */
+.deals-table-header { display: grid; grid-template-columns: 2.5fr 0.9fr 0.5fr 0.5fr 1.1fr 0.9fr; padding: 10px 12px; border-bottom: none; background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+.deals-table-row { display: grid; grid-template-columns: 2.5fr 0.9fr 0.5fr 0.5fr 1.1fr 0.9fr; padding: 13px 12px; border-bottom: 1px solid var(--border-soft); align-items: center; font-size: 15px; }
 .deals-table-row:nth-child(even) { background: var(--bg); }
 .deals-table-row:nth-child(odd) { background: #fff; }
 .deals-table-row:nth-child(even):hover,
 .deals-table-row:nth-child(odd):hover { background: rgba(201,168,76,0.06); }
-.deals-table-header span:nth-child(2),
+.deals-table-header span:nth-child(2) { text-align: left; }
 .deals-table-header span:nth-child(3),
-.deals-table-header span:nth-child(4) { text-align: center; }
-.deals-table-header span:nth-child(5) { text-align: right; }
+.deals-table-header span:nth-child(4),
+.deals-table-header span:nth-child(5) { text-align: center; }
+.deals-table-header span:nth-child(6) { text-align: right; }
 .deals-table-name-sub { font-weight: 400; color: var(--text-soft); font-size: 13px; }
 .deals-table-note { margin-top: 20px; font-size: 14px; color: var(--text-soft); }
 .deals-table-row:last-child { border-bottom: none; }
@@ -748,24 +771,12 @@ a { text-decoration:none; color:inherit; }
 @media(max-width:768px) {
   .deals-table-header { display: none; }
   .deals-table-row { grid-template-columns: 1fr auto; }
-  .deals-table-units, .deals-table-yoc, .deals-table-type { display: none; }
+  .deals-table-units, .deals-table-yoc, .deals-table-type, .deals-table-location { display: none; }
 }
 
-/* ─── 6-COLUMN DEALS TABLE (affordable / distressed pages) ─── */
-.deals-table--6col .deals-table-header,
-.deals-table--6col .deals-table-row { grid-template-columns: 2.5fr 0.9fr 1.1fr 0.5fr 0.5fr 0.9fr; }
-.deals-table--6col .deals-table-header span:nth-child(2) { text-align: left; }
-.deals-table--6col .deals-table-header span:nth-child(4),
-.deals-table--6col .deals-table-header span:nth-child(5),
-.deals-table--6col .deals-table-header span:nth-child(6) { text-align: right; }
-.deals-table--6col .deals-table-units { text-align: right; }
+/* ─── LOCATION COLUMN (properties spanning multiple markets) ─── */
 .deals-table-location { color: var(--text-soft); font-size: 14px; }
-.deals-table-closed { font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; font-family: 'Inter', sans-serif; color: var(--text-soft); }
 .deals-table-type.type-distressed { color: #b85555; border: 1px solid rgba(184,85,85,0.5); background: rgba(184,85,85,0.08); }
-@media(max-width:768px) {
-  .deals-table--6col .deals-table-row { grid-template-columns: 1fr auto; }
-  .deals-table-location, .deals-table-closed { display: none; }
-}
 
 /* ─── MARKET SIDEBAR — Featured Sales / Active Listing card ── */
 .market-sidebar .deal-list-mini { background: var(--navy); border-color: var(--navy); }
@@ -784,8 +795,17 @@ a { text-decoration:none; color:inherit; }
 .stat-val-context { font-weight: 400; color: var(--text-soft); }
 .sidebar-stat-label { font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-soft); }
 
+/* ─── SIDEBAR JUMP LINKS ─────────────────────────────────── */
+.sidebar-jump-list { display: flex; flex-direction: column; }
+.sidebar-jump-list a { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 400; color: var(--text-soft); padding: 9px 0; border-bottom: 1px solid var(--border-soft); transition: color 0.15s; }
+.sidebar-jump-list a:last-child { border-bottom: none; }
+.sidebar-jump-list a:hover { color: var(--gold); }
+.sidebar-jump-num { flex-shrink: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft); }
+.sidebar-jump-name { text-align: right; color: var(--text); }
+.sidebar-jump-arrow { color: var(--gold); }
+
 /* ─── SIDEBAR MARKET TABLE ───────────────────────────────── */
-.sidebar-mkt-table-wrap { max-height: 220px; overflow-y: auto; margin-bottom: 25px; }
+.sidebar-mkt-table-wrap { margin-bottom: 25px; }
 .sidebar-card[data-market-key] { padding-bottom: 25px; }
 .sidebar-mkt-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0 10px; }
 .sidebar-mkt-table-wrap .sidebar-mkt-table thead th { position: sticky; top: 0; background: var(--bg-card); }
@@ -894,6 +914,12 @@ a { text-decoration:none; color:inherit; }
 .stat-callout { display: flex; align-items: baseline; gap: 16px; margin: 32px 0; padding: 24px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
 .stat-callout-number { font-family: 'Raleway', sans-serif; font-weight: 200; font-size: 56px; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
 .stat-callout-label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-soft); max-width: 18ch; line-height: 1.5; }
+/* Row of multiple stat-callouts sharing one top/bottom rule, for pages with more
+   than one headline KPI (e.g. affordable.html: volume + units + transactions). */
+.stat-callout-row { display: flex; flex-wrap: wrap; gap: 40px; margin: 32px 0; padding: 24px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+.stat-callout-row--nowrap { flex-wrap: nowrap; }
+@media(max-width:700px) { .stat-callout-row--nowrap { flex-wrap: wrap; } }
+.stat-callout-row .stat-callout { margin: 0; padding: 0; border: none; }
 
 /* ─── TYPE BADGE COLORS (deals table) ────────────────────── */
 .deals-table-type.type-market-rate { color: var(--gold);             border: 1px solid rgba(201,168,76,0.5);   background: rgba(201,168,76,0.08); }
@@ -909,9 +935,7 @@ a { text-decoration:none; color:inherit; }
 .section-lead--mb36 { margin-bottom: 36px; }
 
 /* ─── SECTION DIVIDER (repeated margin-top/padding-top/border-top block) ── */
-.section-divider { padding-top: 40px; border-top: 1px solid var(--border-soft); }
-.section-divider--mt48 { margin-top: 48px; }
-.section-divider--mt56 { margin-top: 56px; }
+.section-divider { padding-top: 8px; margin-top: 32px; }
 
 /* ─── SECTION--ALT COMPACT PADDING (jump-nav strip) ─────────── */
 .section--alt-compact { padding-top: 32px; padding-bottom: 32px; }
@@ -928,13 +952,36 @@ a { text-decoration:none; color:inherit; }
 .cta-btn-row { display: flex; flex-wrap: wrap; gap: 16px; }
 
 /* ─── MARKET-DETAIL-LAYOUT / SIDEBAR-STAT SPACING MODIFIERS ─── */
-.market-detail-layout--mt40 { margin-top: 40px; }
 .market-detail-layout--gap80 { gap: 80px; }
-.stat-callout--tight { margin: 12px 0 16px; padding: 16px 0; border-bottom: 1px solid var(--border-soft); border-top: none; }
 .services-grid--mt28 { margin-top: 28px; }
 .services-grid--mt36 { margin-top: 36px; }
-.service-card--cta { max-width: 720px; margin-top: 28px; }
-.service-card--cta-mt36 { max-width: 720px; margin-top: 36px; }
+.service-card--cta { margin-top: 28px; }
+.service-card--cta-mt36 { margin-top: 36px; }
+.service-bullets.service-bullets--2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
+@media(max-width:800px) { .service-bullets.service-bullets--2col { grid-template-columns: 1fr; } }
+
+/* ─── NARRATIVE COLUMNS (boxless Process/Key Considerations, Denver-style) ─── */
+.narrative-cols { display: flex; flex-direction: column; gap: 36px; margin-top: 36px; }
+.narrative-cols--mt28 { margin-top: 32px; }
+.narrative-cols > div { min-width: 0; }
+.narrative-block { margin-top: 36px; }
+.narrative-block--mt28 { margin-top: 32px; }
+
+/* Subheaders within narrative sections: one eyebrow per section (page-eyebrow) only —
+   no repeated gold eyebrow per subsection, and subheads read as bold Inter, distinct
+   from the Raleway-light narrative-h2 section header. */
+.narrative-cols .service-num,
+.narrative-block .service-num { display: none; }
+.section-h3,
+.narrative-cols .service-title,
+.narrative-block .service-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
 
 /* ─── TRACK RECORD LEGEND DOT COLOR/SIZE MODIFIERS ──────────── */
 .legend-dot--market { background: var(--gold); }
