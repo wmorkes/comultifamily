@@ -40,5 +40,6 @@ const CLIENT_VISIBLE = {
   'deliveries-by-year': false,
   'pipeline': false,
   'rental-trends': false,
-  'chfa': false
+  'chfa': false,
+  'affordable-housing': false
 };

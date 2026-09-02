@@ -103,6 +103,7 @@ const DATASETS = {
   'markets/rural-tertiary-co':['data.json'],
   'rental-trends':        ['data.json'],
   'zillow-zhvi':          ['data.json'],
+  'affordable-housing':   ['data.json'],
 };
 
 // Mirrors site/js/dashboard-visibility.js's CLIENT_VISIBLE map — duplicated
@@ -124,7 +125,8 @@ const CLIENT_VISIBLE = {
   'deliveries-by-year': false,
   'pipeline': false,
   'rental-trends': false,
-  'chfa': false
+  'chfa': false,
+  'affordable-housing': false
 };
 
 // Datasets that must never be reachable by a client token, even if a scope
