@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Affordable Housing Market — CO/WY LIHTC &amp; HAP Inventory</title>
-<meta name="description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) inventory, market breakdown, transaction trends, ownership, pipeline, and financing. Private dashboard.">
+<meta name="description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) construction pipeline, rent/income limits, transaction trends, ownership, and live listings. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://www.comultifamily.com/dashboards/affordable-housing/">
 <meta property="og:title" content="Affordable Housing Market | CO Multifamily Advisors">
-<meta property="og:description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) inventory, market breakdown, transaction trends, ownership, pipeline, and financing.">
+<meta property="og:description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) construction pipeline, rent/income limits, transaction trends, ownership, and live listings.">
 <meta property="og:url" content="https://www.comultifamily.com/dashboards/affordable-housing/">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Affordable Housing Market","url":"https://www.comultifamily.com/dashboards/affordable-housing/"}</script>
@@ -43,11 +43,11 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .section{padding:18px 0}
 .section-inner{max-width:1400px;margin:0 auto;padding:0 16px}
 #overview{background:#f2f3f5}
-#inventory{background:#ffffff}
-#sales{background:#f2f3f5}
-#ownership{background:#ffffff}
-#pipeline{background:#f2f3f5}
-#chfa{background:#ffffff}
+#pipeline{background:#ffffff}
+#chfa{background:#f2f3f5}
+#sales{background:#ffffff}
+#ownership{background:#f2f3f5}
+#onmarket{background:#ffffff}
 .footer-cta{background:#0c1a2e;padding:44px 0}
 .footer-cta .section-tag{color:#c9a84c;margin-bottom:10px}
 .footer-cta .section-tag::before{background:#c9a84c}
@@ -72,6 +72,8 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:8px 10px;background:#fff;border:1px solid #dde;border-radius:6px;align-items:flex-end;margin-bottom:12px}
 .map-panel{background:#fff;border:1px solid #dde;border-radius:6px;overflow:hidden}
 .map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
+.map-panel #omStats,.map-panel #pipeStats{border-bottom:1px solid #eee}
+.map-panel #onMarketMap,.map-panel #pipelineMap{border:none;border-radius:0}
 .cf-wrap{max-width:1150px}
 .cf-subtitle{font-size:13px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #c9a84c}
 .cf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;min-width:0}
@@ -80,7 +82,10 @@ nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
 .cf-card-title{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
 .cf-legend{font-size:11px;color:#888;margin-top:8px}
 table.cf-table{border-collapse:collapse;width:100%;min-width:0;table-layout:fixed;font-size:12.5px}
-table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde}
+table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde;cursor:pointer;user-select:none}
+table.cf-table th:hover{color:#0c1a2e}
+table.cf-table th.asc::after{content:' \2191'}
+table.cf-table th.desc::after{content:' \2193'}
 table.cf-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0;white-space:normal}
 table.cf-table tr:last-child td{border-bottom:none}
 table.cf-table tr:hover td{background:#f8f9fb}
@@ -88,37 +93,97 @@ table.cf-table th:not(:first-child),table.cf-table td:not(:first-child){text-ali
 .filter-group{display:flex;flex-direction:column;gap:3px}
 .filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
 select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:12px;background:#fff;color:#222}
+.btn{padding:5px 14px;border:none;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600}
+.btn-primary{background:#0c1a2e;color:#fff}.btn-primary:hover{background:#142338}
+.btn-secondary{background:#e8edf2;color:#333}.btn-secondary:hover{background:#d5dde6}
 .stat-grid{display:flex;flex-wrap:wrap;gap:12px}
 .stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
   border-radius:6px;padding:14px 16px}
 .stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
   text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
+.stat-tile-dark .stat-eyebrow{color:#c9a84c}
 .stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
-.stat-tile>span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
+.stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
+.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#666;letter-spacing:.3px;line-height:1.3}
+.stat-tile .stat-secondary b{font-size:18px;font-weight:700;color:#0c1a2e;line-height:1.15}
+.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1.15}
+.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
+.stat-tile-dark b{color:#fff}
+.stat-tile-dark span{color:#c7cedb}
+.stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
+.stat-tile-dark .stat-secondary b{color:#fff}
+.stat-tile-dark .pos{color:#4ade80}
+.stat-tile-dark .neg{color:#f87171}
 table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
-th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1;cursor:pointer;user-select:none}
-th:hover{background:#d5dde6}
-th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
-.col-left{text-align:left}
-.col-right{text-align:right}
+th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1}
 td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
 tr:hover td{background:#f0f5fa}
-#chartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0}
-#tableWrap{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px}
+#chartWrap,#chfaChartWrap,#pipelineChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0;margin-bottom:12px}
+#debtChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:7px;overflow-x:auto;min-width:0;flex:1}
+#debtStatsPanel{width:340px;flex-shrink:0;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
+.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
+.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;font-variant-numeric:tabular-nums}
+.stat-row b{font-size:13px;font-weight:700;color:#0c1a2e}
+.stat-row span{font-size:12.5px;color:#555}
+.compare-table-wrap{border:1px solid #dde;margin-top:4px;padding:6px 8px}
+.compare-table{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+/* Force ytdCompare/distressTable to share identical column widths (both are
+   4-column: label + 3 periods) so their rows line up vertically even though
+   they're separate <table> elements with different label text lengths. */
+#ytdCompare table, #distressTable table{table-layout:fixed}
+#ytdCompare th:first-child, #ytdCompare td:first-child,
+#distressTable th:first-child, #distressTable td:first-child{width:34%}
+#ytdCompare th:not(:first-child), #ytdCompare td:not(:first-child),
+#distressTable th:not(:first-child), #distressTable td:not(:first-child){width:22%}
+.compare-table th{position:static;background:none;padding:2px 4px;text-align:right;font-weight:600;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.2px;cursor:default}
+.compare-table th:first-child,.compare-table td:first-child{text-align:left}
+.compare-table td{padding:3px 4px;border-bottom:1px solid #f4f4f4;text-align:right;white-space:nowrap}
+.compare-table tr:last-child td{border-bottom:none}
+.pos{color:#146130}
+.neg{color:#a3281c}
+#salesStatsPanel{width:340px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
+#ytdCompareWrap{margin-top:12px}
+.vintage-table-wrap{border:1px solid #dde;margin-top:10px;padding:6px 8px}
+#deliveryStatsPanel{width:340px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
+.dv-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
+.dv-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;font-variant-numeric:tabular-nums}
+.dv-row b{font-size:13px;font-weight:700;color:#0c1a2e}
+.dv-row span{font-size:12.5px;color:#555}
+.vintage-table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:14px}
+.vintage-table th{background:none;position:static;padding:0 0 4px;font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.2px;cursor:default;border-bottom:1px solid #dde;white-space:normal;line-height:1.2}
+.vintage-table td{padding:4px 0;border-bottom:1px solid #f0f0f0;color:#333;white-space:normal;line-height:1.25}
+.vintage-table td:first-child{color:#0c1a2e;font-weight:600}
+.vintage-table th:not(:first-child),.vintage-table td:not(:first-child){text-align:right}
+.vintage-pct-hi{color:#c9a84c;font-weight:700}
+.vintage-pct-mid{color:#0c1a2e}
+.vintage-pct-lo{color:#999}
+.vintage-row-uc td{background:#0c1a2e;color:#fff}
+.vintage-row-uc td:first-child{color:#fff;white-space:nowrap}
+#salesVintageBox{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px}
+#salesVintageTable{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+#salesVintageTable .col-left{text-align:left}
+#salesVintageTable .col-center{text-align:center}
+#salesVintageTable .col-right{text-align:right}
+#salesVintageTable th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
+#salesVintageTable th:hover{background:#d5dde6}
+#salesVintageTable th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
+#salesVintageTable td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
+#salesVintageTable tr:hover td{background:#f0f5fa}
+.compare-footnote{font-size:10px;color:#888;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0}
+/* CHFA embed — ported from build_chfa_dashboard.py's own toolbar/chart */
+#chfaChartSummary{width:425px;flex-shrink:0;align-self:flex-start;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;font-size:14px}
+.legend-dot{width:10px;height:10px;border-radius:50%}
 svg.chart{display:block;width:100%;height:auto}
 .chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 0 0;font-size:11px}
 .legend-item{display:flex;align-items:center;gap:5px}
 .legend-swatch{width:12px;height:12px;border-radius:2px}
 .tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
-#invMap{height:520px;border:1px solid #dde;border-radius:6px}
-.map-panel #invMap{border:none;border-radius:0}
+#onMarketMap,#pipelineMap{height:520px;border:1px solid #dde;border-radius:6px}
 .om-legend{background:#fff;padding:6px 8px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.2);font-size:11px;line-height:1.6}
 .om-legend div{display:flex;align-items:center;gap:6px}
 .om-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.compare-footnote{font-size:10px;color:#888;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0}
-.chfa-card{background:#fff;border:1px solid #dde;border-left:4px solid #c9a84c;border-radius:6px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.chfa-card a{background:#0c1a2e;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:600;white-space:nowrap}
-.chfa-card a:hover{background:#142338}
+.leaflet-tooltip.om-tip{font-size:12px;padding:4px 8px;line-height:1.4}
+.filter-stats-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#999;align-self:center}
 .cta-tab{position:fixed;top:50%;right:12px;transform:translateY(-50%);z-index:1100;background:#0c1a2e;color:#fff;border:none;border-left:4px solid #c9a84c;clip-path:polygon(0% 0%,88% 0%,100% 50%,88% 100%,0% 100%);padding:16px 26px 16px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
 .cta-tab:hover{background:#152540;filter:drop-shadow(0 10px 14px rgba(0,0,0,.65))}
 .cta-panel{position:fixed;top:50%;right:0;height:auto;width:320px;max-width:88vw;background:#0c1a2e;border-radius:8px 0 0 8px;box-shadow:-4px 4px 24px rgba(0,0,0,.4);z-index:1101;transform:translateX(100%) translateY(-50%);transition:transform .25s ease;display:flex;flex-direction:column;justify-content:center;padding:28px 20px}
@@ -198,7 +263,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Affordable Housing Market &mdash; Colorado &amp; Wyoming</h1>
-    <p>LIHTC/HAP inventory, transaction trends, ownership, pipeline, and financing, sitewide. (Generated 09/02/2026)</p>
+    <p>LIHTC/HAP construction pipeline, rent &amp; income limits, transaction trends, ownership, and live listings, sitewide. (Generated 09/02/2026)</p>
   </div>
   <div class="header-team">
     <img src="data:image/webp;base64,UklGRrQIAABXRUJQVlA4WAoAAAAQAAAAnwAAYQAAQUxQSEMIAAAB8Idt//k427ZtX/yS2u3ocHWgOGzbPur2sF3r8HGc08O2bdu2fdS2Z2kH+SXZ/0jymzTt8Tu9LBExAfw3pbGx0RTHW2Kk9Y2zQJv1Y2MrMLYRDoZ8rxj5ZR+wkSxtP9PCu8fGxvuW6c1m2AiGxO86nzhpxulLMIU8N6k/+BgJp+sSfAFLJ71EYIiR1vNJQwtMPk8f7YsnVnqO0364QpdoPWy8sGymc/CFJqgjJm501rAo1fFkaJQJ8WTYf8UZ753BOO8tYE3xjLMFjLd/I9YT1XoLpkjWU9B61pEl4qHdEde8/evEX9+9eXBXoGcZphjeAn2+2BrnDfhTPuuM/Vswlg3vXCJlpv4yXVLq0/5NVg/FFwO6jvlT2g8DPa+YLvX+e7BwQYP04cGtgbaHvi1phi4pih35RUpKaReaXf6dpHS4WY61uHWagUcljQQwAIPqlNU9RTAkP5YaMhntQoefpIaM0l2wWNbyErA8oloNx3kDGO/ovVJ6E9coDGz0ldJZbQv0+EtppTbBWnp/MnEYZt3lGapavYY3FEyyi/QTRQ3YStmstsYFHJSzMY7EdElH49ZVlm5ZZdUTR8QE4zS7BaYIhrIaZbQN1rKZsqqtwrOZ6lfpBvy6yvGs6vUujqgGM03rY4vSbqmy6pHTOZRqK7HY3yUdjFtHWTaVQp2Nj0TA6doNV5QWC5TVFjnr10l1VRhL5xe+OhHDmjVrj+cSpbLaBhvN0P63nbE5xnnnvDcFms7JZ6hYJdWUYbAAjoLOe+e8LWS8BeewFjDOO+edKSnLZwq1ogMmWl4D4CnoTZ7kjEJlNdKKjhhMIgGYPNaQ3+UxHjAOPBgcBU0JGdouVVrTE8UwgLEkD5vw4ku3nFgGtlC6a067ZfkcUDl+HBbwsOu4p15/bFQFDoyHFpeeBtu8PP2tcgI49M7Xn7rqIDClY+khpfWnKQZgYMgMaWmDtKoaXD6FnXPa53M06/fKKn2CA0/3z6XJM6TaY3AGyi+fr0/pI0l3Qs8fpJmSvivDlIxjN2UymuyLYwy3STN2IBgr6ctm2AJdInFxVsrqGRyOnqu1cHsYLmkvaH/PSkmf7igppbvoUasbknR6VRqCL6G9lclqcZviOK5WGPbCQrVW630ozoBflAr1LM7QfJZ0DE0tU6SJjvUnK5XRwhUfjf1VX5Xzmv4EB+/q2pLaUdmstBm2CI49VK87SGIJZqlOIwiK4eBp1ed4bpd+IPcR1eoI4B/KhPoA3CbQYakmQdAEP+MNXMlYNgmVTasPvgiWD9SgfXEQMEENWtSSYpgkffMEVNVn9cmRgwcOOHGK0rqfJHa+UjqcpmDpHGZ1rQfoUIEpGUNyhjKh7imGpUtGqt8QC46DlQ51JKYYnoF5kgxSqKxyUzUr9CDO8KNC7Ywz1tJhpbKad2/fMhq7hnA8rzCjOU0wjfIcp5QWt8GApYeU0qXYNXOJ6jQ2KO/YsUNZRXllU4zhG4XaFQc4nlZdKGnVPa2xJeQ5UaFCDcI3xgWcqpQWtsrXJVRKtxRrQIFrVKcLiJxvlzyW9n9IqbqUNKUMWzqGtsuUzehPMNEccEKkzaWUrizQuVjVqtONJExeaxuDo9n1yyWF9XqrlPBUK6VQV5CIYgL26c4BClVTluPYXZlQffJkM92KNVz1+hZLXoNphAFo1++J1coo3BBbOobm85RWVn0JXD4TwMG6hsoaZbQ1FjxnKKUV7SFHPYqT4GClM9qLJGAsTTGRDJWPbgjQ6WWF2g5XOnj2ktJZ6WRw3ntvgbH6sYnhfq3WKBIQ8LxqdQ0BTWYqqy1yOiyXVlfkDM7jab1Eoaa0wHkHQ5ZVYvPsmmPprkdJuIDkfKW7YUsITx8plZEe70Lejif9qh+a4ylbKc1JkEiySTrUtCZ4m5imjHqRCGi7RKqtImjCKarXCyQCrlRDWn9sDbQaoS+xAV8p1E4kDIamM7QrTXySb/QrmFLCs9sCKZVS+r1rR4656Z2l0pMBDs8+kh4D/MdSzaY4aLpI9doDoKouk1J3gNO1Wh8DuF/VkJI+fuyt+VrcCeBX1Wk/wGD4XBPbA7tL/fCUFJ5Wd6QUdepAcIBn/5XSxOuvmy19twmeW97/Q5IWvfDMs8/NlqTZLzz79LNLJOmDD3pB5UQV/HFj6PvZN5K0/I2PemA9D0iLrzrzDmkUlhLDw0ajP1yYlhTOeWVwEmvJ9XSs/iUtrXhjIHh4Ysq37779zlsff/f1J5++89Irr7z0zqeffvPdR2+/8/ZHP03choAmF/9SEzYs/vRMQ5JTp7z/3FNPP/n6539sgzV0mPBjndTw0s4YSg7jgZZdd9ht581aAJ6CDijbeIPmgGPNGxxQ1qVLB8BhiGrAAB033iAJjrUArLfkd94Q0XhynSfXRnQRbWEDGE+u8YQw1uW35BpPrnOsHYCxzjlraLSx1lDKxlpD0Y21hkaX0t/1/6GoIOFjZYJu0aoVEDvba2iUqzXyjHPPiZXnnn6xRkS5TrF0TJQJ2rvnNlvFym02P0zDo1SrObGzQkOjTFA5gY+VCbppWLS2xM4NG7NxslXLWNk66BXtOqWysTOlMVGu0eMPPBQvH77/GY2MUi1P7GyvoVEmqILAx8oE3TQsTlXLEzvba2iUa/TUQ48+EisfffB5jYxyteoz6ZiZqdfoKCdrD9OqRaxszeE6upCli27AESstj6gMmw/HK9qKZOBjY5BgTz2Io6ClKpXahVi5n5a2xRbCsVWNXhm03wH7x8ID9jvhHc3viiOqp92dacXI+utb4IjuoOVOBx0YEw/avik4Gms9sdIbimhcjDT8BzEAVlA4IEoAAADQBgCdASqgAGIAPpFIoUylpCMiIIgAsBIJaW7hdUAAT22IvEFRz2xF4gqOe2IvEFRz2xF4gqOe2IvEFRz2tAAA/v94H+JAAAAAAA==" class="colliers-logo" alt="Colliers">
@@ -209,117 +274,494 @@ svg.chart{display:block;width:100%;height:auto}
 </header>
 <nav class="section-nav">
   <a href="#overview">At a Glance</a>
-  <a href="#inventory">Inventory</a>
+  <a href="#pipeline">Supply Pipeline</a>
+  <a href="#chfa">Operating Metrics</a>
   <a href="#sales">Sales Metrics</a>
-  <a href="#ownership">Ownership Trends</a>
-  <a href="#pipeline">Pipeline &amp; Financing</a>
-  <a href="#chfa">Rent Limits</a>
+  <a href="#ownership">Capital Flow</a>
+  <a href="#onmarket">Live Listings</a>
 </nav>
 <div class="page">
 
 <div class="section" id="overview"><div class="section-inner">
   <div class="section-title"><div class="section-tag">At a Glance</div><h2 class="section-h2">Affordable Housing Overview</h2></div>
   <div class="stat-grid" id="overviewStats"></div>
+
+  <div class="stat-block-label">Rates, Employment &amp; Cost to Own</div>
+  <div class="stat-grid" id="macroStats"></div>
+  <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Federal Reserve Economic Data (FRED); Zillow Research (ZHVI, statewide market-average proxy — see footnote). Colorado statewide series; Wyoming not covered.</div>
+
+  <div class="stat-block-label" style="margin-top:20px">Household Credit Health</div>
+  <div style="display:flex;gap:14px;align-items:stretch">
+    <div id="debtChartWrap">
+      <svg class="chart" id="debtChart" width="900" height="400"></svg>
+      <div class="chart-legend" id="debtChartLegend"></div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: NY Fed Consumer Credit Panel / Equifax, State Level Household Debt Statistics. Annual (Q4) snapshot. 90+ day delinquency as % of outstanding balance. Colorado statewide.</div>
+    </div>
+    <div id="debtStatsPanel"></div>
+  </div>
 </div></div>
 
-<div class="section" id="inventory"><div class="section-inner">
-  <div class="section-title"><div class="section-tag">Property Inventory</div><h2 class="section-h2">Where the Stock Is</h2></div>
-  <div class="map-panel">
-    <div class="toolbar">
-      <div class="filter-group">
-        <label>Market</label>
-        <select id="fMarket" onchange="applyFilters()"><option value="">All Markets</option>
-<option value="Wyoming">Wyoming</option>
-<option value="Fort Collins">Fort Collins</option>
-<option value="Greeley">Greeley</option>
-<option value="Boulder">Boulder</option>
-<option value="Denver Metro">Denver Metro</option>
-<option value="Colorado Springs">Colorado Springs</option>
-<option value="Pueblo">Pueblo</option>
-<option value="Western Slope">Western Slope</option>
-<option value="Mountain Towns">Mountain Towns</option>
-<option value="Rural/Tertiary CO">Rural/Tertiary CO</option></select>
-      </div>
-      <div class="filter-group">
-        <label>Type</label>
-        <select id="fType" onchange="applyFilters()">
-          <option value="">All Types</option>
-          <option value="LIHTC">LIHTC</option>
-          <option value="HAP">HAP (Section 8)</option>
-        </select>
+<div class="section" id="pipeline"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Supply Pipeline</div><h2 class="section-h2">Construction Trends</h2></div>
+  <div style="display:flex;gap:14px;align-items:stretch">
+    <div id="pipelineChartWrap" style="flex:1;min-width:0">
+      <svg class="chart" id="pipelineChart" width="900" height="400"></svg>
+      <div class="chart-legend" id="pipelineChartLegend"></div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Colliers proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.</div>
+    </div>
+    <div id="deliveryStatsPanel">
+      <div id="deliveryStatsSummary"></div>
+      <div style="margin-top:12px">
+        <div class="vintage-table-wrap">
+        <table class="vintage-table">
+          <colgroup>
+            <col style="width:46%"><col style="width:18%"><col style="width:20%"><col style="width:16%">
+          </colgroup>
+          <thead><tr><th>Vintage</th><th>Props</th><th>Units</th><th>% Tot.</th></tr></thead>
+          <tbody id="deliveryVintageBody"></tbody>
+        </table>
+        </div>
       </div>
     </div>
-    <div id="invMap"></div>
   </div>
 
-  <div class="stat-block-label">By Market</div>
-  <div id="tableWrap">
-    <table id="marketTable">
-      <thead><tr id="tableHead"></tr></thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+  <div style="margin-top:24px">
+    <div class="cf-subtitle">Pipeline Map</div>
+    <div class="map-panel">
+      <div class="toolbar">
+        <div class="filter-group">
+          <label>Status</label>
+          <select id="pipeStatus" onchange="applyPipelineFilters()">
+            <option value="">All Statuses</option>
+            <option value="under_construction">Under Construction</option>
+            <option value="planned">Planned</option>
+            <option value="prospective">Prospective</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:6px;padding-bottom:1px">
+          <button class="btn btn-secondary" onclick="clearPipelineFilters()">Clear</button>
+        </div>
+      </div>
+      <div id="pipeStats" style="display:flex;gap:20px;padding:10px 12px;font-size:13px;color:#444;"></div>
+      <div id="pipelineMap"></div>
+    </div>
+    <div id="pipelineEmpty" style="display:none;padding:16px;color:#888">No active affordable pipeline properties right now.</div>
   </div>
-  <div class="compare-footnote">Property counts reflect this database's current LIHTC/HAP tagging on <code>T:Properties</code> — a cross-check against HUD's public LIHTC list found a small number of untagged properties still being added to the database, so these figures are a floor, not a final count.</div>
+</div></div>
+
+<div class="section" id="chfa"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Operating Metrics</div><h2 class="section-h2">Rent &amp; Income Limits</h2></div>
+
+  <div class="toolbar">
+    <div class="filter-group">
+      <label>County</label>
+      <select id="chfaCounty"><option value="">All Counties</option>
+<option value="Adams">Adams</option>
+<option value="Alamosa">Alamosa</option>
+<option value="Arapahoe">Arapahoe</option>
+<option value="Archuleta">Archuleta</option>
+<option value="Baca">Baca</option>
+<option value="Bent">Bent</option>
+<option value="Boulder">Boulder</option>
+<option value="Broomfield">Broomfield</option>
+<option value="Chaffee">Chaffee</option>
+<option value="Cheyenne">Cheyenne</option>
+<option value="Clear Creek">Clear Creek</option>
+<option value="Conejos">Conejos</option>
+<option value="Costilla">Costilla</option>
+<option value="Crowley">Crowley</option>
+<option value="Custer">Custer</option>
+<option value="Delta">Delta</option>
+<option value="Denver">Denver</option>
+<option value="Dolores">Dolores</option>
+<option value="Douglas">Douglas</option>
+<option value="Eagle">Eagle</option>
+<option value="El Paso">El Paso</option>
+<option value="Elbert">Elbert</option>
+<option value="Fremont">Fremont</option>
+<option value="Garfield">Garfield</option>
+<option value="Gilpin">Gilpin</option>
+<option value="Grand">Grand</option>
+<option value="Gunnison">Gunnison</option>
+<option value="Hinsdale">Hinsdale</option>
+<option value="Huerfano">Huerfano</option>
+<option value="Jackson">Jackson</option>
+<option value="Jefferson">Jefferson</option>
+<option value="Kiowa">Kiowa</option>
+<option value="Kit Carson">Kit Carson</option>
+<option value="La Plata">La Plata</option>
+<option value="Lake">Lake</option>
+<option value="Larimer">Larimer</option>
+<option value="Las Animas">Las Animas</option>
+<option value="Lincoln">Lincoln</option>
+<option value="Logan">Logan</option>
+<option value="Mesa">Mesa</option>
+<option value="Mineral">Mineral</option>
+<option value="Moffat">Moffat</option>
+<option value="Montezuma">Montezuma</option>
+<option value="Montrose">Montrose</option>
+<option value="Morgan">Morgan</option>
+<option value="Otero">Otero</option>
+<option value="Ouray">Ouray</option>
+<option value="Park">Park</option>
+<option value="Phillips">Phillips</option>
+<option value="Pitkin">Pitkin</option>
+<option value="Prowers">Prowers</option>
+<option value="Pueblo">Pueblo</option>
+<option value="Rio Blanco">Rio Blanco</option>
+<option value="Rio Grande">Rio Grande</option>
+<option value="Routt">Routt</option>
+<option value="Saguache">Saguache</option>
+<option value="San Juan">San Juan</option>
+<option value="San Miguel">San Miguel</option>
+<option value="Sedgwick">Sedgwick</option>
+<option value="Summit">Summit</option>
+<option value="Teller">Teller</option>
+<option value="Washington">Washington</option>
+<option value="Weld">Weld</option>
+<option value="Yuma">Yuma</option></select>
+    </div>
+    <div class="filter-group">
+      <label>County 2</label>
+      <select id="chfaCounty2"><option value="">None</option>
+<option value="Adams">Adams</option>
+<option value="Alamosa">Alamosa</option>
+<option value="Arapahoe">Arapahoe</option>
+<option value="Archuleta">Archuleta</option>
+<option value="Baca">Baca</option>
+<option value="Bent">Bent</option>
+<option value="Boulder">Boulder</option>
+<option value="Broomfield">Broomfield</option>
+<option value="Chaffee">Chaffee</option>
+<option value="Cheyenne">Cheyenne</option>
+<option value="Clear Creek">Clear Creek</option>
+<option value="Conejos">Conejos</option>
+<option value="Costilla">Costilla</option>
+<option value="Crowley">Crowley</option>
+<option value="Custer">Custer</option>
+<option value="Delta">Delta</option>
+<option value="Denver">Denver</option>
+<option value="Dolores">Dolores</option>
+<option value="Douglas">Douglas</option>
+<option value="Eagle">Eagle</option>
+<option value="El Paso">El Paso</option>
+<option value="Elbert">Elbert</option>
+<option value="Fremont">Fremont</option>
+<option value="Garfield">Garfield</option>
+<option value="Gilpin">Gilpin</option>
+<option value="Grand">Grand</option>
+<option value="Gunnison">Gunnison</option>
+<option value="Hinsdale">Hinsdale</option>
+<option value="Huerfano">Huerfano</option>
+<option value="Jackson">Jackson</option>
+<option value="Jefferson">Jefferson</option>
+<option value="Kiowa">Kiowa</option>
+<option value="Kit Carson">Kit Carson</option>
+<option value="La Plata">La Plata</option>
+<option value="Lake">Lake</option>
+<option value="Larimer">Larimer</option>
+<option value="Las Animas">Las Animas</option>
+<option value="Lincoln">Lincoln</option>
+<option value="Logan">Logan</option>
+<option value="Mesa">Mesa</option>
+<option value="Mineral">Mineral</option>
+<option value="Moffat">Moffat</option>
+<option value="Montezuma">Montezuma</option>
+<option value="Montrose">Montrose</option>
+<option value="Morgan">Morgan</option>
+<option value="Otero">Otero</option>
+<option value="Ouray">Ouray</option>
+<option value="Park">Park</option>
+<option value="Phillips">Phillips</option>
+<option value="Pitkin">Pitkin</option>
+<option value="Prowers">Prowers</option>
+<option value="Pueblo">Pueblo</option>
+<option value="Rio Blanco">Rio Blanco</option>
+<option value="Rio Grande">Rio Grande</option>
+<option value="Routt">Routt</option>
+<option value="Saguache">Saguache</option>
+<option value="San Juan">San Juan</option>
+<option value="San Miguel">San Miguel</option>
+<option value="Sedgwick">Sedgwick</option>
+<option value="Summit">Summit</option>
+<option value="Teller">Teller</option>
+<option value="Washington">Washington</option>
+<option value="Weld">Weld</option>
+<option value="Yuma">Yuma</option></select>
+    </div>
+    <div class="filter-group">
+      <label>County 3</label>
+      <select id="chfaCounty3"><option value="">None</option>
+<option value="Adams">Adams</option>
+<option value="Alamosa">Alamosa</option>
+<option value="Arapahoe">Arapahoe</option>
+<option value="Archuleta">Archuleta</option>
+<option value="Baca">Baca</option>
+<option value="Bent">Bent</option>
+<option value="Boulder">Boulder</option>
+<option value="Broomfield">Broomfield</option>
+<option value="Chaffee">Chaffee</option>
+<option value="Cheyenne">Cheyenne</option>
+<option value="Clear Creek">Clear Creek</option>
+<option value="Conejos">Conejos</option>
+<option value="Costilla">Costilla</option>
+<option value="Crowley">Crowley</option>
+<option value="Custer">Custer</option>
+<option value="Delta">Delta</option>
+<option value="Denver">Denver</option>
+<option value="Dolores">Dolores</option>
+<option value="Douglas">Douglas</option>
+<option value="Eagle">Eagle</option>
+<option value="El Paso">El Paso</option>
+<option value="Elbert">Elbert</option>
+<option value="Fremont">Fremont</option>
+<option value="Garfield">Garfield</option>
+<option value="Gilpin">Gilpin</option>
+<option value="Grand">Grand</option>
+<option value="Gunnison">Gunnison</option>
+<option value="Hinsdale">Hinsdale</option>
+<option value="Huerfano">Huerfano</option>
+<option value="Jackson">Jackson</option>
+<option value="Jefferson">Jefferson</option>
+<option value="Kiowa">Kiowa</option>
+<option value="Kit Carson">Kit Carson</option>
+<option value="La Plata">La Plata</option>
+<option value="Lake">Lake</option>
+<option value="Larimer">Larimer</option>
+<option value="Las Animas">Las Animas</option>
+<option value="Lincoln">Lincoln</option>
+<option value="Logan">Logan</option>
+<option value="Mesa">Mesa</option>
+<option value="Mineral">Mineral</option>
+<option value="Moffat">Moffat</option>
+<option value="Montezuma">Montezuma</option>
+<option value="Montrose">Montrose</option>
+<option value="Morgan">Morgan</option>
+<option value="Otero">Otero</option>
+<option value="Ouray">Ouray</option>
+<option value="Park">Park</option>
+<option value="Phillips">Phillips</option>
+<option value="Pitkin">Pitkin</option>
+<option value="Prowers">Prowers</option>
+<option value="Pueblo">Pueblo</option>
+<option value="Rio Blanco">Rio Blanco</option>
+<option value="Rio Grande">Rio Grande</option>
+<option value="Routt">Routt</option>
+<option value="Saguache">Saguache</option>
+<option value="San Juan">San Juan</option>
+<option value="San Miguel">San Miguel</option>
+<option value="Sedgwick">Sedgwick</option>
+<option value="Summit">Summit</option>
+<option value="Teller">Teller</option>
+<option value="Washington">Washington</option>
+<option value="Weld">Weld</option>
+<option value="Yuma">Yuma</option></select>
+    </div>
+    <div class="filter-group">
+      <label>AMI %</label>
+      <select id="chfaAMI"><option value="20">20%</option>
+<option value="30">30%</option>
+<option value="40">40%</option>
+<option value="45">45%</option>
+<option value="50">50%</option>
+<option value="55">55%</option>
+<option value="60" selected>60%</option>
+<option value="65">65%</option>
+<option value="70">70%</option>
+<option value="80">80%</option>
+<option value="90">90%</option>
+<option value="100">100%</option>
+<option value="110">110%</option>
+<option value="120">120%</option>
+<option value="130">130%</option>
+<option value="140">140%</option>
+<option value="150">150%</option>
+<option value="160">160%</option></select>
+    </div>
+    <div class="filter-group">
+      <label>HERA</label>
+      <select id="chfaHERA">
+        <option value="">All</option>
+        <option value="Y">HERA only</option>
+        <option value="N">Standard only</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Chart Metric</label>
+      <select id="chfaMetric">
+        <option value="rent_0br">Rent 0BR (Studio)</option>
+        <option value="rent_1br" selected>Rent 1BR</option>
+        <option value="rent_2br">Rent 2BR</option>
+        <option value="rent_3br">Rent 3BR</option>
+        <option value="rent_4br">Rent 4BR</option>
+        <option value="inc_1p">Income 1-Person</option>
+        <option value="inc_2p">Income 2-Person</option>
+        <option value="inc_3p">Income 3-Person</option>
+        <option value="inc_4p">Income 4-Person</option>
+        <option value="inc_5p">Income 5-Person</option>
+        <option value="inc_6p">Income 6-Person</option>
+        <option value="inc_7p">Income 7-Person</option>
+        <option value="inc_8p">Income 8-Person</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>CO Average</label>
+      <select id="chfaAvg">
+        <option value="1">Show</option>
+        <option value="0">Hide</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:6px;padding-bottom:1px">
+      <button class="btn btn-primary" onclick="applyChfaFilters()">Apply</button>
+      <button class="btn btn-secondary" onclick="clearChfaFilters()">Clear</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:14px;align-items:flex-start">
+    <div id="chfaChartWrap" style="flex:1;min-width:0">
+      <svg class="chart" id="chfaChart" width="900" height="340"></svg>
+      <div class="chart-legend" id="chfaChartLegend"></div>
+    </div>
+    <div id="chfaChartSummary"></div>
+  </div>
+  <div class="compare-footnote">Source: Colorado Housing and Finance Authority (chfainfo.com). Limits effective April/May of each year. CHFA does not publish Wyoming limits.</div>
 </div></div>
 
 <div class="section" id="sales"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Sales Metrics</div><h2 class="section-h2">Transaction Trends</h2></div>
-  <div id="chartWrap">
-    <svg class="chart" id="salesChart" width="900" height="360"></svg>
-    <div class="chart-legend" id="salesChartLegend"></div>
+  <div style="display:flex;gap:14px;align-items:stretch">
+    <div id="chartWrap" style="flex:1;min-width:0">
+      <svg class="chart" id="salesChart" width="900" height="360"></svg>
+      <div class="chart-legend" id="salesChartLegend"></div>
+      <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Colliers proprietary data, public information, and information from Yardi Matrix, CoStar, Apartment Insights, and Real Capital Analytics.</div>
+    </div>
+    <div id="salesStatsPanel">
+      <div id="salesStatsSummary"></div>
+      <div id="ytdCompareWrap">
+        <div class="stat-title" id="ytdCompareTitle">YTD Comparison</div>
+        <div class="compare-table-wrap" id="ytdCompare"></div>
+      </div>
+      <div id="distressWrap" style="margin-top:12px">
+        <div class="stat-title">Distressed Sales</div>
+        <div class="compare-table-wrap" id="distressTable"></div>
+      </div>
+    </div>
   </div>
-  <div class="compare-footnote">Volume reflects only sales with a reported price (~50% of affordable transactions have a disclosed price, lower than market-rate — many affordable deals involve complex financing/regulatory structures that don't always include a public sale price). Deal and unit counts are complete regardless of price disclosure. Sourced from the Sales History dashboard's PropertyType-tagged tallies — single source of truth, not an independent query.</div>
+  <div id="salesVintageWrap" style="margin-top:24px">
+    <div class="cf-subtitle">2026 Sales History by Vintage</div>
+    <div id="salesVintageBox">
+      <table id="salesVintageTable">
+        <thead><tr id="salesVintageHead"></tr></thead>
+        <tbody id="salesVintageBody"></tbody>
+      </table>
+    </div>
+    <div class="compare-footnote">Volume, Avg Price, and Avg $/Unit are averaged only across sales with a reported price (~50% of affordable transactions have a disclosed price, lower than market-rate — many affordable deals involve complex financing/regulatory structures that don't always include a public sale price). Deal and unit counts are complete regardless of price disclosure. No Avg $/SF column here (unlike the per-market reports) — Sales History's affordable tallies don't carry a square-footage dimension for LIHTC/HAP deals. For historical years or a vintage-specific cut, <a href="#" onclick="document.getElementById('ctaTab').click();return false;">contact us</a>.</div>
+  </div>
+  <div id="salesEmpty" style="display:none;padding:16px;color:#888">No recorded affordable sales since 2011.</div>
 </div></div>
 
 <div class="section" id="ownership"><div class="section-inner">
   <div class="section-title"><div class="section-tag">Capital Flow</div><h2 class="section-h2">Ownership Trends</h2></div>
   <div class="cf-wrap">
+    <div class="cf-subtitle">Current Ownership</div>
     <div class="cf-grid2">
       <div class="cf-card">
         <div class="cf-card-title">By Buyer Type</div>
-        <table class="cf-table"><thead><tr><th>Type</th><th>Properties</th><th>Units</th></tr></thead><tbody id="ownTypeBody"></tbody></table>
+        <table class="cf-table">
+          <colgroup><col style="width:52%"><col style="width:14%"><col style="width:20%"><col style="width:14%"></colgroup>
+          <thead><tr>
+            <th onclick="sortCfTable('ownByTypeBody','label',false,this)">Type</th>
+            <th onclick="sortCfTable('ownByTypeBody','properties',false,this)">Props</th>
+            <th onclick="sortCfTable('ownByTypeBody','units',false,this)">Units</th>
+            <th onclick="sortCfTable('ownByTypeBody','pct',false,this)">%</th>
+          </tr></thead>
+          <tbody id="ownByTypeBody"></tbody>
+        </table>
       </div>
       <div class="cf-card">
-        <div class="cf-card-title">By Buyer HQ State</div>
-        <table class="cf-table"><thead><tr><th>State</th><th>Properties</th><th>Units</th></tr></thead><tbody id="ownStateBody"></tbody></table>
+        <div class="cf-card-title">By HQ State</div>
+        <table class="cf-table">
+          <colgroup><col style="width:34%"><col style="width:22%"><col style="width:28%"><col style="width:16%"></colgroup>
+          <thead><tr>
+            <th onclick="sortCfTable('ownByStateBody','label',false,this)">State</th>
+            <th onclick="sortCfTable('ownByStateBody','properties',false,this)">Props</th>
+            <th onclick="sortCfTable('ownByStateBody','units',false,this)">Units</th>
+            <th onclick="sortCfTable('ownByStateBody','pct',false,this)">%</th>
+          </tr></thead>
+          <tbody id="ownByStateBody"></tbody>
+        </table>
       </div>
     </div>
-    <div class="cf-legend">Current owner-of-record from each property's most recent sale, ranked by units (not $ volume) — same convention used for Wyoming elsewhere on the site, since affordable deals also have partial price disclosure.</div>
-  </div>
-</div></div>
 
-<div class="section" id="pipeline"><div class="section-inner">
-  <div class="section-title"><div class="section-tag">Supply Pipeline &amp; Debt</div><h2 class="section-h2">Pipeline &amp; Financing</h2></div>
-  <div class="cf-wrap">
+    <div class="cf-subtitle" style="margin-top:24px">Recent Investments (Trailing 24 Months)</div>
     <div class="cf-grid2">
       <div class="cf-card">
-        <div class="cf-card-title">New Construction Pipeline</div>
-        <table class="cf-table"><thead><tr><th>Stage</th><th>Properties</th><th>Units</th></tr></thead><tbody id="pipelineBody"></tbody></table>
+        <div class="cf-card-title">By Buyer Type</div>
+        <table class="cf-table">
+          <colgroup><col style="width:52%"><col style="width:14%"><col style="width:20%"><col style="width:14%"></colgroup>
+          <thead><tr>
+            <th onclick="sortCfTable('recentByTypeBody','label',false,this)">Type</th>
+            <th onclick="sortCfTable('recentByTypeBody','properties',false,this)">Deals</th>
+            <th onclick="sortCfTable('recentByTypeBody','units',false,this)">Units</th>
+            <th onclick="sortCfTable('recentByTypeBody','pct',false,this)">%</th>
+          </tr></thead>
+          <tbody id="recentByTypeBody"></tbody>
+        </table>
       </div>
       <div class="cf-card">
-        <div class="cf-card-title">Financing</div>
-        <div class="stat-grid" style="margin-bottom:10px">
-          <div class="stat-tile"><div class="stat-eyebrow">Loans</div><b id="lLoans">&mdash;</b><span>On File</span></div>
-          <div class="stat-tile"><div class="stat-eyebrow">Volume</div><b id="lVolume">&mdash;</b><span>Total Loan Volume</span></div>
-          <div class="stat-tile"><div class="stat-eyebrow">Distress</div><b id="lDistressed">&mdash;</b><span>Distressed</span></div>
-          <div class="stat-tile"><div class="stat-eyebrow">Watch</div><b id="lWatchlist">&mdash;</b><span>Watch List</span></div>
-        </div>
-        <table class="cf-table"><thead><tr><th>Lender Type</th><th>Loans</th><th>Volume</th></tr></thead><tbody id="lenderBody"></tbody></table>
+        <div class="cf-card-title">By HQ State</div>
+        <table class="cf-table">
+          <colgroup><col style="width:34%"><col style="width:22%"><col style="width:28%"><col style="width:16%"></colgroup>
+          <thead><tr>
+            <th onclick="sortCfTable('recentByStateBody','label',false,this)">State</th>
+            <th onclick="sortCfTable('recentByStateBody','properties',false,this)">Deals</th>
+            <th onclick="sortCfTable('recentByStateBody','units',false,this)">Units</th>
+            <th onclick="sortCfTable('recentByStateBody','pct',false,this)">%</th>
+          </tr></thead>
+          <tbody id="recentByStateBody"></tbody>
+        </table>
+        <div class="cf-legend">Affordable deals have partial price disclosure (~50%) — both Ownership blocks are ranked by units rather than $ volume, same convention used for Wyoming elsewhere on the site.</div>
       </div>
     </div>
-    <div class="cf-legend">Pipeline sourced from the Construction Pipeline dashboard's Affordable classification. Financing sourced from Loan Monitor's affordable-flagged loans — aggregate figures only, no borrower/lender names shown here.</div>
   </div>
+  <div id="ownershipEmpty" style="display:none;padding:16px;color:#888">No recorded buyer data for affordable housing yet.</div>
+  <div class="note" style="font-size:11px;color:#888;margin-top:12px">Source: Colliers proprietary data and public information.</div>
 </div></div>
 
-<div class="section" id="chfa"><div class="section-inner">
-  <div class="section-title"><div class="section-tag">Regulatory</div><h2 class="section-h2">Rent &amp; Income Limits</h2></div>
-  <div class="chfa-card">
-    <div>
-      <div class="cf-card-title" style="margin-bottom:4px">CHFA Rent &amp; Income Limits</div>
-      <div style="font-size:13px;color:#555">Colorado Housing and Finance Authority county/AMI rent and income limit tables — the regulatory ceiling that governs what these properties can charge.</div>
+<div class="section" id="onmarket"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Live Listings</div><h2 class="section-h2">Currently On-Market</h2></div>
+  <div class="map-panel">
+    <div class="toolbar">
+      <div class="filter-group">
+        <label>Type</label>
+        <select id="omType" onchange="applyOnMarketFilters()">
+          <option value="">All Types</option>
+          <option value="LIHTC">LIHTC</option>
+          <option value="HAP">HAP (Section 8)</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Units</label>
+        <select id="omUnits" onchange="applyOnMarketFilters()">
+          <option value="">All Properties</option>
+          <option value="under100">Below 100 Units</option>
+          <option value="over100">Over 100 Units</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Search</label>
+        <input id="omSearch" type="text" placeholder="Property or city&hellip;" onkeydown="if(event.key==='Enter')applyOnMarketFilters()">
+      </div>
+      <div style="display:flex;gap:6px;padding-bottom:1px">
+        <button class="btn btn-primary" onclick="applyOnMarketFilters()">Apply</button>
+        <button class="btn btn-secondary" onclick="clearOnMarketFilters()">Clear</button>
+      </div>
     </div>
-    <a href="/dashboards/chfa/" data-token-link>View CHFA Limits &rarr;</a>
+    <div id="omStats" style="display:flex;gap:20px;padding:10px 12px;font-size:13px;color:#444;"></div>
+    <div id="onMarketMap"></div>
   </div>
+  <div id="onMarketEmpty" style="display:none;padding:16px;color:#888">No active LIHTC/HAP listings right now.</div>
+  <div class="note" style="font-size:11px;color:#888;margin-top:8px">Source: Colliers proprietary data and public information.</div>
 </div></div>
 
 <div class="section footer-cta">
@@ -340,147 +782,782 @@ svg.chart{display:block;width:100%;height:auto}
 </div><!-- /.page -->
 
 <script>
-let DATA_PROPS = [];
-let DATA_MARKET = [];
-let OVERVIEW = {};
-let filtered = [];
-let sortCol = 'market', sortDir = 1;
-
-const TYPE_COLOR = { 'LIHTC': '#7eb8c9', 'HAP': '#4f8fa3' };
-
-const COLS = [
-  {key:'market',     label:'Market',       fmt:v=>v,                    align:'left'},
-  {key:'lihtcProps', label:'LIHTC Props',  fmt:v=>v.toLocaleString(),   align:'right'},
-  {key:'lihtcUnits', label:'LIHTC Units',  fmt:v=>v.toLocaleString(),   align:'right'},
-  {key:'hapProps',   label:'HAP Props',    fmt:v=>v.toLocaleString(),   align:'right'},
-  {key:'hapUnits',   label:'HAP Units',    fmt:v=>v.toLocaleString(),   align:'right'},
-  {key:'totalProps', label:'Total Props',  fmt:v=>v.toLocaleString(),   align:'right'},
-  {key:'totalUnits', label:'Total Units',  fmt:v=>v.toLocaleString(),   align:'right'},
-];
-
-const head = document.getElementById('tableHead');
-COLS.forEach(c => {
-  const th = document.createElement('th');
-  th.innerHTML = c.label + '<span class="sort-arrow">&#8597;</span>';
-  th.classList.add('col-'+c.align);
-  th.onclick = () => {
-    if(sortCol===c.key) sortDir*=-1; else {sortCol=c.key;sortDir=1;}
-    renderTable();
-  };
-  head.appendChild(th);
-});
-
-function tile(eyebrow, v, l) {
-  return `<div class="stat-tile"><div class="stat-eyebrow">${eyebrow}</div><b>${v}</b><span>${l}</span></div>`;
-}
-
-function renderOverview() {
-  const o = OVERVIEW;
-  const tiles = [
-    tile('Properties', o.totalProperties.toLocaleString(), o.pctOfStockProperties!=null ? o.pctOfStockProperties+'% of CO/WY 10+ unit stock' : 'Total Properties'),
-    tile('Units', o.totalUnits.toLocaleString(), o.pctOfStockUnits!=null ? o.pctOfStockUnits+'% of CO/WY 10+ unit stock' : 'Total Units'),
-    tile('LIHTC', o.lihtcProperties.toLocaleString(), o.lihtcUnits.toLocaleString()+' units'),
-    tile('HAP (Sec. 8)', o.hapProperties.toLocaleString(), o.hapUnits.toLocaleString()+' units'),
-    tile('Vintage', o.avgVintage || '—', 'Avg Year Built'),
-  ];
-  document.getElementById('overviewStats').innerHTML = tiles.join('');
-}
-
-function renderTable() {
-  const sorted = [...DATA_MARKET].sort((a,b) => {
-    if(sortCol==='market') return sortDir * a.market.localeCompare(b.market);
-    return sortDir * (a[sortCol]-b[sortCol]);
-  });
-  document.getElementById('tableBody').innerHTML = sorted.map(r =>
-    '<tr>' + COLS.map(c=>`<td class="col-${c.align}">${c.fmt(r[c.key])}</td>`).join('') + '</tr>'
-  ).join('');
-}
-
-const map = L.map('invMap').setView([39.2,-105.5], 6);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'&copy; OpenStreetMap contributors', maxZoom:18
-}).addTo(map);
-const markerLayer = L.layerGroup().addTo(map);
-
-const legend = L.control({position:'bottomleft'});
-legend.onAdd = () => {
-  const d = L.DomUtil.create('div','om-legend');
-  d.innerHTML = Object.entries(TYPE_COLOR).map(([t,c])=>
-    `<div><span class="dot" style="background:${c}"></span>${t}</div>`
-  ).join('');
-  return d;
-};
-legend.addTo(map);
-
-function esc(s) { return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-function renderMap() {
-  markerLayer.clearLayers();
-  filtered.forEach(p => {
-    if(p.lat==null || p.lng==null) return;
-    const color = TYPE_COLOR[p.type] || '#888';
-    const icon = L.divIcon({
-      html: `<div style="background:${color};width:11px;height:11px;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,.4)"></div>`,
-      className: '', iconSize:[11,11], iconAnchor:[5,5]
-    });
-    const s = 'color:#555;font-size:11px';
-    L.marker([p.lat, p.lng], {icon})
-      .bindPopup(`<div style="font-size:12px;line-height:1.7;min-width:190px">` +
-        `<strong>${esc(p.property)||esc(p.address)}</strong><br>` +
-        `<div style="${s}">${esc(p.address)}, ${esc(p.city)}</div>` +
-        `<div style="${s}">${p.units||'—'} units${p.yoc?' &middot; Built '+p.yoc:''}</div>` +
-        `<div style="${s}">${esc(p.type)} &middot; ${esc(p.market)}</div>` +
-        `</div>`)
-      .addTo(markerLayer);
-  });
-}
-
-function applyFilters() {
-  const market = document.getElementById('fMarket').value;
-  const type   = document.getElementById('fType').value;
-  filtered = DATA_PROPS.filter(p => (!market || p.market===market) && (!type || p.type===type));
-  renderMap();
-}
+let D = null;
+const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1970s & Older','Unknown'];
+const NOW = new Date();
+const JS_CURRENT_YEAR = NOW.getFullYear();
+const JS_CURRENT_MONTH = NOW.getMonth() + 1;
 
 function dollar(v) { return '$'+Math.round(v).toLocaleString(); }
 function shortDollar(v) {
   if(Math.abs(v) >= 1e9) return '$'+(v/1e9).toFixed(1)+'B';
-  if(Math.abs(v) >= 1e6) return '$'+Math.round(v/1e6)+'M';
+  if(Math.abs(v) >= 1e6) return '$'+(v/1e6).toFixed(1)+'M';
   return dollar(v);
 }
+function fmtPct(v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const r = Math.round(v);
+  const cls = r<0 ? 'neg' : (r>10 ? 'pos' : '');
+  const span = cls ? '<span class="'+cls+'">' : '<span>';
+  return span+(r>=0?'+':'')+r+'%</span>';
+}
+function fmtPct1(v) {
+  if (v == null) return '<span style="color:#bbb">—</span>';
+  const r = Math.round(v);
+  const cls = r<0 ? 'neg' : (r>10 ? 'pos' : '');
+  const span = cls ? '<span class="'+cls+'">' : '<span>';
+  return span+(v>=0?'+':'')+v.toFixed(1)+'%</span>';
+}
+function pctChange(cur, base) {
+  if (cur == null || base == null || base === 0) return null;
+  return (cur-base)/base*100;
+}
+function esc(s) { return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function renderOwnershipTables(ownership) {
-  document.getElementById('ownTypeBody').innerHTML = ownership.byType.map(r =>
-    `<tr><td>${r.label}</td><td>${r.properties.toLocaleString()}</td><td>${r.units.toLocaleString()}</td></tr>`
-  ).join('');
-  document.getElementById('ownStateBody').innerHTML = ownership.byState.map(r =>
-    `<tr><td>${r.label}</td><td>${r.properties.toLocaleString()}</td><td>${r.units.toLocaleString()}</td></tr>`
+// ── Overview ──
+function renderOverview() {
+  const o = D.overview;
+  const ucPct = o.totalUnits ? (o.underConstructionUnits / o.totalUnits * 100) : 0;
+  const tiles = [
+    {eyebrow: 'Properties', v: o.totalProperties.toLocaleString(), l: o.pctOfStockProperties!=null ? o.pctOfStockProperties+'% of CO/WY 10+ unit stock' : 'Total Properties',
+      sec: `<div class="sec-line1"><b>${o.totalUnits.toLocaleString()}</b></div>Total Units`},
+    {eyebrow: 'LIHTC', v: o.lihtcProperties.toLocaleString(), l: o.lihtcUnits.toLocaleString()+' units',
+      sec: `<div class="sec-line1"><b>${o.hapProperties.toLocaleString()}</b></div>HAP (Sec. 8) Properties &mdash; ${o.hapUnits.toLocaleString()} units`},
+    {eyebrow: 'Vintage', v: o.avgVintage || '—', l: 'Avg Year Built'},
+    {eyebrow: 'Pipeline', v: `${o.underConstructionUnits.toLocaleString()} (${ucPct.toFixed(1)}% of Total)`, l: 'Units Under Construction',
+      sec: `<div class="sec-line1"><b>${o.underConstructionCount.toLocaleString()}</b></div>Properties`},
+    {eyebrow: 'On-Market', v: o.onMarketUnits.toLocaleString(), l: 'Units On-Market',
+      sec: `<b>${o.onMarketCount.toLocaleString()}</b> Properties`, dark: true},
+  ];
+  document.getElementById('overviewStats').innerHTML = tiles.map(t =>
+    `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><div class="stat-eyebrow">${t.eyebrow}</div><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
   ).join('');
 }
 
-function renderPipelineTable(pipeline) {
-  const STAGE_LABEL = {under_construction:'Under Construction', planned:'Planned', prospective:'Prospective'};
-  document.getElementById('pipelineBody').innerHTML = pipeline.byStage.map(r =>
-    `<tr><td>${STAGE_LABEL[r.stage]||r.stage}</td><td>${r.properties.toLocaleString()}</td><td>${r.units.toLocaleString()}</td></tr>`
+// ── Macro Backdrop (FRED rates/employment/CPI + Zillow home values, CO statewide) ──
+function fmtMonYear(k) {
+  const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const [y,m] = k.split('-').map(Number);
+  return `${MONTH_SHORT[m-1]} ${y}`;
+}
+function renderMacro() {
+  const m = D.macro;
+  if (!m) { document.getElementById('macroStats').innerHTML = ''; return; }
+  const costToOwn = m.estMonthlyCostToOwn;
+  function fmtPctRentVsOwn(v) {
+    if (v == null) return '<span style="color:#bbb">—</span>';
+    const r = Math.round(v);
+    const cls = r > 0 ? 'neg' : (r < 0 ? 'pos' : '');
+    const span = cls ? '<span class="'+cls+'">' : '<span>';
+    return span+(r>=0?'+':'')+r+'%</span>';
+  }
+  const tiles = [
+    {eyebrow: 'Labor Force Participation',
+      v: (() => {
+        if (m.participationRate.value == null) return '—';
+        const base = m.participationRate.value.toFixed(1) + '%';
+        const chg = (m.participationRateYearAgo.value != null) ? pctChange(m.participationRate.value, m.participationRateYearAgo.value) : null;
+        return chg != null ? `${base} (${fmtPct(Math.round(chg))})` : base;
+      })(),
+      l: m.participationRate.date ? `CO, ${fmtMonYear(m.participationRate.date)}` : 'CO',
+      sec: m.participationRateYearAgo.value!=null
+        ? `<div class="sec-line1"><b>${m.participationRateYearAgo.value.toFixed(1)}%</b></div>CO, ${fmtMonYear(m.participationRateYearAgo.date)}`
+        : 'Prior-year data not available'},
+    {eyebrow: 'Inflation', v: m.cpiYoyPct!=null ? fmtPct1(m.cpiYoyPct) : '—',
+      l: `West Region CPI, YoY` + (m.cpiAsOfDate ? ` — as of ${fmtMonYear(m.cpiAsOfDate)}` : ''),
+      sec: m.nationalCpiYoyPct!=null
+        ? `<div class="sec-line1"><b>${fmtPct1(m.nationalCpiYoyPct)}</b></div>National CPI, YoY${m.nationalCpiAsOfDate ? ` (as of ${fmtMonYear(m.nationalCpiAsOfDate)})` : ''}`
+        : ''},
+    {eyebrow: 'Rates', v: m.treasury10yr.value!=null ? m.treasury10yr.value.toFixed(2)+'%' : '—', l: '10-Year Treasury',
+      sec: m.mortgage30yr.value!=null ? `<b>${m.mortgage30yr.value.toFixed(2)}%</b> 30-Yr Mortgage Rate` : ''},
+    {eyebrow: 'Home Values', v: m.zhvi.value!=null ? '$'+Math.round(m.zhvi.value).toLocaleString() : '—', l: 'Statewide Avg (Market Proxy)',
+      sec: costToOwn!=null ? `<b>$${Math.round(costToOwn).toLocaleString()}/mo</b> est. P&amp;I (5% down, 30yr)` : ''},
+    {eyebrow: '10-Yr Treasury Trend', v: (D.macro.treasury10yrByYear && Object.keys(D.macro.treasury10yrByYear).length) ? 'See Sales Chart' : '—', l: 'Overlay on Transaction Trends chart below', dark: true},
+  ];
+  document.getElementById('macroStats').innerHTML = tiles.map(t =>
+    `<div class="stat-tile${t.dark?' stat-tile-dark':''}"><div class="stat-eyebrow">${t.eyebrow}</div><b>${t.v}</b><span>${t.l}</span>${t.sec?`<div class="stat-secondary">${t.sec}</div>`:''}</div>`
   ).join('');
+  renderHouseholdDebtChart(m.householdDebt);
 }
 
-function renderLoanStats(loans) {
-  document.getElementById('lLoans').textContent = loans.totalLoans.toLocaleString();
-  document.getElementById('lVolume').textContent = shortDollar(loans.totalVolume);
-  document.getElementById('lDistressed').textContent = loans.distressedCount.toLocaleString();
-  document.getElementById('lWatchlist').textContent = loans.watchlistCount.toLocaleString();
-  document.getElementById('lenderBody').innerHTML = loans.byLenderType.map(r =>
-    `<tr><td>${r.label}</td><td>${r.count.toLocaleString()}</td><td>${shortDollar(r.volume)}</td></tr>`
-  ).join('');
+// Household credit delinquency (NY Fed) — ported verbatim from
+// build_market_report.py's renderHouseholdDebtChart (CO vs US, 4-line chart).
+function renderHouseholdDebtChart(hd) {
+  const svgEl = document.getElementById('debtChart');
+  const legendEl = document.getElementById('debtChartLegend');
+  if (!hd || !Object.keys(hd.creditCardDelinqByYear || {}).length) {
+    svgEl.innerHTML = '';
+    legendEl.innerHTML = '<div class="note" style="font-size:11px;color:#888">Household debt data not available</div>';
+    return;
+  }
+  const series = [
+    {label: `${hd.state} Credit Card`, data: hd.creditCardDelinqByYear, color: '#0c1a2e', dash: false},
+    {label: 'US Credit Card', data: hd.creditCardDelinqUsByYear, color: '#0c1a2e', dash: true},
+    {label: `${hd.state} Mortgage`, data: hd.mortgageDelinqByYear, color: '#c9a84c', dash: false},
+    {label: 'US Mortgage', data: hd.mortgageDelinqUsByYear, color: '#c9a84c', dash: true},
+  ];
+  const years = [...new Set(series.flatMap(s => Object.keys(s.data).map(Number)))].sort((a,b)=>a-b);
+  const chartYears = years.slice(-20);
+  const box = svgEl.getBoundingClientRect();
+  const W = Math.max(400, Math.round(box.width)), H = 400;
+  const PL=49, PR=16, PT=16, PB=33;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const allVals = series.flatMap(s => chartYears.map(y => s.data[y]).filter(v => v != null));
+  let maxV = Math.max(...allVals, 1);
+  maxV = Math.ceil(maxV * 1.15);
+  const xScale = i => PL + (chartYears.length<=1 ? cW/2 : i/(chartYears.length-1)*cW);
+  const yScale = v => PT + cH - v/maxV*cH;
+  let parts = [];
+  for (let i=0;i<=4;i++) {
+    const v = maxV*i/4, y = yScale(v);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-11}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${v.toFixed(0)}%</text>`);
+  }
+  chartYears.forEach((yr,i) => {
+    if (i % 2 === 0 || i === chartYears.length-1) {
+      parts.push(`<text x="${xScale(i)}" y="${H-PB+21}" text-anchor="middle" font-size="10" fill="#888">${yr}</text>`);
+    }
+  });
+  series.forEach(s => {
+    const pts = chartYears.map((yr,i) => s.data[yr]!=null ? {x:xScale(i), y:yScale(s.data[yr]), yr, v:s.data[yr]} : null).filter(Boolean);
+    if (!pts.length) return;
+    const d = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
+    const dashAttr = s.dash ? ' stroke-dasharray="5,4"' : '';
+    parts.push(`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2"${dashAttr}/>`);
+    pts.forEach(p => {
+      const tip = `${s.label}\n${p.yr}: ${p.v.toFixed(2)}%`;
+      parts.push(`<circle cx="${p.x}" cy="${p.y}" r="6" fill="transparent" class="pt" data-tip="${tip}"/>`);
+      parts.push(`<circle cx="${p.x}" cy="${p.y}" r="2.5" fill="${s.color}"/>`);
+    });
+  });
+  const avgSeries = [series[0], series[2]];
+  avgSeries.forEach(s => {
+    const allVals = years.map(y => s.data[y]).filter(v => v != null);
+    if (!allVals.length) return;
+    const avg = allVals.reduce((a,b)=>a+b,0) / allVals.length;
+    const y = yScale(avg);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="${s.color}" stroke-width="1" stroke-dasharray="2,3" opacity="0.55" class="pt" data-tip="${s.label} — ${years[0]}–${years[years.length-1]} avg: ${avg.toFixed(2)}%"/>`);
+    parts.push(`<text x="${PL+6}" y="${y-6}" font-size="10" fill="${s.color}" font-weight="600">Avg: ${avg.toFixed(2)}%</text>`);
+  });
+  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svgEl.innerHTML = parts.join('');
+  const tooltip = document.getElementById('tooltip');
+  svgEl.querySelectorAll('.pt').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tooltip.style.display='block'; tooltip.style.left=(e.clientX+12)+'px'; tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent=el.getAttribute('data-tip');
+    });
+    el.addEventListener('mouseleave', () => { tooltip.style.display='none'; });
+  });
+  legendEl.innerHTML = series.map(s =>
+    `<div class="legend-item"><div class="legend-swatch" style="background:${s.dash?'none':s.color};${s.dash?`border-top:2px dashed ${s.color};height:0;width:12px`:''}"></div>${s.label}</div>`
+  ).join('') +
+    `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:1px dashed #888;height:0;width:12px;opacity:0.7"></div>${years[0]}–${years[years.length-1]} Avg <span style="color:#888;font-size:10px">(state only)</span></div>`;
+  const lastYear = chartYears[chartYears.length-1];
+  const stateName = 'Colorado';
+  function fmtPpChange(cur, ref) {
+    if (cur == null || ref == null) return '<span style="color:#bbb">—</span>';
+    const chg = cur - ref;
+    const cls = chg > 0 ? '#c0392b' : (chg < 0 ? '#1a7a3c' : '#888');
+    return `<span style="color:${cls}">${chg>=0?'+':''}${chg.toFixed(2)}pp</span>`;
+  }
+  function buildSection(title, coByYear, usByYear, extraTopMargin) {
+    const coCur = coByYear[lastYear], usCur = usByYear[lastYear];
+    let h = `<div${extraTopMargin?' style="margin-top:20px"':''}>`;
+    h += `<div class="stat-title">${title}</div>`;
+    h += `<div class="stat-row"><span>${stateName} Delinquency</span><b>${coCur!=null?coCur.toFixed(2)+'%':'—'}</b></div>`;
+    h += `<div class="stat-row"><span>US Delinquency</span><b>${usCur!=null?usCur.toFixed(2)+'%':'—'}</b></div>`;
+    const refYears = [{label:'2019', year:2019}, {label:'2021', year:2021}, {label:String(lastYear-1), year:lastYear-1}]
+      .filter(ry => ry.year < lastYear);
+    const headHtml = '<th></th>' + refYears.map(ry=>`<th>${ry.label}</th>`).join('');
+    const rowsHtml = [{label: stateName, data: coByYear}, {label: 'US', data: usByYear}].map(mm => {
+      const cells = refYears.map(ry => `<td>${fmtPpChange(mm.data[lastYear], mm.data[ry.year])}</td>`).join('');
+      return `<tr><td>${mm.label}</td>${cells}</tr>`;
+    }).join('');
+    h += `<div class="stat-title" style="margin-top:12px">${lastYear} vs</div>`;
+    h += `<div class="compare-table-wrap"><table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table></div>`;
+    h += `</div>`;
+    return h;
+  }
+  let sh = buildSection('Credit Card Delinquency', hd.creditCardDelinqByYear, hd.creditCardDelinqUsByYear, false);
+  sh += buildSection('Mortgage Delinquency', hd.mortgageDelinqByYear, hd.mortgageDelinqUsByYear, true);
+  document.getElementById('debtStatsPanel').innerHTML = sh;
 }
 
-function renderSalesChart(sales) {
+// ── Construction Trends chart — historic delivery history (units delivered
+// by year, Under Construction pipeline folded into the current-year bar).
+// Ported verbatim from build_market_report.py's renderDeliveries/
+// renderDeliveryStats/renderUnitsBarChart — this IS the chart Denver shows,
+// not a stage-breakdown bar chart (that was the earlier mistake here).
+const DELIVERY_OLD_CUTOFF = 1960;
+const PRE_CUTOFF_LABEL = 'Pre-' + DELIVERY_OLD_CUTOFF;
+const DELIVERY_VINTAGE_ORDER = ['Under Construction','2020s-Now','2010s','2000s','1990s','1980s','1970s & Older'];
+
+function renderDeliveryStats() {
+  const o = D.overview;
+  document.getElementById('deliveryStatsSummary').innerHTML = `
+    <div class="dv-title">Affordable Housing</div>
+    <div class="dv-row"><span>Total Units</span><b>${o.totalUnits.toLocaleString()}</b></div>
+    <div class="dv-row"><span>Total Properties</span><b>${o.totalProperties.toLocaleString()}</b></div>
+  `;
+  const byVintage = {};
+  D.deliveries.forEach(r => {
+    const b = byVintage[r.vintage] || (byVintage[r.vintage] = {properties:0, units:0});
+    b.properties += r.properties;
+    b.units += r.units;
+  });
+  const cv = o.currentYearVintage;
+  if (cv && byVintage[cv]) {
+    byVintage[cv].units -= o.underConstructionUnits;
+    byVintage[cv].properties -= o.underConstructionCount;
+  }
+  byVintage['Under Construction'] = {properties: o.underConstructionCount, units: o.underConstructionUnits};
+  const vintageTotal = Object.values(byVintage).reduce((a,b)=>a+b.units,0) || 1;
+  document.getElementById('deliveryVintageBody').innerHTML = DELIVERY_VINTAGE_ORDER.map(v => {
+    const b = byVintage[v] || {properties:0, units:0};
+    const pct = b.units / vintageTotal * 100;
+    const pctClass = pct >= 20 ? 'vintage-pct-hi' : pct >= 10 ? 'vintage-pct-mid' : 'vintage-pct-lo';
+    const rowClass = v === 'Under Construction' ? ' class="vintage-row-uc"' : '';
+    return `<tr${rowClass}><td>${v}</td><td>${b.properties.toLocaleString()}</td><td>${b.units.toLocaleString()}</td><td class="${pctClass}">${pct.toFixed(1)}%</td></tr>`;
+  }).join('');
+}
+
+function renderDeliveryChart() {
+  renderDeliveryStats();
+  if (!D.deliveries.length) {
+    document.getElementById('pipelineChartWrap').innerHTML = '<div style="padding:16px;color:#888">No delivery history for affordable stock.</div>';
+    return;
+  }
+  const oldRows = D.deliveries.filter(r => r.year <= DELIVERY_OLD_CUTOFF);
+  const recentYears = [...new Set(D.deliveries.filter(r => r.year > DELIVERY_OLD_CUTOFF).map(r=>r.year))].sort((a,b)=>a-b);
+  const chartYears = oldRows.length ? [PRE_CUTOFF_LABEL, ...recentYears] : recentYears;
+  const highlightYear = chartYears[chartYears.length-1];
+  const volFn = y => y === PRE_CUTOFF_LABEL
+    ? oldRows.reduce((a,r)=>a+r.units,0)
+    : D.deliveries.filter(r=>r.year===y).reduce((a,r)=>a+r.units,0);
+  const propFn = y => y === PRE_CUTOFF_LABEL
+    ? oldRows.reduce((a,r)=>a+r.properties,0)
+    : D.deliveries.filter(r=>r.year===y).reduce((a,r)=>a+r.properties,0);
+  const oldYearCount = new Set(oldRows.map(r=>r.year)).size;
+  // Fold Under Construction into the highlighted (most recent) year's bar —
+  // matches build_market_report.py's chart exactly (a blended actual+
+  // pipeline total for that one bar only).
+  const baseVol = volFn(highlightYear), baseProps = propFn(highlightYear);
+  const volFnUc = y => y === highlightYear ? baseVol + D.overview.underConstructionUnits : volFn(y);
+  const propFnUc = y => y === highlightYear ? baseProps + D.overview.underConstructionCount : propFn(y);
+  const panelBox = document.getElementById('deliveryStatsPanel').getBoundingClientRect();
+  const targetH = Math.round(panelBox.height - 34);
+  renderUnitsBarChart('pipelineChart', 'pipelineChartLegend', chartYears, volFnUc, propFnUc, oldYearCount, highlightYear, targetH, null);
+}
+
+// Single-metric bar chart (units + avg/yr trendline) — shared with
+// build_market_report.py, see chart_lib.py.
+function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear) {
+  const vals = years.map(valFn);
+  const props = years.map(propFn);
+  const W=880;
+  let H = 400;
+  if (targetPixelHeight) {
+    const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
+    H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
+  }
+  const PL=65, PR=45, PT=16, PB=55;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const barW = cW/Math.max(years.length,1)*0.7;
+
+  function niceStep(rawMax, maxTicks) {
+    const rough = rawMax / maxTicks;
+    const mag = Math.pow(10, Math.floor(Math.log10(rough || 1)));
+    const norm = rough / mag;
+    const nice = norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10;
+    return Math.max(1, nice * mag);
+  }
+  const rawMax = Math.max(1, ...vals);
+  const maxVal = rawMax * 1.10;
+  const step = niceStep(maxVal, 5);
+  const steps = Math.max(1, Math.floor(maxVal / step));
+  const xScale = i => PL + (i+0.5)/Math.max(years.length,1)*cW;
+  const yScale = v => PT + cH - (v/maxVal)*cH;
+
+  let parts = [];
+  for (let i=0;i<=steps;i++) {
+    const v=i*step, y=yScale(v);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-11}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${Math.round(v).toLocaleString()}</text>`);
+  }
+
+  years.forEach((yr,i) => {
+    const x = xScale(i);
+    parts.push(`<line x1="${x}" y1="${H-PT}" x2="${x}" y2="${H-PT+3}" stroke="#ccc" stroke-width="1"/>`);
+    const isHighlightYr = highlightYear != null && yr === highlightYear;
+    const isDecadeStart = typeof yr === 'number' && yr % 10 === 0;
+    const isSpecial = isHighlightYr || isNaN(parseInt(yr,10));
+    if (!isDecadeStart && !isSpecial) return;
+    const labelText = isHighlightYr ? 'Under Construction' : yr;
+    const anchor = isHighlightYr ? 'end' : 'middle';
+    parts.push(`<text x="${x}" y="${H-PT+4}" text-anchor="${anchor}" font-size="9" fill="#888" transform="rotate(-45 ${x} ${H-PT+4})">${labelText}</text>`);
+  });
+
+  years.forEach((yr,i) => {
+    const x=xScale(i)-barW/2, y=yScale(vals[i]), h=cH+PT-y;
+    const isHighlight = highlightYear != null && yr === highlightYear;
+    const barColor = isHighlight ? '#0c1a2e' : '#c9a84c';
+    const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
+      : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+    const tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
+    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${barColor}" rx="2" class="bar" data-tip="${tip}"/>`);
+  });
+
+  const plainVals = years.map((yr,i) => ({yr, v: vals[i]}))
+    .filter(({yr}) => !isNaN(parseInt(yr,10)) && yr !== highlightYear)
+    .map(({v}) => v);
+  if (plainVals.length) {
+    const avg = plainVals.reduce((a,v)=>a+v,0) / plainVals.length;
+    const avgY = yScale(avg);
+    parts.push(`<line x1="${PL}" y1="${avgY}" x2="${W-PR}" y2="${avgY}" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>`);
+    parts.push(`<text x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
+  }
+
+  if (rateByYear) {
+    const ratePoints = years
+      .map((yr, i) => ({yr, i, v: rateByYear[yr]}))
+      .filter(p => typeof p.v === 'number');
+    if (ratePoints.length) {
+      const rMax = Math.max(...ratePoints.map(p=>p.v)) * 1.15;
+      const rScale = v => PT + cH - (v/Math.max(rMax,1))*cH;
+      for (let i=0;i<=steps;i++) {
+        const y = yScale(i*step);
+        const rv = (i*step/maxVal)*rMax;
+        parts.push(`<text x="${W-PR+11}" y="${y+4}" font-size="10" fill="#333">${rv.toFixed(1)}%</text>`);
+      }
+      const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
+      parts.push(`<path d="${pathD}" fill="none" stroke="#0095DA" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      ratePoints.forEach(p => {
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#0095DA" class="bar" data-tip="${p.yr}\nSOFR (avg): ${p.v.toFixed(2)}%"/>`);
+      });
+    }
+  }
+
+  parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+
+  const svg = document.getElementById(svgId);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = parts.join('');
+
+  const hasHighlight = highlightYear != null && years.includes(highlightYear);
+  document.getElementById(legendId).innerHTML =
+    `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Units Delivered</div>` +
+    (hasHighlight ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Under Construction</div>` : '') +
+    `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0c1a2e;height:0;width:12px"></div>Average Units/Yr</div>` +
+    (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>SOFR <span style="color:#888;font-size:10px">(annual avg, unlagged — FRED)</span></div>` : '');
+
+  const tooltip = document.getElementById('tooltip');
+  svg.querySelectorAll('.bar').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+12)+'px';
+      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent=el.getAttribute('data-tip');
+    });
+    el.addEventListener('mouseleave', () => { tooltip.style.display='none'; });
+  });
+}
+
+// Pipeline map — ported from build_market_report.py's Construction Trends map,
+// filtered to affordable rows sitewide instead of one market's rows.
+const PIPE_STAGE_META = {
+  under_construction: {color:'#e53e3e', label:'Under Construction'},
+  planned:            {color:'#e3ab13', label:'Planned'},
+  prospective:        {color:'#0c1a2e', label:'Prospective'},
+};
+let pipeMap = null, pipeMarkerLayer = null;
+
+function renderConstructionMap() {
+  if (!D.pipelineRows || !D.pipelineRows.length) {
+    document.getElementById('pipelineMap').style.display='none';
+    document.querySelector('#pipeline .toolbar').style.display='none';
+    document.getElementById('pipelineEmpty').style.display='block';
+    return;
+  }
+  const geoRows = D.pipelineRows.filter(r => r.lat != null && r.lng != null);
+  if (!pipeMap) {
+    pipeMap = L.map('pipelineMap');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+    }).addTo(pipeMap);
+    pipeMarkerLayer = L.layerGroup().addTo(pipeMap);
+    const legend = L.control({position:'bottomleft'});
+    legend.onAdd = () => {
+      const d = L.DomUtil.create('div', 'om-legend');
+      d.innerHTML = Object.values(PIPE_STAGE_META).map(s => `<div><span class="dot" style="background:${s.color}"></span>${s.label}</div>`).join('');
+      return d;
+    };
+    legend.addTo(pipeMap);
+  }
+  pipeMap.invalidateSize();
+  if (geoRows.length) {
+    pipeMap.fitBounds(geoRows.map(r => [r.lat, r.lng]), { padding: [24,24], maxZoom: 11 });
+  } else {
+    pipeMap.setView([39.7, -104.9], 7);
+  }
+  renderPipelineMarkers();
+}
+function applyPipelineFilters() { renderPipelineMarkers(); }
+function clearPipelineFilters() {
+  document.getElementById('pipeStatus').value = '';
+  renderPipelineMarkers();
+}
+function pipelineFiltered() {
+  const statusSel = document.getElementById('pipeStatus').value;
+  return D.pipelineRows.filter(r => !statusSel || r.stage === statusSel);
+}
+function renderPipelineStats(filtered) {
+  const units = filtered.reduce((s,r) => s + (r.units||0), 0);
+  document.getElementById('pipeStats').innerHTML =
+    `<div class="filter-stats-label">Matching Filters</div>` +
+    `<div><b>${filtered.length.toLocaleString()}</b> Properties</div>` +
+    `<div><b>${units.toLocaleString()}</b> Units</div>`;
+}
+function renderPipelineMarkers() {
+  const filtered = pipelineFiltered();
+  renderPipelineStats(filtered);
+  pipeMarkerLayer.clearLayers();
+  filtered
+    .filter(r => r.lat != null && r.lng != null)
+    .forEach(r => {
+      const meta = PIPE_STAGE_META[r.stage] || {color:'#888', label:r.stage || 'Unknown'};
+      const marker = L.circleMarker([r.lat, r.lng], { radius: 7, color: '#fff', weight: 1.5, fillColor: meta.color, fillOpacity: 0.9 });
+      const tipParts = [`${r.units || '—'} units`, meta.label];
+      if (r.delivery) tipParts.push(`Est. Delivery ${r.delivery}`);
+      marker.bindTooltip(tipParts.join(' &middot; '), { className: 'om-tip', direction: 'top', offset: [0,-4] });
+      marker.addTo(pipeMarkerLayer);
+    });
+}
+
+// ── CHFA Operating Metrics — toolbar/chart/summary embed, ported from
+// build_chfa_dashboard.py (the raw sortable/paginated table was deliberately
+// dropped here per Bill's request 2026-09-02 — chart+summary only).
+const CHFA_COLORS = ['#e74c3c','#f39c12','#27ae60','#000000'];
+
+function applyChfaFilters() {
+  renderChfaChart();
+}
+
+function clearChfaFilters() {
+  document.getElementById('chfaCounty').value  = '';
+  document.getElementById('chfaCounty2').value = '';
+  document.getElementById('chfaCounty3').value = '';
+  document.getElementById('chfaAMI').value     = '60';
+  document.getElementById('chfaHERA').value    = '';
+  renderChfaChart();
+}
+
+function chfaAvgYoY(arr) {
+  const pcts = [];
+  for (let i=1;i<arr.length;i++) if (arr[i-1]) pcts.push((arr[i]-arr[i-1])/arr[i-1]*100);
+  return pcts.length ? pcts.reduce((a,b)=>a+b,0)/pcts.length : null;
+}
+function chfaYoyStats(points) {
+  const clean = points.filter(v=>v!==null);
+  if (clean.length<2) return {all:null,last10:null,last5:null,last3:null,last1:null};
+  return {
+    all:    chfaAvgYoY(clean),
+    last10: chfaAvgYoY(points.slice(-11).filter(v=>v!==null)),
+    last5:  chfaAvgYoY(points.slice(-6).filter(v=>v!==null)),
+    last3:  chfaAvgYoY(points.slice(-4).filter(v=>v!==null)),
+    last1:  chfaAvgYoY(points.slice(-2).filter(v=>v!==null)),
+  };
+}
+function chfaFmtPct(v) {
+  if (v===null) return '<span style="color:#bbb">—</span>';
+  const color = v<0?'#c0392b':v>=5?'#e67e22':v>=3?'#1a7a3c':'#222';
+  return '<span style="color:'+color+';font-weight:700">'+(v>=0?'+':'')+v.toFixed(1)+'%</span>';
+}
+function renderChfaSummary(series) {
+  const el = document.getElementById('chfaChartSummary');
+  const ROW = 'display:grid;grid-template-columns:30% 14% 14% 14% 14% 14%;align-items:center;';
+  let h = '<div style="font-weight:700;font-size:12px;color:#c9a84c;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #dde">Avg Y-o-Y Change</div>';
+  if (!series.length) {
+    el.innerHTML = h + '<div style="color:#aaa;font-size:13px;margin-top:8px">Select a county or enable CO Average</div>';
+    return;
+  }
+  const allYrLabel = series[0].points.length + 'yr';
+  h += '<div style="'+ROW+'border-bottom:1px solid #dde;padding-bottom:4px;margin-bottom:2px">';
+  h += '<div style="font-size:11px;color:#888">County</div>';
+  h += '<div style="font-size:11px;color:#888;text-align:right">'+allYrLabel+'</div>';
+  h += '<div style="font-size:11px;color:#888;text-align:right">10yr</div>';
+  h += '<div style="font-size:11px;color:#888;text-align:right">5yr</div>';
+  h += '<div style="font-size:11px;color:#888;text-align:right">3yr</div>';
+  h += '<div style="font-size:11px;color:#888;text-align:right">1yr</div>';
+  h += '</div>';
+  function latestVal(pts) {
+    for (let i=pts.length-1; i>=0; i--) if (pts[i]!=null) return pts[i];
+    return null;
+  }
+  const sortedSeries = [...series].sort((a,b) => {
+    const av=latestVal(a.points), bv=latestVal(b.points);
+    if (av==null && bv==null) return 0;
+    if (av==null) return 1;
+    if (bv==null) return -1;
+    return bv-av;
+  });
+  sortedSeries.forEach(s => {
+    const st = chfaYoyStats(s.points);
+    h += '<div style="'+ROW+'padding:5px 0;border-bottom:1px solid #f4f4f4">';
+    h += '<div style="color:'+s.color+';font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+s.county+'">'+s.county+'</div>';
+    h += '<div style="text-align:right;font-size:14px">'+chfaFmtPct(st.all)+'</div>';
+    h += '<div style="text-align:right;font-size:14px">'+chfaFmtPct(st.last10)+'</div>';
+    h += '<div style="text-align:right;font-size:14px">'+chfaFmtPct(st.last5)+'</div>';
+    h += '<div style="text-align:right;font-size:14px">'+chfaFmtPct(st.last3)+'</div>';
+    h += '<div style="text-align:right;font-size:14px">'+chfaFmtPct(st.last1)+'</div>';
+    h += '</div>';
+  });
+  el.innerHTML = h;
+}
+
+function renderChfaChart() {
+  const county  = document.getElementById('chfaCounty').value;
+  const county2 = document.getElementById('chfaCounty2').value;
+  const county3 = document.getElementById('chfaCounty3').value;
+  const ami     = parseInt(document.getElementById('chfaAMI').value) || 60;
+  const heraVal = document.getElementById('chfaHERA').value;
+  const metric  = document.getElementById('chfaMetric').value;
+  const showAvg = document.getElementById('chfaAvg').value === '1';
+
+  const allYears = [...new Set(D.chfa.map(r=>r.year))].sort((a,b)=>a-b);
+  function pickVal(yr, cty) {
+    let cands = D.chfa.filter(r=>r.county===cty && r.year===yr && r.ami_pct===ami);
+    if (!cands.length) return null;
+    if (heraVal==='Y') cands = cands.filter(r=>r.hera==='Y');
+    else               cands = cands.filter(r=>r.hera!=='Y');
+    return cands[0] ? cands[0][metric] : null;
+  }
+
+  const series = [];
+  if (county)  series.push({county:county,  color:CHFA_COLORS[0], points:allYears.map(yr=>pickVal(yr,county))});
+  if (county2) series.push({county:county2, color:CHFA_COLORS[1], points:allYears.map(yr=>pickVal(yr,county2))});
+  if (county3) series.push({county:county3, color:CHFA_COLORS[2], points:allYears.map(yr=>pickVal(yr,county3))});
+  if (showAvg) {
+    const allCounties = [...new Set(D.chfa.map(r=>r.county))];
+    const avgPts = allYears.map(yr => {
+      const vals = allCounties.map(c=>pickVal(yr,c)).filter(v=>v!==null);
+      return vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : null;
+    });
+    series.push({county:'CO Average', color:'#000000', points:avgPts});
+  }
+
+  renderChfaSummary(series);
+
+  const W=880, H=340, PL=70, PR=20, PT=20, PB=50;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const allVals = series.flatMap(s=>s.points).filter(v=>v!==null);
+  if (!allVals.length) {
+    document.getElementById('chfaChart').innerHTML = '<text x="450" y="170" text-anchor="middle" fill="#999" font-size="14">Select a county or enable CO Average</text>';
+    document.getElementById('chfaChartLegend').innerHTML='';
+    return;
+  }
+  const minV = Math.floor(Math.min(...allVals)*0.9);
+  const maxV = Math.ceil(Math.max(...allVals)*1.05);
+  const xScale = i => PL + (i/(allYears.length-1||1))*cW;
+  const yScale = v => PT + cH - ((v-minV)/(maxV-minV||1))*cH;
+  let svgParts = [];
+  for (let i=0;i<=6;i++) {
+    const v = minV+(maxV-minV)*(i/6), y=yScale(v);
+    svgParts.push('<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="#eee" stroke-width="1"/>');
+    svgParts.push('<text x="'+(PL-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#888">'+Math.round(v).toLocaleString()+'</text>');
+  }
+  allYears.forEach((yr,i)=>{
+    const x=xScale(i);
+    svgParts.push('<line x1="'+x+'" y1="'+PT+'" x2="'+x+'" y2="'+(PT+cH)+'" stroke="#f0f0f0" stroke-width="1"/>');
+    svgParts.push('<text x="'+x+'" y="'+(H-PT+4)+'" text-anchor="middle" font-size="10" fill="#888">'+yr+'</text>');
+  });
+  svgParts.push('<line x1="'+PL+'" y1="'+PT+'" x2="'+PL+'" y2="'+(PT+cH)+'" stroke="#ccc" stroke-width="1"/>');
+  svgParts.push('<line x1="'+PL+'" y1="'+(PT+cH)+'" x2="'+(W-PR)+'" y2="'+(PT+cH)+'" stroke="#ccc" stroke-width="1"/>');
+  const metricLabel = document.getElementById('chfaMetric').options[document.getElementById('chfaMetric').selectedIndex].text;
+  const tooltip = document.getElementById('tooltip');
+  series.forEach(s=>{
+    const vpts = allYears.map((yr,i)=>({yr,i,v:s.points[i]})).filter(p=>p.v!==null);
+    if (!vpts.length) return;
+    const d = vpts.map((p,pi)=>(pi===0?'M':'L')+xScale(p.i)+','+yScale(p.v)).join(' ');
+    svgParts.push('<path d="'+d+'" fill="none" stroke="'+s.color+'" stroke-width="2.5" stroke-linejoin="round"/>');
+    vpts.forEach(p=>{
+      svgParts.push('<circle cx="'+xScale(p.i)+'" cy="'+yScale(p.v)+'" r="4" fill="'+s.color+'" stroke="#fff" stroke-width="1.5" class="dot" data-tip="'+s.county+' '+p.yr+' | '+ami+'% AMI&#10;'+metricLabel+': $'+p.v.toLocaleString()+'"/>');
+    });
+  });
+  svgParts.push('<text x="'+(PL+cW/2)+'" y="'+(H-2)+'" text-anchor="middle" font-size="11" fill="#555">'+ami+'% AMI &mdash; '+metricLabel+'</text>');
+  document.getElementById('chfaChart').setAttribute('viewBox','0 0 '+W+' '+H);
+  document.getElementById('chfaChart').innerHTML = svgParts.join('');
+  document.getElementById('chfaChartLegend').innerHTML = series.map(s =>
+    '<div class="legend-item"><div class="legend-dot" style="background:'+s.color+'"></div>'+s.county+'</div>'
+  ).join('');
+  document.getElementById('chfaChart').querySelectorAll('.dot').forEach(dot=>{
+    dot.addEventListener('mousemove',e=>{
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+12)+'px';
+      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent=dot.getAttribute('data-tip').replace('&#10;','\n');
+    });
+    dot.addEventListener('mouseleave',()=>{tooltip.style.display='none';});
+  });
+}
+
+// ── Sales ──
+function renderSalesStats() {
+  const totalDeals = D.sales.reduce((a,r)=>a+r.deals,0);
+  const totalVol = D.sales.reduce((a,r)=>a+r.volume,0);
+  const years = D.sales.map(r=>r.year);
+  const minYear = years.length ? Math.min(...years) : 2011;
+  document.getElementById('salesStatsSummary').innerHTML = `
+    <div class="stat-title">Affordable Housing &mdash; ${minYear}&ndash;${JS_CURRENT_YEAR}</div>
+    <div class="stat-row"><span>Total Volume</span><b>${dollar(totalVol)}</b></div>
+    <div class="stat-row"><span>Total Sales</span><b>${totalDeals.toLocaleString()}</b></div>
+  `;
+  renderYTDCompare();
+  renderDistressStats();
+}
+
+// Ported from build_market_report.py's renderYTDCompare — D.sales here is
+// already affordable-scoped (summed across all regions), so no market filter
+// needed, same as Denver's per-market D.sales.
+function renderYTDCompare() {
+  function sumThroughMonth(year, monthCutoff) {
+    const rows = D.sales.filter(r => r.year===year && r.month<=monthCutoff);
+    return {
+      volume: rows.reduce((a,r)=>a+r.volume,0),
+      deals: rows.reduce((a,r)=>a+r.deals,0),
+    };
+  }
+  const ytd = sumThroughMonth(JS_CURRENT_YEAR, JS_CURRENT_MONTH);
+  const monthName = NOW.toLocaleString('en-US', {month:'short'});
+  const compareYears = [
+    {label:'2019 YTD', year: 2019},
+    {label:'2021 YTD', year: 2021},
+    {label:(JS_CURRENT_YEAR-1)+' YTD', year: JS_CURRENT_YEAR-1},
+  ].filter(cy => cy.year < JS_CURRENT_YEAR);
+  document.getElementById('ytdCompareTitle').textContent = `${JS_CURRENT_YEAR} YTD vs (thru ${monthName}.)`;
+  const metrics = [
+    {label:'Volume', key:'volume'},
+    {label:'Sales', key:'deals'},
+  ];
+  const headHtml = '<th></th>' + compareYears.map(cy=>`<th>${cy.label}</th>`).join('');
+  const bodyHtml = metrics.map(m => {
+    const cells = compareYears.map(cy => {
+      const cmp = sumThroughMonth(cy.year, JS_CURRENT_MONTH);
+      const chg = pctChange(ytd[m.key], cmp[m.key]);
+      return `<td>${fmtPct(chg)}</td>`;
+    }).join('');
+    return `<tr><td>${m.label}</td>${cells}</tr>`;
+  }).join('');
+  document.getElementById('ytdCompare').innerHTML =
+    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>`;
+}
+
+// Ported from build_market_report.py's renderDistressStats — D.sales'
+// distressedDeals/distressedVolume/distressedUnits here reflect the
+// affordable-AND-distressed intersection tally (Sales History's
+// affordableDistressed* fields, added 2026-09-02), not distress across all
+// property types.
+function renderDistressStats() {
+  function sumForYear(year, ytdOnly) {
+    const rows = D.sales.filter(r => r.year===year && (!ytdOnly || r.month<=JS_CURRENT_MONTH));
+    return {
+      deals: rows.reduce((a,r)=>a+(r.distressedDeals||0),0),
+      units: rows.reduce((a,r)=>a+(r.distressedUnits||0),0),
+      volume: rows.reduce((a,r)=>a+(r.distressedVolume||0),0),
+    };
+  }
+  const periods = [
+    {label:String(JS_CURRENT_YEAR-2), stats: sumForYear(JS_CURRENT_YEAR-2, false), priorStats: sumForYear(JS_CURRENT_YEAR-3, false)},
+    {label:String(JS_CURRENT_YEAR-1), stats: sumForYear(JS_CURRENT_YEAR-1, false), priorStats: sumForYear(JS_CURRENT_YEAR-2, false)},
+    {label:JS_CURRENT_YEAR+' YTD',    stats: sumForYear(JS_CURRENT_YEAR, true),   priorStats: sumForYear(JS_CURRENT_YEAR-1, true)},
+  ];
+  const headHtml = '<th></th>' + periods.map(p=>`<th>${p.label}</th>`).join('');
+  const rowsHtml = [
+    {label:'Sales',  fmt: p=>p.stats.deals.toLocaleString()},
+    {label:'Units',  fmt: p=>p.stats.units.toLocaleString()},
+    {label:'Volume', fmt: p=>shortDollar(p.stats.volume)},
+    {label:'&Delta; (Vol.)', fmt: p=>fmtPct(pctChange(p.stats.volume, p.priorStats.volume))},
+  ].map(m => `<tr><td>${m.label}</td>${periods.map(p=>`<td>${m.fmt(p)}</td>`).join('')}</tr>`).join('');
+  document.getElementById('distressTable').innerHTML =
+    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
+}
+
+const SALES_VINTAGE_COLS = [
+  {key:'vintage',      label:'Vintage',        fmt:v=>v,                          align:'left'},
+  {key:'deals',        label:'Sales',          fmt:v=>v.toLocaleString(),         align:'center'},
+  {key:'unitsTotal',   label:'Units Sold',     fmt:v=>v.toLocaleString(),         align:'center'},
+  {key:'volume',       label:'Total Volume',   fmt:v=>dollar(v),                  align:'right'},
+  {key:'avgPrice',     label:'Avg Price',      fmt:v=>v==null?'—':dollar(v),      align:'right'},
+  {key:'pricePerUnit', label:'Avg $/Unit',     fmt:v=>v==null?'—':dollar(v),      align:'right'},
+];
+let salesVintageSortCol = 'vintage', salesVintageSortDir = 1;
+let salesVintageHeadBuilt = false;
+function buildSalesVintageHead() {
+  if (salesVintageHeadBuilt) return;
+  salesVintageHeadBuilt = true;
+  const head = document.getElementById('salesVintageHead');
+  SALES_VINTAGE_COLS.forEach((c) => {
+    const th = document.createElement('th');
+    th.innerHTML = c.label + '<span class="sort-arrow">&#8597;</span>';
+    th.classList.add('col-'+c.align);
+    th.onclick = () => {
+      if (salesVintageSortCol===c.key) salesVintageSortDir*=-1; else {salesVintageSortCol=c.key;salesVintageSortDir=1;}
+      renderSalesVintageBreakdown();
+    };
+    head.appendChild(th);
+  });
+}
+function renderSalesVintageBreakdown() {
+  buildSalesVintageHead();
+  const filtered = D.sales.filter(r => r.year===JS_CURRENT_YEAR);
+  const byVintage = {};
+  filtered.forEach(r => {
+    const b = byVintage[r.vintage] || (byVintage[r.vintage] = {vintage:r.vintage, deals:0, pricedDeals:0, volume:0, unitsTotal:0, unitsPriced:0});
+    b.deals += r.deals; b.pricedDeals += r.pricedDeals; b.volume += r.volume;
+    b.unitsTotal += r.unitsTotal; b.unitsPriced += r.unitsPriced;
+  });
+  const rows = Object.values(byVintage).map(b => ({
+    vintage: b.vintage, deals: b.deals, unitsTotal: b.unitsTotal, volume: b.volume,
+    avgPrice: b.pricedDeals ? Math.round(b.volume/b.pricedDeals) : null,
+    pricePerUnit: b.unitsPriced ? Math.round(b.volume/b.unitsPriced) : null,
+  }));
+  rows.sort((a,b) => {
+    if (salesVintageSortCol==='vintage') {
+      const d = VINTAGE_ORDER.indexOf(a.vintage) - VINTAGE_ORDER.indexOf(b.vintage);
+      return salesVintageSortDir<0 ? -d : d;
+    }
+    const av=a[salesVintageSortCol], bv=b[salesVintageSortCol];
+    if (av==null) return 1; if (bv==null) return -1;
+    return av<bv?-salesVintageSortDir:av>bv?salesVintageSortDir:0;
+  });
+  document.getElementById('salesVintageBody').innerHTML = rows.map(r =>
+    '<tr>' + SALES_VINTAGE_COLS.map(c=>`<td class="col-${c.align}">${c.fmt(r[c.key])}</td>`).join('') + '</tr>'
+  ).join('') || '<tr><td colspan="6" style="color:#999">No sales this year</td></tr>';
+}
+
+function renderSalesChart() {
+  if (!D.sales.length) {
+    document.getElementById('chartWrap').style.display='none';
+    document.getElementById('salesStatsPanel').style.display='none';
+    document.getElementById('salesVintageWrap').style.display='none';
+    document.getElementById('salesEmpty').style.display='block';
+    return;
+  }
+  renderSalesStats();
+  renderSalesVintageBreakdown();
+
+  const byYear = {};
+  D.sales.forEach(r => {
+    const b = byYear[r.year] || (byYear[r.year] = {deals:0, volume:0});
+    b.deals += r.deals; b.volume += r.volume;
+  });
+  const years = Object.keys(byYear).map(Number).sort((a,b)=>a-b);
+  const vols = years.map(y=>byYear[y].volume);
+  const counts = years.map(y=>byYear[y].deals);
+
   const W=880, H=360, PL=70, PR=70, PT=20, PB=50;
   const cW=W-PL-PR, cH=H-PT-PB;
-  const years = sales.map(r=>r.year);
-  const vols = sales.map(r=>r.volume);
-  const counts = sales.map(r=>r.deals);
   const barW = cW/years.length*0.6;
 
   function niceStep(rawMax, maxTicks) {
@@ -518,18 +1595,32 @@ function renderSalesChart(sales) {
   years.forEach((yr,i)=>{
     parts.push(`<text x="${xScale(i)}" y="${H-PT+4}" text-anchor="middle" font-size="10" fill="#888">${yr}</text>`);
   });
-
   years.forEach((yr,i)=>{
     const x=xScale(i)-barW/2, y=yVol(vols[i]), h=cH+PT-y;
     parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="#c9a84c" rx="2" class="bar" data-tip="${yr}\nDeals: ${counts[i]}\nVolume: ${dollar(vols[i])}"/>`);
   });
-
   const countPts = years.map((yr,i)=>({x:xScale(i), y:yCount(counts[i])}));
   const d = countPts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
   parts.push(`<path d="${d}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
   countPts.forEach((p,i)=>{
     parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${years[i]}\nDeals: ${counts[i]}\nVolume: ${dollar(vols[i])}"/>`);
   });
+
+  // 10-Yr Treasury overlay (see macro tile pointing here) — same unlagged,
+  // own-scale pattern as build_market_report.py's renderBarLineChart.
+  const rateByYear = (D.macro||{}).treasury10yrByYear;
+  if (rateByYear) {
+    const ratePoints = years.map((yr, i) => ({yr, i, v: rateByYear[yr]})).filter(p => typeof p.v === 'number');
+    if (ratePoints.length) {
+      const rMax = Math.max(...ratePoints.map(p=>p.v)) * 1.15;
+      const rScale = v => PT + cH - (v/Math.max(rMax,1))*cH;
+      const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
+      parts.push(`<path d="${pathD}" fill="none" stroke="#0095DA" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      ratePoints.forEach(p => {
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#0095DA" class="bar" data-tip="${p.yr}\n10-Yr Treasury: ${p.v.toFixed(2)}%"/>`);
+      });
+    }
+  }
 
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
   parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
@@ -540,34 +1631,162 @@ function renderSalesChart(sales) {
 
   document.getElementById('salesChartLegend').innerHTML =
     '<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Total Volume $ (left axis)</div>' +
-    '<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Sales Count (right axis)</div>';
+    '<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Sales Count (right axis)</div>' +
+    (rateByYear ? '<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>10-Yr Treasury <span style="color:#888;font-size:10px">(unlagged, own scale — FRED)</span></div>' : '');
 
   const tooltip = document.getElementById('tooltip');
   svg.querySelectorAll('.bar').forEach(el=>{
     el.addEventListener('mousemove',e=>{
-      tooltip.style.display='block';
-      tooltip.style.left=(e.clientX+12)+'px';
-      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.style.display='block'; tooltip.style.left=(e.clientX+12)+'px'; tooltip.style.top=(e.clientY-30)+'px';
       tooltip.textContent=el.getAttribute('data-tip');
     });
     el.addEventListener('mouseleave',()=>{tooltip.style.display='none';});
   });
 }
 
+// ── Capital Flow (sortable tables) — shared with build_market_report.py's
+// Capital Flow section, see chart_lib.py.
+const CF_ARRAYS = {};
+const CF_SORT = {};
+function cfEsc(s) { return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function capFlowRow(b, volCol) {
+  return `<tr><td>${cfEsc(b.label)}</td><td>${b.properties.toLocaleString()}</td><td>${volCol ? shortDollar(b.volume) : b.units.toLocaleString()}</td><td>${b.pct}%</td></tr>`;
+}
+function renderCfTable(tbodyId, volCol) {
+  const arr = CF_ARRAYS[tbodyId] || [];
+  document.getElementById(tbodyId).innerHTML =
+    arr.map(b => capFlowRow(b, volCol)).join('') ||
+    `<tr><td colspan="4" style="color:#999">${volCol ? 'No activity' : 'No data'}</td></tr>`;
+}
+function sortCfTable(tbodyId, key, volCol, thEl) {
+  const arr = CF_ARRAYS[tbodyId];
+  if (!arr) return;
+  const st = CF_SORT[tbodyId] || (CF_SORT[tbodyId] = {key: null, asc: false});
+  st.asc = (st.key === key) ? !st.asc : false;
+  st.key = key;
+  arr.sort((a,b) => {
+    const av = a[key], bv = b[key];
+    if (typeof av === 'string') return st.asc ? av.localeCompare(bv) : bv.localeCompare(av);
+    return st.asc ? av-bv : bv-av;
+  });
+  renderCfTable(tbodyId, volCol);
+  thEl.parentElement.querySelectorAll('th').forEach(t => t.classList.remove('asc','desc'));
+  thEl.classList.add(st.asc ? 'asc' : 'desc');
+}
+function renderOwnership() {
+  const own = D.ownership, recent = D.ownershipRecent;
+  if (!own || (!own.byType.length && !own.byState.length)) {
+    document.getElementById('ownershipEmpty').style.display = 'block';
+  }
+  CF_ARRAYS['ownByTypeBody'] = own.byType;
+  CF_ARRAYS['ownByStateBody'] = own.byState;
+  CF_ARRAYS['recentByTypeBody'] = recent.byType;
+  CF_ARRAYS['recentByStateBody'] = recent.byState;
+  renderCfTable('ownByTypeBody', false);
+  renderCfTable('ownByStateBody', false);
+  renderCfTable('recentByTypeBody', false);
+  renderCfTable('recentByStateBody', false);
+}
+
+// ── On-Market (map) ── ported from build_market_report.py's renderOnMarket,
+// filtered to LIHTC/HAP sitewide instead of one market.
+const OM_CATEGORIES = [
+  {key:'LIHTC', color:'#c9a84c'},
+  {key:'HAP',   color:'#7eb8c9'},
+];
+const OM_COLOR_BY_CAT = Object.fromEntries(OM_CATEGORIES.map(c => [c.key, c.color]));
+let omMap = null, omMarkerLayer = null;
+
+function renderOnMarket() {
+  if (!D.onmarket.length) {
+    document.getElementById('onMarketMap').style.display='none';
+    document.querySelector('#onmarket .toolbar').style.display='none';
+    document.getElementById('onMarketEmpty').style.display='block';
+    return;
+  }
+  const geoRows = D.onmarket.filter(r => r.lat != null && r.lng != null);
+  if (!omMap) {
+    omMap = L.map('onMarketMap');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+    }).addTo(omMap);
+    omMarkerLayer = L.layerGroup().addTo(omMap);
+    const legend = L.control({position:'bottomleft'});
+    legend.onAdd = () => {
+      const d = L.DomUtil.create('div', 'om-legend');
+      d.innerHTML = OM_CATEGORIES.map(c => `<div><span class="dot" style="background:${c.color}"></span>${c.key==='HAP'?'HAP (Sec. 8)':c.key}</div>`).join('');
+      return d;
+    };
+    legend.addTo(omMap);
+  }
+  omMap.invalidateSize();
+  if (geoRows.length) {
+    omMap.fitBounds(geoRows.map(r => [r.lat, r.lng]), { padding: [24,24], maxZoom: 11 });
+  } else {
+    omMap.setView([39.7, -104.9], 7);
+  }
+  renderOnMarketMarkers();
+}
+function applyOnMarketFilters() { renderOnMarketMarkers(); }
+function clearOnMarketFilters() {
+  document.getElementById('omType').value = '';
+  document.getElementById('omUnits').value = '';
+  document.getElementById('omSearch').value = '';
+  renderOnMarketMarkers();
+}
+function onMarketFiltered() {
+  const typeSel = document.getElementById('omType').value;
+  const unitsSel = document.getElementById('omUnits').value;
+  const q = document.getElementById('omSearch').value.trim().toLowerCase();
+  return D.onmarket
+    .filter(r => !typeSel || r.type === typeSel)
+    .filter(r => !unitsSel || (unitsSel === 'under100' ? (r.units||0) < 100 : (r.units||0) > 100))
+    .filter(r => !q || (r.property||'').toLowerCase().includes(q) || (r.city||'').toLowerCase().includes(q));
+}
+function renderOnMarketStats(filtered) {
+  const units = filtered.reduce((s,r) => s + (r.units||0), 0);
+  document.getElementById('omStats').innerHTML =
+    `<div class="filter-stats-label">Matching Filters</div>` +
+    `<div><b>${filtered.length.toLocaleString()}</b> Properties</div>` +
+    `<div><b>${units.toLocaleString()}</b> Units</div>`;
+}
+function renderOnMarketMarkers() {
+  const filtered = onMarketFiltered();
+  renderOnMarketStats(filtered);
+  omMarkerLayer.clearLayers();
+  filtered
+    .filter(r => r.lat != null && r.lng != null)
+    .forEach(r => {
+      const color = OM_COLOR_BY_CAT[r.type] || '#888';
+      const marker = L.circleMarker([r.lat, r.lng], { radius: 7, color: '#fff', weight: 1.5, fillColor: color, fillOpacity: 0.9 });
+      marker.bindTooltip(
+        `${r.yoc || 'YOC —'} &middot; ${r.units || '—'} units &middot; ${r.type==='HAP'?'HAP (Sec. 8)':r.type}`,
+        { className: 'om-tip', direction: 'top', offset: [0,-4] }
+      );
+      marker.addTo(omMarkerLayer);
+    });
+}
+
 fetchDashboardData('affordable-housing', 'data.json', __t)
   .then(d => {
-    OVERVIEW = d.overview;
-    DATA_MARKET = d.byMarket;
-    DATA_PROPS = d.properties;
-    filtered = [...DATA_PROPS];
+    D = d;
     renderOverview();
-    renderTable();
-    renderMap();
-    renderSalesChart(d.sales);
-    renderOwnershipTables(d.ownership);
-    renderPipelineTable(d.pipeline);
-    renderLoanStats(d.loans);
+    renderMacro();
+    renderDeliveryChart();
+    renderConstructionMap();
+    renderChfaChart();
+    renderSalesChart();
+    renderOwnership();
+    renderOnMarket();
   });
+
+let __ahResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(__ahResizeTimer);
+  __ahResizeTimer = setTimeout(() => {
+    if (D && D.sales && D.sales.length) renderSalesChart();
+  }, 150);
+});
 
 // "Talk to the Team" CTA — same pattern as build_market_report.py.
 (function() {

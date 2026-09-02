@@ -161,6 +161,14 @@ tr:hover td{background:#f0f5fa}
 .stat-row span{font-size:12.5px;color:#555}
 .compare-table-wrap{border:1px solid #dde;margin-top:4px;padding:6px 8px}
 .compare-table{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+/* Force ytdCompare/distressTable to share identical column widths (both are
+   4-column: label + 3 periods) so their rows line up vertically even though
+   they're separate <table> elements with different label text lengths. */
+#ytdCompare table, #distressTable table{table-layout:fixed}
+#ytdCompare th:first-child, #ytdCompare td:first-child,
+#distressTable th:first-child, #distressTable td:first-child{width:34%}
+#ytdCompare th:not(:first-child), #ytdCompare td:not(:first-child),
+#distressTable th:not(:first-child), #distressTable td:not(:first-child){width:22%}
 .compare-table th{position:static;background:none;padding:2px 4px;text-align:right;font-weight:600;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.2px;cursor:default}
 .compare-table th:first-child,.compare-table td:first-child{text-align:left}
 .compare-table td{padding:3px 4px;border-bottom:1px solid #f4f4f4;text-align:right;white-space:nowrap}
@@ -1175,7 +1183,7 @@ function renderDistressStats() {
   const periods = [
     {label:String(JS_CURRENT_YEAR-2),    stats: sumForYear(JS_CURRENT_YEAR-2, false), priorStats: sumForYear(JS_CURRENT_YEAR-3, false)},
     {label:String(JS_CURRENT_YEAR-1),    stats: sumForYear(JS_CURRENT_YEAR-1, false), priorStats: sumForYear(JS_CURRENT_YEAR-2, false)},
-    {label:'YTD '+JS_CURRENT_YEAR,       stats: sumForYear(JS_CURRENT_YEAR, true),   priorStats: sumForYear(JS_CURRENT_YEAR-1, true)},
+    {label:JS_CURRENT_YEAR+' YTD',       stats: sumForYear(JS_CURRENT_YEAR, true),   priorStats: sumForYear(JS_CURRENT_YEAR-1, true)},
   ];
 
   const headHtml = '<th></th>' + periods.map(p=>`<th>${p.label}</th>`).join('');
@@ -1183,7 +1191,7 @@ function renderDistressStats() {
     {label:'Sales',  fmt: p=>p.stats.deals.toLocaleString()},
     {label:'Units',  fmt: p=>p.stats.units.toLocaleString()},
     {label:'Volume', fmt: p=>shortDollar(p.stats.volume)},
-    {label:'YoY Change (Vol.)', fmt: p=>fmtPct(pctChange(p.stats.volume, p.priorStats.volume))},
+    {label:'&Delta; (Vol.)', fmt: p=>fmtPct(pctChange(p.stats.volume, p.priorStats.volume))},
   ].map(m => `<tr><td>${m.label}</td>${periods.map(p=>`<td>${m.fmt(p)}</td>`).join('')}</tr>`).join('');
 
   document.getElementById('distressTable').innerHTML =
@@ -1442,19 +1450,12 @@ function renderDeliveries() {
   renderUnitsBarChart('deliveryChart', 'deliveryChartLegend', chartYears, volFn, propFn, oldYearCount, 2026, targetH, (D.macro||{}).sofrByYear);
 }
 
-// Single-metric bar chart (units + avg/yr trendline), mirroring
-// build_deliveries_by_year.py's chart as closely as possible — unlike Sales
-// below, this is deliberately NOT the dual bar+line renderBarLineChart:
-// plotting Properties as bars alongside a Units line distorted the shape
-// compared to the hub dashboard, which only ever bars Units.
+// Single-metric bar chart (units + avg/yr trendline) — shared with
+// build_affordable_housing_report.py, see chart_lib.py.
 function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear) {
   const vals = years.map(valFn);
   const props = years.map(propFn);
   const W=880;
-  // Same width-scale correction as renderBarLineChart — the svg is
-  // width:100%/height:auto against this fixed-width viewBox, so on-screen
-  // height scales with rendered width; convert the desired pixel height
-  // into the matching viewBox height rather than using it directly.
   let H = 400;
   if (targetPixelHeight) {
     const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
@@ -1485,10 +1486,6 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     parts.push(`<text x="${PL-11}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${Math.round(v).toLocaleString()}</text>`);
   }
 
-  // A small tick mark under every bar keeps the axis dense/precise, but text
-  // labels only appear at decade starts (plus the Pre-cutoff and highlighted
-  // current-year bars) and are canted -45° — matches
-  // build_deliveries_by_year.py's axis treatment exactly.
   years.forEach((yr,i) => {
     const x = xScale(i);
     parts.push(`<line x1="${x}" y1="${H-PT}" x2="${x}" y2="${H-PT+3}" stroke="#ccc" stroke-width="1"/>`);
@@ -1497,10 +1494,6 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const isSpecial = isHighlightYr || isNaN(parseInt(yr,10));
     if (!isDecadeStart && !isSpecial) return;
     const labelText = isHighlightYr ? 'Under Construction' : yr;
-    // The highlight label ("Under Construction") is long and typically sits at
-    // the rightmost bar — anchoring it at its end (not middle) keeps the
-    // rotated text swinging up-left instead of overflowing past the chart's
-    // right edge and getting clipped.
     const anchor = isHighlightYr ? 'end' : 'middle';
     parts.push(`<text x="${x}" y="${H-PT+4}" text-anchor="${anchor}" font-size="9" fill="#888" transform="rotate(-45 ${x} ${H-PT+4})">${labelText}</text>`);
   });
@@ -1509,18 +1502,12 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const x=xScale(i)-barW/2, y=yScale(vals[i]), h=cH+PT-y;
     const isHighlight = highlightYear != null && yr === highlightYear;
     const barColor = isHighlight ? '#0c1a2e' : '#c9a84c';
-    // Matches build_deliveries_by_year.py's tooltip wording exactly (year/label,
-    // then Units, then Properties) — the highlight bar adds a parenthetical
-    // since it's a blended actual+pipeline total, not a pure "Under Construction" bar.
     const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
       : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
     const tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
     parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${barColor}" rx="2" class="bar" data-tip="${tip}"/>`);
   });
 
-  // Average trendline over ordinary single-year bars only — excludes the
-  // Pre-cutoff aggregate and the current year (which is inflated by the
-  // folded-in Under Construction pipeline, not a completed delivery total).
   const plainVals = years.map((yr,i) => ({yr, v: vals[i]}))
     .filter(({yr}) => !isNaN(parseInt(yr,10)) && yr !== highlightYear)
     .map(({v}) => v);
@@ -1531,13 +1518,6 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     parts.push(`<text x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
   }
 
-  // Optional secondary-axis rate overlay (e.g. SOFR on the Construction
-  // Trends chart) — unlagged (see the caveat note under the chart in HTML):
-  // a given year's bar is delivery volume, the rate point for that same
-  // year is the rate AT DELIVERY, not at financing/origination 1-3 years
-  // earlier when the project would have actually been underwritten. Only
-  // plots years that have data (e.g. SOFR starts 2018) rather than a false
-  // zero for earlier bars, and connects across gaps in numeric-year order.
   if (rateByYear) {
     const ratePoints = years
       .map((yr, i) => ({yr, i, v: rateByYear[yr]}))
@@ -1780,20 +1760,20 @@ function renderPipelineMarkers() {
 }
 
 // ── Capital Flows: pre-aggregated ownership/investment breakdowns ───────────
+// Sortable Capital Flow table — shared with
+// build_affordable_housing_report.py's Ownership Trends, see chart_lib.py.
 const CF_ARRAYS = {};
 const CF_SORT = {};
-
+function cfEsc(s) { return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function capFlowRow(b, volCol) {
-  return `<tr><td>${b.label}</td><td>${b.properties.toLocaleString()}</td><td>${volCol ? shortDollar(b.volume) : b.units.toLocaleString()}</td><td>${b.pct}%</td></tr>`;
+  return `<tr><td>${cfEsc(b.label)}</td><td>${b.properties.toLocaleString()}</td><td>${volCol ? shortDollar(b.volume) : b.units.toLocaleString()}</td><td>${b.pct}%</td></tr>`;
 }
-
 function renderCfTable(tbodyId, volCol) {
   const arr = CF_ARRAYS[tbodyId] || [];
   document.getElementById(tbodyId).innerHTML =
     arr.map(b => capFlowRow(b, volCol)).join('') ||
     `<tr><td colspan="4" style="color:#999">${volCol ? 'No activity' : 'No data'}</td></tr>`;
 }
-
 function sortCfTable(tbodyId, key, volCol, thEl) {
   const arr = CF_ARRAYS[tbodyId];
   if (!arr) return;
@@ -1826,15 +1806,12 @@ function renderCapitalFlow() {
   renderCfTable('recentByStateBody', true);
 }
 
-// ── Shared bar+line chart (bars=volume on left axis, line=count on right axis) ──
+// ── Shared bar+line chart (bars=volume on left axis, line=count on right
+// axis) — shared with build_affordable_housing_report.py, see chart_lib.py.
 function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight, rateByYear, rateLabel) {
   const counts = years.map(countFn);
   const vols = years.map(volFn);
   const W=880;
-  // svg is width:100%/height:auto against a fixed-width viewBox, so its
-  // on-screen height scales with however wide it actually renders — convert
-  // the desired on-screen pixel height into the matching viewBox height,
-  // rather than using it directly (which was off by the width scale factor).
   let H = 400;
   if (targetPixelHeight) {
     const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
@@ -1851,9 +1828,6 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
     const nice = norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10;
     return Math.max(1, nice * mag);
   }
-  // Round up to the next gridline rather than adding a full extra step of
-  // headroom above it — the old "+1" left a visibly empty band between the
-  // tallest bar and the top axis label.
   const rawMaxCount = Math.max(1, ...counts);
   const countStep = niceStep(rawMaxCount, 5);
   const countSteps = Math.max(1, Math.ceil(rawMaxCount / countStep));
@@ -1878,15 +1852,12 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
     const v=i*countStep, y=yCount(v);
     parts.push(`<text x="${W-PR+11}" y="${y+4}" text-anchor="start" font-size="10" fill="#888">${Math.round(v)}</text>`);
   }
-  // Thin x-axis labels once there are more bars than fit legibly — always keep
-  // the first/last (and any non-numeric aggregate label like "Pre-1980").
   const labelStep = Math.max(1, Math.ceil(years.length / 18));
   const lastIdx = years.length - 1;
   years.forEach((yr,i) => {
     const isEdge = i===0 || i===lastIdx;
     const isAggregate = isNaN(parseInt(yr,10));
     if (!isEdge && !isAggregate && i % labelStep !== 0) return;
-    // Skip a step-driven label that would sit right next to the forced last tick.
     if (!isEdge && labelStep > 1 && lastIdx - i < labelStep / 2) return;
     parts.push(`<text x="${xScale(i)}" y="${H-PB+21}" text-anchor="middle" font-size="10" fill="#888">${yr}</text>`);
   });
@@ -1907,11 +1878,6 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
     parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
   });
 
-  // Optional secondary rate overlay (e.g. 10yr Treasury on Sales/Transaction
-  // Trends) — deliberately no visible third axis (this chart already has two:
-  // count bars + volume line), to avoid the chart turning into axis clutter.
-  // The line/points carry their own tooltip instead; own internal scale fit
-  // to the chart height, unlagged, only plots years with data.
   if (rateByYear) {
     const ratePoints = years
       .map((yr, i) => ({yr, i, v: rateByYear[yr]}))
