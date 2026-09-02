@@ -4,82 +4,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Affordable Housing Market — CO/WY LIHTC &amp; HAP Inventory</title>
-<meta name="description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) inventory, market breakdown, and rent/income limits. Private dashboard.">
+<meta name="description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) inventory, market breakdown, transaction trends, ownership, pipeline, and financing. Private dashboard.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://www.comultifamily.com/dashboards/affordable-housing/">
 <meta property="og:title" content="Affordable Housing Market | CO Multifamily Advisors">
-<meta property="og:description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) inventory, market breakdown, and rent/income limits. Private dashboard.">
+<meta property="og:description" content="Colorado and Wyoming affordable housing (LIHTC/HAP) inventory, market breakdown, transaction trends, ownership, pipeline, and financing.">
 <meta property="og:url" content="https://www.comultifamily.com/dashboards/affordable-housing/">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Affordable Housing Market","url":"https://www.comultifamily.com/dashboards/affordable-housing/"}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%230c1a2e'/><text x='16' y='23' font-family='Arial,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='white'>AH</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{overflow-x:hidden;width:100%}
+html{overflow-x:hidden}
+body{width:100%}
 body{font-family:system-ui,sans-serif;font-size:13px;background:#f4f6f9;color:#222}
-.page{max-width:1400px;margin:0 auto;overflow-x:hidden}
-.toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:8px 16px;background:#fff;border-bottom:1px solid #dde;align-items:flex-end}
-.filter-group{display:flex;flex-direction:column;gap:3px}
-.filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
-select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:12px;background:#fff;color:#222}
-.section{padding:14px 16px}
-.section-title{font-size:12px;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #dde}
-.stat-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.stat-tile{background:#fff;border:1px solid #dde;border-left:4px solid #c9a84c;border-radius:6px;padding:10px 14px}
-.stat-tile span{font-size:11px;color:#666;display:block;margin-bottom:2px}
-.stat-tile b{font-size:20px;color:#0c1a2e;display:block}
-.stat-tile .sec{font-size:11px;color:#888;margin-top:2px;display:block}
-#mapWrap{position:relative;height:520px;border-radius:6px;overflow:hidden;border:1px solid #dde}
-#map{height:100%;width:100%}
-.legend{background:#fff;padding:8px 10px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.2);font-size:11px;line-height:1.8}
-.legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
-#tableWrap{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px}
-table{width:100%;min-width:700px;border-collapse:collapse;font-size:14px}
-th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
-th:hover{background:#d5dde6}
-th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
-.col-left{text-align:left}
-.col-right{text-align:right}
-td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
-tr:hover td{background:#f0f5fa}
-.divider{border:none;border-top:2px solid #dde;margin:0}
-.two-col{display:flex;gap:16px;flex-wrap:wrap}
-.two-col>div{flex:1;min-width:320px}
-.card{background:#fff;border:1px solid #dde;border-radius:6px;padding:14px}
-.card-title{font-size:12px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px}
-.compare-table{width:100%;min-width:0;border-collapse:collapse;font-size:13px}
-.compare-table th{text-align:right;font-weight:600;color:#888;font-size:10px;text-transform:uppercase;letter-spacing:.2px;padding:2px 6px;cursor:pointer}
-.compare-table th:first-child{text-align:left}
-.compare-table td{padding:4px 6px;border-bottom:1px solid #f4f4f4;text-align:right;white-space:nowrap}
-.compare-table td:first-child{text-align:left}
-.compare-table tr:last-child td{border-bottom:none}
-#chartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0}
-svg#salesChart{display:block;width:100%;height:auto}
-.chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:8px 0 0;font-size:11px}
-.legend-item{display:flex;align-items:center;gap:5px}
-.legend-swatch{width:12px;height:12px;border-radius:2px}
-.tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
-.chfa-card{background:#fff;border:1px solid #dde;border-left:4px solid #c9a84c;border-radius:6px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.chfa-card a{background:#0c1a2e;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:600;white-space:nowrap}
-.chfa-card a:hover{background:#142338}
+.page{overflow-x:hidden}
 .co-topbar{background:#0c1a2e;border-bottom:2px solid #c9a84c;padding:5px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .co-wordmark{font-size:11px;font-weight:700;color:#c9a84c;letter-spacing:.06em;text-transform:uppercase}
 .co-hub-link{font-size:11px;color:rgba(255,255,255,.7);text-decoration:none;flex-shrink:0}
 .co-hub-link:hover{color:#fff}
-header{background:#0c1a2e;color:#fff;padding:8px 20px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px}
-header h1{font-size:15px;font-weight:600;padding:0;background:none}
-header p{font-size:11px;opacity:.7;margin-top:2px}
+header{background:#0c1a2e;color:#fff;padding:8px 20px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+header h1{font-family:'Raleway',sans-serif;font-size:20px;font-weight:500;padding:0;background:none}
+header p{font-family:'Inter',sans-serif;font-size:11px;opacity:.7;margin-top:2px}
 .header-team{display:flex;gap:20px;align-items:center;flex-shrink:0}
 .colliers-logo{height:36px;filter:brightness(0) invert(1);opacity:.9}
 .header-broker{font-size:11px;line-height:1.5;text-align:right}
 .header-broker strong{display:block;font-size:12px}
 .header-broker a{color:rgba(255,255,255,.75);text-decoration:none}
 .header-broker a:hover{color:#fff}
+nav.section-nav{display:flex;gap:0;background:#fff;border-bottom:1px solid #dde;padding:0 16px;overflow-x:auto;position:sticky;top:0;z-index:6}
+nav.section-nav a{padding:10px 14px;font-size:12px;font-weight:600;color:#555;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.06em}
+nav.section-nav a:hover{color:#0c1a2e;border-bottom-color:#c9a84c}
+.section{padding:18px 0}
+.section-inner{max-width:1400px;margin:0 auto;padding:0 16px}
+#overview{background:#f2f3f5}
+#inventory{background:#ffffff}
+#sales{background:#f2f3f5}
+#ownership{background:#ffffff}
+#pipeline{background:#f2f3f5}
+#chfa{background:#ffffff}
+.footer-cta{background:#0c1a2e;padding:44px 0}
+.footer-cta .section-tag{color:#c9a84c;margin-bottom:10px}
+.footer-cta .section-tag::before{background:#c9a84c}
+.footer-cta .section-h2{color:#fff}
+.footer-cta-row{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.footer-cta-title-col{flex-shrink:0}
+.footer-cta-divider{width:1px;align-self:stretch;background:rgba(255,255,255,.2);flex-shrink:0}
+.footer-cta p{color:rgba(255,255,255,.82);font-size:15px;line-height:1.6;margin:0;flex:1;min-width:280px;max-width:840px}
+.footer-cta-btn{flex-shrink:0;padding-top:22px;padding-bottom:22px}
+.btn-gold{background:#c9a84c;color:#0c1a2e;padding:10px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.btn-gold:hover{background:#d8ba64}
+.section-title{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #e0e2e8}
+.section-tag{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:#58637a;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.section-tag::before{content:'';width:24px;height:1px;background:#58637a;flex-shrink:0}
+.section-h2{font-family:'Raleway',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:300;
+  color:#0c1a2e;line-height:1.15}
+.section-h2 .gold{color:#c9a84c;font-weight:500}
+.stat-block-label{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin:28px 0 10px;
+  padding-bottom:6px;border-bottom:2px solid #c9a84c}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:8px 10px;background:#fff;border:1px solid #dde;border-radius:6px;align-items:flex-end;margin-bottom:12px}
+.map-panel{background:#fff;border:1px solid #dde;border-radius:6px;overflow:hidden}
+.map-panel .toolbar{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid #eee}
+.cf-wrap{max-width:1150px}
+.cf-subtitle{font-size:13px;font-weight:700;color:#0c1a2e;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #c9a84c}
+.cf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;min-width:0}
+.cf-card{min-width:0;overflow-x:auto}
+.cf-card{background:#fff;border:1px solid #dde;border-radius:8px;padding:14px}
+.cf-card-title{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.cf-legend{font-size:11px;color:#888;margin-top:8px}
+table.cf-table{border-collapse:collapse;width:100%;min-width:0;table-layout:fixed;font-size:12.5px}
+table.cf-table th{text-align:left;padding:7px 8px;background:#f4f6f9;font-weight:700;color:#666;white-space:nowrap;border-bottom:1px solid #dde}
+table.cf-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0;white-space:normal}
+table.cf-table tr:last-child td{border-bottom:none}
+table.cf-table tr:hover td{background:#f8f9fb}
+table.cf-table th:not(:first-child),table.cf-table td:not(:first-child){text-align:right}
+.filter-group{display:flex;flex-direction:column;gap:3px}
+.filter-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.4px}
+select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:12px;background:#fff;color:#222}
+.stat-grid{display:flex;flex-wrap:wrap;gap:12px}
+.stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
+  border-radius:6px;padding:14px 16px}
+.stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
+.stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
+.stat-tile>span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
+table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
+th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1;cursor:pointer;user-select:none}
+th:hover{background:#d5dde6}
+th .sort-arrow{margin-left:4px;color:#888;font-size:10px}
+.col-left{text-align:left}
+.col-right{text-align:right}
+td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
+tr:hover td{background:#f0f5fa}
+#chartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0}
+#tableWrap{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px}
+svg.chart{display:block;width:100%;height:auto}
+.chart-legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 0 0;font-size:11px}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-swatch{width:12px;height:12px;border-radius:2px}
+.tooltip{position:fixed;background:rgba(0,0,0,.8);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;display:none;z-index:100;white-space:pre}
+#invMap{height:520px;border:1px solid #dde;border-radius:6px}
+.map-panel #invMap{border:none;border-radius:0}
+.om-legend{background:#fff;padding:6px 8px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.2);font-size:11px;line-height:1.6}
+.om-legend div{display:flex;align-items:center;gap:6px}
+.om-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 .compare-footnote{font-size:10px;color:#888;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0}
+.chfa-card{background:#fff;border:1px solid #dde;border-left:4px solid #c9a84c;border-radius:6px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.chfa-card a{background:#0c1a2e;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:600;white-space:nowrap}
+.chfa-card a:hover{background:#142338}
+.cta-tab{position:fixed;top:50%;right:12px;transform:translateY(-50%);z-index:1100;background:#0c1a2e;color:#fff;border:none;border-left:4px solid #c9a84c;clip-path:polygon(0% 0%,88% 0%,100% 50%,88% 100%,0% 100%);padding:16px 26px 16px 10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
+.cta-tab:hover{background:#152540;filter:drop-shadow(0 10px 14px rgba(0,0,0,.65))}
+.cta-panel{position:fixed;top:50%;right:0;height:auto;width:320px;max-width:88vw;background:#0c1a2e;border-radius:8px 0 0 8px;box-shadow:-4px 4px 24px rgba(0,0,0,.4);z-index:1101;transform:translateX(100%) translateY(-50%);transition:transform .25s ease;display:flex;flex-direction:column;justify-content:center;padding:28px 20px}
+.cta-panel.open{transform:translateX(0) translateY(-50%)}
+.cta-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:rgba(255,255,255,.6);cursor:pointer;line-height:1}
+.cta-close:hover{color:#fff}
+.cta-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#c9a84c;display:flex;align-items:center;gap:12px;margin-top:8px}
+.cta-eyebrow::before{content:'';width:24px;height:1px;background:#c9a84c;flex-shrink:0}
+.cta-heading{font-family:'Raleway',sans-serif;font-size:21px;font-weight:500;color:#fff;margin:10px 0 20px;white-space:nowrap}
+.cta-btn-primary{background:#c9a84c;color:#0c1a2e;border:none;border-radius:5px;padding:13px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.cta-btn-primary:hover{background:#d9bb64}
+.cta-btn-primary:disabled{opacity:.5;cursor:default}
+.cta-divider{display:flex;align-items:center;gap:10px;margin:22px 0 12px;font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em}
+.cta-divider::before,.cta-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.2)}
+.cta-note{width:100%;min-height:90px;background:#fff;color:#222;border:1px solid #ccd;border-radius:5px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:13px;resize:vertical}
+.cta-btn-secondary{margin-top:10px;background:#fff;color:#0c1a2e;border:1.5px solid #c9a84c;border-radius:5px;padding:11px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.cta-btn-secondary:disabled{opacity:.4;cursor:default;border-color:#ccd;color:#999}
+.cta-btn-secondary:not(:disabled):hover{background:#faf6ea}
+.cta-thanks{font-family:'Inter',sans-serif;font-size:14px;color:#fff;line-height:1.5;padding-top:8px}
+.cta-thanks b{color:#c9a84c}
 </style>
 <script src="/js/dashboard-visibility.js"></script>
 <script src="/js/token-gate.js"></script>
@@ -111,6 +170,27 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <script src="/js/track.js"></script>
 </head>
 <body>
+
+<button class="cta-tab" id="ctaTab" type="button">Talk to the Team</button>
+<div class="cta-panel" id="ctaPanel">
+  <button class="cta-close" id="ctaClose" type="button" aria-label="Close">&times;</button>
+  <div class="cta-eyebrow">Talk to the Team</div>
+  <div class="cta-heading">Questions or Comments?</div>
+  <form name="market-report-cta" method="POST" data-netlify="true" netlify-honeypot="cta-hp" id="ctaForm">
+    <input type="hidden" name="form-name" value="market-report-cta">
+    <p style="display:none"><label>Don't fill this out: <input name="cta-hp"></label></p>
+    <input type="hidden" name="email" id="ctaEmail" value="">
+    <input type="hidden" name="market" value="Affordable Housing">
+    <input type="hidden" name="page" value="https://www.comultifamily.com/dashboards/affordable-housing/">
+    <input type="hidden" name="comment" id="ctaComment" value="">
+    <button type="button" class="cta-btn-primary" id="ctaTalkBtn">Contact Me ASAP</button>
+    <div class="cta-divider">Or Send a Note</div>
+    <textarea class="cta-note" id="ctaNoteText" placeholder="Type a question or comment..."></textarea>
+    <button type="button" class="cta-btn-secondary" id="ctaShareBtn" disabled>Let's Talk</button>
+  </form>
+  <div class="cta-thanks" id="ctaThanks" style="display:none"><b>Thanks &mdash; we'll be in touch shortly.</b><br>Craig, Bill, or Nate will reach out to you directly.</div>
+</div>
+
 <div class="co-topbar">
   <span class="co-wordmark">CO Multifamily Advisors</span>
   <a class="co-hub-link" data-token-link href="/dashboards/">&#8592; Back to Hub</a>
@@ -118,34 +198,37 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <header>
   <div>
     <h1>Affordable Housing Market &mdash; Colorado &amp; Wyoming</h1>
-    <p>Source: CO Multifamily Advisors internal database (LIHTC/HAP tagged properties) &middot; 10+ unit properties &middot; Generated 09/02/2026</p>
+    <p>LIHTC/HAP inventory, transaction trends, ownership, pipeline, and financing, sitewide. (Generated 09/02/2026)</p>
   </div>
   <div class="header-team">
-    <img src="data:image/webp;base64,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" class="colliers-logo" alt="Colliers">
+    <img src="data:image/webp;base64,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" class="colliers-logo" alt="Colliers">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
     <div class="header-broker"><strong>Bill Morkes</strong>Senior Vice President<br><a href="tel:+13033511371">(303) 351-1371</a> &middot; <a href="mailto:bill.morkes@colliers.com">bill.morkes@colliers.com</a></div>
     <div class="header-broker"><strong>Nate Moyer</strong>Senior Vice President<br><a href="tel:+13032834568">(303) 283-4568</a> &middot; <a href="mailto:nate.moyer@colliers.com">nate.moyer@colliers.com</a></div>
   </div>
 </header>
+<nav class="section-nav">
+  <a href="#overview">At a Glance</a>
+  <a href="#inventory">Inventory</a>
+  <a href="#sales">Sales Metrics</a>
+  <a href="#ownership">Ownership Trends</a>
+  <a href="#pipeline">Pipeline &amp; Financing</a>
+  <a href="#chfa">Rent Limits</a>
+</nav>
 <div class="page">
 
-<div class="section">
-  <div class="section-title">At a Glance</div>
-  <div class="stat-tiles">
-    <div class="stat-tile"><span>Total Properties</span><b id="sProps">&mdash;</b><span class="sec" id="sPropsPct"></span></div>
-    <div class="stat-tile"><span>Total Units</span><b id="sUnits">&mdash;</b><span class="sec" id="sUnitsPct"></span></div>
-    <div class="stat-tile"><span>LIHTC</span><b id="sLihtc">&mdash;</b><span class="sec" id="sLihtcUnits"></span></div>
-    <div class="stat-tile"><span>HAP (Section 8)</span><b id="sHap">&mdash;</b><span class="sec" id="sHapUnits"></span></div>
-    <div class="stat-tile"><span>Avg Vintage</span><b id="sVintage">&mdash;</b></div>
-  </div>
-</div>
+<div class="section" id="overview"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">At a Glance</div><h2 class="section-h2">Affordable Housing Overview</h2></div>
+  <div class="stat-grid" id="overviewStats"></div>
+</div></div>
 
-<hr class="divider">
-
-<div class="toolbar">
-  <div class="filter-group">
-    <label>Market</label>
-    <select id="fMarket" onchange="applyFilters()"><option value="">All Markets</option>
+<div class="section" id="inventory"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Property Inventory</div><h2 class="section-h2">Where the Stock Is</h2></div>
+  <div class="map-panel">
+    <div class="toolbar">
+      <div class="filter-group">
+        <label>Market</label>
+        <select id="fMarket" onchange="applyFilters()"><option value="">All Markets</option>
 <option value="Wyoming">Wyoming</option>
 <option value="Fort Collins">Fort Collins</option>
 <option value="Greeley">Greeley</option>
@@ -156,26 +239,20 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 <option value="Western Slope">Western Slope</option>
 <option value="Mountain Towns">Mountain Towns</option>
 <option value="Rural/Tertiary CO">Rural/Tertiary CO</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Type</label>
+        <select id="fType" onchange="applyFilters()">
+          <option value="">All Types</option>
+          <option value="LIHTC">LIHTC</option>
+          <option value="HAP">HAP (Section 8)</option>
+        </select>
+      </div>
+    </div>
+    <div id="invMap"></div>
   </div>
-  <div class="filter-group">
-    <label>Type</label>
-    <select id="fType" onchange="applyFilters()">
-      <option value="">All Types</option>
-      <option value="LIHTC">LIHTC</option>
-      <option value="HAP">HAP (Section 8)</option>
-    </select>
-  </div>
-</div>
 
-<div class="section">
-  <div class="section-title">Inventory Map</div>
-  <div id="mapWrap"><div id="map"></div></div>
-</div>
-
-<hr class="divider">
-
-<div class="section">
-  <div class="section-title">By Market</div>
+  <div class="stat-block-label">By Market</div>
   <div id="tableWrap">
     <table id="marketTable">
       <thead><tr id="tableHead"></tr></thead>
@@ -183,74 +260,79 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
     </table>
   </div>
   <div class="compare-footnote">Property counts reflect this database's current LIHTC/HAP tagging on <code>T:Properties</code> — a cross-check against HUD's public LIHTC list found a small number of untagged properties still being added to the database, so these figures are a floor, not a final count.</div>
-</div>
+</div></div>
 
-<hr class="divider">
-
-<div class="section">
-  <div class="section-title">Transaction Trends</div>
+<div class="section" id="sales"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Sales Metrics</div><h2 class="section-h2">Transaction Trends</h2></div>
   <div id="chartWrap">
-    <svg id="salesChart" width="900" height="360"></svg>
+    <svg class="chart" id="salesChart" width="900" height="360"></svg>
     <div class="chart-legend" id="salesChartLegend"></div>
   </div>
-  <div class="compare-footnote">Volume reflects only sales with a reported price (~50% of affordable transactions have a disclosed price, lower than market-rate — many affordable deals involve complex financing/regulatory structures that don't always include a public sale price). Deal and unit counts are complete regardless of price disclosure.</div>
-</div>
+  <div class="compare-footnote">Volume reflects only sales with a reported price (~50% of affordable transactions have a disclosed price, lower than market-rate — many affordable deals involve complex financing/regulatory structures that don't always include a public sale price). Deal and unit counts are complete regardless of price disclosure. Sourced from the Sales History dashboard's PropertyType-tagged tallies — single source of truth, not an independent query.</div>
+</div></div>
 
-<hr class="divider">
-
-<div class="section">
-  <div class="two-col">
-    <div>
-      <div class="card">
-        <div class="card-title">Ownership — By Buyer Type</div>
-        <table class="compare-table" id="ownTypeTable"><thead><tr><th>Type</th><th>Properties</th><th>Units</th></tr></thead><tbody id="ownTypeBody"></tbody></table>
+<div class="section" id="ownership"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Capital Flow</div><h2 class="section-h2">Ownership Trends</h2></div>
+  <div class="cf-wrap">
+    <div class="cf-grid2">
+      <div class="cf-card">
+        <div class="cf-card-title">By Buyer Type</div>
+        <table class="cf-table"><thead><tr><th>Type</th><th>Properties</th><th>Units</th></tr></thead><tbody id="ownTypeBody"></tbody></table>
+      </div>
+      <div class="cf-card">
+        <div class="cf-card-title">By Buyer HQ State</div>
+        <table class="cf-table"><thead><tr><th>State</th><th>Properties</th><th>Units</th></tr></thead><tbody id="ownStateBody"></tbody></table>
       </div>
     </div>
-    <div>
-      <div class="card">
-        <div class="card-title">Ownership — By Buyer HQ State</div>
-        <table class="compare-table" id="ownStateTable"><thead><tr><th>State</th><th>Properties</th><th>Units</th></tr></thead><tbody id="ownStateBody"></tbody></table>
-      </div>
-    </div>
+    <div class="cf-legend">Current owner-of-record from each property's most recent sale, ranked by units (not $ volume) — same convention used for Wyoming elsewhere on the site, since affordable deals also have partial price disclosure.</div>
   </div>
-  <div class="compare-footnote">Current owner-of-record from each property's most recent sale, ranked by units (not $ volume) — same convention used for Wyoming elsewhere on the site, since affordable deals also have partial price disclosure.</div>
-</div>
+</div></div>
 
-<hr class="divider">
-
-<div class="section">
-  <div class="two-col">
-    <div>
-      <div class="card">
-        <div class="card-title">New Construction Pipeline</div>
-        <table class="compare-table" id="pipelineTable"><thead><tr><th>Stage</th><th>Properties</th><th>Units</th></tr></thead><tbody id="pipelineBody"></tbody></table>
+<div class="section" id="pipeline"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Supply Pipeline &amp; Debt</div><h2 class="section-h2">Pipeline &amp; Financing</h2></div>
+  <div class="cf-wrap">
+    <div class="cf-grid2">
+      <div class="cf-card">
+        <div class="cf-card-title">New Construction Pipeline</div>
+        <table class="cf-table"><thead><tr><th>Stage</th><th>Properties</th><th>Units</th></tr></thead><tbody id="pipelineBody"></tbody></table>
       </div>
-    </div>
-    <div>
-      <div class="card">
-        <div class="card-title">Financing</div>
-        <div class="stat-tiles" style="margin-bottom:10px">
-          <div class="stat-tile"><span>Loans on File</span><b id="lLoans">&mdash;</b></div>
-          <div class="stat-tile"><span>Total Loan Volume</span><b id="lVolume">&mdash;</b></div>
-          <div class="stat-tile"><span>Distressed</span><b id="lDistressed">&mdash;</b></div>
-          <div class="stat-tile"><span>Watch List</span><b id="lWatchlist">&mdash;</b></div>
+      <div class="cf-card">
+        <div class="cf-card-title">Financing</div>
+        <div class="stat-grid" style="margin-bottom:10px">
+          <div class="stat-tile"><div class="stat-eyebrow">Loans</div><b id="lLoans">&mdash;</b><span>On File</span></div>
+          <div class="stat-tile"><div class="stat-eyebrow">Volume</div><b id="lVolume">&mdash;</b><span>Total Loan Volume</span></div>
+          <div class="stat-tile"><div class="stat-eyebrow">Distress</div><b id="lDistressed">&mdash;</b><span>Distressed</span></div>
+          <div class="stat-tile"><div class="stat-eyebrow">Watch</div><b id="lWatchlist">&mdash;</b><span>Watch List</span></div>
         </div>
-        <table class="compare-table" id="lenderTable"><thead><tr><th>Lender Type</th><th>Loans</th><th>Volume</th></tr></thead><tbody id="lenderBody"></tbody></table>
+        <table class="cf-table"><thead><tr><th>Lender Type</th><th>Loans</th><th>Volume</th></tr></thead><tbody id="lenderBody"></tbody></table>
       </div>
     </div>
+    <div class="cf-legend">Pipeline sourced from the Construction Pipeline dashboard's Affordable classification. Financing sourced from Loan Monitor's affordable-flagged loans — aggregate figures only, no borrower/lender names shown here.</div>
   </div>
-  <div class="compare-footnote">Pipeline sourced from the Construction Pipeline dashboard's Affordable classification. Financing sourced from Loan Monitor's affordable-flagged loans — aggregate figures only, no borrower/lender names shown here.</div>
-</div>
+</div></div>
 
-<hr class="divider">
-
-<div class="section">
+<div class="section" id="chfa"><div class="section-inner">
+  <div class="section-title"><div class="section-tag">Regulatory</div><h2 class="section-h2">Rent &amp; Income Limits</h2></div>
   <div class="chfa-card">
     <div>
-      <div class="card-title" style="margin-bottom:4px">CHFA Rent &amp; Income Limits</div>
+      <div class="cf-card-title" style="margin-bottom:4px">CHFA Rent &amp; Income Limits</div>
       <div style="font-size:13px;color:#555">Colorado Housing and Finance Authority county/AMI rent and income limit tables — the regulatory ceiling that governs what these properties can charge.</div>
     </div>
     <a href="/dashboards/chfa/" data-token-link>View CHFA Limits &rarr;</a>
+  </div>
+</div></div>
+
+<div class="section footer-cta">
+  <div class="section-inner">
+    <div class="footer-cta-row">
+      <div class="footer-cta-title-col">
+        <div class="section-tag">Colliers Multifamily Intelligence</div>
+        <h2 class="section-h2">Need More Information</h2>
+      </div>
+      <div class="footer-cta-divider"></div>
+      <p>Access to data isn&rsquo;t the same as actionable intelligence. Colliers aggregates multifamily data into clear, decision-ready insight &mdash; so Principals can act with confidence. Contact us today to discuss your affordable housing questions.</p>
+      <button class="btn btn-gold footer-cta-btn" onclick="document.getElementById('ctaTab').click()">Contact Us &rarr;</button>
+    </div>
   </div>
 </div>
 
@@ -288,17 +370,20 @@ COLS.forEach(c => {
   head.appendChild(th);
 });
 
+function tile(eyebrow, v, l) {
+  return `<div class="stat-tile"><div class="stat-eyebrow">${eyebrow}</div><b>${v}</b><span>${l}</span></div>`;
+}
+
 function renderOverview() {
   const o = OVERVIEW;
-  document.getElementById('sProps').textContent = o.totalProperties.toLocaleString();
-  document.getElementById('sPropsPct').textContent = o.pctOfStockProperties!=null ? o.pctOfStockProperties+'% of CO/WY 10+ unit stock' : '';
-  document.getElementById('sUnits').textContent = o.totalUnits.toLocaleString();
-  document.getElementById('sUnitsPct').textContent = o.pctOfStockUnits!=null ? o.pctOfStockUnits+'% of CO/WY 10+ unit stock' : '';
-  document.getElementById('sLihtc').textContent = o.lihtcProperties.toLocaleString();
-  document.getElementById('sLihtcUnits').textContent = o.lihtcUnits.toLocaleString() + ' units';
-  document.getElementById('sHap').textContent = o.hapProperties.toLocaleString();
-  document.getElementById('sHapUnits').textContent = o.hapUnits.toLocaleString() + ' units';
-  document.getElementById('sVintage').textContent = o.avgVintage || '—';
+  const tiles = [
+    tile('Properties', o.totalProperties.toLocaleString(), o.pctOfStockProperties!=null ? o.pctOfStockProperties+'% of CO/WY 10+ unit stock' : 'Total Properties'),
+    tile('Units', o.totalUnits.toLocaleString(), o.pctOfStockUnits!=null ? o.pctOfStockUnits+'% of CO/WY 10+ unit stock' : 'Total Units'),
+    tile('LIHTC', o.lihtcProperties.toLocaleString(), o.lihtcUnits.toLocaleString()+' units'),
+    tile('HAP (Sec. 8)', o.hapProperties.toLocaleString(), o.hapUnits.toLocaleString()+' units'),
+    tile('Vintage', o.avgVintage || '—', 'Avg Year Built'),
+  ];
+  document.getElementById('overviewStats').innerHTML = tiles.join('');
 }
 
 function renderTable() {
@@ -311,7 +396,7 @@ function renderTable() {
   ).join('');
 }
 
-const map = L.map('map').setView([39.2,-105.5], 6);
+const map = L.map('invMap').setView([39.2,-105.5], 6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'&copy; OpenStreetMap contributors', maxZoom:18
 }).addTo(map);
@@ -319,9 +404,9 @@ const markerLayer = L.layerGroup().addTo(map);
 
 const legend = L.control({position:'bottomleft'});
 legend.onAdd = () => {
-  const d = L.DomUtil.create('div','legend');
+  const d = L.DomUtil.create('div','om-legend');
   d.innerHTML = Object.entries(TYPE_COLOR).map(([t,c])=>
-    `<div><span class="legend-dot" style="background:${c}"></span>${t}</div>`
+    `<div><span class="dot" style="background:${c}"></span>${t}</div>`
   ).join('');
   return d;
 };
@@ -436,7 +521,7 @@ function renderSalesChart(sales) {
 
   years.forEach((yr,i)=>{
     const x=xScale(i)-barW/2, y=yVol(vols[i]), h=cH+PT-y;
-    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="#7eb8c9" rx="2" class="bar" data-tip="${yr}\nDeals: ${counts[i]}\nVolume: ${dollar(vols[i])}"/>`);
+    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="#c9a84c" rx="2" class="bar" data-tip="${yr}\nDeals: ${counts[i]}\nVolume: ${dollar(vols[i])}"/>`);
   });
 
   const countPts = years.map((yr,i)=>({x:xScale(i), y:yCount(counts[i])}));
@@ -454,7 +539,7 @@ function renderSalesChart(sales) {
   svg.innerHTML = parts.join('');
 
   document.getElementById('salesChartLegend').innerHTML =
-    '<div class="legend-item"><div class="legend-swatch" style="background:#7eb8c9"></div>Total Volume $ (left axis)</div>' +
+    '<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>Total Volume $ (left axis)</div>' +
     '<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>Sales Count (right axis)</div>';
 
   const tooltip = document.getElementById('tooltip');
@@ -483,6 +568,45 @@ fetchDashboardData('affordable-housing', 'data.json', __t)
     renderPipelineTable(d.pipeline);
     renderLoanStats(d.loans);
   });
+
+// "Talk to the Team" CTA — same pattern as build_market_report.py.
+(function() {
+  var tab = document.getElementById('ctaTab'), panel = document.getElementById('ctaPanel'),
+      close = document.getElementById('ctaClose'), form = document.getElementById('ctaForm'),
+      note = document.getElementById('ctaNoteText'), talkBtn = document.getElementById('ctaTalkBtn'),
+      shareBtn = document.getElementById('ctaShareBtn'), thanks = document.getElementById('ctaThanks'),
+      emailField = document.getElementById('ctaEmail'), commentField = document.getElementById('ctaComment');
+
+  if (typeof __r !== 'undefined' && __r.valid) emailField.value = __r.email;
+
+  tab.addEventListener('click', function() { panel.classList.add('open'); });
+  close.addEventListener('click', function() { panel.classList.remove('open'); });
+
+  note.addEventListener('input', function() { shareBtn.disabled = note.value.trim() === ''; });
+
+  function submitCta(withComment) {
+    commentField.value = withComment ? note.value.trim() : '';
+    var data = new FormData(form);
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString() })
+      .then(function() {
+        form.style.display = 'none';
+        thanks.style.display = 'block';
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {'market': 'Affordable Housing', 'with_comment': withComment});
+        }
+        if (typeof window.coTrack === 'function') {
+          window.coTrack('cta_submit', {'market': 'Affordable Housing', 'with_comment': withComment});
+        }
+      })
+      .catch(function() {
+        alert('Something went wrong sending your message — please email us directly at bill.morkes@colliers.com.');
+      });
+  }
+
+  talkBtn.addEventListener('click', function() { talkBtn.disabled = true; submitCta(false); });
+  shareBtn.addEventListener('click', function() { shareBtn.disabled = true; talkBtn.disabled = true; submitCta(true); });
+})();
 </script>
 </body>
 </html>
