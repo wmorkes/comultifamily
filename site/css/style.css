@@ -930,8 +930,6 @@ a { text-decoration:none; color:inherit; }
 /* ─── MARKET-DETAIL-LAYOUT / SIDEBAR-STAT SPACING MODIFIERS ─── */
 .market-detail-layout--mt40 { margin-top: 40px; }
 .market-detail-layout--gap80 { gap: 80px; }
-.sidebar-stat-label--mt4 { margin-top: 4px; }
-.sidebar-stat-val--mt16 { margin-top: 16px; }
 .stat-callout--tight { margin: 12px 0 16px; padding: 16px 0; border-bottom: 1px solid var(--border-soft); border-top: none; }
 .services-grid--mt28 { margin-top: 28px; }
 .services-grid--mt36 { margin-top: 36px; }
