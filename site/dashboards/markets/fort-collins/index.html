@@ -289,7 +289,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Fort Collins</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/01/2026)</p>
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/02/2026)</p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -438,6 +438,7 @@ svg.chart{display:block;width:100%;height:auto}
       </table>
     </div>
     <div class="compare-footnote">Avg Price, Avg $/Unit, and Avg $/SF are averaged only across sales with a reported price (some sales in this dataset have no disclosed price and are excluded from these averages, though still counted in Sales). For historical years or a vintage-specific cut, <a href="#" onclick="document.getElementById('ctaTab').click();return false;">contact us</a>.</div>
+    
   </div>
   <div id="salesEmpty" style="display:none;padding:16px;color:#888">No recorded sales for Fort Collins since 2011.</div>
 </div></div>
@@ -1197,6 +1198,7 @@ function renderDistressStats() {
 const SALES_VINTAGE_COLS = [
   {key:'vintage',      label:'Vintage',        fmt:v=>v,                              align:'left'},
   {key:'deals',        label:'Sales',          fmt:v=>v.toLocaleString(),             align:'center'},
+  {key:'unitsTotal',   label:'Units Sold',     fmt:v=>v.toLocaleString(),             align:'center'},
   {key:'volume',       label:'Total Volume',   fmt:v=>dollar(v),                      align:'right'},
   {key:'avgPrice',     label:'Avg Price',      fmt:v=>v==null?'—':dollar(v),          align:'right'},
   {key:'pricePerUnit', label:'Avg $/Unit',     fmt:v=>v==null?'—':dollar(v),          align:'right'},
@@ -1205,7 +1207,7 @@ const SALES_VINTAGE_COLS = [
   {key:'vs2021',       label:'vs 2021 (YTD)',               fmt:v=>fmtPct(v),                      align:'right'},
   {key:'vsLastYear',   label:`vs ${JS_CURRENT_YEAR-1} (YTD)`, fmt:v=>fmtPct(v),                  align:'right'},
 ];
-const SALES_SF_GROUP_START = 5;
+const SALES_SF_GROUP_START = 6;
 let salesVintageSortCol = 'vintage', salesVintageSortDir = 1;
 let salesVintageHeadBuilt = false;
 
@@ -1249,11 +1251,12 @@ function renderSalesVintageBreakdown() {
   const byVintage = {};
   filtered.forEach(r => {
     const b = byVintage[r.vintage] || (byVintage[r.vintage] = {
-      vintage:r.vintage, deals:0, pricedDeals:0, volume:0, unitsPriced:0, sfPriced:0, sfVolume:0
+      vintage:r.vintage, deals:0, pricedDeals:0, volume:0, unitsTotal:0, unitsPriced:0, sfPriced:0, sfVolume:0
     });
     b.deals += r.deals;
     b.pricedDeals += r.pricedDeals;
     b.volume += r.volume;
+    b.unitsTotal += r.unitsTotal;
     b.unitsPriced += r.unitsPriced;
     b.sfPriced += r.sfPriced;
     b.sfVolume += r.sfVolume;
@@ -1270,6 +1273,7 @@ function renderSalesVintageBreakdown() {
     return {
       vintage: b.vintage,
       deals: b.deals,
+      unitsTotal: b.unitsTotal,
       volume: b.volume,
       avgPrice: b.pricedDeals ? Math.round(b.volume/b.pricedDeals) : null,
       pricePerUnit: b.unitsPriced ? Math.round(b.volume/b.unitsPriced) : null,
