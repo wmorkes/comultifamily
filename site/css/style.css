@@ -903,6 +903,99 @@ a { text-decoration:none; color:inherit; }
 
 .link-gold-underline { color: var(--text); text-decoration: underline; text-decoration-color: var(--gold); }
 
+/* ─── SECTION-LEAD WIDTH/SPACING VARIANTS ───────────────────── */
+.section-lead--wide-mb24 { max-width: none; margin-bottom: 24px; }
+.section-lead--wide-flush { max-width: none; margin-bottom: 0; }
+.section-lead--mb36 { margin-bottom: 36px; }
+
+/* ─── SECTION DIVIDER (repeated margin-top/padding-top/border-top block) ── */
+.section-divider { padding-top: 40px; border-top: 1px solid var(--border-soft); }
+.section-divider--mt48 { margin-top: 48px; }
+.section-divider--mt56 { margin-top: 56px; }
+
+/* ─── SECTION--ALT COMPACT PADDING (jump-nav strip) ─────────── */
+.section--alt-compact { padding-top: 32px; padding-bottom: 32px; }
+
+/* ─── JUMP-NAV ROW ───────────────────────────────────────────── */
+.jump-nav-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.jump-nav-label { margin-right: 8px; }
+
+/* ─── INLINE ICON ALIGNMENT (svg glyphs beside text) ────────── */
+.icon-inline { vertical-align: middle; margin-right: 4px; }
+.icon-inline--shrink { flex-shrink: 0; }
+
+/* ─── CTA BUTTON ROW ─────────────────────────────────────────── */
+.cta-btn-row { display: flex; flex-wrap: wrap; gap: 16px; }
+
+/* ─── MARKET-DETAIL-LAYOUT / SIDEBAR-STAT SPACING MODIFIERS ─── */
+.market-detail-layout--mt40 { margin-top: 40px; }
+.market-detail-layout--gap80 { gap: 80px; }
+.sidebar-stat-label--mt4 { margin-top: 4px; }
+.sidebar-stat-val--mt16 { margin-top: 16px; }
+.stat-callout--tight { margin: 12px 0 16px; padding: 16px 0; border-bottom: 1px solid var(--border-soft); border-top: none; }
+.services-grid--mt28 { margin-top: 28px; }
+.services-grid--mt36 { margin-top: 36px; }
+.service-card--cta { max-width: 720px; margin-top: 28px; }
+.service-card--cta-mt36 { max-width: 720px; margin-top: 36px; }
+
+/* ─── TRACK RECORD LEGEND DOT COLOR/SIZE MODIFIERS ──────────── */
+.legend-dot--market { background: var(--gold); }
+.legend-dot--affordable { background: var(--color-affordable); }
+.legend-dot--student { background: var(--color-student); }
+.legend-dot--land { background: var(--color-land); }
+.legend-dot--lg { width: 18px; height: 18px; }
+.legend-dot--md { width: 12px; height: 12px; }
+.legend-dot--sm { width: 8px; height: 8px; }
+.section-h2--mb16 { margin-bottom: 16px; }
+.em-plain-navy { font-style: normal; color: var(--text); }
+.filter-row--mb20 { margin-bottom: 20px; }
+.deal-table-wrap--mt48 { margin-top: 48px; }
+.footnote-note { font-size: 12px; color: var(--text-soft); margin-top: 16px; font-style: italic; }
+
+/* ─── LISTINGS PAGE ──────────────────────────────────────────── */
+.listings-cta-block { margin-top: 64px; }
+.listings-status-msg { grid-column: 1/-1; padding: 48px; text-align: center; color: var(--text-soft); font-style: italic; }
+.listing-type-secondary { color: var(--navy); font-weight: 500; }
+.listing-card-link { display: block; text-decoration: none; color: inherit; }
+.link-gold { color: var(--gold); }
+.js-hidden { display: none; }
+
+/* ─── MARKET INTELLIGENCE PORTAL ────────────────────────────── */
+.section--portal-hero { padding-top: 120px; padding-bottom: 48px; }
+.access-portal-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1.6fr 1fr; gap: 56px; align-items: center; }
+.portal-eyebrow--mb2 { margin-bottom: 2px; }
+.portal-eyebrow-text--navy { color: var(--navy); }
+.portal-h1 { font-size: 32px; margin-bottom: 28px; }
+.portal-form-card { background: var(--navy); border: 1px solid var(--navy); border-radius: 12px; padding: 32px; }
+.portal-form-card h2 { font-size: 18px; margin-bottom: 20px; color: #fff; }
+.portal-form { --form-label-gap: 2px; }
+.portal-form-group--mt15 { margin-top: 15px; }
+.portal-submit-btn { width: 100%; justify-content: center; padding: 14px; margin-top: 8px; }
+.portal-form-footnote { text-align: center; font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 20px; }
+.portal-form-footnote a { color: #fff; text-decoration: underline; }
+.portal-confirm { padding: 32px 0; text-align: center; }
+.portal-confirm-check { font-size: 28px; color: var(--gold); margin-bottom: 16px; }
+.portal-confirm h3 { margin-bottom: 10px; color: #fff; }
+.portal-confirm p { color: rgba(255,255,255,0.6); font-size: 15px; }
+
+/* ─── CONTACT PAGE ───────────────────────────────────────────── */
+.contact-h2--mb32 { margin-bottom: 32px; }
+.contact-submit-btn { width: 100%; justify-content: center; padding: 16px; }
+.contact-form-footnote { font-size: 11px; color: var(--text-soft); }
+.contact-phone-icon { display: inline; vertical-align: middle; margin-right: 5px; color: var(--gold); }
+.contact-phone-link { color: var(--text-soft); font-size: 14px; }
+.contact-confirm { padding: 48px 0; text-align: center; }
+.contact-confirm-check { font-size: 32px; margin-bottom: 16px; }
+.contact-confirm h3 { font-family: Inter, sans-serif; margin-bottom: 12px; }
+.contact-confirm p { color: var(--text-soft); }
+
+/* ─── RESOURCES PAGE ─────────────────────────────────────────── */
+.sidebar-links-col { display: flex; flex-direction: column; gap: 2px; }
+
+/* ─── SERVICES PAGE ──────────────────────────────────────────── */
+.service-title-link { color: inherit; text-decoration: none; }
+.btn-ghost--gold-mt24 { margin-top: 24px; color: var(--gold); }
+
 /* ─── SIDEBAR CTA CARD ───────────────────────────────────── */
 .sidebar-card--cta { background: var(--navy); border-color: var(--navy); margin-top: 16px; }
 .sidebar-card--cta h4, .sidebar-card--cta h3 { color: var(--gold); }

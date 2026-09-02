@@ -182,10 +182,10 @@
 
     <!-- Map -->
     <div class="section-tag reveal">Transaction Map</div>
-    <h2 class="section-h2 reveal" style="margin-bottom:16px;">Private Investors to <em style="font-style:normal;color:var(--text);">Institutional Capital</em></h2>
+    <h2 class="section-h2 reveal section-h2--mb16">Private Investors to <em class="em-plain-navy">Institutional Capital</em></h2>
 
     <!-- Filter buttons — control both map AND table -->
-    <div class="filter-row reveal" style="margin-bottom:20px;">
+    <div class="filter-row reveal filter-row--mb20">
       <span class="filter-label">Filter:</span>
       <button class="filter-btn active" onclick="setMapFilter(this,'all')">All</button>
       <button class="filter-btn" onclick="setMapFilter(this,'market-rate')">Market-Rate</button>
@@ -196,19 +196,19 @@
 
     <!-- Map legend -->
     <div class="map-legend reveal">
-      <div class="legend-item"><span class="legend-dot" style="background:#c9a84c;"></span>Market-Rate</div>
-      <div class="legend-item"><span class="legend-dot" style="background:#7eb8c9;"></span>Affordable</div>
-      <div class="legend-item"><span class="legend-dot" style="background:#b87ec9;"></span>Student</div>
-      <div class="legend-item"><span class="legend-dot" style="background:#7ec994;"></span>Land</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--market"></span>Market-Rate</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--affordable"></span>Affordable</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--student"></span>Student</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--land"></span>Land</div>
       <div class="legend-divider"></div>
-      <div class="legend-item"><span class="legend-size-row"><span class="legend-dot" style="background:#c9a84c;width:18px;height:18px;"></span><span class="legend-dot" style="background:#c9a84c;width:12px;height:12px;"></span><span class="legend-dot" style="background:#c9a84c;width:8px;height:8px;"></span></span>Pin size = deal size</div>
+      <div class="legend-item"><span class="legend-size-row"><span class="legend-dot legend-dot--market legend-dot--lg"></span><span class="legend-dot legend-dot--market legend-dot--md"></span><span class="legend-dot legend-dot--market legend-dot--sm"></span></span>Pin size = deal size</div>
     </div>
 
     <!-- Live Google Map container -->
     <div id="dealMap" class="deal-map-container reveal"></div>
 
     <!-- Deal table — populated by deal-map.js -->
-    <div class="deal-table-wrap" style="margin-top:48px;">
+    <div class="deal-table-wrap deal-table-wrap--mt48">
     <table class="deal-table">
       <thead>
         <tr>
@@ -1720,7 +1720,7 @@
     </table>
     </div>
 
-    <p style="font-size:12px;color:var(--text-soft);margin-top:16px;font-style:italic;">* Combined team volume represents Craig Stack, Bill Morkes, and Nate Moyer across all prior affiliations.</p>
+    <p class="footnote-note">* Combined team volume represents Craig Stack, Bill Morkes, and Nate Moyer across all prior affiliations.</p>
 
   </div>
 </section>
