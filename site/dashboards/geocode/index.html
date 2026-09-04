@@ -171,6 +171,32 @@
     font-family: "Helvetica Neue", Arial, sans-serif;
   }
 </style>
+<script src="/js/dashboard-visibility.js"></script>
+<script src="/js/token-gate.js"></script>
+<script>
+  var __t = getTokenFromURL(), __r = validateToken(__t);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-53BCG1FL5M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  var __clientLabel;
+  if (__r.valid) {
+    __clientLabel = __r.email.replace('@','-').replace(/\.com$/,'');
+    gtag('set', {'client_token': __clientLabel});
+    gtag('set', 'user_properties', {'client_token': __clientLabel});
+  }
+  gtag("config", "G-53BCG1FL5M");
+  if (!__r.valid) {
+    window.location.replace('/dashboards/' + (__r.reason === 'expired' ? '?token=' + encodeURIComponent(__t) : ''));
+  } else if (!__r.isTeam) {
+    window.location.replace('/dashboards/');
+  } else {
+    gtag('event', 'dashboard_access', {'client_token': __clientLabel});
+    rememberClientToken(__clientLabel);
+  }
+</script>
 <script src="/js/track.js"></script>
 </head>
 <body>

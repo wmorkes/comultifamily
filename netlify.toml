@@ -136,6 +136,12 @@
   force = true
 
 [[redirects]]
+  from = "/markets/pueblo/"
+  to = "/markets/pueblo.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/markets/"
   to = "/markets/index.html"
   status = 200
@@ -310,6 +316,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/markets/pueblo"
+  to = "/markets/pueblo/"
+  status = 301
+  force = true
+
 # 301 redirects from old .html URLs to clean trailing-slash URLs
 [[redirects]]
   from = "/markets/index.html"
@@ -446,5 +458,11 @@
 [[redirects]]
   from = "/markets/western-slope.html"
   to = "/markets/western-slope/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/markets/pueblo.html"
+  to = "/markets/pueblo/"
   status = 301
   force = true
