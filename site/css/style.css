@@ -797,6 +797,10 @@ a { text-decoration:none; color:inherit; }
 .mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.55); padding: 10px 20px 12px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
 .mi-table thead th:first-child { text-align: left; padding-left: 12px; min-width: 140px; }
 .mi-table thead .th-sub { display: block; font-weight: 400; opacity: 0.65; letter-spacing: 0.04em; font-size: 9px; text-transform: none; }
+.mi-table.sortable thead th { cursor: pointer; }
+.mi-table.sortable thead th:hover { color: rgba(255,255,255,0.85); }
+.mi-table.sortable th.sorted-asc::after { content: " \25B2"; font-size: 9px; color: var(--gold); }
+.mi-table.sortable th.sorted-desc::after { content: " \25BC"; font-size: 9px; color: var(--gold); }
 .mi-table tbody tr { border-bottom: 1px solid var(--border-soft); transition: background 0.15s; }
 .mi-table tbody tr:nth-child(even):not(.mi-section-label) { background: var(--bg); }
 .mi-table tbody tr:nth-child(odd):not(.mi-section-label) { background: #fff; }
