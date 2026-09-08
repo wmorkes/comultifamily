@@ -19,6 +19,35 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
+.stat-grid{display:flex;flex-wrap:wrap;gap:12px}
+.stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
+  border-radius:6px;padding:14px 16px}
+.stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
+.stat-tile-dark .stat-eyebrow{color:#c9a84c}
+.stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
+.stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
+.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#666;letter-spacing:.3px;line-height:1.3}
+.stat-tile .stat-secondary b{font-size:18px;font-weight:700;color:#0c1a2e;line-height:1.15}
+.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1.15}
+.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
+.stat-tile-dark b{color:#fff}
+.stat-tile-dark span{color:#c7cedb}
+.stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
+.stat-tile-dark .stat-secondary b{color:#fff}
+.stat-tile-dark .pos{color:#4ade80}
+.stat-tile-dark .neg{color:#f87171}
+.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
+.divider{border:none;border-top:2px solid #dde;margin:0}
+.stat-header-row{display:grid;grid-template-columns:36% 16% 16% 16% 16%;border-bottom:1px solid #dde;padding-bottom:2px;margin-bottom:0}
+.stat-header-row div{font-size:10px;color:#888;text-align:right}
+.stat-header-row div:first-child{text-align:left}
+.stat-footnote{font-size:10px;color:#888;margin-top:8px;padding-top:6px;border-top:1px solid #f0f0f0;line-height:1.4}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap}
+td{padding:7px 10px;border-bottom:1px solid #eee}
+.pos{color:#0a7a3d}
+.neg{color:#b3261e}
 *{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden}
 body{width:100%}
@@ -107,52 +136,19 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
 .btn{padding:5px 14px;border:none;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600}
 .btn-primary{background:#0c1a2e;color:#fff}.btn-primary:hover{background:#142338}
 .btn-secondary{background:#e8edf2;color:#333}.btn-secondary:hover{background:#d5dde6}
-.stat-grid{display:flex;flex-wrap:wrap;gap:12px}
-.stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
-  border-radius:6px;padding:14px 16px}
-.stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
-  text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
-.stat-tile-dark .stat-eyebrow{color:#c9a84c}
-/* Top stat and secondary stat are two equal supporting figures under one
-   topic (eyebrow) — same size/weight for both values, and same size/color
-   for both captions, rather than a "hero number + footnote" hierarchy. */
-.stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
-.stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
-.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#666;letter-spacing:.3px;line-height:1.3}
-.stat-tile .stat-secondary b{font-size:18px;font-weight:700;color:#0c1a2e;line-height:1.15}
-.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1.15}
-/* True navy — was #4c5567 (a lighter slate), which made white text read
-   as muted/shaded. Applies to every dark tile in this file (Market
-   Overview's Distress tile included), not just Macro Backdrop. */
-.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
-.stat-tile-dark b{color:#fff}
-.stat-tile-dark span{color:#c7cedb}
-.stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
-.stat-tile-dark .stat-secondary b{color:#fff}
-/* fmtPct()'s .pos/.neg colors (dark green/dark red) are tuned for white
-   tiles — nearly illegible against navy. Brighter equivalents for dark
-   tiles only. */
-.stat-tile-dark .pos{color:#4ade80}
-.stat-tile-dark .neg{color:#f87171}
 table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
 th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1}
 td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
 tr:hover td{background:#f0f5fa}
 #salesChartWrap,#deliveryChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0;margin-bottom:12px}
 #deliveryStatsPanel{width:340px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
-.divider{border:none;border-top:2px solid #dde;margin:0}
 #operatingChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:7px;overflow-x:auto;min-width:0}
 #debtChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:7px;overflow-x:auto;min-width:0;flex:1}
 #debtStatsPanel{width:340px;flex-shrink:0;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
 #operatingStatsPanel{width:340px;flex-shrink:0;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
-.stat-header-row{display:grid;grid-template-columns:36% 16% 16% 16% 16%;border-bottom:1px solid #dde;padding-bottom:2px;margin-bottom:0}
-.stat-header-row div{font-size:10px;color:#888;text-align:right}
-.stat-header-row div:first-child{text-align:left}
 .stat-row-op{display:grid;grid-template-columns:36% 16% 16% 16% 16%;padding:4px 0;border-bottom:1px solid #f4f4f4;align-items:center}
 .stat-row-op .market-name{font-weight:700;font-size:14px;overflow:visible;white-space:nowrap}
 .stat-row-op .stat-val{text-align:right;font-size:14px}
-.stat-footnote{font-size:10px;color:#888;margin-top:8px;padding-top:6px;border-top:1px solid #f0f0f0;line-height:1.4}
 #operatingYoyWrap{overflow-x:auto;background:#fff;border:1.5px solid #0c1a2e;border-radius:6px;margin-bottom:8px}
 #salesStatsPanel{width:340px;flex-shrink:0;align-self:stretch;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px}
 #ytdCompareWrap{margin-top:12px}
@@ -297,7 +293,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Greeley</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/02/2026)</p>
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/08/2026)</p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -1452,18 +1448,19 @@ function renderDeliveries() {
 
 // Single-metric bar chart (units + avg/yr trendline) — shared with
 // build_affordable_housing_report.py, see chart_lib.py.
-function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear) {
+function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear, tipFn, dims) {
   const vals = years.map(valFn);
   const props = years.map(propFn);
-  const W=880;
-  let H = 400;
+  const d = dims || {};
+  const W = d.W || 880;
+  let H = d.H || 400;
   if (targetPixelHeight) {
     const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
     H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
   }
-  const PL=65, PR=45, PT=16, PB=55;
+  const PL = d.PL != null ? d.PL : 65, PR = d.PR != null ? d.PR : 45, PT = d.PT != null ? d.PT : 16, PB = d.PB != null ? d.PB : 55;
   const cW=W-PL-PR, cH=H-PT-PB;
-  const barW = cW/Math.max(years.length,1)*0.7;
+  const barW = cW/Math.max(years.length,1)*(d.barWFactor || 0.7);
 
   function niceStep(rawMax, maxTicks) {
     const rough = rawMax / maxTicks;
@@ -1502,9 +1499,14 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const x=xScale(i)-barW/2, y=yScale(vals[i]), h=cH+PT-y;
     const isHighlight = highlightYear != null && yr === highlightYear;
     const barColor = isHighlight ? '#0c1a2e' : '#c9a84c';
-    const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
-      : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
-    const tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
+    let tip;
+    if (tipFn) {
+      tip = tipFn(yr, i);
+    } else {
+      const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
+        : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+      tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
+    }
     parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${barColor}" rx="2" class="bar" data-tip="${tip}"/>`);
   });
 
@@ -1515,7 +1517,8 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const avg = plainVals.reduce((a,v)=>a+v,0) / plainVals.length;
     const avgY = yScale(avg);
     parts.push(`<line x1="${PL}" y1="${avgY}" x2="${W-PR}" y2="${avgY}" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>`);
-    parts.push(`<text x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
+    const avgLabelIdAttr = d.avgLabelChip ? ` id="avgLabelText"` : '';
+    parts.push(`<text${avgLabelIdAttr} x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
   }
 
   if (rateByYear) {
@@ -1544,6 +1547,25 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
   const svg = document.getElementById(svgId);
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.innerHTML = parts.join('');
+
+  // Avg label sits on a solid chip (opt-in via dims.avgLabelChip) so it stays
+  // legible regardless of which bars happen to be tall behind it.
+  if (d.avgLabelChip) {
+    const avgLabelEl = svg.querySelector('#avgLabelText');
+    if (avgLabelEl) {
+      const bbox = avgLabelEl.getBBox();
+      const pad = 3;
+      const chip = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      chip.setAttribute('x', bbox.x - pad);
+      chip.setAttribute('y', bbox.y - pad);
+      chip.setAttribute('width', bbox.width + pad*2);
+      chip.setAttribute('height', bbox.height + pad*2);
+      chip.setAttribute('fill', '#fff');
+      chip.setAttribute('fill-opacity', '0.92');
+      chip.setAttribute('rx', '2');
+      svg.insertBefore(chip, avgLabelEl);
+    }
+  }
 
   const hasHighlight = highlightYear != null && years.includes(highlightYear);
   document.getElementById(legendId).innerHTML =
@@ -1808,16 +1830,17 @@ function renderCapitalFlow() {
 
 // ── Shared bar+line chart (bars=volume on left axis, line=count on right
 // axis) — shared with build_affordable_housing_report.py, see chart_lib.py.
-function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight, rateByYear, rateLabel) {
+function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight, rateByYear, rateLabel, volStepFn, tipFn, partialYear, dims) {
   const counts = years.map(countFn);
   const vols = years.map(volFn);
-  const W=880;
-  let H = 400;
+  const d = dims || {};
+  const W = d.W || 880;
+  let H = d.H || 400;
   if (targetPixelHeight) {
     const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
     H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
   }
-  const PL=65, PR=81, PT=16, PB=41;
+  const PL = d.PL != null ? d.PL : 65, PR = d.PR != null ? d.PR : 81, PT = d.PT != null ? d.PT : 16, PB = d.PB != null ? d.PB : 41;
   const cW=W-PL-PR, cH=H-PT-PB;
   const barW = cW/Math.max(years.length,1)*0.6;
 
@@ -1834,8 +1857,13 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   const maxCount = countSteps * countStep;
 
   const rawMaxVol = Math.max(1, ...vols);
-  const volStep = niceStep(rawMaxVol, 5);
-  const volSteps = Math.max(1, Math.ceil(rawMaxVol / volStep));
+  let volStep, volSteps;
+  if (volStepFn) {
+    ({step: volStep, steps: volSteps} = volStepFn(rawMaxVol));
+  } else {
+    volStep = niceStep(rawMaxVol, 5);
+    volSteps = Math.max(1, Math.ceil(rawMaxVol / volStep));
+  }
   const maxVol = volSteps * volStep;
 
   const xScale = i => PL + (i+0.5)/Math.max(years.length,1)*cW;
@@ -1859,23 +1887,36 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
     const isAggregate = isNaN(parseInt(yr,10));
     if (!isEdge && !isAggregate && i % labelStep !== 0) return;
     if (!isEdge && labelStep > 1 && lastIdx - i < labelStep / 2) return;
-    parts.push(`<text x="${xScale(i)}" y="${H-PB+21}" text-anchor="middle" font-size="10" fill="#888">${yr}</text>`);
+    const marker = partialYear != null && yr === partialYear ? ' *' : '';
+    parts.push(`<text x="${xScale(i)}" y="${H-PB+21}" text-anchor="middle" font-size="10" fill="#888">${yr}${marker}</text>`);
   });
 
   years.forEach((yr,i) => {
     const x=xScale(i)-barW/2, y=yVol(vols[i]), h=cH+PT-y;
     const isHighlight = highlightYear != null && yr === highlightYear;
-    const barTip = isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
-    const extra = extraTipFn ? extraTipFn(yr) : '';
-    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${isHighlight?'#0c1a2e':'#c9a84c'}" rx="2" class="bar" data-tip="${barTip}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
+    let tip;
+    if (tipFn) {
+      tip = tipFn(yr, i);
+    } else {
+      const barTip = isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+      const extra = extraTipFn ? extraTipFn(yr) : '';
+      tip = `${barTip}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}`;
+    }
+    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${isHighlight?'#0c1a2e':'#c9a84c'}" rx="2" class="bar" data-tip="${tip}"/>`);
   });
 
   const pts = years.map((yr,i) => ({x:xScale(i), y:yCount(counts[i])}));
   const d = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
   parts.push(`<path d="${d}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
   pts.forEach((p,i) => {
-    const extra = extraTipFn ? extraTipFn(years[i]) : '';
-    parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}"/>`);
+    let tip;
+    if (tipFn) {
+      tip = tipFn(years[i], i);
+    } else {
+      const extra = extraTipFn ? extraTipFn(years[i]) : '';
+      tip = `${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}`;
+    }
+    parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${tip}"/>`);
   });
 
   if (rateByYear) {
@@ -1895,6 +1936,9 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
 
   parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
   parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  if (partialYear != null && years.includes(partialYear)) {
+    parts.push(`<text x="${PL+cW/2}" y="${H-2}" text-anchor="middle" font-size="10" fill="#aaa">* partial year</text>`);
+  }
 
   const svg = document.getElementById(svgId);
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
