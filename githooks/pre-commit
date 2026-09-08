@@ -1,0 +1,108 @@
+#!/bin/bash
+# Pre-commit gate: SEO checks + URL/path hygiene
+# Blocks commits with missing meta tags, relative asset paths, or .html suffix links.
+
+staged_html=$(git diff --cached --name-only --diff-filter=ACM | grep '\.html$')
+
+if [ -z "$staged_html" ]; then
+  exit 0
+fi
+
+errors=0
+
+# ── Inline JS syntax check ──────────────────────────────────────────────────
+# Catches SyntaxErrors (e.g. duplicate `const` declarations) in inline
+# <script> blocks before they ship -- a syntax error kills the ENTIRE script
+# block's execution silently, which a text diff of generated HTML can't
+# catch (see db-tools commit 05f17dc: a duplicate `const d` broke every
+# chart/table on all 10 Market Report pages, undetected for days).
+echo "Checking inline JS syntax..."
+js_check_output=$(py scripts/check_inline_js.py $staged_html 2>&1)
+js_check_status=$?
+if [ $js_check_status -ne 0 ]; then
+  echo "$js_check_output"
+  echo ""
+  echo "Commit blocked: inline JS syntax error(s) found above."
+  exit 1
+fi
+
+echo "Running SEO checks on staged HTML files..."
+
+for file in $staged_html; do
+  if [ ! -f "$file" ]; then
+    continue
+  fi
+
+  missing=""
+
+  # ── SEO meta checks ──────────────────────────────────────────────────────────
+  grep -q "<title>" "$file"                  || missing="$missing\n  - <title>"
+  grep -q '<meta name="description"' "$file" || missing="$missing\n  - <meta name=\"description\">"
+  grep -q '<link rel="canonical"' "$file"    || missing="$missing\n  - <link rel=\"canonical\">"
+  grep -q '<meta property="og:title"' "$file"       || missing="$missing\n  - og:title"
+  grep -q '<meta property="og:description"' "$file" || missing="$missing\n  - og:description"
+  grep -q 'application/ld+json' "$file"      || missing="$missing\n  - JSON-LD schema block"
+
+  # ── Canonical must end with trailing slash ────────────────────────────────────
+  if grep -q '<link rel="canonical"' "$file"; then
+    grep -q 'rel="canonical" href="https://www\.comultifamily\.com[^"]*/"' "$file" \
+      || missing="$missing\n  - canonical href must end with trailing slash"
+  fi
+
+  # ── Relative asset paths (src/href pointing to local files without leading /) ─
+  # Match src="images/  src="../  href="css/  href="js/  action="contact (no leading /)
+  if grep -qE '(src|href|action)="(images/|\.\./|css/|js/|data/)' "$file"; then
+    hits=$(grep -nE '(src|href|action)="(images/|\.\./|css/|js/|data/)' "$file" | grep -v 'http')
+    missing="$missing\n  - relative asset path(s) found (use /images/, /css/, /js/ etc.):\n$(echo "$hits" | sed 's/^/      /')"
+  fi
+
+  # ── Internal .html suffix links ───────────────────────────────────────────────
+  # Flag href="*.html" and action="/*.html" — skip external http links and onerror JS
+  if grep -qE '(href|action)="[^"]*\.html' "$file"; then
+    hits=$(grep -nE '(href|action)="[^"]*\.html' "$file" | grep -v 'https\?://')
+    if [ -n "$hits" ]; then
+      missing="$missing\n  - .html suffix in link/action (use trailing-slash URLs):\n$(echo "$hits" | sed 's/^/      /')"
+    fi
+  fi
+
+  # ── Dashboards use their own tracking (track.js + token-gate.js), not the ─────
+  # public-site GA4/shared.js pair, and are pre-existing inline-style-heavy
+  # internal tools — scope the two checks below accordingly.
+  case "$file" in
+    site/dashboards/*)
+      grep -q 'src="/js/track.js"' "$file"       || missing="$missing\n  - /js/track.js (dashboard tracking beacon)"
+      grep -q 'src="/js/token-gate.js"' "$file"  || missing="$missing\n  - /js/token-gate.js (access control)"
+      ;;
+    *)
+      # ── Tracking: GA4 snippet + self-built tracker (shared.js) present ────────
+      grep -q 'G-53BCG1FL5M' "$file"         || missing="$missing\n  - GA4 snippet (G-53BCG1FL5M)"
+      grep -q 'src="/js/shared.js"' "$file"  || missing="$missing\n  - /js/shared.js (self-built tracker beacon)"
+
+      # ── Inline styles (banned per CLAUDE.md — use style.css classes/variables) ─
+      if grep -qE ' style="' "$file"; then
+        hits=$(grep -nE ' style="' "$file")
+        missing="$missing\n  - inline style=\"...\" attribute(s) found (use a style.css class instead):\n$(echo "$hits" | sed 's/^/      /')"
+      fi
+      ;;
+  esac
+
+  if [ -n "$missing" ]; then
+    echo ""
+    echo "FAIL: $file"
+    echo -e "$missing"
+    errors=$((errors + 1))
+  else
+    echo "PASS: $file"
+  fi
+done
+
+if [ $errors -gt 0 ]; then
+  echo ""
+  echo "Commit blocked: $errors file(s) failed checks."
+  echo "Fix the issues above, then re-stage and commit."
+  exit 1
+fi
+
+echo ""
+echo "All SEO checks passed."
+exit 0

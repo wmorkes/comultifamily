@@ -132,6 +132,20 @@ The Google Sheets export redirects (307) to a `googleusercontent.com` URL — fo
 
 ---
 
+## Pre-commit Hooks Setup
+
+The pre-commit hook lives in the tracked `githooks/` directory, not `.git/hooks/`
+(git never tracks that directory, so anything placed only there is invisible to
+a fresh clone). **On a new clone or machine, run this once:**
+
+```
+git config core.hooksPath githooks
+```
+
+Without this, commits go through with no SEO or JS-syntax checks at all.
+
+---
+
 ## Local Preview Server
 
 Use `/launch` to start a local preview server. Reports both local and mobile URLs. Keep it running for the entire session.
@@ -155,7 +169,7 @@ A saved design test already exists at `site/_tests/design-test-colorado-springs.
 - **SEO check (single page):** `/seo-check [file]`
 - **SEO check (all pages):** `/meta-audit`
 - **Schema check:** `/schema-validate [file]`
-- **Pre-commit hook** blocks commits missing title, description, canonical, OG tags, or JSON-LD
+- **Pre-commit hook** blocks commits missing title, description, canonical, OG tags, or JSON-LD, and blocks any staged HTML file with a JS syntax error in an inline `<script>` block (`scripts/check_inline_js.py`, runs via `node --check`)
 
 ---
 
