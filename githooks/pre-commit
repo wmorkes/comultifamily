@@ -26,6 +26,20 @@ if [ $js_check_status -ne 0 ]; then
   exit 1
 fi
 
+# ── Broken internal links + duplicate ids ───────────────────────────────────
+# Same "catches silent breakage a diff can't" reasoning as the JS check above.
+# A duplicate id breaks whichever getElementById() call finds it first, with
+# no visible error; a broken internal link just 404s for a real visitor.
+echo "Checking internal links + duplicate ids..."
+integrity_output=$(py scripts/check_site_integrity.py $staged_html 2>&1)
+integrity_status=$?
+if [ $integrity_status -ne 0 ]; then
+  echo "$integrity_output"
+  echo ""
+  echo "Commit blocked: broken link(s) or duplicate id(s) found above."
+  exit 1
+fi
+
 echo "Running SEO checks on staged HTML files..."
 
 for file in $staged_html; do
