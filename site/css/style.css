@@ -794,7 +794,7 @@ a { text-decoration:none; color:inherit; }
 .mi-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .mi-table { width: 100%; border-collapse: collapse; min-width: 680px; border-top: 2px solid var(--navy); }
 .mi-table thead tr { background: var(--navy); }
-.mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.9); padding: 10px 20px 12px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
+.mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #fff; padding: 10px 20px 12px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
 .mi-table thead th:first-child { text-align: left; padding-left: 12px; min-width: 140px; }
 .mi-table thead .th-sub { display: block; font-weight: 400; opacity: 0.65; letter-spacing: 0.04em; font-size: 9px; text-transform: none; }
 .mi-table.sortable thead th { cursor: pointer; }
