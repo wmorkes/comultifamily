@@ -29,6 +29,14 @@
   --color-btr:         #c97e4c;
   --color-condo:       #8a94a8;
   --gold-hover-bg:     rgba(201,168,76,0.03);
+  /* Shared data-table design tokens -- used by both .mi-table (resources.html)
+     and .deals-table (Top N Team Sales tables) so their visual treatment
+     can't drift apart. Confirmed with Bill 2026-09-08. */
+  --table-header-bg:    var(--navy);
+  --table-header-color: #fff;
+  --table-row-even-bg:  var(--bg);
+  --table-row-odd-bg:   #fff;
+  --table-row-hover-bg: rgba(201,168,76,0.06);
 }
 
 /* ─── RESET ──────────────────────────────────────────────── */
@@ -722,12 +730,12 @@ a { text-decoration:none; color:inherit; }
 /* ─── TRANSACTIONS TABLE ─── */
 .deals-table { width: 100%; border-top: 2px solid var(--navy); margin-top: 8px; }
 /* Standard column order (all tables): Property, Location, Units, Built, Type, Price */
-.deals-table-header { display: grid; grid-template-columns: 2.5fr 0.9fr 0.5fr 0.5fr 1.1fr 0.9fr; padding: 10px 12px; border-bottom: none; background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+.deals-table-header { display: grid; grid-template-columns: 2.5fr 0.9fr 0.5fr 0.5fr 1.1fr 0.9fr; padding: 10px 12px; border-bottom: none; background: var(--table-header-bg); color: var(--table-header-color); font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
 .deals-table-row { display: grid; grid-template-columns: 2.5fr 0.9fr 0.5fr 0.5fr 1.1fr 0.9fr; padding: 13px 12px; border-bottom: 1px solid var(--border-soft); align-items: center; font-size: 15px; }
-.deals-table-row:nth-child(even) { background: var(--bg); }
-.deals-table-row:nth-child(odd) { background: #fff; }
+.deals-table-row:nth-child(even) { background: var(--table-row-even-bg); }
+.deals-table-row:nth-child(odd) { background: var(--table-row-odd-bg); }
 .deals-table-row:nth-child(even):hover,
-.deals-table-row:nth-child(odd):hover { background: rgba(201,168,76,0.06); }
+.deals-table-row:nth-child(odd):hover { background: var(--table-row-hover-bg); }
 .deals-table-header span:nth-child(2) { text-align: left; }
 .deals-table-header span:nth-child(3),
 .deals-table-header span:nth-child(4),
@@ -793,18 +801,18 @@ a { text-decoration:none; color:inherit; }
 .section--scroll-table { overflow-x: hidden; }
 .mi-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .mi-table { width: 100%; border-collapse: collapse; min-width: 680px; border-top: 2px solid var(--navy); }
-.mi-table thead tr { background: var(--navy); }
-.mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #fff; padding: 10px 20px 12px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
+.mi-table thead tr { background: var(--table-header-bg); }
+.mi-table thead th { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--table-header-color); padding: 10px 20px 12px; text-align: right; white-space: nowrap; line-height: 1.5; vertical-align: bottom; }
 .mi-table thead th:first-child { text-align: left; padding-left: 12px; min-width: 140px; }
 .mi-table thead .th-sub { display: block; font-weight: 400; opacity: 0.65; letter-spacing: 0.04em; font-size: 9px; text-transform: none; }
 .mi-table.sortable thead th { cursor: pointer; }
-.mi-table.sortable thead th:hover { color: #fff; }
+.mi-table.sortable thead th:hover { color: var(--table-header-color); }
 .mi-table.sortable th.sorted-asc::after { content: " \25B2"; font-size: 9px; color: var(--gold); }
 .mi-table.sortable th.sorted-desc::after { content: " \25BC"; font-size: 9px; color: var(--gold); }
 .mi-table tbody tr { border-bottom: 1px solid var(--border-soft); transition: background 0.15s; }
-.mi-table tbody tr:nth-child(even):not(.mi-section-label) { background: var(--bg); }
-.mi-table tbody tr:nth-child(odd):not(.mi-section-label) { background: #fff; }
-.mi-table tbody tr:hover:not(.mi-section-label) { background: rgba(201,168,76,0.06); }
+.mi-table tbody tr:nth-child(even):not(.mi-section-label) { background: var(--table-row-even-bg); }
+.mi-table tbody tr:nth-child(odd):not(.mi-section-label) { background: var(--table-row-odd-bg); }
+.mi-table tbody tr:hover:not(.mi-section-label) { background: var(--table-row-hover-bg); }
 .mi-table tbody td { padding: 13px 20px; font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); text-align: right; }
 .mi-table tbody td:first-child { text-align: left; padding-left: 12px; }
 .mi-table .td-market a { color: var(--text); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
