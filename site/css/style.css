@@ -205,6 +205,7 @@ a { text-decoration:none; color:inherit; }
 .page-hero--inner .page-hero-bg.page-hero-bg--colorado-springs { background-image: url('/images/hero-colorado-springs.webp'); background-position: top center; }
 .page-hero--inner .page-hero-bg.page-hero-bg--fort-collins { background-image: url('/images/hero_social_fort_collins.webp'); background-position: center 50%; }
 .page-hero--inner .page-hero-bg.page-hero-bg--mountain-towns { background-image: url('/images/hero-mountain-towns.webp'); background-position: top center; }
+.page-hero--inner .page-hero-bg.page-hero-bg--momentum-interior { background-image: url('/images/hero_momentum_interior.webp'); background-position: center 50%; }
 
 .page-hero-inner {
   position: relative;
