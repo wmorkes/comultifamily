@@ -24,7 +24,7 @@ export default async (req) => {
   }
 
   const { email, scope } = body || {};
-  if (!email || typeof email !== 'string') {
+  if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return new Response('Bad Request', { status: 400 });
   }
 

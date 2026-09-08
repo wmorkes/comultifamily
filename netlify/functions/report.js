@@ -1,4 +1,12 @@
 import { getStore } from '@netlify/blobs';
+import { timingSafeEqual } from 'crypto';
+
+function safeEqual(a, b) {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
 
 // Read endpoint for db-tools' build_site_report.py. Gated by a shared secret
 // (REPORT_SECRET env var) so raw event data — which includes client_token —
@@ -10,7 +18,8 @@ export default async (req) => {
 
   const url = new URL(req.url);
   const secret = process.env.REPORT_SECRET;
-  if (!secret || url.searchParams.get('secret') !== secret) {
+  const provided = url.searchParams.get('secret') || '';
+  if (!secret || !safeEqual(provided, secret)) {
     return new Response('Unauthorized', { status: 401 });
   }
 
