@@ -1,18 +1,24 @@
 """
-Two structural checks for the static site, in the same spirit as
+Structural checks for the static site, in the same spirit as
 check_inline_js.py -- catches silent breakage that a text diff can't:
 
 1. Broken internal links -- every href="/..." resolved against the site's
    actual routing convention (trailing-slash -> <path>.html, or
    <path>/index.html for directory-style pages like dashboards) and
    confirmed the target file exists.
-2. Duplicate id="..." attributes within a single page -- this site's JS
+2. Broken image references -- every <img src="..."> (HTML) and
+   background-image: url(...) (CSS) resolved against site/images/.
+3. Duplicate id="..." attributes within a single page -- this site's JS
    leans on getElementById() throughout (chart SVGs, table containers,
    filter controls); a duplicate id silently breaks whichever element JS
    finds first, with no error at all.
+4. CSS brace balance -- an unclosed rule silently swallows every rule
+   after it until the file happens to re-balance, so a real break can be
+   far from its actual cause. Loud/visible in the browser (unlike 1-3),
+   but cheap enough to check anyway per Bill's explicit ask 2026-09-08.
 
 Usage:
-    py scripts/check_site_integrity.py <file1.html> [file2.html ...]
+    py scripts/check_site_integrity.py <file1.html|file1.css> [...]
     py scripts/check_site_integrity.py --all
 
 Exit code 0 if clean, 1 if any violation found.
@@ -32,11 +38,13 @@ SKIP_PREFIXES = ("/.netlify/", "/api/")
 
 LINK_ATTRS = {"a": "href", "link": "href", "img": "src", "script": "src", "form": "action"}
 
+CSS_URL_RE = re.compile(r'url\(\s*[\'"]?([^\'")]+)[\'"]?\s*\)')
+
 
 class PageScanner(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.links = []      # (attr_value,) for href/src/action worth checking
+        self.links = []      # href/src/action values worth checking
         self.ids = []        # every id="..." value seen, in order
 
     def handle_starttag(self, tag, attrs):
@@ -45,7 +53,7 @@ class PageScanner(HTMLParser):
             self.ids.append(attrs["id"])
         attr_name = LINK_ATTRS.get(tag)
         if attr_name and attrs.get(attr_name):
-            self.links.append(attrs[attr_name])
+            self.links.append((tag, attrs[attr_name]))
 
     handle_startendtag = handle_starttag  # self-closing tags (e.g. <img/>)
 
@@ -53,7 +61,7 @@ class PageScanner(HTMLParser):
 def resolve_internal_path(href):
     """Returns the site/-relative file path a href should resolve to, or
     None if it's external / not a checkable internal link."""
-    if href.startswith(("http://", "https://", "//", "mailto:", "tel:", "#", "javascript:")):
+    if href.startswith(("http://", "https://", "//", "mailto:", "tel:", "#", "javascript:", "data:")):
         return None
     parsed = urlparse(href)
     path = parsed.path
@@ -82,7 +90,7 @@ def resolve_internal_path(href):
     return as_html  # neither exists -- report the more common form
 
 
-def check_file(path):
+def check_html_file(path):
     with open(path, encoding="utf-8") as f:
         html = f.read()
     scanner = PageScanner()
@@ -90,37 +98,80 @@ def check_file(path):
 
     problems = []
 
-    # -- broken links --
-    seen_hrefs = set()
-    for href in scanner.links:
-        if href in seen_hrefs:
+    seen = set()
+    for tag, href in scanner.links:
+        if href in seen:
             continue
-        seen_hrefs.add(href)
+        seen.add(href)
         target = resolve_internal_path(href)
         if target and not os.path.exists(target):
-            problems.append(f'broken link: "{href}" -> no file at {os.path.relpath(target, SITE_DIR)}')
+            kind = "image" if tag == "img" else "link"
+            problems.append(f'broken {kind}: "{href}" -> no file at {os.path.relpath(target, SITE_DIR)}')
 
-    # -- duplicate ids --
-    seen = {}
+    seen_ids = {}
     for id_val in scanner.ids:
-        seen[id_val] = seen.get(id_val, 0) + 1
-    for id_val, count in seen.items():
+        seen_ids[id_val] = seen_ids.get(id_val, 0) + 1
+    for id_val, count in seen_ids.items():
         if count > 1:
             problems.append(f'duplicate id="{id_val}" ({count} occurrences)')
 
     return problems
 
 
+def check_css_file(path):
+    with open(path, encoding="utf-8") as f:
+        css = f.read()
+
+    problems = []
+
+    # -- brace balance --
+    depth = 0
+    line = 1
+    unbalanced_at = None
+    for ch in css:
+        if ch == "\n":
+            line += 1
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth < 0 and unbalanced_at is None:
+                unbalanced_at = line
+    if unbalanced_at is not None:
+        problems.append(f"unbalanced braces: extra '}}' around line {unbalanced_at}")
+    elif depth != 0:
+        problems.append(f"unbalanced braces: {depth} unclosed '{{' at end of file")
+
+    # -- broken image url() references --
+    seen = set()
+    for url in CSS_URL_RE.findall(css):
+        if url in seen:
+            continue
+        seen.add(url)
+        target = resolve_internal_path(url)
+        if target and not os.path.exists(target):
+            problems.append(f'broken image url(): "{url}" -> no file at {os.path.relpath(target, SITE_DIR)}')
+
+    return problems
+
+
+def check_file(path):
+    if path.endswith(".css"):
+        return check_css_file(path)
+    return check_html_file(path)
+
+
 def main():
     args = sys.argv[1:]
     if not args:
-        print("Usage: py check_site_integrity.py <file.html> [...] | --all")
+        print("Usage: py check_site_integrity.py <file.html|file.css> [...] | --all")
         sys.exit(2)
 
     if args == ["--all"]:
         files = glob.glob(os.path.join(SITE_DIR, "**", "*.html"), recursive=True)
+        files += glob.glob(os.path.join(SITE_DIR, "**", "*.css"), recursive=True)
     else:
-        files = args
+        files = [f for f in args if f.endswith((".html", ".css"))]
 
     any_failure = False
     for path in files:
@@ -136,7 +187,7 @@ def main():
     if any_failure:
         sys.exit(1)
     if args == ["--all"]:
-        print(f"No broken links or duplicate ids across {len(files)} files.")
+        print(f"No broken links/images, duplicate ids, or CSS brace issues across {len(files)} files.")
     sys.exit(0)
 
 

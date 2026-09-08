@@ -3,8 +3,10 @@
 # Blocks commits with missing meta tags, relative asset paths, or .html suffix links.
 
 staged_html=$(git diff --cached --name-only --diff-filter=ACM | grep '\.html$')
+staged_css=$(git diff --cached --name-only --diff-filter=ACM | grep '\.css$')
+staged_html_css="$staged_html $staged_css"
 
-if [ -z "$staged_html" ]; then
+if [ -z "$staged_html" ] && [ -z "$staged_css" ]; then
   exit 0
 fi
 
@@ -16,28 +18,37 @@ errors=0
 # block's execution silently, which a text diff of generated HTML can't
 # catch (see db-tools commit 05f17dc: a duplicate `const d` broke every
 # chart/table on all 10 Market Report pages, undetected for days).
-echo "Checking inline JS syntax..."
-js_check_output=$(py scripts/check_inline_js.py $staged_html 2>&1)
-js_check_status=$?
-if [ $js_check_status -ne 0 ]; then
-  echo "$js_check_output"
-  echo ""
-  echo "Commit blocked: inline JS syntax error(s) found above."
-  exit 1
+if [ -n "$staged_html" ]; then
+  echo "Checking inline JS syntax..."
+  js_check_output=$(py scripts/check_inline_js.py $staged_html 2>&1)
+  js_check_status=$?
+  if [ $js_check_status -ne 0 ]; then
+    echo "$js_check_output"
+    echo ""
+    echo "Commit blocked: inline JS syntax error(s) found above."
+    exit 1
+  fi
 fi
 
-# ── Broken internal links + duplicate ids ───────────────────────────────────
-# Same "catches silent breakage a diff can't" reasoning as the JS check above.
-# A duplicate id breaks whichever getElementById() call finds it first, with
-# no visible error; a broken internal link just 404s for a real visitor.
-echo "Checking internal links + duplicate ids..."
-integrity_output=$(py scripts/check_site_integrity.py $staged_html 2>&1)
+# ── Broken links/images, duplicate ids, CSS brace balance ──────────────────
+# Same "catches silent breakage a diff can't" reasoning as the JS check
+# above. Runs on staged HTML *and* CSS -- a duplicate id or broken url()
+# breaks silently either way, and this needs to fire even on a CSS-only
+# commit (e.g. style.css alone), not just when an HTML file is staged too.
+echo "Checking links, images, duplicate ids, CSS brace balance..."
+integrity_output=$(py scripts/check_site_integrity.py $staged_html_css 2>&1)
 integrity_status=$?
 if [ $integrity_status -ne 0 ]; then
   echo "$integrity_output"
   echo ""
-  echo "Commit blocked: broken link(s) or duplicate id(s) found above."
+  echo "Commit blocked: broken link/image, duplicate id, or CSS brace issue found above."
   exit 1
+fi
+
+if [ -z "$staged_html" ]; then
+  echo ""
+  echo "All checks passed (CSS-only commit, no HTML to SEO-check)."
+  exit 0
 fi
 
 echo "Running SEO checks on staged HTML files..."
