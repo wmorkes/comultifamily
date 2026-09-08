@@ -38,9 +38,9 @@
           "distressedVolume": 0
         },
         "2014": {
-          "count": 5,
-          "volume": 20696537,
-          "avgPricePerUnit": 58136,
+          "count": 4,
+          "volume": 2896537,
+          "avgPricePerUnit": 55703,
           "affordableDeals": 2,
           "affordableVolume": 0,
           "affordableUnitsTotal": 96,
@@ -98,7 +98,7 @@
           "distressedVolume": 6785000
         },
         "2020": {
-          "count": 8,
+          "count": 7,
           "volume": 67879667,
           "avgPricePerUnit": 89315,
           "affordableDeals": 2,
@@ -138,12 +138,12 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 9,
+          "count": 7,
           "volume": 42500000,
           "avgPricePerUnit": 69672,
-          "affordableDeals": 5,
+          "affordableDeals": 4,
           "affordableVolume": 0,
-          "affordableUnitsTotal": 246,
+          "affordableUnitsTotal": 206,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
@@ -213,7 +213,7 @@
           "distressedVolume": 0
         },
         "2015": {
-          "count": 12,
+          "count": 11,
           "volume": 77250000,
           "avgPricePerUnit": 183929,
           "affordableDeals": 1,
@@ -223,9 +223,9 @@
           "distressedVolume": 0
         },
         "2016": {
-          "count": 17,
-          "volume": 407939000,
-          "avgPricePerUnit": 192697,
+          "count": 16,
+          "volume": 388939000,
+          "avgPricePerUnit": 204813,
           "affordableDeals": 2,
           "affordableVolume": 10870000,
           "affordableUnitsTotal": 177,
@@ -233,7 +233,7 @@
           "distressedVolume": 0
         },
         "2017": {
-          "count": 17,
+          "count": 16,
           "volume": 284300000,
           "avgPricePerUnit": 214081,
           "affordableDeals": 1,
@@ -243,9 +243,9 @@
           "distressedVolume": 0
         },
         "2018": {
-          "count": 11,
-          "volume": 110377133,
-          "avgPricePerUnit": 232373,
+          "count": 8,
+          "volume": 41535133,
+          "avgPricePerUnit": 143225,
           "affordableDeals": 1,
           "affordableVolume": 996300,
           "affordableUnitsTotal": 96,
@@ -263,9 +263,9 @@
           "distressedVolume": 0
         },
         "2020": {
-          "count": 6,
-          "volume": 213900000,
-          "avgPricePerUnit": 240878,
+          "count": 5,
+          "volume": 207400000,
+          "avgPricePerUnit": 248086,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -273,27 +273,27 @@
           "distressedVolume": 0
         },
         "2021": {
-          "count": 33,
-          "volume": 866695000,
-          "avgPricePerUnit": 259645,
-          "affordableDeals": 8,
-          "affordableVolume": 12625000,
-          "affordableUnitsTotal": 840,
+          "count": 26,
+          "volume": 668890000,
+          "avgPricePerUnit": 249772,
+          "affordableDeals": 7,
+          "affordableVolume": 5225000,
+          "affordableUnitsTotal": 768,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
         "2022": {
-          "count": 16,
-          "volume": 348007000,
-          "avgPricePerUnit": 278183,
-          "affordableDeals": 1,
-          "affordableVolume": 10425000,
-          "affordableUnitsTotal": 68,
+          "count": 14,
+          "volume": 337582000,
+          "avgPricePerUnit": 285361,
+          "affordableDeals": 0,
+          "affordableVolume": 0,
+          "affordableUnitsTotal": 0,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
         "2023": {
-          "count": 9,
+          "count": 8,
           "volume": 285526000,
           "avgPricePerUnit": 301506,
           "affordableDeals": 1,
@@ -303,9 +303,9 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 9,
-          "volume": 351300044,
-          "avgPricePerUnit": 273173,
+          "count": 8,
+          "volume": 350485919,
+          "avgPricePerUnit": 277503,
           "affordableDeals": 1,
           "affordableVolume": 0,
           "affordableUnitsTotal": 116,
@@ -323,12 +323,12 @@
           "distressedVolume": 0
         },
         "2026": {
-          "count": 7,
-          "volume": 191788000,
-          "avgPricePerUnit": 260228,
-          "affordableDeals": 1,
-          "affordableVolume": 6125000,
-          "affordableUnitsTotal": 50,
+          "count": 6,
+          "volume": 185663000,
+          "avgPricePerUnit": 270252,
+          "affordableDeals": 0,
+          "affordableVolume": 0,
+          "affordableUnitsTotal": 0,
           "distressedDeals": 0,
           "distressedVolume": 0,
           "partial": true
@@ -388,7 +388,7 @@
           "distressedVolume": 0
         },
         "2016": {
-          "count": 5,
+          "count": 4,
           "volume": 71201600,
           "avgPricePerUnit": 161090,
           "affordableDeals": 1,
@@ -408,9 +408,9 @@
           "distressedVolume": 0
         },
         "2018": {
-          "count": 13,
-          "volume": 60538290,
-          "avgPricePerUnit": 120594,
+          "count": 12,
+          "volume": 56113290,
+          "avgPricePerUnit": 122518,
           "affordableDeals": 2,
           "affordableVolume": 4785000,
           "affordableUnitsTotal": 84,
@@ -438,7 +438,7 @@
           "distressedVolume": 0
         },
         "2021": {
-          "count": 11,
+          "count": 10,
           "volume": 275125000,
           "avgPricePerUnit": 245867,
           "affordableDeals": 0,
@@ -448,9 +448,9 @@
           "distressedVolume": 0
         },
         "2022": {
-          "count": 14,
-          "volume": 209918655,
-          "avgPricePerUnit": 126610,
+          "count": 12,
+          "volume": 181853963,
+          "avgPricePerUnit": 167762,
           "affordableDeals": 2,
           "affordableVolume": 12253963,
           "affordableUnitsTotal": 196,
@@ -468,9 +468,9 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 7,
-          "volume": 53920000,
-          "avgPricePerUnit": 144558,
+          "count": 5,
+          "volume": 30920000,
+          "avgPricePerUnit": 107361,
           "affordableDeals": 1,
           "affordableVolume": 5400000,
           "affordableUnitsTotal": 60,
@@ -478,9 +478,9 @@
           "distressedVolume": 0
         },
         "2025": {
-          "count": 8,
-          "volume": 84275000,
-          "avgPricePerUnit": 130054,
+          "count": 5,
+          "volume": 83150000,
+          "avgPricePerUnit": 266506,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -583,9 +583,9 @@
           "distressedVolume": 0
         },
         "2019": {
-          "count": 16,
-          "volume": 281035000,
-          "avgPricePerUnit": 286186,
+          "count": 14,
+          "volume": 276605000,
+          "avgPricePerUnit": 291163,
           "affordableDeals": 1,
           "affordableVolume": 38000000,
           "affordableUnitsTotal": 160,
@@ -593,7 +593,7 @@
           "distressedVolume": 0
         },
         "2020": {
-          "count": 15,
+          "count": 12,
           "volume": 97997001,
           "avgPricePerUnit": 191400,
           "affordableDeals": 1,
@@ -613,9 +613,9 @@
           "distressedVolume": 0
         },
         "2022": {
-          "count": 15,
-          "volume": 514002923,
-          "avgPricePerUnit": 470699,
+          "count": 14,
+          "volume": 513057923,
+          "avgPricePerUnit": 476820,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -633,7 +633,7 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 29,
+          "count": 27,
           "volume": 738658000,
           "avgPricePerUnit": 288201,
           "affordableDeals": 6,
@@ -643,9 +643,9 @@
           "distressedVolume": 22000000
         },
         "2025": {
-          "count": 17,
-          "volume": 517033400,
-          "avgPricePerUnit": 350531,
+          "count": 15,
+          "volume": 425533400,
+          "avgPricePerUnit": 320191,
           "affordableDeals": 4,
           "affordableVolume": 86400000,
           "affordableUnitsTotal": 371,
@@ -653,9 +653,9 @@
           "distressedVolume": 22000000
         },
         "2026": {
-          "count": 7,
-          "volume": 129100000,
-          "avgPricePerUnit": 318765,
+          "count": 4,
+          "volume": 128250000,
+          "avgPricePerUnit": 329692,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -668,9 +668,9 @@
     "Denver Metro": {
       "by_year": {
         "2011": {
-          "count": 103,
-          "volume": 1468941395,
-          "avgPricePerUnit": 107773,
+          "count": 102,
+          "volume": 1463551395,
+          "avgPricePerUnit": 107527,
           "affordableDeals": 10,
           "affordableVolume": 26475000,
           "affordableUnitsTotal": 891,
@@ -678,9 +678,9 @@
           "distressedVolume": 54886975
         },
         "2012": {
-          "count": 171,
-          "volume": 2623643789,
-          "avgPricePerUnit": 100342,
+          "count": 169,
+          "volume": 2622781789,
+          "avgPricePerUnit": 100359,
           "affordableDeals": 14,
           "affordableVolume": 69498000,
           "affordableUnitsTotal": 1586,
@@ -688,9 +688,9 @@
           "distressedVolume": 42600000
         },
         "2013": {
-          "count": 145,
-          "volume": 2010633972,
-          "avgPricePerUnit": 121768,
+          "count": 143,
+          "volume": 2010473972,
+          "avgPricePerUnit": 121869,
           "affordableDeals": 8,
           "affordableVolume": 49811400,
           "affordableUnitsTotal": 939,
@@ -698,19 +698,19 @@
           "distressedVolume": 10660000
         },
         "2014": {
-          "count": 234,
-          "volume": 3345939057,
-          "avgPricePerUnit": 144464,
-          "affordableDeals": 14,
+          "count": 228,
+          "volume": 3338799057,
+          "avgPricePerUnit": 144643,
+          "affordableDeals": 13,
           "affordableVolume": 152636900,
-          "affordableUnitsTotal": 1950,
+          "affordableUnitsTotal": 1874,
           "distressedDeals": 2,
           "distressedVolume": 41600000
         },
         "2015": {
-          "count": 268,
-          "volume": 4178900662,
-          "avgPricePerUnit": 147732,
+          "count": 263,
+          "volume": 3968760662,
+          "avgPricePerUnit": 146709,
           "affordableDeals": 14,
           "affordableVolume": 72844797,
           "affordableUnitsTotal": 1046,
@@ -718,39 +718,39 @@
           "distressedVolume": 1645800
         },
         "2016": {
-          "count": 248,
-          "volume": 6711077877,
-          "avgPricePerUnit": 198195,
-          "affordableDeals": 17,
-          "affordableVolume": 146350000,
-          "affordableUnitsTotal": 2058,
+          "count": 243,
+          "volume": 6663152877,
+          "avgPricePerUnit": 199597,
+          "affordableDeals": 16,
+          "affordableVolume": 140300000,
+          "affordableUnitsTotal": 1978,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
         "2017": {
-          "count": 246,
-          "volume": 6674670408,
-          "avgPricePerUnit": 216394,
-          "affordableDeals": 13,
-          "affordableVolume": 89428556,
-          "affordableUnitsTotal": 951,
+          "count": 235,
+          "volume": 6514566277,
+          "avgPricePerUnit": 216769,
+          "affordableDeals": 12,
+          "affordableVolume": 88643556,
+          "affordableUnitsTotal": 922,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
         "2018": {
-          "count": 231,
-          "volume": 4869910494,
-          "avgPricePerUnit": 223349,
-          "affordableDeals": 15,
-          "affordableVolume": 198656500,
-          "affordableUnitsTotal": 1903,
+          "count": 218,
+          "volume": 4737980194,
+          "avgPricePerUnit": 225962,
+          "affordableDeals": 10,
+          "affordableVolume": 161006200,
+          "affordableUnitsTotal": 1379,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
         "2019": {
-          "count": 224,
-          "volume": 5342803944,
-          "avgPricePerUnit": 233463,
+          "count": 216,
+          "volume": 5278333217,
+          "avgPricePerUnit": 233132,
           "affordableDeals": 4,
           "affordableVolume": 48750000,
           "affordableUnitsTotal": 801,
@@ -758,39 +758,39 @@
           "distressedVolume": 1900000
         },
         "2020": {
-          "count": 199,
-          "volume": 5051224509,
-          "avgPricePerUnit": 248927,
-          "affordableDeals": 12,
+          "count": 183,
+          "volume": 4969963359,
+          "avgPricePerUnit": 247139,
+          "affordableDeals": 11,
           "affordableVolume": 167225219,
-          "affordableUnitsTotal": 1396,
+          "affordableUnitsTotal": 1271,
           "distressedDeals": 1,
           "distressedVolume": 0
         },
         "2021": {
-          "count": 349,
-          "volume": 10324096639,
-          "avgPricePerUnit": 316089,
-          "affordableDeals": 10,
-          "affordableVolume": 84040000,
-          "affordableUnitsTotal": 1921,
+          "count": 335,
+          "volume": 10050434139,
+          "avgPricePerUnit": 324239,
+          "affordableDeals": 9,
+          "affordableVolume": 72370000,
+          "affordableUnitsTotal": 1817,
           "distressedDeals": 1,
           "distressedVolume": 90000000
         },
         "2022": {
-          "count": 255,
-          "volume": 5771204022,
-          "avgPricePerUnit": 310514,
-          "affordableDeals": 14,
+          "count": 244,
+          "volume": 5527904022,
+          "avgPricePerUnit": 308305,
+          "affordableDeals": 13,
           "affordableVolume": 196021037,
-          "affordableUnitsTotal": 1518,
+          "affordableUnitsTotal": 1368,
           "distressedDeals": 2,
           "distressedVolume": 2800000
         },
         "2023": {
-          "count": 118,
-          "volume": 2944377914,
-          "avgPricePerUnit": 317487,
+          "count": 111,
+          "volume": 2891577914,
+          "avgPricePerUnit": 319335,
           "affordableDeals": 4,
           "affordableVolume": 58000000,
           "affordableUnitsTotal": 353,
@@ -798,32 +798,32 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 166,
-          "volume": 4661426818,
-          "avgPricePerUnit": 286910,
-          "affordableDeals": 13,
-          "affordableVolume": 162844500,
-          "affordableUnitsTotal": 1415,
+          "count": 147,
+          "volume": 4603824118,
+          "avgPricePerUnit": 289239,
+          "affordableDeals": 9,
+          "affordableVolume": 106441800,
+          "affordableUnitsTotal": 1049,
           "distressedDeals": 10,
           "distressedVolume": 211300000
         },
         "2025": {
-          "count": 127,
-          "volume": 3690472061,
-          "avgPricePerUnit": 271658,
-          "affordableDeals": 12,
-          "affordableVolume": 138970000,
-          "affordableUnitsTotal": 1133,
+          "count": 112,
+          "volume": 3359656549,
+          "avgPricePerUnit": 270678,
+          "affordableDeals": 11,
+          "affordableVolume": 127970000,
+          "affordableUnitsTotal": 1013,
           "distressedDeals": 5,
           "distressedVolume": 69000000
         },
         "2026": {
-          "count": 97,
-          "volume": 1111337549,
-          "avgPricePerUnit": 221559,
-          "affordableDeals": 5,
+          "count": 59,
+          "volume": 891667549,
+          "avgPricePerUnit": 229220,
+          "affordableDeals": 3,
           "affordableVolume": 0,
-          "affordableUnitsTotal": 348,
+          "affordableUnitsTotal": 194,
           "distressedDeals": 17,
           "distressedVolume": 133569632,
           "partial": true
@@ -873,7 +873,7 @@
           "distressedVolume": 0
         },
         "2015": {
-          "count": 47,
+          "count": 46,
           "volume": 448336600,
           "avgPricePerUnit": 88885,
           "affordableDeals": 1,
@@ -883,9 +883,9 @@
           "distressedVolume": 3675000
         },
         "2016": {
-          "count": 47,
-          "volume": 582817986,
-          "avgPricePerUnit": 110739,
+          "count": 45,
+          "volume": 581067986,
+          "avgPricePerUnit": 110997,
           "affordableDeals": 6,
           "affordableVolume": 60794986,
           "affordableUnitsTotal": 1076,
@@ -893,9 +893,9 @@
           "distressedVolume": 0
         },
         "2017": {
-          "count": 48,
-          "volume": 660514275,
-          "avgPricePerUnit": 141559,
+          "count": 44,
+          "volume": 644914275,
+          "avgPricePerUnit": 145218,
           "affordableDeals": 3,
           "affordableVolume": 11766865,
           "affordableUnitsTotal": 186,
@@ -903,9 +903,9 @@
           "distressedVolume": 0
         },
         "2018": {
-          "count": 45,
-          "volume": 608415000,
-          "avgPricePerUnit": 140869,
+          "count": 40,
+          "volume": 586925000,
+          "avgPricePerUnit": 144492,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -913,7 +913,7 @@
           "distressedVolume": 0
         },
         "2019": {
-          "count": 29,
+          "count": 28,
           "volume": 517799500,
           "avgPricePerUnit": 153059,
           "affordableDeals": 2,
@@ -923,9 +923,9 @@
           "distressedVolume": 0
         },
         "2020": {
-          "count": 46,
-          "volume": 694398564,
-          "avgPricePerUnit": 171245,
+          "count": 43,
+          "volume": 676148564,
+          "avgPricePerUnit": 171568,
           "affordableDeals": 1,
           "affordableVolume": 23575000,
           "affordableUnitsTotal": 144,
@@ -933,9 +933,9 @@
           "distressedVolume": 0
         },
         "2021": {
-          "count": 76,
-          "volume": 1132621999,
-          "avgPricePerUnit": 186011,
+          "count": 69,
+          "volume": 944321999,
+          "avgPricePerUnit": 183684,
           "affordableDeals": 4,
           "affordableVolume": 81694117,
           "affordableUnitsTotal": 649,
@@ -973,9 +973,9 @@
           "distressedVolume": 0
         },
         "2025": {
-          "count": 20,
-          "volume": 308103134,
-          "avgPricePerUnit": 183832,
+          "count": 17,
+          "volume": 260942000,
+          "avgPricePerUnit": 171899,
           "affordableDeals": 1,
           "affordableVolume": 20200000,
           "affordableUnitsTotal": 216,
@@ -1038,9 +1038,9 @@
           "distressedVolume": 3900000
         },
         "2016": {
-          "count": 2,
-          "volume": 5225000,
-          "avgPricePerUnit": 42137,
+          "count": 1,
+          "volume": 2475000,
+          "avgPricePerUnit": 34375,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -1058,7 +1058,7 @@
           "distressedVolume": 0
         },
         "2018": {
-          "count": 6,
+          "count": 5,
           "volume": 3450000,
           "avgPricePerUnit": 41566,
           "affordableDeals": 0,
@@ -1138,7 +1138,7 @@
           "distressedVolume": 0
         },
         "2026": {
-          "count": 4,
+          "count": 3,
           "volume": 25365000,
           "avgPricePerUnit": 63254,
           "affordableDeals": 0,
@@ -1233,9 +1233,9 @@
           "distressedVolume": 0
         },
         "2020": {
-          "count": 4,
-          "volume": 13650000,
-          "avgPricePerUnit": 40265,
+          "count": 3,
+          "volume": 9350000,
+          "avgPricePerUnit": 86574,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -1243,12 +1243,12 @@
           "distressedVolume": 0
         },
         "2021": {
-          "count": 10,
+          "count": 9,
           "volume": 52644000,
           "avgPricePerUnit": 98216,
-          "affordableDeals": 1,
+          "affordableDeals": 0,
           "affordableVolume": 0,
-          "affordableUnitsTotal": 76,
+          "affordableUnitsTotal": 0,
           "distressedDeals": 1,
           "distressedVolume": 750000
         },
@@ -1263,9 +1263,9 @@
           "distressedVolume": 0
         },
         "2023": {
-          "count": 5,
-          "volume": 50470000,
-          "avgPricePerUnit": 148441,
+          "count": 4,
+          "volume": 49695000,
+          "avgPricePerUnit": 177482,
           "affordableDeals": 3,
           "affordableVolume": 18695000,
           "affordableUnitsTotal": 184,
@@ -1273,19 +1273,19 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 9,
-          "volume": 35135000,
-          "avgPricePerUnit": 119102,
-          "affordableDeals": 2,
-          "affordableVolume": 7900000,
-          "affordableUnitsTotal": 78,
+          "count": 8,
+          "volume": 32235000,
+          "avgPricePerUnit": 130506,
+          "affordableDeals": 1,
+          "affordableVolume": 5000000,
+          "affordableUnitsTotal": 30,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
         "2025": {
-          "count": 5,
-          "volume": 9599650,
-          "avgPricePerUnit": 99996,
+          "count": 3,
+          "volume": 8209650,
+          "avgPricePerUnit": 164193,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -1338,14 +1338,14 @@
           "distressedVolume": 0
         },
         "2014": {
-          "count": 6,
-          "volume": 23349000,
-          "avgPricePerUnit": 79689,
+          "count": 5,
+          "volume": 21949000,
+          "avgPricePerUnit": 88149,
           "affordableDeals": 2,
           "affordableVolume": 734000,
           "affordableUnitsTotal": 97,
-          "distressedDeals": 2,
-          "distressedVolume": 2515000
+          "distressedDeals": 1,
+          "distressedVolume": 1115000
         },
         "2015": {
           "count": 4,
@@ -1358,7 +1358,7 @@
           "distressedVolume": 0
         },
         "2016": {
-          "count": 7,
+          "count": 6,
           "volume": 23474930,
           "avgPricePerUnit": 90288,
           "affordableDeals": 1,
@@ -1398,7 +1398,7 @@
           "distressedVolume": 0
         },
         "2020": {
-          "count": 12,
+          "count": 11,
           "volume": 213620000,
           "avgPricePerUnit": 238149,
           "affordableDeals": 2,
@@ -1418,9 +1418,9 @@
           "distressedVolume": 1000000
         },
         "2022": {
-          "count": 16,
-          "volume": 186641000,
-          "avgPricePerUnit": 216270,
+          "count": 14,
+          "volume": 178846000,
+          "avgPricePerUnit": 224964,
           "affordableDeals": 2,
           "affordableVolume": 90850000,
           "affordableUnitsTotal": 292,
@@ -1448,9 +1448,9 @@
           "distressedVolume": 0
         },
         "2025": {
-          "count": 9,
-          "volume": 221710000,
-          "avgPricePerUnit": 329435,
+          "count": 8,
+          "volume": 219610000,
+          "avgPricePerUnit": 428926,
           "affordableDeals": 0,
           "affordableVolume": 0,
           "affordableUnitsTotal": 0,
@@ -1458,12 +1458,12 @@
           "distressedVolume": 0
         },
         "2026": {
-          "count": 4,
-          "volume": 46660000,
-          "avgPricePerUnit": 313154,
-          "affordableDeals": 1,
+          "count": 2,
+          "volume": 44500000,
+          "avgPricePerUnit": 523529,
+          "affordableDeals": 0,
           "affordableVolume": 0,
-          "affordableUnitsTotal": 66,
+          "affordableUnitsTotal": 0,
           "distressedDeals": 0,
           "distressedVolume": 0,
           "partial": true
@@ -1513,7 +1513,7 @@
           "distressedVolume": 0
         },
         "2019": {
-          "count": 2,
+          "count": 1,
           "volume": 1775000,
           "avgPricePerUnit": 36979,
           "affordableDeals": 0,
@@ -1563,12 +1563,12 @@
           "distressedVolume": 0
         },
         "2025": {
-          "count": 2,
-          "volume": 17700000,
-          "avgPricePerUnit": 122917,
-          "affordableDeals": 1,
-          "affordableVolume": 9600000,
-          "affordableUnitsTotal": 96,
+          "count": 1,
+          "volume": 8100000,
+          "avgPricePerUnit": 168750,
+          "affordableDeals": 0,
+          "affordableVolume": 0,
+          "affordableUnitsTotal": 0,
           "distressedDeals": 0,
           "distressedVolume": 0
         },
@@ -1588,9 +1588,9 @@
     "Colorado": {
       "by_year": {
         "2011": {
-          "count": 140,
-          "volume": 1704689895,
-          "avgPricePerUnit": 101181,
+          "count": 139,
+          "volume": 1699299895,
+          "avgPricePerUnit": 100975,
           "affordableDeals": 14,
           "affordableVolume": 38825000,
           "affordableUnitsTotal": 1305,
@@ -1598,9 +1598,9 @@
           "distressedVolume": 63241975
         },
         "2012": {
-          "count": 233,
-          "volume": 3064515140,
-          "avgPricePerUnit": 94786,
+          "count": 231,
+          "volume": 3063653140,
+          "avgPricePerUnit": 94797,
           "affordableDeals": 25,
           "affordableVolume": 119448000,
           "affordableUnitsTotal": 2813,
@@ -1608,9 +1608,9 @@
           "distressedVolume": 45150000
         },
         "2013": {
-          "count": 185,
-          "volume": 2232361056,
-          "avgPricePerUnit": 114709,
+          "count": 183,
+          "volume": 2232201056,
+          "avgPricePerUnit": 114790,
           "affordableDeals": 11,
           "affordableVolume": 49811400,
           "affordableUnitsTotal": 1103,
@@ -1618,19 +1618,19 @@
           "distressedVolume": 11947069
         },
         "2014": {
-          "count": 337,
-          "volume": 4484055757,
-          "avgPricePerUnit": 134952,
-          "affordableDeals": 23,
+          "count": 330,
+          "volume": 4475515757,
+          "avgPricePerUnit": 135192,
+          "affordableDeals": 22,
           "affordableVolume": 232295900,
-          "affordableUnitsTotal": 2765,
-          "distressedDeals": 6,
-          "distressedVolume": 45900000
+          "affordableUnitsTotal": 2689,
+          "distressedDeals": 5,
+          "distressedVolume": 44500000
         },
         "2015": {
-          "count": 362,
-          "volume": 5379168303,
-          "avgPricePerUnit": 142581,
+          "count": 355,
+          "volume": 5169028303,
+          "avgPricePerUnit": 141648,
           "affordableDeals": 19,
           "affordableVolume": 103612797,
           "affordableUnitsTotal": 1605,
@@ -1638,39 +1638,39 @@
           "distressedVolume": 11696901
         },
         "2016": {
-          "count": 340,
-          "volume": 8083441393,
-          "avgPricePerUnit": 188140,
-          "affordableDeals": 29,
-          "affordableVolume": 254236586,
-          "affordableUnitsTotal": 3675,
+          "count": 329,
+          "volume": 8012016393,
+          "avgPricePerUnit": 189908,
+          "affordableDeals": 28,
+          "affordableVolume": 248186586,
+          "affordableUnitsTotal": 3595,
           "distressedDeals": 1,
           "distressedVolume": 795000
         },
         "2017": {
-          "count": 348,
-          "volume": 7916562652,
-          "avgPricePerUnit": 204146,
-          "affordableDeals": 22,
-          "affordableVolume": 198795421,
-          "affordableUnitsTotal": 1801,
+          "count": 332,
+          "volume": 7740858521,
+          "avgPricePerUnit": 204991,
+          "affordableDeals": 21,
+          "affordableVolume": 198010421,
+          "affordableUnitsTotal": 1772,
           "distressedDeals": 1,
           "distressedVolume": 1430000
         },
         "2018": {
-          "count": 338,
-          "volume": 6099350292,
-          "avgPricePerUnit": 210511,
-          "affordableDeals": 23,
-          "affordableVolume": 229756200,
-          "affordableUnitsTotal": 2441,
+          "count": 315,
+          "volume": 5872662992,
+          "avgPricePerUnit": 212378,
+          "affordableDeals": 18,
+          "affordableVolume": 192105900,
+          "affordableUnitsTotal": 1917,
           "distressedDeals": 1,
           "distressedVolume": 1580000
         },
         "2019": {
-          "count": 320,
-          "volume": 6728255444,
-          "avgPricePerUnit": 217679,
+          "count": 308,
+          "volume": 6659354717,
+          "avgPricePerUnit": 217392,
           "affordableDeals": 14,
           "affordableVolume": 196405000,
           "affordableUnitsTotal": 1955,
@@ -1678,39 +1678,39 @@
           "distressedVolume": 1900000
         },
         "2020": {
-          "count": 304,
-          "volume": 6373524794,
-          "avgPricePerUnit": 229099,
-          "affordableDeals": 21,
+          "count": 279,
+          "volume": 6263213644,
+          "avgPricePerUnit": 229919,
+          "affordableDeals": 20,
           "affordableVolume": 312550219,
-          "affordableUnitsTotal": 2223,
+          "affordableUnitsTotal": 2098,
           "distressedDeals": 1,
           "distressedVolume": 0
         },
         "2021": {
-          "count": 524,
-          "volume": 13290169338,
-          "avgPricePerUnit": 285804,
-          "affordableDeals": 27,
-          "affordableVolume": 192784117,
-          "affordableUnitsTotal": 4047,
+          "count": 494,
+          "volume": 12630401838,
+          "avgPricePerUnit": 292181,
+          "affordableDeals": 24,
+          "affordableVolume": 173714117,
+          "affordableUnitsTotal": 3795,
           "distressedDeals": 3,
           "distressedVolume": 91750000
         },
         "2022": {
-          "count": 369,
-          "volume": 8160443200,
-          "avgPricePerUnit": 285780,
-          "affordableDeals": 21,
-          "affordableVolume": 317600000,
-          "affordableUnitsTotal": 2194,
+          "count": 351,
+          "volume": 7869913508,
+          "avgPricePerUnit": 289623,
+          "affordableDeals": 19,
+          "affordableVolume": 307175000,
+          "affordableUnitsTotal": 1976,
           "distressedDeals": 2,
           "distressedVolume": 2800000
         },
         "2023": {
-          "count": 173,
-          "volume": 3803947314,
-          "avgPricePerUnit": 293062,
+          "count": 164,
+          "volume": 3750372314,
+          "avgPricePerUnit": 295282,
           "affordableDeals": 13,
           "affordableVolume": 170752000,
           "affordableUnitsTotal": 1265,
@@ -1718,32 +1718,32 @@
           "distressedVolume": 0
         },
         "2024": {
-          "count": 262,
-          "volume": 6351132962,
-          "avgPricePerUnit": 276401,
-          "affordableDeals": 33,
-          "affordableVolume": 279579100,
-          "affordableUnitsTotal": 3582,
+          "count": 237,
+          "volume": 6266816137,
+          "avgPricePerUnit": 278624,
+          "affordableDeals": 28,
+          "affordableVolume": 220276400,
+          "affordableUnitsTotal": 3168,
           "distressedDeals": 12,
           "distressedVolume": 233300000
         },
         "2025": {
-          "count": 203,
-          "volume": 5248675674,
-          "avgPricePerUnit": 263898,
-          "affordableDeals": 18,
-          "affordableVolume": 255170000,
-          "affordableUnitsTotal": 1816,
+          "count": 176,
+          "volume": 4764984028,
+          "avgPricePerUnit": 268102,
+          "affordableDeals": 16,
+          "affordableVolume": 234570000,
+          "affordableUnitsTotal": 1600,
           "distressedDeals": 8,
           "distressedVolume": 91000000
         },
         "2026": {
-          "count": 142,
-          "volume": 1680552749,
-          "avgPricePerUnit": 203407,
-          "affordableDeals": 12,
-          "affordableVolume": 29838700,
-          "affordableUnitsTotal": 1073,
+          "count": 97,
+          "volume": 1451747749,
+          "avgPricePerUnit": 207215,
+          "affordableDeals": 8,
+          "affordableVolume": 23713700,
+          "affordableUnitsTotal": 803,
           "distressedDeals": 23,
           "distressedVolume": 193219632,
           "partial": true
