@@ -206,6 +206,137 @@ header p{font-size:11px;opacity:.7;margin-top:2px}
 </div><!-- /.page -->
 
 <script>
+function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, volLabel, fmtAxis, fmtTip, highlightYear, extraTipFn, targetPixelHeight, rateByYear, rateLabel, volStepFn, tipFn, partialYear, dims) {
+  const counts = years.map(countFn);
+  const vols = years.map(volFn);
+  const d = dims || {};
+  const W = d.W || 880;
+  let H = d.H || 400;
+  if (targetPixelHeight) {
+    const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
+    H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
+  }
+  const PL = d.PL != null ? d.PL : 65, PR = d.PR != null ? d.PR : 81, PT = d.PT != null ? d.PT : 16, PB = d.PB != null ? d.PB : 41;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const barW = cW/Math.max(years.length,1)*0.6;
+
+  function niceStep(rawMax, maxTicks) {
+    const rough = rawMax / maxTicks;
+    const mag = Math.pow(10, Math.floor(Math.log10(rough || 1)));
+    const norm = rough / mag;
+    const nice = norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10;
+    return Math.max(1, nice * mag);
+  }
+  const rawMaxCount = Math.max(1, ...counts);
+  const countStep = niceStep(rawMaxCount, 5);
+  const countSteps = Math.max(1, Math.ceil(rawMaxCount / countStep));
+  const maxCount = countSteps * countStep;
+
+  const rawMaxVol = Math.max(1, ...vols);
+  let volStep, volSteps;
+  if (volStepFn) {
+    ({step: volStep, steps: volSteps} = volStepFn(rawMaxVol));
+  } else {
+    volStep = niceStep(rawMaxVol, 5);
+    volSteps = Math.max(1, Math.ceil(rawMaxVol / volStep));
+  }
+  const maxVol = volSteps * volStep;
+
+  const xScale = i => PL + (i+0.5)/Math.max(years.length,1)*cW;
+  const yCount = v => PT + cH - (v/maxCount)*cH;
+  const yVol   = v => PT + cH - (v/maxVol)*cH;
+
+  let parts = [];
+  for(let i=1;i<=volSteps;i++) {
+    const v=i*volStep, y=yVol(v);
+    parts.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="#eee" stroke-width="1"/>`);
+    parts.push(`<text x="${PL-11}" y="${y+4}" text-anchor="end" font-size="10" fill="#888">${fmtAxis(v)}</text>`);
+  }
+  for(let i=0;i<=countSteps;i++) {
+    const v=i*countStep, y=yCount(v);
+    parts.push(`<text x="${W-PR+11}" y="${y+4}" text-anchor="start" font-size="10" fill="#888">${Math.round(v)}</text>`);
+  }
+  const labelStep = Math.max(1, Math.ceil(years.length / 18));
+  const lastIdx = years.length - 1;
+  years.forEach((yr,i) => {
+    const isEdge = i===0 || i===lastIdx;
+    const isAggregate = isNaN(parseInt(yr,10));
+    if (!isEdge && !isAggregate && i % labelStep !== 0) return;
+    if (!isEdge && labelStep > 1 && lastIdx - i < labelStep / 2) return;
+    const marker = partialYear != null && yr === partialYear ? ' *' : '';
+    parts.push(`<text x="${xScale(i)}" y="${H-PB+21}" text-anchor="middle" font-size="10" fill="#888">${yr}${marker}</text>`);
+  });
+
+  years.forEach((yr,i) => {
+    const x=xScale(i)-barW/2, y=yVol(vols[i]), h=cH+PT-y;
+    const isHighlight = highlightYear != null && yr === highlightYear;
+    let tip;
+    if (tipFn) {
+      tip = tipFn(yr, i);
+    } else {
+      const barTip = isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+      const extra = extraTipFn ? extraTipFn(yr) : '';
+      tip = `${barTip}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}`;
+    }
+    parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${isHighlight?'#0c1a2e':'#c9a84c'}" rx="2" class="bar" data-tip="${tip}"/>`);
+  });
+
+  const pts = years.map((yr,i) => ({x:xScale(i), y:yCount(counts[i])}));
+  const pathD = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
+  parts.push(`<path d="${pathD}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
+  pts.forEach((p,i) => {
+    let tip;
+    if (tipFn) {
+      tip = tipFn(years[i], i);
+    } else {
+      const extra = extraTipFn ? extraTipFn(years[i]) : '';
+      tip = `${years[i]}\n${countLabel}: ${counts[i].toLocaleString()}\n${volLabel}: ${fmtTip(vols[i])}${extra}`;
+    }
+    parts.push(`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#0c1a2e" stroke="#fff" stroke-width="1.5" class="bar" data-tip="${tip}"/>`);
+  });
+
+  if (rateByYear) {
+    const ratePoints = years
+      .map((yr, i) => ({yr, i, v: rateByYear[yr]}))
+      .filter(p => typeof p.v === 'number');
+    if (ratePoints.length) {
+      const rMax = Math.max(...ratePoints.map(p=>p.v)) * 1.15;
+      const rScale = v => PT + cH - (v/Math.max(rMax,1))*cH;
+      const pathD = ratePoints.map((p,idx) => `${idx===0?'M':'L'}${xScale(p.i)},${rScale(p.v)}`).join(' ');
+      parts.push(`<path d="${pathD}" fill="none" stroke="#0095DA" stroke-width="1.75" stroke-dasharray="3,3"/>`);
+      ratePoints.forEach(p => {
+        parts.push(`<circle cx="${xScale(p.i)}" cy="${rScale(p.v)}" r="2.5" fill="#0095DA" class="bar" data-tip="${p.yr}\n${rateLabel||'Rate'}: ${p.v.toFixed(2)}%"/>`);
+      });
+    }
+  }
+
+  parts.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  parts.push(`<line x1="${PL}" y1="${PT+cH}" x2="${W-PR}" y2="${PT+cH}" stroke="#ccc" stroke-width="1"/>`);
+  if (partialYear != null && years.includes(partialYear)) {
+    parts.push(`<text x="${PL+cW/2}" y="${H-2}" text-anchor="middle" font-size="10" fill="#aaa">* partial year</text>`);
+  }
+
+  const svg = document.getElementById(svgId);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = parts.join('');
+
+  document.getElementById(legendId).innerHTML =
+    `<div class="legend-item"><div class="legend-swatch" style="background:#c9a84c"></div>${volLabel} (left axis)</div>` +
+    `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${countLabel} (right axis)</div>` +
+    (rateByYear ? `<div class="legend-item"><div class="legend-swatch" style="background:none;border-top:2px dashed #0095DA;height:0;width:12px"></div>${rateLabel||'Rate'} <span style="color:#888;font-size:10px">(unlagged, own scale — FRED)</span></div>` : '') +
+    (highlightYear != null ? `<div class="legend-item"><div class="legend-swatch" style="background:#0c1a2e"></div>${highlightYear} incl. Under Construction Pipeline</div>` : '');
+
+  const tooltip = document.getElementById('tooltip');
+  svg.querySelectorAll('.bar').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+12)+'px';
+      tooltip.style.top=(e.clientY-30)+'px';
+      tooltip.textContent=el.getAttribute('data-tip');
+    });
+    el.addEventListener('mouseleave', () => { tooltip.style.display='none'; });
+  });
+}
 let DATA = [];
 let filtered = [];
 let sortCol = 'vintage', sortDir = 1;
@@ -528,7 +659,7 @@ function renderChart() {
     return isWyoming ? base : base+'\nVolume: $'+Math.round(vols[i]).toLocaleString();
   }
 
-  chart_lib.renderBarLineChart(
+  renderBarLineChart(
     'chart', 'chartLegend', years,
     yr => counts[years.indexOf(yr)],
     yr => bars[years.indexOf(yr)],

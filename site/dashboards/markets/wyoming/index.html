@@ -1906,8 +1906,8 @@ function renderBarLineChart(svgId, legendId, years, countFn, volFn, countLabel, 
   });
 
   const pts = years.map((yr,i) => ({x:xScale(i), y:yCount(counts[i])}));
-  const d = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
-  parts.push(`<path d="${d}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
+  const pathD = pts.map((p,i)=>(i===0?'M':'L')+p.x+','+p.y).join(' ');
+  parts.push(`<path d="${pathD}" fill="none" stroke="#0c1a2e" stroke-width="2.5"/>`);
   pts.forEach((p,i) => {
     let tip;
     if (tipFn) {
