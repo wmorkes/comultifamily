@@ -19,6 +19,35 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
+.stat-grid{display:flex;flex-wrap:wrap;gap:12px}
+.stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
+  border-radius:6px;padding:14px 16px}
+.stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
+.stat-tile-dark .stat-eyebrow{color:#c9a84c}
+.stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
+.stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
+.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#666;letter-spacing:.3px;line-height:1.3}
+.stat-tile .stat-secondary b{font-size:18px;font-weight:700;color:#0c1a2e;line-height:1.15}
+.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1.15}
+.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
+.stat-tile-dark b{color:#fff}
+.stat-tile-dark span{color:#c7cedb}
+.stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
+.stat-tile-dark .stat-secondary b{color:#fff}
+.stat-tile-dark .pos{color:#4ade80}
+.stat-tile-dark .neg{color:#f87171}
+.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
+.divider{border:none;border-top:2px solid #dde;margin:0}
+.stat-header-row{display:grid;grid-template-columns:36% 16% 16% 16% 16%;border-bottom:1px solid #dde;padding-bottom:2px;margin-bottom:0}
+.stat-header-row div{font-size:10px;color:#888;text-align:right}
+.stat-header-row div:first-child{text-align:left}
+.stat-footnote{font-size:10px;color:#888;margin-top:8px;padding-top:6px;border-top:1px solid #f0f0f0;line-height:1.4}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap}
+td{padding:7px 10px;border-bottom:1px solid #eee}
+.pos{color:#0a7a3d}
+.neg{color:#b3261e}
 *{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden}
 body{width:100%}
@@ -96,24 +125,6 @@ select,input{border:1px solid #ccd;border-radius:4px;padding:4px 7px;font-size:1
 .btn{padding:5px 14px;border:none;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600}
 .btn-primary{background:#0c1a2e;color:#fff}.btn-primary:hover{background:#142338}
 .btn-secondary{background:#e8edf2;color:#333}.btn-secondary:hover{background:#d5dde6}
-.stat-grid{display:flex;flex-wrap:wrap;gap:12px}
-.stat-tile{flex:1;min-width:200px;background:#fff;border:1px solid #e0e2e8;border-left:4px solid #c9a84c;
-  border-radius:6px;padding:14px 16px}
-.stat-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;
-  text-transform:uppercase;color:#c9a84c;margin-bottom:6px}
-.stat-tile-dark .stat-eyebrow{color:#c9a84c}
-.stat-tile b{font-size:18px;font-weight:700;display:block;color:#0c1a2e;line-height:1.15}
-.stat-tile > span{font-size:11px;color:#666;letter-spacing:.3px;display:block;margin-top:4px}
-.stat-tile .stat-secondary{margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;font-size:11px;color:#666;letter-spacing:.3px;line-height:1.3}
-.stat-tile .stat-secondary b{font-size:18px;font-weight:700;color:#0c1a2e;line-height:1.15}
-.stat-tile .stat-secondary .sec-line1{margin-bottom:2px;line-height:1.15}
-.stat-tile-dark{background:#0c1a2e;border-color:#0c1a2e;border-left-color:#c9a84c}
-.stat-tile-dark b{color:#fff}
-.stat-tile-dark span{color:#c7cedb}
-.stat-tile-dark .stat-secondary{border-top-color:rgba(255,255,255,.15);color:#c7cedb}
-.stat-tile-dark .stat-secondary b{color:#fff}
-.stat-tile-dark .pos{color:#4ade80}
-.stat-tile-dark .neg{color:#f87171}
 table{width:100%;min-width:700px;border-collapse:collapse;font-size:13px}
 th{background:#e8edf2;padding:7px 10px;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1}
 td{padding:5px 10px;border-bottom:1px solid #eef;white-space:nowrap}
@@ -121,7 +132,6 @@ tr:hover td{background:#f0f5fa}
 #chartWrap,#chfaChartWrap,#pipelineChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:12px;overflow-x:auto;min-width:0;margin-bottom:12px}
 #debtChartWrap{background:#fff;border:1px solid #dde;border-radius:6px;padding:7px;overflow-x:auto;min-width:0;flex:1}
 #debtStatsPanel{width:340px;flex-shrink:0;background:#fff;border:1px solid #dde;border-radius:6px;padding:12px}
-.stat-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;color:#0c1a2e;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;padding-bottom:5px;border-bottom:1.5px solid #c9a84c}
 .stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;font-variant-numeric:tabular-nums}
 .stat-row b{font-size:13px;font-weight:700;color:#0c1a2e}
 .stat-row span{font-size:12.5px;color:#555}
@@ -263,7 +273,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Affordable Housing Market &mdash; Colorado &amp; Wyoming</h1>
-    <p>LIHTC/HAP construction pipeline, rent &amp; income limits, transaction trends, ownership, and live listings, sitewide. (Generated 09/02/2026)</p>
+    <p>LIHTC/HAP construction pipeline, rent &amp; income limits, transaction trends, ownership, and live listings, sitewide. (Generated 09/04/2026)</p>
   </div>
   <div class="header-team">
     <img src="data:image/webp;base64,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" class="colliers-logo" alt="Colliers">
@@ -1052,18 +1062,19 @@ function renderDeliveryChart() {
 
 // Single-metric bar chart (units + avg/yr trendline) — shared with
 // build_market_report.py, see chart_lib.py.
-function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear) {
+function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount, highlightYear, targetPixelHeight, rateByYear, tipFn, dims) {
   const vals = years.map(valFn);
   const props = years.map(propFn);
-  const W=880;
-  let H = 400;
+  const d = dims || {};
+  const W = d.W || 880;
+  let H = d.H || 400;
   if (targetPixelHeight) {
     const renderedWidth = document.getElementById(svgId).getBoundingClientRect().width || W;
     H = Math.max(200, Math.round(targetPixelHeight * (W / renderedWidth)));
   }
-  const PL=65, PR=45, PT=16, PB=55;
+  const PL = d.PL != null ? d.PL : 65, PR = d.PR != null ? d.PR : 45, PT = d.PT != null ? d.PT : 16, PB = d.PB != null ? d.PB : 55;
   const cW=W-PL-PR, cH=H-PT-PB;
-  const barW = cW/Math.max(years.length,1)*0.7;
+  const barW = cW/Math.max(years.length,1)*(d.barWFactor || 0.7);
 
   function niceStep(rawMax, maxTicks) {
     const rough = rawMax / maxTicks;
@@ -1102,9 +1113,14 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const x=xScale(i)-barW/2, y=yScale(vals[i]), h=cH+PT-y;
     const isHighlight = highlightYear != null && yr === highlightYear;
     const barColor = isHighlight ? '#0c1a2e' : '#c9a84c';
-    const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
-      : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
-    const tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
+    let tip;
+    if (tipFn) {
+      tip = tipFn(yr, i);
+    } else {
+      const label = yr === PRE_CUTOFF_LABEL ? `${yr} (${oldYearCount} yrs)`
+        : isHighlight ? `${yr} (includes Under Construction pipeline)` : yr;
+      tip = `${label}\nUnits: ${vals[i].toLocaleString()}\nProperties: ${props[i].toLocaleString()}`;
+    }
     parts.push(`<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="${barColor}" rx="2" class="bar" data-tip="${tip}"/>`);
   });
 
@@ -1115,7 +1131,8 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
     const avg = plainVals.reduce((a,v)=>a+v,0) / plainVals.length;
     const avgY = yScale(avg);
     parts.push(`<line x1="${PL}" y1="${avgY}" x2="${W-PR}" y2="${avgY}" stroke="#0c1a2e" stroke-width="1.5" stroke-dasharray="5,4"/>`);
-    parts.push(`<text x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
+    const avgLabelIdAttr = d.avgLabelChip ? ` id="avgLabelText"` : '';
+    parts.push(`<text${avgLabelIdAttr} x="${PL+6}" y="${avgY-6}" font-size="10" fill="#0c1a2e" font-weight="600">Avg: ${Math.round(avg).toLocaleString()}/yr</text>`);
   }
 
   if (rateByYear) {
@@ -1144,6 +1161,25 @@ function renderUnitsBarChart(svgId, legendId, years, valFn, propFn, oldYearCount
   const svg = document.getElementById(svgId);
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.innerHTML = parts.join('');
+
+  // Avg label sits on a solid chip (opt-in via dims.avgLabelChip) so it stays
+  // legible regardless of which bars happen to be tall behind it.
+  if (d.avgLabelChip) {
+    const avgLabelEl = svg.querySelector('#avgLabelText');
+    if (avgLabelEl) {
+      const bbox = avgLabelEl.getBBox();
+      const pad = 3;
+      const chip = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      chip.setAttribute('x', bbox.x - pad);
+      chip.setAttribute('y', bbox.y - pad);
+      chip.setAttribute('width', bbox.width + pad*2);
+      chip.setAttribute('height', bbox.height + pad*2);
+      chip.setAttribute('fill', '#fff');
+      chip.setAttribute('fill-opacity', '0.92');
+      chip.setAttribute('rx', '2');
+      svg.insertBefore(chip, avgLabelEl);
+    }
+  }
 
   const hasHighlight = highlightYear != null && years.includes(highlightYear);
   document.getElementById(legendId).innerHTML =
