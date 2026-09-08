@@ -188,19 +188,23 @@ a { text-decoration:none; color:inherit; }
   );
 }
 
-/* Per-market hero background variants (replaces inline style="" on
-   .page-hero-bg, which the pre-commit SEO hook bans -- see CLAUDE.md). */
-.page-hero-bg--denver-skyline { background-image: url('/images/hero-denver-skyline.webp'); background-position: center 65%; }
-.page-hero-bg--denver { background-image: url('/images/hero-denver.webp'); background-position: center top; }
-.page-hero-bg--colorado-springs { background-image: url('/images/hero-colorado-springs.webp'); background-position: top center; }
-.page-hero-bg--fort-collins { background-image: url('/images/hero_social_fort_collins.webp'); background-position: center 50%; }
-.page-hero-bg--mountain-towns { background-image: url('/images/hero-mountain-towns.webp'); background-position: top center; }
-
-
 .page-hero--inner .page-hero-bg {
   background-image: url('images/hero-bg.webp');
   background-position: center 40%;
 }
+
+/* Per-market hero background variants (replaces inline style="" on
+   .page-hero-bg, which the pre-commit SEO hook bans -- see CLAUDE.md).
+   Matched on .page-hero--inner .page-hero-bg.page-hero-bg--X for equal-or-
+   higher specificity than the .page-hero--inner .page-hero-bg rule above
+   (all 8 pages using these variants have the --inner wrapper) -- a plain
+   .page-hero-bg--X lost to that rule regardless of source order, and every
+   page silently fell back to the generic hero-bg.webp placeholder. */
+.page-hero--inner .page-hero-bg.page-hero-bg--denver-skyline { background-image: url('/images/hero-denver-skyline.webp'); background-position: center 65%; }
+.page-hero--inner .page-hero-bg.page-hero-bg--denver { background-image: url('/images/hero-denver.webp'); background-position: center top; }
+.page-hero--inner .page-hero-bg.page-hero-bg--colorado-springs { background-image: url('/images/hero-colorado-springs.webp'); background-position: top center; }
+.page-hero--inner .page-hero-bg.page-hero-bg--fort-collins { background-image: url('/images/hero_social_fort_collins.webp'); background-position: center 50%; }
+.page-hero--inner .page-hero-bg.page-hero-bg--mountain-towns { background-image: url('/images/hero-mountain-towns.webp'); background-position: top center; }
 
 .page-hero-inner {
   position: relative;
