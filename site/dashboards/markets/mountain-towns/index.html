@@ -293,7 +293,7 @@ svg.chart{display:block;width:100%;height:auto}
 <header>
   <div>
     <h1>Market Report &mdash; Mountain Towns</h1>
-    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/08/2026)</p>
+    <p>Comprehensive multifamily market coverage &mdash; historic and current development, rent &amp; vacancy trends, sales activity, and on-market properties. (Generated 09/09/2026)</p>
   </div>
   <div class="header-team">
     <div class="header-broker"><strong>Craig Stack</strong>Senior Vice President<br><a href="tel:+17208334602">(720) 833-4602</a> &middot; <a href="mailto:craig.stack@colliers.com">craig.stack@colliers.com</a></div>
@@ -575,7 +575,7 @@ svg.chart{display:block;width:100%;height:auto}
 <script>
 let D = null;
 const VINTAGE_ORDER = ['2020s-Now','2010s','2000s','1990s','1980s','1970s & Older','Unknown'];
-const NOW = new Date();
+const NOW = new Date('2026-09-09T00:00:00');  // anchored to the last dashboard regen, not the viewer's clock
 const JS_CURRENT_YEAR = NOW.getFullYear();
 const JS_CURRENT_MONTH = NOW.getMonth() + 1;
 
@@ -1316,14 +1316,14 @@ function renderYTDCompare() {
   }
 
   const ytd = sumThroughMonth(JS_CURRENT_YEAR, JS_CURRENT_MONTH);
-  const monthName = NOW.toLocaleString('en-US', {month:'short'});
   const compareYears = [
     {label:'2019 YTD', year: 2019},
     {label:'2021 YTD', year: 2021},
     {label:(JS_CURRENT_YEAR-1)+' YTD', year: JS_CURRENT_YEAR-1},
   ].filter(cy => cy.year < JS_CURRENT_YEAR);
 
-  document.getElementById('ytdCompareTitle').textContent = `${JS_CURRENT_YEAR} YTD vs (thru ${monthName}.)`;
+  document.getElementById('ytdCompareTitle').textContent = `${JS_CURRENT_YEAR} YTD* vs`;
+  const thruDate = `${NOW.getMonth()+1}/${NOW.getDate()}/${NOW.getFullYear()}`;
 
   const metrics = [
     {label:'Volume', key:'volume'},
@@ -1342,7 +1342,8 @@ function renderYTDCompare() {
   }).join('');
 
   document.getElementById('ytdCompare').innerHTML =
-    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>`;
+    `<table class="compare-table"><thead><tr>${headHtml}</tr></thead><tbody>${bodyHtml}</tbody></table>` +
+    `<div class="compare-footnote">* ${JS_CURRENT_YEAR} YTD includes sales data thru ${thruDate}</div>`;
 }
 
 function renderSalesChart() {
