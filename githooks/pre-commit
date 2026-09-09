@@ -45,6 +45,24 @@ if [ $integrity_status -ne 0 ]; then
   exit 1
 fi
 
+# ── Token Generator scope coverage ──────────────────────────────────────────
+# A new/changed dashboard page can add an isDashboardUnlocked('<slug>', ...)
+# gate without anyone remembering to add a matching checkbox in
+# dashboards/token-gen/index.html -- the page is gated but no client token
+# can ever unlock it (see db-tools conversation 2026-09-09: Affordable
+# Housing shipped this way, caught only by manual review). Only worth
+# running when a dashboard page (or token-gen itself) is actually staged.
+if echo "$staged_html" | grep -q 'site/dashboards/'; then
+  echo "Checking Token Generator scope coverage..."
+  scope_output=$(py scripts/check_site_integrity.py --all 2>&1)
+  if echo "$scope_output" | grep -q "missing scope checkbox"; then
+    echo "$scope_output" | grep -A 20 "dashboards gated but not selectable"
+    echo ""
+    echo "Commit blocked: a dashboard is gated but has no Token Generator scope checkbox."
+    exit 1
+  fi
+fi
+
 if [ -z "$staged_html" ]; then
   echo ""
   echo "All checks passed (CSS-only commit, no HTML to SEO-check)."

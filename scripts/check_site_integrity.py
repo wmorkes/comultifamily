@@ -16,6 +16,17 @@ check_inline_js.py -- catches silent breakage that a text diff can't:
    after it until the file happens to re-balance, so a real break can be
    far from its actual cause. Loud/visible in the browser (unlike 1-3),
    but cheap enough to check anyway per Bill's explicit ask 2026-09-08.
+5. Untokenizable client dashboards -- any dashboard page that calls
+   isDashboardUnlocked('<slug>', ...) is meant to be shareable via a
+   scoped client token, but the Token Generator (dashboards/token-gen/)
+   only grants scopes it has a checkbox for. A dashboard added without a
+   matching checkbox there is gated but can never actually be unlocked
+   for a client -- this happened for real with Affordable Housing
+   (2026-09-09), caught only by manual review. Only --all checks this
+   (it's a whole-site consistency check, not a single-file one), and it
+   is a reminder, not an auto-fix: some dashboards (e.g. Capital Flow,
+   On-Market) are deliberately team-only and gate on isTeam alone with
+   no isDashboardUnlocked call at all, so they're correctly absent.
 
 Usage:
     py scripts/check_site_integrity.py <file1.html|file1.css> [...]
@@ -31,6 +42,10 @@ from html.parser import HTMLParser
 from urllib.parse import urlparse
 
 SITE_DIR = os.path.join(os.path.dirname(__file__), "..", "site")
+TOKEN_GEN_PATH = os.path.join(SITE_DIR, "dashboards", "token-gen", "index.html")
+
+UNLOCKED_SLUG_RE = re.compile(r"isDashboardUnlocked\(\s*['\"]([\w-]+)['\"]")
+SCOPE_CHECKBOX_RE = re.compile(r'<input\s+type="checkbox"\s+value="([\w-]+)"')
 
 # Known non-page routes that don't need a matching page file (Netlify
 # Functions, API redirects) -- extend if more come up.
@@ -161,6 +176,33 @@ def check_file(path):
     return check_html_file(path)
 
 
+def check_token_scope_coverage():
+    """Every dashboard page gated by isDashboardUnlocked('<slug>', ...) must
+    have a matching scope checkbox in token-gen/index.html, or a client
+    token can never unlock it. Deliberately team-only dashboards (gate on
+    isTeam with no isDashboardUnlocked call) are correctly excluded."""
+    if not os.path.exists(TOKEN_GEN_PATH):
+        return {}
+
+    with open(TOKEN_GEN_PATH, encoding="utf-8") as f:
+        token_gen_html = f.read()
+    available_scopes = set(SCOPE_CHECKBOX_RE.findall(token_gen_html))
+
+    missing = {}
+    dashboard_files = glob.glob(os.path.join(SITE_DIR, "dashboards", "**", "index.html"), recursive=True)
+    for path in dashboard_files:
+        if os.path.abspath(path) == os.path.abspath(TOKEN_GEN_PATH):
+            continue
+        with open(path, encoding="utf-8") as f:
+            html = f.read()
+        slugs = set(UNLOCKED_SLUG_RE.findall(html))
+        gap = slugs - available_scopes
+        if gap:
+            rel = os.path.relpath(path, os.path.dirname(SITE_DIR))
+            missing[rel] = gap
+    return missing
+
+
 def main():
     args = sys.argv[1:]
     if not args:
@@ -184,10 +226,20 @@ def main():
                 print(f"  - {p}")
             print()
 
+    if args == ["--all"]:
+        missing_scopes = check_token_scope_coverage()
+        if missing_scopes:
+            any_failure = True
+            print("FAIL: dashboards gated but not selectable in the Token Generator")
+            for rel, slugs in sorted(missing_scopes.items()):
+                print(f"  - {rel}: missing scope checkbox for {', '.join(sorted(slugs))}")
+            print("    -> add <input type=\"checkbox\" value=\"<slug>\"> to dashboards/token-gen/index.html")
+            print()
+
     if any_failure:
         sys.exit(1)
     if args == ["--all"]:
-        print(f"No broken links/images, duplicate ids, or CSS brace issues across {len(files)} files.")
+        print(f"No broken links/images, duplicate ids, CSS brace issues, or missing token scopes across {len(files)} files.")
     sys.exit(0)
 
 
